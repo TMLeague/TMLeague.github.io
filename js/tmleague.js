@@ -27,23 +27,26 @@ function getQueryParameters() {
 }
 
 function getDataUrl(league, season, division) {
-  if (!season) {
+  if (!season)
     return 'leagues/' + league + "/" + league + ".json";
-  }
-  if (!division) {
+  if (!division)
     return 'leagues/' + league + "/seasons/" + season + "/" + season + ".json";
-  }
   return 'leagues/' + league + "/seasons/" + season + "/divisions/" + division + ".json";
 }
 
 function loadHome() {
+  //$('#navbar').html(getNavbar());
+  //$('#footer').html(getFooter());
   $('main').load("home.html");
 }
 
 function loadLeague(league) {
   $('main').load("league.html", function () {
     $.getJSON(getDataUrl(league), function (data) {
+      $('#league-name').removeClass("spinner-border");
       $('#league-name').html(data.name);
+      $('#league-description').removeClass("spinner-border");
+      $('#league-name').attr("onclick", "loadLeague('" + league + "')");
       $('#league-description').html(data.description);
       if (data.rules)
         $('#league-rules-link').attr("href", data.rules);
@@ -53,7 +56,6 @@ function loadLeague(league) {
         $('#league-discord-link').attr("href", data.discord);
       else
         $('#league-discord').addClass("d-none");
-      console.log(data);
     });
   });
 }
