@@ -1,0 +1,196 @@
+{
+  "judge": "NightCrawler",
+  "players": [
+    "RedWombat",
+    "Kamil_J",
+    "Stanimir",
+    "fabidehuracan",
+    "Reaper",
+    "diogobensabat",
+    "Min4o_Praznikov",
+    "Joao Gomes",
+    "RodrigoLannister",
+    "b00yashaka"
+  ],
+  "games": [
+    285901,
+    285869,
+    285859,
+    285858,
+    285857,
+    285851,
+    285883,
+    285969,
+    285862,
+    285884
+  ],
+  "penalties": [
+    {
+      "player": "Min4o_Praznikov",
+      "game": null,
+      "points": -10,
+      "details": "for KM"
+    },
+    {
+      "player": "Joao Gomes",
+      "game": null,
+      "points": -1,
+      "details": "for not delying properly"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": null,
+      "points": -2,
+      "details": "for not delying properly"
+    },
+    {
+      "player": "b00yashaka",
+      "game": null,
+      "points": -10,
+      "details": "for KM"
+    }
+  ],
+  "isFinished": true,
+  "results": [
+    {
+      "name": "RedWombat",
+      "points": 52,
+      "wins": 3,
+      "stark": 13,
+      "greyjoy": 14,
+      "lannister": 0,
+      "tyrell": 5,
+      "martell": 7,
+      "baratheon": 13,
+      "penalties": 0,
+      "cla": 41,
+      "supply": 25
+    },
+    {
+      "name": "Kamil_J",
+      "points": 38,
+      "wins": 1,
+      "stark": 12,
+      "greyjoy": 7,
+      "lannister": 0,
+      "tyrell": 7,
+      "martell": 7,
+      "baratheon": 5,
+      "penalties": 0,
+      "cla": 46,
+      "supply": 25
+    },
+    {
+      "name": "Stanimir",
+      "points": 37,
+      "wins": 1,
+      "stark": 12,
+      "greyjoy": 7,
+      "lannister": 5,
+      "tyrell": 8,
+      "martell": 2,
+      "baratheon": 3,
+      "penalties": 0,
+      "cla": 37,
+      "supply": 24
+    },
+    {
+      "name": "fabidehuracan",
+      "points": 35,
+      "wins": 2,
+      "stark": 11,
+      "greyjoy": 2,
+      "lannister": 0,
+      "tyrell": 4,
+      "martell": 4,
+      "baratheon": 14,
+      "penalties": 0,
+      "cla": 39,
+      "supply": 22
+    },
+    {
+      "name": "Reaper",
+      "points": 34,
+      "wins": 1,
+      "stark": 6,
+      "greyjoy": 3,
+      "lannister": 0,
+      "tyrell": 4,
+      "martell": 14,
+      "baratheon": 7,
+      "penalties": 0,
+      "cla": 36,
+      "supply": 22
+    },
+    {
+      "name": "diogobensabat",
+      "points": 31,
+      "wins": 0,
+      "stark": 5,
+      "greyjoy": 8,
+      "lannister": 5,
+      "tyrell": 4,
+      "martell": 3,
+      "baratheon": 6,
+      "penalties": 0,
+      "cla": 37,
+      "supply": 19
+    },
+    {
+      "name": "Min4o_Praznikov",
+      "points": 29,
+      "wins": 1,
+      "stark": 7,
+      "greyjoy": 6,
+      "lannister": 5,
+      "tyrell": 12,
+      "martell": 5,
+      "baratheon": 4,
+      "penalties": -10,
+      "cla": 36,
+      "supply": 20
+    },
+    {
+      "name": "Joao Gomes",
+      "points": 26,
+      "wins": 0,
+      "stark": 4,
+      "greyjoy": 9,
+      "lannister": 4,
+      "tyrell": 0,
+      "martell": 6,
+      "baratheon": 4,
+      "penalties": -1,
+      "cla": 32,
+      "supply": 12
+    },
+    {
+      "name": "RodrigoLannister",
+      "points": 21,
+      "wins": 1,
+      "stark": 0,
+      "greyjoy": 6,
+      "lannister": 0,
+      "tyrell": 3,
+      "martell": 0,
+      "baratheon": 14,
+      "penalties": -2,
+      "cla": 22,
+      "supply": 12
+    },
+    {
+      "name": "b00yashaka",
+      "points": 13,
+      "wins": 0,
+      "stark": 3,
+      "greyjoy": 5,
+      "lannister": 5,
+      "tyrell": 5,
+      "martell": 5,
+      "baratheon": 0,
+      "penalties": -10,
+      "cla": 28,
+      "supply": 16
+    }
+  ]
+}
