@@ -1,6 +1,8 @@
-﻿@page "/League/{league}/Players"
-<h3>League players</h3>
+﻿@page "/league/{leagueId}/players"
+<h3>League @LeagueId</h3>
+<h4>Players</h4>
 
 @code {
-    
+    [Parameter]
+    public string? LeagueId { get; set; }
 }

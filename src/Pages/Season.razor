@@ -1,6 +1,10 @@
-﻿@page "/League/{league}/Season/{season}"
-<h3>Season</h3>
+﻿@page "/league/{leagueId}/season/{seasonId}"
+<h3>League @LeagueId</h3>
+<h4>Season @SeasonId</h4>
 
 @code {
-    
+    [Parameter]
+    public string? LeagueId { get; set; }
+    [Parameter]
+    public string? SeasonId { get; set; }
 }
