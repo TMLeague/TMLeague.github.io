@@ -53,7 +53,7 @@
   "isFinished": true,
   "results": [
     {
-      "name": "RedWombat",
+      "player": "RedWombat",
       "points": 52,
       "wins": 3,
       "stark": 13,
@@ -67,7 +67,7 @@
       "supply": 25
     },
     {
-      "name": "Kamil_J",
+      "player": "Kamil_J",
       "points": 38,
       "wins": 1,
       "stark": 12,
@@ -81,7 +81,7 @@
       "supply": 25
     },
     {
-      "name": "Stanimir",
+      "player": "Stanimir",
       "points": 37,
       "wins": 1,
       "stark": 12,
@@ -95,7 +95,7 @@
       "supply": 24
     },
     {
-      "name": "fabidehuracan",
+      "player": "fabidehuracan",
       "points": 35,
       "wins": 2,
       "stark": 11,
@@ -109,7 +109,7 @@
       "supply": 22
     },
     {
-      "name": "Reaper",
+      "player": "Reaper",
       "points": 34,
       "wins": 1,
       "stark": 6,
@@ -123,7 +123,7 @@
       "supply": 22
     },
     {
-      "name": "diogobensabat",
+      "player": "diogobensabat",
       "points": 31,
       "wins": 0,
       "stark": 5,
@@ -137,7 +137,7 @@
       "supply": 19
     },
     {
-      "name": "Min4o_Praznikov",
+      "player": "Min4o_Praznikov",
       "points": 29,
       "wins": 1,
       "stark": 7,
@@ -151,7 +151,7 @@
       "supply": 20
     },
     {
-      "name": "Joao Gomes",
+      "player": "Joao Gomes",
       "points": 26,
       "wins": 0,
       "stark": 4,
@@ -165,7 +165,7 @@
       "supply": 12
     },
     {
-      "name": "RodrigoLannister",
+      "player": "RodrigoLannister",
       "points": 21,
       "wins": 1,
       "stark": 0,
@@ -179,7 +179,7 @@
       "supply": 12
     },
     {
-      "name": "b00yashaka",
+      "player": "b00yashaka",
       "points": 13,
       "wins": 0,
       "stark": 3,
