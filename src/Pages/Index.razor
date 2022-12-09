@@ -17,7 +17,9 @@ else
 {
     @foreach (var league in LeaguesVM.Leagues)
     {
-        <NavLink class="btn btn-primary btn-league d-flex w-100 h-100 m-1" href="@($"/league/{league.Id}/index")">
+        <NavLink class="btn btn-primary btn-league btn-league d-flex w-100 h-100 m-1" 
+                 style="@(league.BackgroundImage == null ? "" : $"background-image: url('{league.BackgroundImage}');")"
+                 href="@($"/league/{league.Id}/index")">
             <span class="h2 m-auto">@league.Name</span>
         </NavLink>
     }

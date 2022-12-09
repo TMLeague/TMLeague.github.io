@@ -29,7 +29,7 @@ namespace TMLeague.Services
                 if (league is null)
                     continue;
 
-                leagueVmList.Add(new LeagueViewModel(leagueId, league.Name, null));
+                leagueVmList.Add(new LeagueViewModel(leagueId, league.Name, league.BackgroundImage));
             }
 
             return new LeaguesViewModel(leagueVmList);
