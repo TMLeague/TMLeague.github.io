@@ -1,4 +1,7 @@
 ﻿@page "/"
+@using TMLeague.Services
+@using TMLeague.ViewModels
+@inject LeaguesService LeaguesService
 
 <PageTitle>Thronemaster leagues</PageTitle>
 
@@ -6,10 +9,25 @@
     Rankings, halls of fame and summaries of thronemaster leagues.
 </p>
 
-<NavLink class="btn btn-primary btn-league d-flex w-100 h-100 m-1" href="/league/sl/index">
-    <span class="h2 m-auto">The Silent League of Faceless Men</span>
-</NavLink>
+@if (LeaguesVM == null)
+{
+    <TMLeague.Components.Loading></TMLeague.Components.Loading>
+}
+else
+{
+    @foreach (var league in LeaguesVM.Leagues)
+    {
+        <NavLink class="btn btn-primary btn-league d-flex w-100 h-100 m-1" href="@($"/league/{league.Id}/index")">
+            <span class="h2 m-auto">@league.Name</span>
+        </NavLink>
+    }
+}
 
-<NavLink class="btn btn-primary btn-league d-flex w-100 h-100 m-1" href="/league/loiaf/index">
-    <span class="h2 m-auto">League of Ice and Fire</span>
-</NavLink>
+@code {
+    private LeaguesViewModel? LeaguesVM { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        LeaguesVM = await LeaguesService.GetLeagues(CancellationToken.None);
+    }
+}
