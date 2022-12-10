@@ -3,6 +3,6 @@
 namespace TMLeague.Models
 {
     public record Home(
-        [property: JsonPropertyName("leagues")] string[]? League
+        [property: JsonPropertyName("leagues")] string[]? Leagues
         );
 }

@@ -27,7 +27,7 @@ namespace TMLeague.Services
             catch (HttpRequestException ex)
             {
                 if (ex.StatusCode == HttpStatusCode.NotFound)
-                    _logger.LogWarning($"League \"{leagueId}\" is not configured properly! It's configuration file should be here: \"/league/{leagueId}/{leagueId}.json\"");
+                    _logger.LogWarning($"Leagues \"{leagueId}\" is not configured properly! It's configuration file should be here: \"/league/{leagueId}/{leagueId}.json\"");
                 return null;
             }
             catch (Exception ex)

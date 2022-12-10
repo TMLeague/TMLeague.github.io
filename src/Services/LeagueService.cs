@@ -37,7 +37,7 @@ namespace TMLeague.Services
                 seasons.Add(new LeagueSeasonButtonViewModel(seasonId, season.Name));
             }
 
-            return new LeagueViewModel(id, league.Name, seasons);
+            return new LeagueViewModel(id, league.Name, null, seasons);
         }
 
         public async Task<League?> GetLeague(string? id, CancellationToken cancellationToken)
@@ -52,7 +52,7 @@ namespace TMLeague.Services
             catch (HttpRequestException ex)
             {
                 if (ex.StatusCode == HttpStatusCode.NotFound)
-                    _logger.LogWarning($"League \"{id}\" is not configured properly! It's configuration file should be here: \"/league/{id}/{id}.json\"");
+                    _logger.LogWarning($"Leagues \"{id}\" is not configured properly! It's configuration file should be here: \"/league/{id}/{id}.json\"");
                 return null;
             }
             catch (Exception ex)

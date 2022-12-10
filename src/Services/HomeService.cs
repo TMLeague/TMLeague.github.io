@@ -18,11 +18,11 @@ namespace TMLeague.Services
         public async Task<HomeViewModel> GetHomeVm(CancellationToken cancellationToken)
         {
             var home = await _httpClient.GetFromJsonAsync<Home>("/data/home.json", cancellationToken);
-            if (home?.League == null)
+            if (home?.Leagues == null)
                 return new HomeViewModel(Array.Empty<HomeLeagueButtonViewModel>());
 
             var leagues = new List<HomeLeagueButtonViewModel>();
-            foreach (var leagueId in home.League)
+            foreach (var leagueId in home.Leagues)
             {
                 var league = await _leagueService.GetLeague(leagueId, cancellationToken);
                 if (league is null)
