@@ -1,7 +1,7 @@
 {
   "name": "The Silent League of Faceless Men",
   "description": "This tournament was inspired by the \"Silent\" games run by Karijin, where players are not allowed to talk/whisper in the chat and the only way to communicate is showing your intentions (and guessing others’) through the orders played.",
-  "backgroundImage": "data/leagues/sl/sl.png",
+  "backgroundImage": "league/sl/sl.png",
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=81775",
   "discord": "https://discord.gg/DkbBJpmjYM"
 }

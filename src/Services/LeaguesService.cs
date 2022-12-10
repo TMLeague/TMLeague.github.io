@@ -18,7 +18,7 @@ namespace TMLeague.Services
 
         public async Task<LeaguesViewModel> GetLeagues(CancellationToken cancellationToken)
         {
-            var leagueIds = await _httpClient.GetFromJsonAsync<string[]>("/data/leagues/leagues.json", cancellationToken);
+            var leagueIds = await _httpClient.GetFromJsonAsync<string[]>("/league/league.json", cancellationToken);
             if (leagueIds == null)
                 return new LeaguesViewModel(Array.Empty<LeagueViewModel>());
 
@@ -42,12 +42,12 @@ namespace TMLeague.Services
 
             try
             {
-                return await _httpClient.GetFromJsonAsync<League>($"/data/leagues/{id}/{id}.json", cancellationToken);
+                return await _httpClient.GetFromJsonAsync<League>($"/league/{id}/{id}.json", cancellationToken);
             }
             catch (HttpRequestException ex)
             {
                 if (ex.StatusCode == HttpStatusCode.NotFound) 
-                    _logger.LogWarning($"League \"{id}\" is not configured properly! It's configuration file should be here: \"/data/leagues/{id}/{id}.json\"");
+                    _logger.LogWarning($"League \"{id}\" is not configured properly! It's configuration file should be here: \"/league/{id}/{id}.json\"");
                 return null;
             }
             catch (Exception ex)
