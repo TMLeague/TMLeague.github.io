@@ -4,9 +4,9 @@ namespace TMLeague.Models;
 
 public record Division(
     [property: JsonPropertyName("judge")] string Judge,
-    [property: JsonPropertyName("players")] List<string> Players,
-    [property: JsonPropertyName("games")] List<uint> Games,
-    [property: JsonPropertyName("penalties")] List<Penalty> Penalties,
+    [property: JsonPropertyName("players")] string[] Players,
+    [property: JsonPropertyName("games")] uint[] Games,
+    [property: JsonPropertyName("penalties")] Penalty[] Penalties,
     [property: JsonPropertyName("isFinished")] bool IsFinished,
     [property: JsonPropertyName("results")] Dictionary<string, PlayerResult> Results);
 

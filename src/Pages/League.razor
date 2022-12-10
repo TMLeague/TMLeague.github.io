@@ -1,6 +1,6 @@
 ﻿@page "/league/{leagueId}/index"
 @using TMLeague.Services
-@inject LeaguesService LeaguesService
+@inject LeagueService LeagueService
 
 <h3>@LeagueDetails?.Name</h3>
 
@@ -29,6 +29,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        LeagueDetails = await LeaguesService.GetLeague(LeagueId, CancellationToken.None);
+        LeagueDetails = await LeagueService.GetLeague(LeagueId, CancellationToken.None);
     }
 }

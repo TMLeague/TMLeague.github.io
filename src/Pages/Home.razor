@@ -1,0 +1,39 @@
+﻿@page "/"
+@using TMLeague.Services
+@using TMLeague.ViewModels
+@inject HomeService HomeService
+
+<PageTitle>Thronemaster leagues</PageTitle>
+
+<p class="lead d-none sm-block d-md-block d-lg-block d-xl-block">
+    Rankings, halls of fame and summaries of thronemaster leagues.
+</p>
+
+@if (HomeVm == null)
+{
+    <TMLeague.Components.Loading></TMLeague.Components.Loading>
+}
+else if (HomeVm.Leagues.Count == 0)
+{
+    <p>No league found... Try again later...</p>
+}
+else
+{
+    @foreach (var league in HomeVm.Leagues)
+    {
+        <NavLink class="btn btn-primary btn-league btn-league d-flex w-100 h-100 m-1"
+         style="@(league.BackgroundImage == null ? "" : $"background-image: url('{league.BackgroundImage}');")"
+         href="@($"/league/{league.Id}/index")">
+            <span class="h2 m-auto">@league.Name</span>
+        </NavLink>
+    }
+}
+
+@code {
+    private HomeViewModel? HomeVm { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        HomeVm = await HomeService.GetHomeVm(CancellationToken.None);
+    }
+}
