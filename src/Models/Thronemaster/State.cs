@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using TMLeague.Models.Serialization;
 
-namespace TMLeague.Models.Thronemaster;
+namespace TMLeague.Models.ThroneMaster;
 
 public record State(
     [property: JsonPropertyName("time")]

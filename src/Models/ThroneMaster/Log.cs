@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TMLeague.Models;
+namespace TMLeague.Models.ThroneMaster;
 
 public record Log(
     int Id,
