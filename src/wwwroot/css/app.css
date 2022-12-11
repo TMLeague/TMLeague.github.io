@@ -65,7 +65,8 @@ a, .btn-link {
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-    width: 9px;
+    width: 5px;
+    height: 5px;
 }
 
 /* Track */
