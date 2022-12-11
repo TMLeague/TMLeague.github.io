@@ -1,4 +1,5 @@
 ﻿@page "/league/{leagueId}/index"
+@using TMLeague.Components
 @using TMLeague.Services
 @inject LeagueService LeagueService
 
@@ -10,13 +11,19 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-3 overflow-auto">TODO: Current champion</div>
-        <div class="col-sm-3 overflow-auto">TODO: All champions with scroll<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1</div>
-        <div class="col-sm-6 overflow-auto">TODO: Hall of Fame</div>
+        <div class="col-sm-3 overflow-auto">
+            <Champion></Champion>
+        </div>
+        <div class="col-sm-3 overflow-auto">
+            <AllChampions></AllChampions>
+        </div>
+        <div class="col-sm-6 overflow-auto">
+            <HallOfFame></HallOfFame>
+        </div>
     </div>
     <div class="row">
         <div class="col overflow-auto">
-            TODO: Current season summary
+            <SeasonSummary></SeasonSummary>
         </div>
     </div>
 </div>

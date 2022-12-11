@@ -16,7 +16,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\AllChampions.razor" />
+    <_ContentIncludedByDefault Remove="Components\Champion.razor" />
+    <_ContentIncludedByDefault Remove="Components\HallOfFame.razor" />
     <_ContentIncludedByDefault Remove="Pages\Season.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Champion.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\AllChampions.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\HallOfFame.razor" />
   </ItemGroup>
 
 </Project>
