@@ -1,30 +1,27 @@
-﻿using System.Net.Http.Json;
-using TMLeague.Models;
+﻿using TMLeague.Http;
 using TMLeague.ViewModels;
 
 namespace TMLeague.Services
 {
     public class HomeService
     {
-        private readonly LeagueService _leagueService;
-        private readonly HttpClient _httpClient;
+        private readonly LocalApi _localApi;
 
-        public HomeService(LeagueService leagueService, HttpClient httpClient, ILogger<HomeService> logger)
+        public HomeService(LocalApi localApi)
         {
-            _leagueService = leagueService;
-            _httpClient = httpClient;
+            _localApi = localApi;
         }
 
         public async Task<HomeViewModel> GetHomeVm(CancellationToken cancellationToken)
         {
-            var home = await _httpClient.GetFromJsonAsync<Home>("/data/home.json", cancellationToken);
+            var home = await _localApi.GetHome(cancellationToken);
             if (home?.Leagues == null)
                 return new HomeViewModel(Array.Empty<HomeLeagueButtonViewModel>());
 
             var leagues = new List<HomeLeagueButtonViewModel>();
             foreach (var leagueId in home.Leagues)
             {
-                var league = await _leagueService.GetLeague(leagueId, cancellationToken);
+                var league = await _localApi.GetLeague(leagueId, cancellationToken);
                 if (league is null)
                     continue;
 

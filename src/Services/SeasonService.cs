@@ -1,8 +1,4 @@
-﻿using System.Net;
-using System.Net.Http.Json;
-using TMLeague.Models;
-
-namespace TMLeague.Services
+﻿namespace TMLeague.Services
 {
     public class SeasonService
     {
@@ -13,28 +9,6 @@ namespace TMLeague.Services
         {
             _httpClient = httpClient;
             _logger = logger;
-        }
-
-        public async Task<Season?> GetSeason(string? leagueId, string? seasonId, CancellationToken cancellationToken)
-        {
-            if (leagueId == null)
-                return null;
-
-            try
-            {
-                return await _httpClient.GetFromJsonAsync<Season>($"/data/leagues/{leagueId}/seasons/{seasonId}/{seasonId}.json", cancellationToken);
-            }
-            catch (HttpRequestException ex)
-            {
-                if (ex.StatusCode == HttpStatusCode.NotFound)
-                    _logger.LogWarning($"Leagues \"{leagueId}\" is not configured properly! It's configuration file should be here: \"/league/{leagueId}/{leagueId}.json\"");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, $"An error occurred while loading league {leagueId}");
-                return null;
-            }
         }
     }
 }

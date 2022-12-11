@@ -10,9 +10,12 @@ namespace TMLeague.Http
     {
         private readonly IMemoryCache _cache;
         private readonly HttpClient _httpClient;
-        private readonly Logger<LocalApi> _logger;
+        private readonly ILogger<LocalApi> _logger;
 
-        public LocalApi(IMemoryCache cache, HttpClient httpClient, Logger<LocalApi> logger)
+        private readonly TimeSpan _defaultExpirationTime = TimeSpan.FromMinutes(3);
+        private readonly TimeSpan _notFoundExpirationTime = TimeSpan.FromMinutes(5);
+
+        public LocalApi(IMemoryCache cache, HttpClient httpClient, ILogger<LocalApi> logger)
         {
             _cache = cache;
             _httpClient = httpClient;
@@ -73,19 +76,25 @@ namespace TMLeague.Http
 
         private async Task<T?> Get<T>(string logName, string requestUri, CancellationToken cancellationToken) where T : class
         {
-            if (_cache.TryGetValue<T>(requestUri, out var result))
-                if (result != null)
-                    return result;
+            if (_cache.TryGetValue(requestUri, out var result))
+            {
+                if (result is T tResult)
+                    return tResult;
+                return null;
+            }
+
             try
             {
-                result = await _httpClient.GetFromJsonAsync<T>(requestUri, cancellationToken);
-                _cache.Set(requestUri, result, TimeSpan.FromMinutes(1));
-                return result;
+                var tResult = await _httpClient.GetFromJsonAsync<T>(requestUri, cancellationToken);
+                if (tResult != null)
+                    _cache.Set(requestUri, tResult, _defaultExpirationTime);
+                return tResult;
             }
             catch (HttpRequestException ex)
             {
                 if (ex.StatusCode == HttpStatusCode.NotFound)
                     _logger.LogWarning($"{logName} is not configured properly! It's configuration file should be here: \"{requestUri}\"");
+                _cache.Set(requestUri, 0, _notFoundExpirationTime);
                 return null;
             }
             catch (Exception ex)

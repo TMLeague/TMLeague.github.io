@@ -43,10 +43,11 @@
     [Parameter]
     public string? LeagueId { get; set; }
 
-    private Models.League? LeagueDetails { get; set; }
+    private ViewModels.LeagueViewModel? LeagueDetails { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        LeagueDetails = await LeagueService.GetLeague(LeagueId, CancellationToken.None);
+        if (LeagueId != null)
+            LeagueDetails = await LeagueService.GetLeagueVm(LeagueId, CancellationToken.None);
     }
 }
