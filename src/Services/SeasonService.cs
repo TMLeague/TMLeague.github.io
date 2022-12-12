@@ -1,14 +1,13 @@
-﻿namespace TMLeague.Services
-{
-    public class SeasonService
-    {
-        private readonly HttpClient _httpClient;
-        private readonly ILogger<SeasonService> _logger;
+﻿namespace TMLeague.Services;
 
-        public SeasonService(HttpClient httpClient, ILogger<SeasonService> logger)
-        {
-            _httpClient = httpClient;
-            _logger = logger;
-        }
+public class SeasonService
+{
+    private readonly HttpClient _httpClient;
+    private readonly ILogger<SeasonService> _logger;
+
+    public SeasonService(HttpClient httpClient, ILogger<SeasonService> logger)
+    {
+        _httpClient = httpClient;
+        _logger = logger;
     }
 }

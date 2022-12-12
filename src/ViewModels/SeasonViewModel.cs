@@ -1,4 +1,3 @@
-﻿namespace TMLeague.ViewModels
-{
-    public record SeasonViewModel();
-}
+﻿namespace TMLeague.ViewModels;
+
+public record SeasonViewModel();

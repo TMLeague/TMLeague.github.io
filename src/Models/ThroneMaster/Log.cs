@@ -3,7 +3,7 @@
 namespace TMLeague.Models.ThroneMaster;
 
 public record Log(
-    int Id,
+    uint Id,
     string Name,
     DateTimeOffset Created,
     bool IsProfessional,
@@ -13,8 +13,8 @@ public record Log(
 public class Settings : Dictionary<string, bool> { }
 
 public record LogItem(
-    int? Id,
-    int Turn,
+    uint? Id,
+    uint Turn,
     Phase Phase,
     string Player,
     string Message,

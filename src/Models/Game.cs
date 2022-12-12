@@ -1,6 +1,5 @@
-﻿namespace TMLeague.Models
+﻿namespace TMLeague.Models;
+
+public class Game
 {
-    public class Game
-    {
-    }
 }
