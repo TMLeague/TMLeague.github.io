@@ -6,7 +6,6 @@ public record LeagueViewModel(
     string? Description = null,
     string? Rules = null,
     string? Discord = null,
-    LeagueSeasonViewModel? CurrentSeason = null,
     IReadOnlyCollection<LeagueSeasonButtonViewModel>? Seasons = null);
 
 public record LeagueSeasonViewModel();

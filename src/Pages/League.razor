@@ -2,6 +2,7 @@
 @using TMLeague.Components
 @using TMLeague.Services
 @inject LeagueService LeagueService
+@inject IJSRuntime Js
 
 <h3>@LeagueDetails?.Name</h3>
 
@@ -23,7 +24,7 @@
     </div>
     <div class="row">
         <div class="col overflow-auto">
-            <SeasonSummary></SeasonSummary>
+            <SeasonSummary LeagueId="@LeagueId" SeasonId="SeasonId"></SeasonSummary>
         </div>
     </div>
 </div>
@@ -43,7 +44,15 @@
     [Parameter]
     public string? LeagueId { get; set; }
 
+    public string? SeasonId => LeagueDetails?.Seasons?.LastOrDefault()?.Id;
+
     private ViewModels.LeagueViewModel? LeagueDetails { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Js.InvokeVoidAsync("addTooltips");
+    }
 
     protected override async Task OnInitializedAsync()
     {

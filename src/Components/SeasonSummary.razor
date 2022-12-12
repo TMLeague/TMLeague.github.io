@@ -1,5 +1,23 @@
-﻿<h3>TODO: SeasonSummary</h3>
+﻿@using TMLeague.Services
+@using TMLeague.ViewModels
+<h4>SeasonSummary</h4>
+
+<TMLeague.Components.WorkInProgress></TMLeague.Components.WorkInProgress>
+
+<button class="btn btn-secondary" data-toggle="tooltip" title="Test tooltip content">Tooltip</button>
 
 @code {
-    
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    [Parameter]
+    public string? SeasonId { get; set; }
+
+    public SeasonSummaryViewModel? SeasonSummaryDetails { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (LeagueId != null && SeasonId != null)
+            SeasonSummaryDetails = await SeasonService.GetSeasonSummaryVm(LeagueId, SeasonId, CancellationToken.None);
+    }
 }

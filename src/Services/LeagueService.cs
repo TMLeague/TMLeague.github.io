@@ -31,6 +31,6 @@ public class LeagueService
             seasons.Add(new LeagueSeasonButtonViewModel(seasonId, season.Name));
         }
 
-        return new LeagueViewModel(leagueId, league.Name, league.Description, league.Rules, league.Discord, null, seasons);
+        return new LeagueViewModel(leagueId, league.Name, league.Description, league.Rules, league.Discord, seasons);
     }
 }
