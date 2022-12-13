@@ -16,25 +16,16 @@
     "Zesty18"
   ],
   "games": [
-    285850,
-    285845,
-    285899,
-    285902,
-    285887,
-    285847,
-    285843,
-    285882,
-    285867,
-    285865
+    285887
   ],
-  "penalties": {
+  "penalties": [
     {
       "player": "Nightcrawler",
       "game": 285887,
       "points": -5,
       "details": "for KM - Martell should take Kings Landing when it was empty"
     }
-  },
+  ],
   "isFinished": false,
-  "results": []
+  "results": {}
 }
