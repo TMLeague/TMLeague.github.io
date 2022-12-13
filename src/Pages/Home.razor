@@ -34,6 +34,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        HomeVm = await HomeService.GetHomeVm(CancellationToken.None);
+        HomeVm = await HomeService.GetHomeVm();
     }
 }

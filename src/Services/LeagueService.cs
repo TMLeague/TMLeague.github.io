@@ -12,7 +12,7 @@ public class LeagueService
         _localApi = localApi;
     }
 
-    public async Task<LeagueViewModel> GetLeagueVm(string leagueId, CancellationToken cancellationToken)
+    public async Task<LeagueViewModel> GetLeagueVm(string leagueId, CancellationToken cancellationToken = default)
     {
         var league = await _localApi.GetLeague(leagueId, cancellationToken);
         if (league == null)

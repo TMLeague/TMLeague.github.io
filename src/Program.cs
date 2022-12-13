@@ -12,6 +12,14 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services
+    .AddCors(options =>
+    {
+        options.AddDefaultPolicy(policyBuilder =>
+            policyBuilder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+    })
     .Configure<LocalApiOptions>(builder.Configuration.GetSection("LocalApi"))
     .Configure<ThroneMasterApiOptions>(builder.Configuration.GetSection("ThroneMasterApi"))
     .AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
@@ -21,6 +29,9 @@ builder.Services
     .AddScoped<ThroneMasterApi>()
     .AddScoped<HomeService>()
     .AddScoped<LeagueService>()
-    .AddScoped<SeasonService>();
+    .AddScoped<SeasonService>()
+    .AddScoped<DivisionService>()
+    .AddScoped<GameService>()
+    .AddScoped<PlayerService>();
 
 await builder.Build().RunAsync();

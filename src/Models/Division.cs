@@ -3,6 +3,7 @@
 namespace TMLeague.Models;
 
 public record Division(
+    [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("judge")] string Judge,
     [property: JsonPropertyName("players")] string[] Players,
     [property: JsonPropertyName("games")] uint[] Games,

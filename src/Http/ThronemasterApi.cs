@@ -34,11 +34,10 @@ public class ThroneMasterApi
     {
         ArgumentNullException.ThrowIfNull(gameId);
 
-        return await Get($"TM state \"{gameId}\"",
+        return await Get<State>($"TM state \"{gameId}\"",
             $"https://game.thronemaster.net/ajax.php?game={gameId}&get=GAMEDATA",
-            () => _localApi.GetState(gameId, cancellationToken),
-            null,
-            cancellationToken);
+            null, //() => _localApi.GetState(gameId, cancellationToken),
+            null, cancellationToken);
     }
 
     public async Task<Log?> GetLog(uint gameId, CancellationToken cancellationToken)
@@ -47,13 +46,13 @@ public class ThroneMasterApi
 
         return await Get($"TM log \"{gameId}\"",
             $"https://game.thronemaster.net/?game={gameId}&show=log",
-            () => _localApi.GetLog(gameId, cancellationToken),
+            null, //() => _localApi.GetLog(gameId, cancellationToken),
             html => _logConverter.Convert(gameId, html),
             cancellationToken);
     }
 
     private async Task<T?> Get<T>(string logName, string requestUri,
-        Func<Task<T?>> getFromLocalApi,
+        Func<Task<T?>>? getFromLocalApi,
         Func<HtmlDocument, T?>? convertTmResponse, CancellationToken cancellationToken) where T : class
     {
         if (_cache.TryGetValue(requestUri, out var cacheResult))
@@ -63,9 +62,12 @@ public class ThroneMasterApi
             return null;
         }
 
-        var localResult = await getFromLocalApi();
-        if (localResult != null)
-            return localResult;
+        if (getFromLocalApi != null)
+        {
+            var localResult = await getFromLocalApi();
+            if (localResult != null)
+                return localResult;
+        }
 
         try
         {

@@ -24,7 +24,14 @@
     </div>
     <div class="row">
         <div class="col overflow-auto">
-            <SeasonSummary LeagueId="@LeagueId" SeasonId="SeasonId"></SeasonSummary>
+            @if (LeagueDetails == null)
+            {
+                <Loading></Loading>
+            }
+            else
+            {
+                <SeasonSummary LeagueId="@LeagueId" SeasonId="@SeasonId"></SeasonSummary>
+            }
         </div>
     </div>
 </div>
@@ -44,7 +51,7 @@
     [Parameter]
     public string? LeagueId { get; set; }
 
-    public string? SeasonId => LeagueDetails?.Seasons?.LastOrDefault()?.Id;
+    private string? SeasonId => LeagueDetails?.Seasons?.LastOrDefault()?.Id;
 
     private ViewModels.LeagueViewModel? LeagueDetails { get; set; }
 
@@ -57,6 +64,6 @@
     protected override async Task OnInitializedAsync()
     {
         if (LeagueId != null)
-            LeagueDetails = await LeagueService.GetLeagueVm(LeagueId, CancellationToken.None);
+            LeagueDetails = await LeagueService.GetLeagueVm(LeagueId);
     }
 }

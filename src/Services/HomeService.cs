@@ -12,7 +12,7 @@ public class HomeService
         _localApi = localApi;
     }
 
-    public async Task<HomeViewModel> GetHomeVm(CancellationToken cancellationToken)
+    public async Task<HomeViewModel> GetHomeVm(CancellationToken cancellationToken = default)
     {
         var home = await _localApi.GetHome(cancellationToken);
         if (home?.Leagues == null)

@@ -1,20 +1,22 @@
-﻿using TMLeague.ViewModels;
+﻿using TMLeague.Http;
+using TMLeague.ViewModels;
 
 namespace TMLeague.Services;
 
 public class SeasonService
 {
-    private readonly HttpClient _httpClient;
-    private readonly ILogger<SeasonService> _logger;
+    private readonly LocalApi _localApi;
 
-    public SeasonService(HttpClient httpClient, ILogger<SeasonService> logger)
+    public SeasonService(LocalApi localApi)
     {
-        _httpClient = httpClient;
-        _logger = logger;
+        _localApi = localApi;
     }
 
-    public static Task<SeasonSummaryViewModel> GetSeasonSummaryVm(string leagueId, string seasonId, CancellationToken none)
+    public async Task<SeasonSummaryViewModel> GetSeasonSummaryVm(
+        string leagueId, string seasonId, CancellationToken cancellationToken = default)
     {
-        return Task.FromResult(new SeasonSummaryViewModel());
+        var season = await _localApi.GetSeason(leagueId, seasonId, cancellationToken);
+        return new SeasonSummaryViewModel(leagueId, seasonId, season?.Name,
+            season?.Divisions ?? Array.Empty<string>());
     }
 }
