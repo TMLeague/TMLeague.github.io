@@ -49,7 +49,7 @@ internal class ThroneMasterApi
         ArgumentNullException.ThrowIfNull(playerName);
 
         return await Get($"TM player \"{playerName}\"",
-            $"?goto=community&sub=members&usr={playerName}",
+            $"https://www.thronemaster.net/?goto=community&sub=members&usr={playerName}",
             cancellationToken);
     }
 

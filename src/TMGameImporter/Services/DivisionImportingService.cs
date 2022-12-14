@@ -21,10 +21,13 @@ internal class DivisionImportingService
 
     public async Task Import(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} import started...",
+            leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+
         var division = await _fileLoader.LoadDivision(leagueId, seasonId, divisionId, cancellationToken);
         if (division == null)
         {
-            _logger.LogError("Division {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
+            _logger.LogError("   Division {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
                 leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return;
         }
@@ -32,5 +35,8 @@ internal class DivisionImportingService
             await _playerImportingService.Import(playerName, cancellationToken);
         foreach (var gameId in division.Games)
             await _gameImportingService.Import(gameId, cancellationToken);
+
+        _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} imported.", 
+            leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
     }
 }

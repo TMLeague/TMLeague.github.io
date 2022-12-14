@@ -19,12 +19,15 @@ internal class PlayerImportingService
 
     public async Task Import(string playerName, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("    Player {playerName} import started...", playerName);
+
         var playerData = await _api.GetPlayer(playerName, cancellationToken);
         if (playerData == null)
         {
-            _logger.LogError("Player {playerName} cannot be fetched correctly.", playerName);
+            _logger.LogError("    Player {playerName} cannot be fetched correctly.", playerName);
             return;
         }
         await _fileSaver.SavePlayer(playerData, playerName, cancellationToken);
+        _logger.LogInformation("    Player {playerName} imported.", playerName);
     }
 }

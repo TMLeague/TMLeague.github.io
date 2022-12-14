@@ -19,10 +19,12 @@ internal class GameImportingService
 
     public async Task Import(uint gameId, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("    Game {gameId} import started...", gameId);
+
         var gameData = await _api.GetGameData(gameId, CancellationToken.None);
         if (gameData == null)
         {
-            _logger.LogError("Game {gameId} data cannot be fetched correctly.", gameId);
+            _logger.LogError("    Game {gameId} data cannot be fetched correctly.", gameId);
             return;
         }
         await _fileSaver.SaveGameData(gameData, gameId, cancellationToken);
@@ -30,7 +32,7 @@ internal class GameImportingService
         var gameChat = await _api.GetChat(gameId, CancellationToken.None);
         if (gameChat == null)
         {
-            _logger.LogError("Game {gameId} chat cannot be fetched correctly.", gameId);
+            _logger.LogError("    Game {gameId} chat cannot be fetched correctly.", gameId);
             return;
         }
         await _fileSaver.SaveGameChat(gameChat, gameId, cancellationToken);
@@ -38,9 +40,11 @@ internal class GameImportingService
         var gameLog = await _api.GetLog(gameId, CancellationToken.None);
         if (gameLog == null)
         {
-            _logger.LogError("Game {gameId} log cannot be fetched correctly.", gameId);
+            _logger.LogError("    Game {gameId} log cannot be fetched correctly.", gameId);
             return;
         }
         await _fileSaver.SaveGameLog(gameLog, gameId, cancellationToken);
+
+        _logger.LogInformation("    Game {gameId} imported.", gameId);
     }
 }

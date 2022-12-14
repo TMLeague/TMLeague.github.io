@@ -18,6 +18,8 @@ internal class MainImportingService
 
     public async Task Import(CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Import started...");
+
         var home = await _fileLoader.LoadHome(cancellationToken);
         if (home == null)
         {
@@ -26,5 +28,7 @@ internal class MainImportingService
         }
         foreach (var leagueId in home.Leagues)
             await _leagueImportingService.Import(leagueId, cancellationToken);
+
+        _logger.LogInformation("Import finished.");
     }
 }

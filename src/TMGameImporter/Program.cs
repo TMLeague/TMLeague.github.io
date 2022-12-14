@@ -1,12 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
 using TMGameImporter.Services;
-
-Console.WriteLine("TMGameImporter started...");
 
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
@@ -22,6 +21,7 @@ var host = Host.CreateDefaultBuilder()
             .AddLogging()
             .Configure<ImporterOptions>(context.Configuration.GetSection("Importer"))
             .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net") })
+            .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<ThroneMasterApi>()
             .AddScoped<PathProvider>()
             .AddScoped<FileLoader>()

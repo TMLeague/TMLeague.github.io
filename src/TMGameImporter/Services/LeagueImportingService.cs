@@ -18,14 +18,18 @@ internal class LeagueImportingService
 
     public async Task Import(string leagueId, CancellationToken cancellationToken)
     {
+        _logger.LogInformation(" League {leagueId} import started...", leagueId.ToUpper());
+
         var league = await _fileLoader.LoadLeague(leagueId, cancellationToken);
         if (league == null)
         {
-            _logger.LogError("League {leagueId} cannot be deserialized correctly.", 
+            _logger.LogError(" League {leagueId} cannot be deserialized correctly.", 
                 leagueId.ToUpper());
             return;
         }
         foreach (var seasonId in league.Seasons)
             await _seasonImportingService.Import(leagueId, seasonId, cancellationToken);
+
+        _logger.LogInformation(" League {leagueId} imported.", leagueId.ToUpper());
     }
 }
