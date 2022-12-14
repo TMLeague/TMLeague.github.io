@@ -8,5 +8,5 @@ public record League(
     [property: JsonPropertyName("backgroundImage")] string? BackgroundImage,
     [property: JsonPropertyName("rules")] string? Rules,
     [property: JsonPropertyName("discord")] string? Discord,
-    [property: JsonPropertyName("seasons")] string[]? Seasons
+    [property: JsonPropertyName("seasons")] string[] Seasons
     );

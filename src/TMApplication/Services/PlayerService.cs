@@ -1,6 +1,5 @@
-﻿namespace TMApplication.Services
+﻿namespace TMApplication.Services;
+
+public class PlayerService
 {
-    public class PlayerService
-    {
-    }
 }

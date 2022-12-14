@@ -1,8 +1,8 @@
-﻿using System.Net;
-using System.Net.Http.Json;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net;
+using System.Net.Http.Json;
 using TMApplication.Providers;
 using TMInfrastructure.Http.Configuration;
 using TMModels;

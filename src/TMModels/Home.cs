@@ -3,5 +3,5 @@
 namespace TMModels;
 
 public record Home(
-    [property: JsonPropertyName("leagues")] string[]? Leagues
+    [property: JsonPropertyName("leagues")] string[] Leagues
 );

@@ -4,10 +4,6 @@ public class LocalApiOptions
 {
     public CacheOptions Cache { get; init; } = new(TimeSpan.FromHours(1), TimeSpan.FromHours(1));
 }
-public class ThroneMasterApiOptions
-{
-    public CacheOptions Cache { get; init; } = new(TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
-}
 
 public class CacheOptions
 {
