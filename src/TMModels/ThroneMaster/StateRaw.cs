@@ -3,7 +3,7 @@ using TMModels.Serialization;
 
 namespace TMModels.ThroneMaster;
 
-public record State(
+public record StateRaw(
     [property: JsonPropertyName("time")]
     [property: JsonConverter(typeof(DateTimeOffsetJsonConverter))]
     DateTimeOffset Time,

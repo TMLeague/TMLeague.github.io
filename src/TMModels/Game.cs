@@ -7,10 +7,10 @@ public record Game(
     [property: JsonPropertyName("isFinished")] bool IsFinished,
     [property: JsonPropertyName("isStalling")] bool IsStalling,
     [property: JsonPropertyName("turn")] uint Turn,
-    [property: JsonPropertyName("houses")] House[] Houses,
-    [property: JsonPropertyName("map")] Map Map);
+    [property: JsonPropertyName("map")] Map Map,
+    [property: JsonPropertyName("houses")] HouseData[] Houses);
 
-public record House(
+public record HouseData(
     [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("player")] string Player,
     [property: JsonPropertyName("throne")] ushort Throne,
@@ -20,9 +20,9 @@ public record House(
     [property: JsonPropertyName("powerTokens")] ushort PowerTokens,
     [property: JsonPropertyName("strongholds")] ushort Strongholds,
     [property: JsonPropertyName("castles")] ushort Castles,
-    [property: JsonPropertyName("cla")] ushort Cla) : IComparable<House>
+    [property: JsonPropertyName("cla")] ushort Cla) : IComparable<HouseData>
 {
-    public int CompareTo(House? otherHouse)
+    public int CompareTo(HouseData? otherHouse)
     {
         if (otherHouse == null)
             return 1;
@@ -49,7 +49,7 @@ public record Land(
     [property: JsonPropertyName("isEnabled")] bool IsEnabled,
     [property: JsonPropertyName("id")] string Id,
     [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("house")] string House,
+    [property: JsonPropertyName("house")] House House,
     [property: JsonPropertyName("footmen")] ushort Footmen,
     [property: JsonPropertyName("knights")] ushort Knights,
     [property: JsonPropertyName("siegeEngines")] ushort SiegeEngines,
@@ -62,7 +62,7 @@ public record Sea(
     [property: JsonPropertyName("isEnabled")] bool IsEnabled,
     [property: JsonPropertyName("id")] string Id,
     [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("house")] string House,
+    [property: JsonPropertyName("house")] House House,
     [property: JsonPropertyName("ships")] ushort Ships);
 
 public record Port(

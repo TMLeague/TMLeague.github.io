@@ -1,4 +1,6 @@
-﻿namespace TMApplication.ViewModels;
+﻿using TMModels;
+
+namespace TMApplication.ViewModels;
 
 public record LeagueViewModel(
     string Id,
@@ -39,5 +41,5 @@ public record GameSummaryViewModel(
 public record GamePlayerSummaryViewModel(
     string GameId,
     string Name,
-    string House,
+    House House,
     string? AvatarUri);
