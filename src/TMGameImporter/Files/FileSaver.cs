@@ -1,4 +1,7 @@
-﻿namespace TMGameImporter.Files;
+﻿using System.Text.Json;
+using TMModels;
+
+namespace TMGameImporter.Files;
 
 internal class FileSaver
 {
@@ -9,15 +12,25 @@ internal class FileSaver
         _pathProvider = pathProvider;
     }
 
-    public async Task SaveGameData(string data, uint gameId, CancellationToken cancellationToken) =>
-        await File.WriteAllTextAsync(_pathProvider.GetGameDataFilePath(gameId), data, cancellationToken);
+    public async Task SaveGame(Game game, uint gameId, CancellationToken cancellationToken)
+    {
+        var path = _pathProvider.GetGamePath(gameId);
+        var data = JsonSerializer.Serialize(game);
+        await File.WriteAllTextAsync(path, data, cancellationToken);
+    }
 
-    public async Task SaveGameChat(string data, uint gameId, CancellationToken cancellationToken) =>
-        await File.WriteAllTextAsync(_pathProvider.GetGameChatPath(gameId), data, cancellationToken);
+    public async Task SavePlayer(Player player, string playerName, CancellationToken cancellationToken)
+    {
+        var path = _pathProvider.GetPlayerFilePath(playerName);
+        var data = JsonSerializer.Serialize(player);
+        await File.WriteAllTextAsync(path, data, cancellationToken);
+    }
 
-    public async Task SaveGameLog(string data, uint gameId, CancellationToken cancellationToken) =>
-        await File.WriteAllTextAsync(_pathProvider.GetGameLogPath(gameId), data, cancellationToken);
-
-    public async Task SavePlayer(string data, string playerName, CancellationToken cancellationToken) =>
-        await File.WriteAllTextAsync(_pathProvider.GetPlayerFilePath(playerName), data, cancellationToken);
+    public async Task SavePlayerAvatar(Stream stream, string playerName, CancellationToken cancellationToken)
+    {
+        var path = _pathProvider.GetPlayerAvatarPath(playerName);
+        await using var fileStream = File.Create(path);
+        stream.Seek(0, SeekOrigin.Begin);
+        await stream.CopyToAsync(fileStream, cancellationToken);
+    }
 }

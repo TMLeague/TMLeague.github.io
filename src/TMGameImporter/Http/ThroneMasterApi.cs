@@ -53,6 +53,34 @@ internal class ThroneMasterApi
             cancellationToken);
     }
 
+    public async Task<Stream?> GetImage(string requestUri, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(requestUri);
+
+        if (_cache.TryGetValue(requestUri, out _))
+            return null;
+
+        try
+        {
+            var result = await _httpClient.GetStreamAsync(requestUri, cancellationToken);
+            _cache.Set(requestUri, 0);
+
+            return result;
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode == HttpStatusCode.NotFound)
+                _logger.LogWarning($"Resource not found for path: \"{requestUri}\"");
+            _cache.Set(requestUri, 0);
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, $"An error occurred while loading resource from path \"{requestUri}\".");
+            return null;
+        }
+    }
+
     private async Task<string?> Get(string logName, string requestUri, CancellationToken cancellationToken)
     {
         if (_cache.TryGetValue(requestUri, out var cacheResult))

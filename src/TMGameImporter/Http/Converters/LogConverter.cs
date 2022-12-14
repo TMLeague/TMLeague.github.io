@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using System.Globalization;
 using TMModels.ThroneMaster;
 
-namespace TMInfrastructure.Http.Converters;
+namespace TMGameImporter.Http.Converters;
 
-public class LogConverter
+internal class LogConverter
 {
     private readonly ILogger<LogConverter> _logger;
 
@@ -14,11 +14,14 @@ public class LogConverter
         _logger = logger;
     }
 
-    public Log? Convert(uint id, HtmlDocument html)
+    public Log? Convert(uint gameId, string htmlString)
     {
+        var html = new HtmlDocument();
+        html.LoadHtml(htmlString);
+
         if (html.DocumentNode.InnerText.Contains("ERROR: Invalid Game ID!"))
         {
-            _logger.LogWarning($"Log {id} skipped, because it's invalid game ID.");
+            _logger.LogWarning($"Log {gameId} skipped, because it's invalid game ID.");
             return null;
         }
 
@@ -42,7 +45,7 @@ public class LogConverter
         var settings = GetSettings(html);
         var logItems = GetLog(html);
 
-        return new Log(id, name, created, isProfessional, settings, logItems);
+        return new Log(gameId, name, created, isProfessional, settings, logItems);
     }
 
     private static Settings GetSettings(HtmlDocument html)

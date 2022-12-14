@@ -24,6 +24,9 @@ internal class FileLoader
     public async Task<Division?> LoadDivision(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken) =>
         await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId, seasonId, divisionId), cancellationToken);
 
+    public async Task<Game?> LoadGame(uint gameId, CancellationToken cancellationToken) =>
+        await DeserializeFile<Game>(_pathProvider.GetGamePath(gameId), cancellationToken);
+
     private static async Task<T?> DeserializeFile<T>(string path, CancellationToken cancellationToken)
     {
         if (!File.Exists(path))

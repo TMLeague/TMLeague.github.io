@@ -1,62 +1,55 @@
 ﻿using Microsoft.Extensions.Options;
 using TMGameImporter.Configuration;
 
-namespace TMGameImporter.Files
+namespace TMGameImporter.Files;
+
+internal class PathProvider
 {
-    internal class PathProvider
+    private const string Leagues = "leagues";
+    private const string Seasons = "seasons";
+    private const string Divisions = "divisions";
+    private const string Games = "games";
+    private const string Players = "players";
+
+    private readonly IOptions<ImporterOptions> _options;
+
+    public PathProvider(IOptions<ImporterOptions> options)
     {
-        private const string Leagues = "leagues";
-        private const string Seasons = "seasons";
-        private const string Divisions = "divisions";
-        private const string Games = "games";
-        private const string Players = "players";
+        _options = options;
+    }
 
-        private readonly IOptions<ImporterOptions> _options;
+    public string GetConfigFilePath(string? leagueId = null, string? seasonId = null, string? divisionId = null)
+    {
+        if (leagueId == null)
+            return Path.Combine(_options.Value.BaseLocation, "home.json");
 
-        public PathProvider(IOptions<ImporterOptions> options)
-        {
-            _options = options;
-        }
-
-        public string GetConfigFilePath(string? leagueId = null, string? seasonId = null, string? divisionId = null)
-        {
-            if (leagueId == null)
-                return Path.Combine(_options.Value.BaseLocation, "home.json");
-
-            if (seasonId == null)
-                return Path.Combine(_options.Value.BaseLocation,
-                    Leagues, leagueId, $"{leagueId}.json");
-
-            if (divisionId == null)
-                return Path.Combine(_options.Value.BaseLocation,
-                    Leagues, leagueId, Seasons, seasonId, $"{seasonId}.json");
-
+        if (seasonId == null)
             return Path.Combine(_options.Value.BaseLocation,
-                Leagues, leagueId, Seasons, seasonId, Divisions, $"{divisionId}.json");
-        }
+                Leagues, leagueId, $"{leagueId}.json");
 
-        public string GetGameDataFilePath(uint gameId)
-        {
-            Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Games));
-            return Path.Combine(_options.Value.BaseLocation, Games, $"{gameId}-data.json");
-        }
+        if (divisionId == null)
+            return Path.Combine(_options.Value.BaseLocation,
+                Leagues, leagueId, Seasons, seasonId, $"{seasonId}.json");
 
-        public string GetGameChatPath(uint gameId)
-        {
-            Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Games));
-            return Path.Combine(_options.Value.BaseLocation, Games, $"{gameId}-chat.json");
-        }
+        return Path.Combine(_options.Value.BaseLocation,
+            Leagues, leagueId, Seasons, seasonId, Divisions, $"{divisionId}.json");
+    }
 
-        public string GetGameLogPath(uint gameId)
-        {
-            Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Games));
-            return Path.Combine(_options.Value.BaseLocation, Games, $"{gameId}-log.html");
-        }
+    public string GetGamePath(uint gameId)
+    {
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Games));
+        return Path.Combine(_options.Value.BaseLocation, Games, $"{gameId}.json");
+    }
 
-        public string GetPlayerFilePath(string playerName)
-        {
-            Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Players));
-            return Path.Combine(_options.Value.BaseLocation, Players, $"{playerName}.html");
-        }
+    public string GetPlayerFilePath(string playerName)
+    {
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Players));
+        return Path.Combine(_options.Value.BaseLocation, Players, $"{playerName}.json");
+    }
+
+    public string GetPlayerAvatarPath(string playerName)
+    {
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Players));
+        return Path.Combine(_options.Value.BaseLocation, Players, $"{playerName}.jpeg");
     }
 }

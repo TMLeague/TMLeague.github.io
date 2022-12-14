@@ -31,8 +31,8 @@ internal class DivisionImportingService
                 leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return;
         }
-        foreach (var playerName in division.Players)
-            await _playerImportingService.Import(playerName, cancellationToken);
+        //foreach (var playerName in division.Players)
+        //    await _playerImportingService.Import(playerName, cancellationToken);
         foreach (var gameId in division.Games)
             await _gameImportingService.Import(gameId, cancellationToken);
 

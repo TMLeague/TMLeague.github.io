@@ -14,7 +14,7 @@ public class GameService
 
     public async Task<GameSummaryViewModel?> GetGameSummaryVm(uint gameId, CancellationToken cancellationToken = default)
     {
-        var state = await _dataProvider.GetState(gameId, cancellationToken);
+        var state = await _dataProvider.GetGame(gameId, cancellationToken);
         string name = "";
         uint turn = 0;
         double progress = 0;

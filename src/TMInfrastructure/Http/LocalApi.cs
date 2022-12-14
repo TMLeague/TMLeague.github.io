@@ -56,22 +56,6 @@ public class LocalApi : IDataProvider
             $"/data/leagues/{leagueId}/seasons/{seasonId}/divisions/{divisionId}.json", cancellationToken);
     }
 
-    public async Task<State?> GetState(uint gameId, CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(gameId);
-
-        return await Get<State>($"State \"{gameId}\"",
-            $"/data/games/{gameId}-state.json", cancellationToken);
-    }
-
-    public async Task<Log?> GetLog(uint gameId, CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(gameId);
-
-        return await Get<Log>($"Log \"{gameId}\"",
-            $"/data/games/{gameId}-log.json", cancellationToken);
-    }
-
     public async Task<Game?> GetGame(uint gameId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(gameId);
