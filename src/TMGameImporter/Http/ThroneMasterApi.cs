@@ -4,7 +4,7 @@ using System.Net;
 
 namespace TMGameImporter.Http;
 
-internal class ThroneMasterApi
+internal class ThroneMasterApi : IThroneMasterDataProvider
 {
     private readonly IMemoryCache _cache;
     private readonly HttpClient _httpClient;
@@ -110,4 +110,13 @@ internal class ThroneMasterApi
             return null;
         }
     }
+}
+
+internal interface IThroneMasterDataProvider
+{
+    public Task<string?> GetGameData(uint gameId, CancellationToken cancellationToken);
+    public Task<string?> GetChat(uint gameId, CancellationToken cancellationToken);
+    public Task<string?> GetLog(uint gameId, CancellationToken cancellationToken);
+    public Task<string?> GetPlayer(string playerName, CancellationToken cancellationToken);
+    public Task<Stream?> GetImage(string requestUri, CancellationToken cancellationToken);
 }

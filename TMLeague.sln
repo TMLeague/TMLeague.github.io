@@ -9,11 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMGameImporter", "src\TMGam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMModels", "src\TMModels\TMModels.csproj", "{0200664C-64F1-4DA1-BBAE-486FFC97769D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMInfrastructure", "src\TMInfrastructure\TMInfrastructure.csproj", "{E2B83FEC-0470-47EC-B464-83F2C16FFAF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMInfrastructure", "src\TMInfrastructure\TMInfrastructure.csproj", "{E2B83FEC-0470-47EC-B464-83F2C16FFAF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMApplication", "src\TMApplication\TMApplication.csproj", "{94FBD847-57EF-4A63-9FF6-1FB53C142BCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMApplication", "src\TMApplication\TMApplication.csproj", "{94FBD847-57EF-4A63-9FF6-1FB53C142BCE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{B8F9DD7A-9F24-4D6F-845E-44A12E6A498F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B8E51811-E2A3-459F-8DFA-D4879CC1CA3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMGameImporter.Tests", "tests\TMGameImporter.Tests\TMGameImporter.Tests.csproj", "{9074305C-92AD-4004-A40C-FFE136B21864}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{94FBD847-57EF-4A63-9FF6-1FB53C142BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94FBD847-57EF-4A63-9FF6-1FB53C142BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94FBD847-57EF-4A63-9FF6-1FB53C142BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9074305C-92AD-4004-A40C-FFE136B21864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9074305C-92AD-4004-A40C-FFE136B21864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9074305C-92AD-4004-A40C-FFE136B21864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9074305C-92AD-4004-A40C-FFE136B21864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,7 @@ Global
 		{0200664C-64F1-4DA1-BBAE-486FFC97769D} = {B8F9DD7A-9F24-4D6F-845E-44A12E6A498F}
 		{E2B83FEC-0470-47EC-B464-83F2C16FFAF9} = {B8F9DD7A-9F24-4D6F-845E-44A12E6A498F}
 		{94FBD847-57EF-4A63-9FF6-1FB53C142BCE} = {B8F9DD7A-9F24-4D6F-845E-44A12E6A498F}
+		{9074305C-92AD-4004-A40C-FFE136B21864} = {B8E51811-E2A3-459F-8DFA-D4879CC1CA3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20E684B9-1B99-491A-B599-303E69D68F4E}

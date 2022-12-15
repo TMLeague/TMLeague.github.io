@@ -8,7 +8,37 @@ internal record State(
     uint? GameId,
     bool IsFinished,
     uint Turn,
-    string[][] MapDefinition,
+    Map Map,
     HouseSpeed[] Stats);
 
 internal record HouseSpeed(House House, double MinutesPerMove, uint MovesCount);
+
+internal record Area(bool IsEnabled, AreaType Type, ushort Id, string Name);
+
+internal enum AreaType
+{
+    Unknown, Land, Sea, Port
+}
+
+internal class Setup : StateDictionary
+{
+    public Setup(IEnumerable<string> array) :
+        base(array)
+    { }
+}
+
+internal class Data : StateDictionary
+{
+    public Data(IEnumerable<string> array) :
+        base(array)
+    { }
+}
+
+internal abstract class StateDictionary : Dictionary<string, string>
+{
+    protected StateDictionary(IEnumerable<string> array) :
+        base(array.Select(row => row.Split(','))
+            .Where(row => row.Length == 3)
+            .ToDictionary(row => row[1], row => row[2]))
+    { }
+}

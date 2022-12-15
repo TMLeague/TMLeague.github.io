@@ -26,28 +26,22 @@ internal class GameConverter
         if (stateRaw == null)
             return null;
 
-        var state = StateConverter.Convert(stateRaw, chatRaw);
-        if (state.GameId != gameId)
+        var state = _stateConverter.Convert(stateRaw, chatRaw);
+        if (state?.GameId != gameId)
         {
-            _logger.LogError("Fetched game ID {fetchedGameId} is different than expected: {expectedGameId}.", state.GameId, gameId);
+            _logger.LogError("Fetched game ID {fetchedGameId} is different than expected: {expectedGameId}.", state?.GameId, gameId);
             return null;
         }
-        var log = _logConverter.Convert(gameId, logHtmlString);
 
-        bool isStalling = state.Chat?.Contains("delay!", StringComparison.InvariantCultureIgnoreCase) ?? false;
-
-        var map = GetMap(state);
+        var isStalling = state.Chat?.Contains("delay!", StringComparison.InvariantCultureIgnoreCase) ?? false;
         var houses = GetHouses(state);
-        return new Game(gameId, state.IsFinished, isStalling, state.Turn, map, houses);
-    }
 
-    private Map GetMap(State state)
-    {
-        throw new NotImplementedException();
+        var log = _logConverter.Convert(gameId, logHtmlString);
+        return new Game(gameId, state.IsFinished, isStalling, state.Turn, state.Map, houses);
     }
 
     private HouseData[] GetHouses(State state)
     {
-        throw new NotImplementedException();
+        return Array.Empty<HouseData>();
     }
 }

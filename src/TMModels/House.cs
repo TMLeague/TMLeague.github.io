@@ -14,8 +14,10 @@ public enum House
 
 public static class HouseParser
 {
-    public static House Parse(string value) =>
-        value.ToLower()[0] switch
+    public static House Parse(string value) => Parse(value[0]);
+
+    public static House Parse(char value) =>
+        char.ToLower(value) switch
         {
             'b' => House.Baratheon,
             'l' => House.Lannister,

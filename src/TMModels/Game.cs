@@ -47,7 +47,7 @@ public record Map(
 
 public record Land(
     [property: JsonPropertyName("isEnabled")] bool IsEnabled,
-    [property: JsonPropertyName("id")] string Id,
+    [property: JsonPropertyName("id")] ushort Id,
     [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("house")] House House,
     [property: JsonPropertyName("footmen")] ushort Footmen,
@@ -60,13 +60,13 @@ public record Land(
 
 public record Sea(
     [property: JsonPropertyName("isEnabled")] bool IsEnabled,
-    [property: JsonPropertyName("id")] string Id,
+    [property: JsonPropertyName("id")] ushort Id,
     [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("house")] House House,
     [property: JsonPropertyName("ships")] ushort Ships);
 
 public record Port(
     [property: JsonPropertyName("isEnabled")] bool IsEnabled,
-    [property: JsonPropertyName("id")] string Id,
+    [property: JsonPropertyName("id")] ushort Id,
     [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("ships")] ushort Ships);

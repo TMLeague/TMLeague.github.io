@@ -7,13 +7,13 @@ namespace TMGameImporter.Services;
 
 internal class GameImportingService
 {
-    private readonly ThroneMasterApi _api;
+    private readonly IThroneMasterDataProvider _api;
     private readonly GameConverter _converter;
     private readonly FileLoader _fileLoader;
     private readonly FileSaver _fileSaver;
     private readonly ILogger<PlayerImportingService> _logger;
 
-    public GameImportingService(ThroneMasterApi api, GameConverter converter, FileLoader fileLoader, FileSaver fileSaver, ILogger<PlayerImportingService> logger)
+    public GameImportingService(IThroneMasterDataProvider api, GameConverter converter, FileLoader fileLoader, FileSaver fileSaver, ILogger<PlayerImportingService> logger)
     {
         _api = api;
         _converter = converter;
