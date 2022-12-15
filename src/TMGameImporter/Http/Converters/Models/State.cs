@@ -8,6 +8,9 @@ internal record State(
     uint? GameId,
     bool IsFinished,
     uint Turn,
+    string HousesDataRaw,
+    House[] HousesOrder,
+    string[] Players,
     Map Map,
     HouseSpeed[] Stats);
 

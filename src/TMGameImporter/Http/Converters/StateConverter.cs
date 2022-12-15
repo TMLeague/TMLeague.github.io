@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Text.Json;
+using System.Web;
 using TMGameImporter.Http.Converters.Models;
 using TMModels;
 using TMModels.ThroneMaster;
@@ -16,44 +17,57 @@ internal class StateConverter
         _logger = logger;
     }
 
-    public State Convert(StateRaw stateRaw, StateRaw? chatRaw)
+    public State? Convert(StateRaw stateRaw, StateRaw? chatRaw)
     {
-        var chat = chatRaw?.Chat.FirstOrDefault(item =>
-            item is string str && str.StartsWith("The battle for Westeros begins, now!")) as string;
-        var data = new Data(stateRaw.Data);
-        var setup = new Setup(stateRaw.Setup);
-        var stats = stateRaw.Stats
-            .Select(row => row.Split(','))
-            .Where(row => row.Length == 4)
-            .Select(row => new HouseSpeed(HouseParser.Parse(row[0]), double.Parse(row[2], CultureInfo.InvariantCulture), uint.Parse(row[3])))
-            .ToArray();
+        try
+        {
+            var chat = chatRaw?.Chat.FirstOrDefault(item =>
+                item is string str && str.StartsWith("The battle for Westeros begins, now!")) as string;
+            var data = new Data(stateRaw.Data);
+            var setup = new Setup(stateRaw.Setup);
+            var stats = stateRaw.Stats
+                .Select(row => row.Split(','))
+                .Where(row => row.Length == 4)
+                .Select(row => new HouseSpeed(HouseParser.Parse(row[0]),
+                    double.Parse(row[2], CultureInfo.InvariantCulture), uint.Parse(row[3])))
+                .ToArray();
 
-        return new State(
-            stateRaw.Time,
-            chat,
-            GetGameId(setup),
-            GetIsFinished(setup),
-            GetTurn(data),
-            GetMap(setup, data),
-            stats);
+            return new State(
+                stateRaw.Time,
+                chat,
+                GetGameId(setup),
+                GetIsFinished(setup),
+                GetTurn(data),
+                GetHousesDataRaw(data),
+                GetHousesOrder(setup),
+                GetPlayers(setup),
+                GetMap(setup, data),
+                stats);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while converting State data.");
+            return null;
+        }
     }
 
-    private static uint? GetGameId(Setup setup) =>
-        setup.TryGetValue("g-id", out var gId) ? uint.Parse(gId) : null;
+    private static uint? GetGameId(Setup setup) => uint.Parse(setup["g-id"]);
 
-    private static bool GetIsFinished(Setup setup) =>
-        setup.TryGetValue("g-stts", out var gStts) && gStts != "1";
+    private static bool GetIsFinished(Setup setup) => setup["g-stts"] != "1";
 
-    private static uint GetTurn(Data data)
-    {
-        if (!data.TryGetValue("gamestate", out var gameState))
-            return 0;
+    private static uint GetTurn(Data data) => uint.Parse(data["gamestate"][..1]) + 1;
 
-        if (gameState?.Length >= 1 &&
-            uint.TryParse(gameState[..1], out var zeroBasedTurn))
-            return zeroBasedTurn + 1;
-        return 0;
-    }
+    private static string GetHousesDataRaw(Data data) => data["houses"];
+
+    private static House[] GetHousesOrder(Setup setup) => setup["g-hid"]
+        .Split('|')
+        .Select(HouseParser.Parse)
+        .ToArray();
+
+    private static string[] GetPlayers(Setup setup) => setup["g-hid"]
+        .Split('|')
+        .Select(s => HttpUtility.UrlDecode(setup[$"p-h{s.ToLower()}"]))
+        .ToArray();
 
     private Map GetMap(Setup setup, Data data)
     {

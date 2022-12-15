@@ -8,10 +8,10 @@ public record Game(
     [property: JsonPropertyName("isStalling")] bool IsStalling,
     [property: JsonPropertyName("turn")] uint Turn,
     [property: JsonPropertyName("map")] Map Map,
-    [property: JsonPropertyName("houses")] HouseData[] Houses);
+    [property: JsonPropertyName("houses")] HouseScore[] Houses);
 
-public record HouseData(
-    [property: JsonPropertyName("name")] string Name,
+public record HouseScore(
+    [property: JsonPropertyName("name")] House House,
     [property: JsonPropertyName("player")] string Player,
     [property: JsonPropertyName("throne")] ushort Throne,
     [property: JsonPropertyName("fiefdoms")] ushort Fiefdoms,
@@ -20,9 +20,12 @@ public record HouseData(
     [property: JsonPropertyName("powerTokens")] ushort PowerTokens,
     [property: JsonPropertyName("strongholds")] ushort Strongholds,
     [property: JsonPropertyName("castles")] ushort Castles,
-    [property: JsonPropertyName("cla")] ushort Cla) : IComparable<HouseData>
+    [property: JsonPropertyName("cla")] ushort Cla,
+    [property: JsonPropertyName("minutesPerMove")] double MinutesPerMove,
+    [property: JsonPropertyName("moves")] uint Moves,
+    [property: JsonPropertyName("battlesInTurn")] ushort[] BattlesInTurn) : IComparable<HouseScore>
 {
-    public int CompareTo(HouseData? otherHouse)
+    public int CompareTo(HouseScore? otherHouse)
     {
         if (otherHouse == null)
             return 1;
