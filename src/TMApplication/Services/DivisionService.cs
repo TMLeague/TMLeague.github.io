@@ -21,7 +21,7 @@ public class DivisionService
         var games = new List<GameSummaryViewModel?>();
 
         if (division == null)
-            return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, 0, games);
+            return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, 0, games, null);
 
         var progress = 0.0;
         foreach (var gameId in division.Games)
@@ -36,6 +36,6 @@ public class DivisionService
 
         progress /= games.Count;
 
-        return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games);
+        return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games, null);
     }
 }

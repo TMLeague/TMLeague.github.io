@@ -1,5 +1,7 @@
 ﻿@using TMApplication.Services
 @using TMApplication.ViewModels
+@using TMInfrastructure.Http
+@using TMLeague.Components
 @inject DivisionService DivisionService
 @inject GameService GameService
 @inject IJSRuntime Js
@@ -12,11 +14,61 @@
 }
 else
 {
-    <div class="progress" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Test tooltip content">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+    @if (Division.WinnerPlayerName != null)
+    {
+        <div class="container">
+            <span>Win: </span>
+
+            <PlayerLink PlayerName="@Division.WinnerPlayerName"></PlayerLink>
+        </div>
+    }
+    else
+    {
+        <div class="progress mb-1">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
          role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)Division.Progress)"
          aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)Division.Progress}%")"></div>
+        </div>
+    }
+    <div class="container @(ShowDetails ? "" : "d-none")">
+        <div class="row">
+            @foreach (var (game, i) in Division.Games.Select((model, i) => (model, i)))
+            {
+                <div class="col-2 col-sm-3 col-md-2 col-xl-1">
+                    @if (game == null)
+                    {
+                        <h6>G@(i + 1)</h6>
+                    }
+                    else
+                    {
+                        <GameLink Id="@game.Id" Name="@($"G{i + 1}")"></GameLink>
+                    }
+                </div>
+                <div class="col-4 col-sm-9 col-md-10 col-xl-5">
+                    @if (game?.WinnerPlayerName != null)
+                    {
+                        <div title="Winner" class="overflow-hidden text-nowrap">
+                            <PlayerLink PlayerName="@game.WinnerPlayerName"></PlayerLink>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="progress mb-1" title="@($"Turn {game?.Turn ?? 0}")">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                     role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort?)game?.Progress ?? 0)"
+                     aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort?)game?.Progress ?? 0}%")">
+                                @($"T{game?.Turn ?? 0}")
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
     </div>
+    <button class="btn btn-primary w-100 mb-1 @(ShowDetails || Division.WinnerPlayerName != null ? "rounded-0 rounded-bottom" : "")"
+        @onclick="ChangeVisibility">
+        @(ShowDetails ? "Hide" : "Show") game details
+    </button>
 }
 
 @code {
@@ -29,12 +81,11 @@ else
     [Parameter]
     public string? DivisionId { get; set; }
 
+    private bool ShowDetails { get; set; } = false;
+
     private DivisionSummaryViewModel? Division { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await Js.InvokeVoidAsync("addTooltips");
-    }
+    private void ChangeVisibility() => ShowDetails = !ShowDetails;
 
     protected override async Task OnInitializedAsync()
     {

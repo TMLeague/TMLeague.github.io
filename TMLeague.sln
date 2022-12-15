@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{B8F9DD7A-9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B8E51811-E2A3-459F-8DFA-D4879CC1CA3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMGameImporter.Tests", "tests\TMGameImporter.Tests\TMGameImporter.Tests.csproj", "{9074305C-92AD-4004-A40C-FFE136B21864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMGameImporter.Tests", "tests\TMGameImporter.Tests\TMGameImporter.Tests.csproj", "{9074305C-92AD-4004-A40C-FFE136B21864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMModels.Tests", "tests\TMModels.Tests\TMModels.Tests.csproj", "{0D868DC6-6A71-4AAB-96FA-045CB8AEC919}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMModels.Tests", "tests\TMModels.Tests\TMModels.Tests.csproj", "{0D868DC6-6A71-4AAB-96FA-045CB8AEC919}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

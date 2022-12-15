@@ -20,6 +20,10 @@ a, .btn-link {
     color: #ddd !important;
 }
 
+.border-secondary {
+    border-color: #333 !important;
+}
+
 /* Buttons */
 
 .btn-primary,
@@ -80,10 +84,10 @@ a, .btn-link {
     border: 1px solid #555;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #303030;
-}
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #303030;
+    }
 
 
 /* Others */
@@ -212,3 +216,36 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/* Arrows */
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #ddd;
+}
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #ddd;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #ddd;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid #ddd;
+}

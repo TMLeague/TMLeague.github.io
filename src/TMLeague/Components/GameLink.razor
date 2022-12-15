@@ -1,0 +1,18 @@
+﻿@using TMInfrastructure.Http
+
+@if (Id == null)
+{
+    @Id
+}
+else
+{
+    <a href="@ThroneMasterUriProvider.GetGameUri(Id.Value)" class="text-primary">@(Name ?? Id.ToString())</a>
+}
+
+@code {
+    [Parameter]
+    public uint? Id { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+}

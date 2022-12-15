@@ -26,7 +26,8 @@ public record DivisionSummaryViewModel(
     string DivisionId,
     string? DivisionName,
     double Progress,
-    IReadOnlyCollection<GameSummaryViewModel?> Games);
+    IReadOnlyCollection<GameSummaryViewModel?> Games,
+    string? WinnerPlayerName);
 
 public record GameSummaryViewModel(
     uint Id,

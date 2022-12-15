@@ -17,7 +17,7 @@ public class GameService
         var game = await _dataProvider.GetGame(gameId, cancellationToken);
         if (game == null)
             return null;
-        
+
         var progress = game.IsFinished ? 
             100 : 
             game.IsStalling ?

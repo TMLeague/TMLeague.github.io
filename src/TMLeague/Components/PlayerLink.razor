@@ -1,0 +1,15 @@
+﻿@using TMInfrastructure.Http
+
+@if (string.IsNullOrEmpty(PlayerName))
+{
+    @PlayerName
+}
+else
+{
+    <a href="@ThroneMasterUriProvider.GetPlayerUri(PlayerName)" class="text-primary">@PlayerName</a>
+}
+
+@code {
+    [Parameter]
+    public string? PlayerName { get; set; }
+}
