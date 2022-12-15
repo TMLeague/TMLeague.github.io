@@ -6,7 +6,6 @@ using System.Net.Http.Json;
 using TMApplication.Providers;
 using TMInfrastructure.Http.Configuration;
 using TMModels;
-using TMModels.ThroneMaster;
 
 namespace TMInfrastructure.Http;
 
@@ -62,6 +61,16 @@ public class LocalApi : IDataProvider
 
         return await Get<Game>($"Game \"{gameId}\"",
             $"/data/games/{gameId}.json", cancellationToken);
+    }
+
+    public async Task<Results?> GetResults(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(leagueId);
+        ArgumentNullException.ThrowIfNull(seasonId);
+        ArgumentNullException.ThrowIfNull(divisionId);
+
+        return await Get<Results>($"Results \"{leagueId.ToUpper()}/{seasonId.ToUpper()}/{divisionId.ToUpper()}\"",
+            $"/data/results/{leagueId}/{seasonId}/{divisionId}.json", cancellationToken);
     }
 
     private async Task<T?> Get<T>(string logName, string requestUri, CancellationToken cancellationToken) where T : class

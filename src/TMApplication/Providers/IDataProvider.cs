@@ -1,5 +1,4 @@
 ﻿using TMModels;
-using TMModels.ThroneMaster;
 
 namespace TMApplication.Providers;
 
@@ -11,4 +10,5 @@ public interface IDataProvider
     public Task<Division?> GetDivision(string? leagueId, string seasonId, string divisionId,
         CancellationToken cancellationToken);
     public Task<Game?> GetGame(uint gameId, CancellationToken cancellationToken);
+    public Task<Results?> GetResults(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken);
 };

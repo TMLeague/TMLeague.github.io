@@ -99,9 +99,12 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
         }
         catch (HttpRequestException ex)
         {
-            if (ex.StatusCode == HttpStatusCode.NotFound)
-                _logger.LogWarning($"{logName} is not configured properly! It's configuration file should be here: \"{requestUri}\"");
-            _cache.Set(requestUri, 0);
+            _logger.LogWarning(
+                $"{logName} is not reachable ({ex.StatusCode}) under address: \"{requestUri}\"");
+
+            if (ex.StatusCode == HttpStatusCode.NotFound) 
+                _cache.Set(requestUri, 0);
+
             return null;
         }
         catch (Exception ex)

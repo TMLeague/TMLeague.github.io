@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using TMModels;
 
 namespace TMGameImporter.Files;
@@ -6,10 +7,12 @@ namespace TMGameImporter.Files;
 internal class FileSaver
 {
     private readonly PathProvider _pathProvider;
+    private readonly ILogger<FileSaver> _logger;
 
-    public FileSaver(PathProvider pathProvider)
+    public FileSaver(PathProvider pathProvider, ILogger<FileSaver> logger)
     {
         _pathProvider = pathProvider;
+        _logger = logger;
     }
 
     public async Task SaveGame(Game game, uint gameId, CancellationToken cancellationToken)
@@ -32,5 +35,13 @@ internal class FileSaver
         await using var fileStream = File.Create(path);
         stream.Seek(0, SeekOrigin.Begin);
         await stream.CopyToAsync(fileStream, cancellationToken);
+    }
+
+    public async Task SaveResults(Results results, string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken)
+    {
+        var path = _pathProvider.GetResultsFilePath(leagueId, seasonId, divisionId);
+        var data = JsonSerializer.Serialize(results);
+        await File.WriteAllTextAsync(path, data, cancellationToken);
+        _logger.LogInformation("File saved: {filePath}", path);
     }
 }

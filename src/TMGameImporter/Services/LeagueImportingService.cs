@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using TMGameImporter.Files;
+using TMModels;
 
 namespace TMGameImporter.Services;
 
@@ -23,12 +24,15 @@ internal class LeagueImportingService
         var league = await _fileLoader.LoadLeague(leagueId, cancellationToken);
         if (league == null)
         {
-            _logger.LogError(" League {leagueId} cannot be deserialized correctly.", 
+            _logger.LogError(" League {leagueId} cannot be deserialized correctly.",
                 leagueId.ToUpper());
             return;
         }
         foreach (var seasonId in league.Seasons)
-            await _seasonImportingService.Import(leagueId, seasonId, cancellationToken);
+            await _seasonImportingService.Import(leagueId, seasonId,
+                league.Scoring ??
+                new Scoring(2, 1, 4, new[] { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies }),
+                cancellationToken);
 
         _logger.LogInformation(" League {leagueId} imported.", leagueId.ToUpper());
     }

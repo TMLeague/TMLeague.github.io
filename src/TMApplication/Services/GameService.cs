@@ -18,11 +18,11 @@ public class GameService
         if (game == null)
             return null;
 
-        var progress = game.IsFinished ? 
-            100 : 
+        var progress = game.IsFinished ?
+            100 :
             game.IsStalling ?
                 97 :
                 100 * (double)game.Turn / 11;
-        return new GameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished, game.IsStalling, game.GetWinner());
+        return new GameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished, game.IsStalling, game.Winner, game.ModifiedDate);
     }
 }

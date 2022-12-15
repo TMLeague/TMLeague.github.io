@@ -17,7 +17,7 @@ internal class SeasonImportingService
         _logger = logger;
     }
 
-    public async Task Import(string leagueId, string seasonId, CancellationToken cancellationToken)
+    public async Task Import(string leagueId, string seasonId, Scoring scoring, CancellationToken cancellationToken)
     {
         _logger.LogInformation("  Season {leagueId}/{seasonId} import started...",
             leagueId.ToUpper(), seasonId.ToUpper());
@@ -30,7 +30,7 @@ internal class SeasonImportingService
             return;
         }
         foreach (var divisionId in season.Divisions)
-            await _divisionImportingService.Import(leagueId, seasonId, divisionId, cancellationToken);
+            await _divisionImportingService.Import(leagueId, seasonId, divisionId, scoring, cancellationToken);
 
         _logger.LogInformation("  Season {leagueId}/{seasonId} imported.",
             leagueId.ToUpper(), seasonId.ToUpper());

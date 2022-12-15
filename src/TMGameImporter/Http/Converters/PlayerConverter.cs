@@ -25,7 +25,7 @@ internal class PlayerConverter
         else
             country = flagNode.GetAttributeValue("title", string.Empty);
 
-        var rankPointsNode = html.DocumentNode.SelectNodes("//big[. = 'Rank Points']/parent::node()/parent::node()/th/big/a")?.FirstOrDefault();
+        var rankPointsNode = html.DocumentNode.SelectNodes("//big[. = 'Rank TotalPoints']/parent::node()/parent::node()/th/big/a")?.FirstOrDefault();
         uint rankPoints = 0;
         if (rankPointsNode == null)
             _logger.LogWarning("Rank points node not found!");

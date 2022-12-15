@@ -29,7 +29,7 @@ internal class StateConverter
                 .Select(row => row.Split(','))
                 .Where(row => row.Length == 4)
                 .Select(row => new HouseSpeed(HouseParser.Parse(row[0]),
-                    double.Parse(row[2], CultureInfo.InvariantCulture), uint.Parse(row[3])))
+                    double.Parse(row[2], CultureInfo.InvariantCulture), ushort.Parse(row[3])))
                 .ToArray();
 
             return new State(

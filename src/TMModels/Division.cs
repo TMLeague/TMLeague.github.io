@@ -8,8 +8,8 @@ public record Division(
     [property: JsonPropertyName("players")] string[] Players,
     [property: JsonPropertyName("games")] uint[] Games,
     [property: JsonPropertyName("penalties")] Penalty[]? Penalties,
-    [property: JsonPropertyName("isFinished")] bool IsFinished,
-    [property: JsonPropertyName("results")] PlayerResult[]? Results);
+    [property: JsonPropertyName("replaces")] Replace[]? Replaces,
+    [property: JsonPropertyName("isFinished")] bool IsFinished);
 
 public record Penalty(
     [property: JsonPropertyName("player")] string Player,
@@ -17,16 +17,7 @@ public record Penalty(
     [property: JsonPropertyName("points")] int Points,
     [property: JsonPropertyName("details")] string Details);
 
-public record PlayerResult(
-    string Player,
-    HouseResult[] Houses);
-
-public record HouseResult(
-    [property: JsonPropertyName("game")] string Game,
-    [property: JsonPropertyName("points")] ushort Points,
-    [property: JsonPropertyName("cla")] ushort Cla,
-    [property: JsonPropertyName("supply")] ushort Supply,
-    [property: JsonPropertyName("strongholds")] ushort Strongholds,
-    [property: JsonPropertyName("castles")] ushort Castles,
-    [property: JsonPropertyName("isWinner")] bool IsWinner
-);
+public record Replace(
+    [property: JsonPropertyName("from")] string From,
+    [property: JsonPropertyName("to")] string To,
+    [property: JsonPropertyName("game")] uint Game);

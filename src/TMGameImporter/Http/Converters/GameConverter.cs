@@ -39,7 +39,10 @@ internal class GameConverter
 
         var houses = GetHouses(state, log);
 
-        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn, state.Map, houses);
+        var winner = state.IsFinished ?
+            houses.First().Player : null;
+
+        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn, state.Map, houses, winner, DateTimeOffset.UtcNow);
     }
 
     private static HouseScore[] GetHouses(State state, Log? log)

@@ -4,5 +4,11 @@
   "backgroundImage": "data/leagues/sl/sl.png",
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=81775",
   "discord": "https://discord.gg/DkbBJpmjYM",
-  "seasons": [ "s7" ]
+  "seasons": [ "s7" ],
+  "scoring": {
+    "pointsPerStronghold": 2,
+    "pointsPerCastle": 1,
+    "pointsPerWin": 4,
+    "tiebreakers": [ "wins", "penalties", "cla", "supplies" ]
+  }
 }

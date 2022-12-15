@@ -30,6 +30,14 @@ internal class FileLoader
     public async Task<Player?> LoadPlayer(string playerName, CancellationToken cancellationToken) =>
         await DeserializeFile<Player>(_pathProvider.GetPlayerFilePath(playerName), false, cancellationToken);
 
+    public bool ExistsResults(string leagueId, string seasonId, string divisionId) =>
+        File.Exists(_pathProvider.GetResultsFilePath(leagueId, seasonId, divisionId));
+
+    private static readonly JsonSerializerOptions Options = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
     private static async Task<T?> DeserializeFile<T>(string path, bool throwErrorOnNotFound, CancellationToken cancellationToken)
     {
         if (!File.Exists(path))
@@ -40,6 +48,6 @@ internal class FileLoader
         }
 
         await using var stream = File.OpenRead(path);
-        return await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
+        return await JsonSerializer.DeserializeAsync<T>(stream, Options, cancellationToken: cancellationToken);
     }
 }

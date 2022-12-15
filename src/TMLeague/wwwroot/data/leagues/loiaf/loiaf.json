@@ -4,5 +4,11 @@
   "backgroundImage": "data/leagues/loiaf/loiaf.jpg",
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=58957",
   "discord": null,
-  "seasons": []
+  "seasons": [],
+  "scoring": {
+    "pointsPerStronghold": 1,
+    "pointsPerCastle": 1,
+    "pointsPerWin": 3,
+    "tiebreakers": [ "wins", "cla", "supplies", "powerTokens", "minutesPerMove" ]
+  }
 }

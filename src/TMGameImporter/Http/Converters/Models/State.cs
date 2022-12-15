@@ -15,7 +15,7 @@ internal record State(
     HouseSpeed[] Stats,
     string? Chat);
 
-internal record HouseSpeed(House House, double MinutesPerMove, uint MovesCount);
+internal record HouseSpeed(House House, double MinutesPerMove, ushort MovesCount);
 
 internal record Area(bool IsEnabled, AreaType Type, ushort Id, string Name);
 

@@ -41,6 +41,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\data\games\" />
     <Folder Include="wwwroot\data\players\" />
+    <Folder Include="wwwroot\data\results\" />
+    <Folder Include="wwwroot\data\results\sl\s7\" />
   </ItemGroup>
 
   <ItemGroup>

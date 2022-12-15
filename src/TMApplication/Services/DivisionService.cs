@@ -1,5 +1,6 @@
 ﻿using TMApplication.Providers;
 using TMApplication.ViewModels;
+using TMModels;
 
 namespace TMApplication.Services;
 
@@ -21,7 +22,7 @@ public class DivisionService
         var games = new List<GameSummaryViewModel?>();
 
         if (division == null)
-            return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, 0, games, null);
+            return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, null, 0, games, null, DateTimeOffset.Now);
 
         var progress = 0.0;
         foreach (var gameId in division.Games)
@@ -36,6 +37,19 @@ public class DivisionService
 
         progress /= games.Count;
 
-        return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games, null);
+        var winnerPlayerName = await GetWinner(leagueId, seasonId, divisionId, division, cancellationToken);
+
+        var lastModifiedDate = games.Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
+        return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games, winnerPlayerName, lastModifiedDate.ToLocalTime());
+    }
+
+    private async Task<string?> GetWinner(string leagueId, string seasonId, string divisionId,
+        Division division, CancellationToken cancellationToken)
+    {
+        if (!division.IsFinished)
+            return null;
+
+        var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+        return results?.Players.First().Player;
     }
 }

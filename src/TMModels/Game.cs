@@ -9,13 +9,9 @@ public record Game(
     [property: JsonPropertyName("isStalling")] bool IsStalling,
     [property: JsonPropertyName("turn")] uint Turn,
     [property: JsonPropertyName("map")] Map Map,
-    [property: JsonPropertyName("houses")] HouseScore[] Houses)
-{
-    public string? GetWinner() =>
-        IsFinished ?
-            Houses.First().Player :
-            null;
-}
+    [property: JsonPropertyName("houses")] HouseScore[] Houses,
+    [property: JsonPropertyName("winner")] string? Winner,
+    [property: JsonPropertyName("modifiedDate")] DateTimeOffset ModifiedDate);
 
 public record HouseScore(
     [property: JsonPropertyName("name")] House House,
@@ -29,7 +25,7 @@ public record HouseScore(
     [property: JsonPropertyName("castles")] ushort Castles,
     [property: JsonPropertyName("cla")] ushort Cla,
     [property: JsonPropertyName("minutesPerMove")] double MinutesPerMove,
-    [property: JsonPropertyName("moves")] uint Moves,
+    [property: JsonPropertyName("moves")] ushort Moves,
     [property: JsonPropertyName("battlesInTurn")] ushort[] BattlesInTurn) : IComparable<HouseScore>
 {
     public int CompareTo(HouseScore? otherHouse)

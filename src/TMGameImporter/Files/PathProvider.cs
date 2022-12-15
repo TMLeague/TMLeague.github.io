@@ -10,6 +10,7 @@ internal class PathProvider
     private const string Divisions = "divisions";
     private const string Games = "games";
     private const string Players = "players";
+    private const string Results = "results";
 
     private readonly IOptions<ImporterOptions> _options;
 
@@ -51,5 +52,14 @@ internal class PathProvider
     {
         Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Players));
         return Path.Combine(_options.Value.BaseLocation, Players, $"{playerName}.jpeg");
+    }
+
+    public string GetResultsFilePath(string leagueId, string seasonId, string divisionId)
+    {
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results));
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results, leagueId));
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results, leagueId, seasonId));
+        return Path.Combine(_options.Value.BaseLocation,
+            Results, leagueId, seasonId, $"{divisionId}.json");
     }
 }
