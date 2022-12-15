@@ -33,16 +33,17 @@ internal class StateConverter
                 .ToArray();
 
             return new State(
-                stateRaw.Time,
-                chat,
                 GetGameId(setup),
+                GetName(setup),
+                stateRaw.Time,
                 GetIsFinished(setup),
                 GetTurn(data),
                 GetHousesDataRaw(data),
                 GetHousesOrder(setup),
                 GetPlayers(setup),
                 GetMap(setup, data),
-                stats);
+                stats,
+                chat);
         }
         catch (Exception ex)
         {
@@ -52,6 +53,8 @@ internal class StateConverter
     }
 
     private static uint? GetGameId(Setup setup) => uint.Parse(setup["g-id"]);
+
+    private static string GetName(Setup setup) => setup["g-ttl"];
 
     private static bool GetIsFinished(Setup setup) => setup["g-stts"] != "1";
 

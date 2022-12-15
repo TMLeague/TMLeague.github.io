@@ -4,11 +4,18 @@ namespace TMModels;
 
 public record Game(
     [property: JsonPropertyName("id")] uint Id,
+    [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("isFinished")] bool IsFinished,
     [property: JsonPropertyName("isStalling")] bool IsStalling,
     [property: JsonPropertyName("turn")] uint Turn,
     [property: JsonPropertyName("map")] Map Map,
-    [property: JsonPropertyName("houses")] HouseScore[] Houses);
+    [property: JsonPropertyName("houses")] HouseScore[] Houses)
+{
+    public string? GetWinner() =>
+        IsFinished ?
+            Houses.First().Player :
+            null;
+}
 
 public record HouseScore(
     [property: JsonPropertyName("name")] House House,
@@ -31,7 +38,7 @@ public record HouseScore(
             return 1;
 
         if (Castles + Strongholds != otherHouse.Castles + otherHouse.Strongholds)
-            return Castles + Strongholds - otherHouse.Castles + otherHouse.Strongholds;
+            return Castles + Strongholds - (otherHouse.Castles + otherHouse.Strongholds);
 
         if (Cla != otherHouse.Cla)
             return Cla - otherHouse.Cla;

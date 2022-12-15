@@ -33,6 +33,7 @@ public class GameConverterTests
         // assert
         game.Should().NotBeNull();
         game!.Id.Should().Be(gameId);
+        game.Name.Should().Be("PBEM - Silent League S5/D1/G3");
         game.IsFinished.Should().BeTrue();
         game.IsStalling.Should().BeFalse();
         game.Turn.Should().Be(10);
@@ -67,6 +68,14 @@ public class GameConverterTests
         var portOfDragonstone = game.Map.Ports.FirstOrDefault(port => port.Name == "Port of Dragonstone");
         portOfDragonstone.Should().NotBeNull();
         portOfDragonstone!.Ships.Should().Be(1);
+
+        game.Houses.Should().HaveCount(6);
+        game.Houses[0].House.Should().Be(House.Martell);
+        game.Houses[1].House.Should().Be(House.Stark);
+        game.Houses[2].House.Should().Be(House.Greyjoy);
+        game.Houses[3].House.Should().Be(House.Baratheon);
+        game.Houses[4].House.Should().Be(House.Lannister);
+        game.Houses[5].House.Should().Be(House.Tyrell);
 
         var baratheon = game.Houses.FirstOrDefault(house => house.House == House.Baratheon);
         baratheon!.PowerTokens.Should().Be(1);

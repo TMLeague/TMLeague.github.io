@@ -2,6 +2,7 @@
 @using TMApplication.ViewModels
 @inject DivisionService DivisionService
 @inject GameService GameService
+@inject IJSRuntime Js
 
 <h5>@(Division?.DivisionName ?? "Division")</h5>
 
@@ -11,7 +12,7 @@
 }
 else
 {
-    <div class="progress" tabindex="0" data-toggle="tooltip" title="Test tooltip content">
+    <div class="progress" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Test tooltip content">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
          role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)Division.Progress)"
          aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)Division.Progress}%")"></div>
@@ -29,6 +30,11 @@ else
     public string? DivisionId { get; set; }
 
     private DivisionSummaryViewModel? Division { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Js.InvokeVoidAsync("addTooltips");
+    }
 
     protected override async Task OnInitializedAsync()
     {

@@ -3,16 +3,17 @@
 namespace TMGameImporter.Http.Converters.Models;
 
 internal record State(
-    DateTimeOffset Time,
-    string? Chat,
     uint? GameId,
+    string Name,
+    DateTimeOffset Time,
     bool IsFinished,
     uint Turn,
     string HousesDataRaw,
     House[] HousesOrder,
     string[] Players,
     Map Map,
-    HouseSpeed[] Stats);
+    HouseSpeed[] Stats,
+    string? Chat);
 
 internal record HouseSpeed(House House, double MinutesPerMove, uint MovesCount);
 

@@ -39,18 +39,23 @@ internal class GameConverter
 
         var houses = GetHouses(state, log);
 
-        return new Game(gameId, state.IsFinished, isStalling, state.Turn, state.Map, houses);
+        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn, state.Map, houses);
     }
 
-    private HouseScore[] GetHouses(State state, Log? log)
+    private static HouseScore[] GetHouses(State state, Log? log)
     {
         const ushort houseSize = 6;
 
         var logsPerTurn = log?.Logs.GroupBy(item => item.Turn);
 
-        return state.HousesOrder.Select((house, i) =>
-            GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn))
+        var houses = state.HousesOrder.Select((house, i) =>
+                GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn))
             .ToArray();
+
+        Array.Sort(houses);
+        Array.Reverse(houses);
+
+        return houses;
     }
 
     private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IEnumerable<IGrouping<uint, LogItem>>? logsPerTurn)
