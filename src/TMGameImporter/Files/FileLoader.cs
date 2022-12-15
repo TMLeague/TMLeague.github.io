@@ -13,24 +13,31 @@ internal class FileLoader
     }
 
     public async Task<Home?> LoadHome(CancellationToken cancellationToken) =>
-        await DeserializeFile<Home>(_pathProvider.GetConfigFilePath(), cancellationToken);
+        await DeserializeFile<Home>(_pathProvider.GetConfigFilePath(), true, cancellationToken);
 
     public async Task<League?> LoadLeague(string leagueId, CancellationToken cancellationToken) =>
-        await DeserializeFile<League>(_pathProvider.GetConfigFilePath(leagueId), cancellationToken);
+        await DeserializeFile<League>(_pathProvider.GetConfigFilePath(leagueId), true, cancellationToken);
 
     public async Task<Season?> LoadSeason(string leagueId, string seasonId, CancellationToken cancellationToken) =>
-        await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId, seasonId), cancellationToken);
+        await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId, seasonId), true, cancellationToken);
 
     public async Task<Division?> LoadDivision(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken) =>
-        await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId, seasonId, divisionId), cancellationToken);
+        await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId, seasonId, divisionId), true, cancellationToken);
 
     public async Task<Game?> LoadGame(uint gameId, CancellationToken cancellationToken) =>
-        await DeserializeFile<Game>(_pathProvider.GetGamePath(gameId), cancellationToken);
+        await DeserializeFile<Game>(_pathProvider.GetGamePath(gameId), false, cancellationToken);
 
-    private static async Task<T?> DeserializeFile<T>(string path, CancellationToken cancellationToken)
+    public async Task<Player?> LoadPlayer(string playerName, CancellationToken cancellationToken) =>
+        await DeserializeFile<Player>(_pathProvider.GetPlayerFilePath(playerName), false, cancellationToken);
+
+    private static async Task<T?> DeserializeFile<T>(string path, bool throwErrorOnNotFound, CancellationToken cancellationToken)
     {
         if (!File.Exists(path))
-            throw new FileNotFoundException($"File not found! It should be located here: {path}");
+        {
+            if (throwErrorOnNotFound)
+                throw new FileNotFoundException($"File not found! It should be located here: {path}");
+            return default;
+        }
 
         await using var stream = File.OpenRead(path);
         return await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
