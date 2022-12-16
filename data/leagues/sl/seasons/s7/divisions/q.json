@@ -6,12 +6,10 @@
     "Cambeia",
     "DawidW",
     "gauntlet",
-    "Julian",
-    "Snow",
+    "JulianSnow",
     "PawcioF",
     "rasmus842",
-    "sigi",
-    "reuven",
+    "Sigi Reuven",
     "spartan109",
     "Turambar"
   ],
@@ -27,6 +25,47 @@
     286039,
     285992
   ],
-  "penalties": null,
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "spartan109",
+      "points": 10,
+      "details": "for KM"
+    },
+    {
+      "player": "PawcioF",
+      "points": 2,
+      "details": "for not delying"
+    },
+    {
+      "player": "DawidW",
+      "points": 3,
+      "details": "for not delying"
+    },
+    {
+      "player": "rasmus842",
+      "points": 5,
+      "details": "for KM"
+    },
+    {
+      "player": "Cambeia",
+      "points": 2,
+      "details": "for not delying"
+    },
+    {
+      "player": "BarteqZw",
+      "points": 1,
+      "details": "for not delying"
+    },
+    {
+      "player": "gauntlet",
+      "points": 2,
+      "details": "for not delying"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 5,
+      "details": "for KM"
+    }
+  ],
+  "isFinished": true
 }
