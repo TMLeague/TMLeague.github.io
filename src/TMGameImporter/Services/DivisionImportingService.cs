@@ -65,15 +65,14 @@ internal class DivisionImportingService
 
     private static PlayerResult GetPlayerResults(string playerName, IEnumerable<Game> games, Scoring scoring, Division division)
     {
-        var penalties = GetPenalties(playerName, division);
-        var penaltiesPoints = (ushort)penalties.Sum(penalty => penalty.Points);
         var houseResults = GetHouses(playerName, division.Replaces ?? Array.Empty<Replace>(), games, scoring);
+        var penalties = GetPenalties(playerName, division, houseResults);
+        var penaltiesPoints = (ushort)penalties.Sum(penalty => penalty.Points);
         var moves = (ushort)houseResults.Sum(houseResult => houseResult.Moves);
         var minutesPerMove = moves == 0 ?
             0 : houseResults.Sum(houseResult => houseResult.MinutesPerMove * houseResult.Moves) / moves;
         return new PlayerResult(playerName,
             (short)(houseResults.Sum(houseResult => houseResult.Points) - penaltiesPoints),
-            penaltiesPoints,
             (ushort)houseResults.Count(houseResult => houseResult.IsWinner),
             (ushort)houseResults.Sum(houseResult => houseResult.Cla),
             (ushort)houseResults.Sum(houseResult => houseResult.Supplies),
@@ -81,6 +80,7 @@ internal class DivisionImportingService
             minutesPerMove,
             moves,
             houseResults,
+            penaltiesPoints,
             penalties);
     }
 
@@ -101,10 +101,10 @@ internal class DivisionImportingService
     {
         var isWinner = game.Houses.First().House == houseScore.House;
         return new HouseResult(game.Id,
+            houseScore.House,
             isWinner,
-            (ushort)(scoring.PointsPerStronghold * houseScore.Strongholds +
-                     scoring.PointsPerCastle * houseScore.Castles +
-                     (isWinner ? scoring.PointsPerWin : 0)),
+            GetPointsForGame(houseScore, isWinner, scoring),
+            GetBattlePenalty(game, houseScore, scoring),
             houseScore.Strongholds,
             houseScore.Castles,
             houseScore.Cla,
@@ -114,15 +114,38 @@ internal class DivisionImportingService
             houseScore.Moves);
     }
 
-    private static PlayerPenalty[] GetPenalties(string playerName, Division division) =>
+    private static ushort GetPointsForGame(HouseScore houseScore, bool isWinner, Scoring scoring)
+    {
+        return (ushort)(scoring.PointsPerStronghold * houseScore.Strongholds +
+                        scoring.PointsPerCastle * houseScore.Castles +
+                        (isWinner ? scoring.PointsPerWin : 0));
+    }
+
+    private static ushort GetBattlePenalty(Game game, HouseScore houseScore, Scoring scoring)
+    {
+        if (game.Turn < 10)
+            return 0;
+
+        var battlesBefore10ThTurn = houseScore.BattlesInTurn[..9].Sum(battlesInTurn => battlesInTurn);
+        return (ushort)Math.Max(0, scoring.RequiredBattlesBefore10thTurn - battlesBefore10ThTurn);
+    }
+
+    private static PlayerPenalty[] GetPenalties(string playerName, Division division, IEnumerable<HouseResult> houseResults) =>
         division.Penalties?
             .Where(penalty => penalty.Player == playerName)
             .Select(penalty => new PlayerPenalty(penalty.Game, penalty.Points, penalty.Details))
+            .Concat(houseResults
+                .Where(houseResult => houseResult.BattlePenalty > 0)
+                .Select(houseResult => new PlayerPenalty(houseResult.Game,
+                    houseResult.BattlePenalty, "for not enough battles before 10th round")))
             .ToArray() ??
         Array.Empty<PlayerPenalty>();
 
-    private static int Compare(PlayerResult p1, PlayerResult p2, Tiebreaker[] tiebreakers)
+    private static int Compare(PlayerResult p1, PlayerResult p2, IEnumerable<Tiebreaker> tiebreakers)
     {
+        if (p1.TotalPoints != p2.TotalPoints)
+            return p1.TotalPoints - p2.TotalPoints;
+
         foreach (var tiebreaker in tiebreakers)
         {
             switch (tiebreaker)

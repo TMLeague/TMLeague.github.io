@@ -13,18 +13,18 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-3 overflow-auto">
-            <Champion></Champion>
+        <div class="col-sm-3 overflow-auto bg-dark-container">
+            <Champion LeagueId="@LeagueId"></Champion>
         </div>
-        <div class="col-sm-3 overflow-auto">
+        <div class="col-sm-3 overflow-auto bg-dark-container">
             <AllChampions></AllChampions>
         </div>
-        <div class="col-sm-6 overflow-auto">
+        <div class="col-sm-6 overflow-auto bg-dark-container">
             <HallOfFame></HallOfFame>
         </div>
     </div>
     <div class="row">
-        <div class="col overflow-auto">
+        <div class="col overflow-auto bg-dark-container">
             @if (LeagueDetails == null)
             {
                 <Loading></Loading>

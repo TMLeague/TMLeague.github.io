@@ -6,33 +6,33 @@
 @inject GameService GameService
 @inject IJSRuntime Js
 
-<h5>@(Division?.DivisionName ?? "Division")</h5>
+<h5>@(DivisionVm?.DivisionName ?? "DivisionVm")</h5>
 
-@if (Division == null)
+@if (DivisionVm == null)
 {
     <Loading></Loading>
 }
 else
 {
-    @if (Division.WinnerPlayerName != null)
+    @if (DivisionVm.WinnerPlayerName != null)
     {
         <div class="container">
             <span>Win: </span>
 
-            <PlayerLink PlayerName="@Division.WinnerPlayerName"></PlayerLink>
+            <PlayerLink PlayerName="@DivisionVm.WinnerPlayerName"></PlayerLink>
         </div>
     }
     else
     {
         <div class="progress mb-1">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-         role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)Division.Progress)"
-         aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)Division.Progress}%")"></div>
+         role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)DivisionVm.Progress)"
+         aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)DivisionVm.Progress}%")"></div>
         </div>
     }
     <div class="container @(ShowDetails ? "" : "d-none")">
         <div class="row">
-            @foreach (var (game, i) in Division.Games.Select((model, i) => (model, i)))
+            @foreach (var (game, i) in DivisionVm.Games.Select((model, i) => (model, i)))
             {
                 <div class="col-2 col-sm-3 col-md-2 col-xl-1">
                     @if (game == null)
@@ -65,7 +65,7 @@ else
             }
         </div>
     </div>
-    <button class="btn btn-primary w-100 mb-1 @(ShowDetails || Division.WinnerPlayerName != null ? "rounded-0 rounded-bottom" : "")"
+    <button class="btn btn-primary w-100 mb-1 @(ShowDetails || DivisionVm.WinnerPlayerName != null ? "rounded-0 rounded-bottom" : "")"
         @onclick="ChangeVisibility">
         @(ShowDetails ? "Hide" : "Show") game details
     </button>
@@ -83,7 +83,7 @@ else
 
     private bool ShowDetails { get; set; } = false;
 
-    private DivisionSummaryViewModel? Division { get; set; }
+    private DivisionSummaryViewModel? DivisionVm { get; set; }
 
     private void ChangeVisibility() => ShowDetails = !ShowDetails;
 
@@ -92,6 +92,6 @@ else
         if (LeagueId == null || SeasonId == null || DivisionId == null)
             return;
 
-        Division = await DivisionService.GetDivisionSummaryVm(LeagueId, SeasonId, DivisionId);
+        DivisionVm = await DivisionService.GetDivisionSummaryVm(LeagueId, SeasonId, DivisionId);
     }
 }

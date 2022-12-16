@@ -1,3 +1,15 @@
-﻿<div class="h1 spinner-border text-primary m-auto" style="width: 20vh; height: 20vh;" role="status">
-    <span class="sr-only"></span>
+﻿<div class="container" style="min-height: @($"{SizeValue}{SizeUnit}"); min-width: @($"{SizeValue}{SizeUnit}")">
+    <div class="h1 spinner-border text-primary m-auto" style="width: @Size; height: @Size;" role="status">
+        <span class="sr-only"></span>
+    </div>
 </div>
+
+@code
+{
+    [Parameter]
+    public string Size { get; set; } = "20vh";
+
+    private int SizeValue => (int)Math.Ceiling(int.Parse(new string(Size.Where(char.IsDigit).ToArray())) * 1.25);
+
+    private string SizeUnit => new(Size.Where(c => !char.IsDigit(c)).ToArray());
+}

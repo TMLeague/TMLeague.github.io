@@ -1,7 +1,43 @@
-﻿<h4>Champion</h4>
+﻿@using TMApplication.Services
+@using TMApplication.ViewModels
+@inject LeagueService LeagueService
+@inject ILogger<Champion> Logger
 
-<TMLeague.Components.WorkInProgress></TMLeague.Components.WorkInProgress>
+<h4>@(ChampionVm?.Title ?? "Champion")</h4>
+
+@if (ChampionVm == null)
+{
+    @if (_isInitialized)
+    {
+        <div class="lead">x</div>
+    }
+    else
+    {
+        <Loading Size="10vh"></Loading>
+    }
+}
+else
+{
+    <h4 class="fw-bold fst-italic">@ChampionVm.PlayerName</h4>
+}
 
 @code {
-    
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    private SeasonChampionViewModel? ChampionVm { get; set; }
+
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (LeagueId == null)
+        {
+            _isInitialized = true;
+            Logger.LogError($"Parameter {LeagueId} is required!");
+            return;
+        }
+
+        ChampionVm = await LeagueService.GetLeagueChampionVm(LeagueId);
+    }
 }

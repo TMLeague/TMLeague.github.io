@@ -24,8 +24,17 @@ a, .btn-link {
     border-color: #333 !important;
 }
 
-/* Buttons */
+.bg-dark-container {
+    background-color: #25292C !important;
+    border: 3px solid #212529;
+}
 
+.bg-dark-container-2 {
+    background-color: #292C2F !important;
+    border: 3px solid #25292C;
+}
+
+/* Buttons */
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:focus {

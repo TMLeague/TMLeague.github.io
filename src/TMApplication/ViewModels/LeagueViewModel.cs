@@ -46,3 +46,10 @@ public record GamePlayerSummaryViewModel(
     string Name,
     House House,
     string? AvatarUri);
+
+public record LeagueChampionsViewModel(
+    SeasonChampionViewModel[] Champions);
+
+public record SeasonChampionViewModel(
+    string? PlayerName = null,
+    string? Title = null);

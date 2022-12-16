@@ -19,4 +19,26 @@ public class SeasonService
         return new SeasonSummaryViewModel(leagueId, seasonId, season?.Name,
             season?.Divisions ?? Array.Empty<string>());
     }
+
+    public async Task<SeasonChampionViewModel> GetSeasonChampionVm(
+        string leagueId, string seasonId, CancellationToken cancellationToken)
+    {
+        var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
+        if (season == null)
+            return new SeasonChampionViewModel();
+
+        var divisionId = season.Divisions.First();
+        var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null)
+            return new SeasonChampionViewModel();
+
+        if (division.IsFinished)
+        {
+            var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+            if (results != null)
+                return new SeasonChampionViewModel(results.Players.First().Player, division.WinnerTitle);
+        }
+
+        return new SeasonChampionViewModel();
+    }
 }

@@ -31,7 +31,7 @@ internal class LeagueImportingService
         foreach (var seasonId in league.Seasons)
             await _seasonImportingService.Import(leagueId, seasonId,
                 league.Scoring ??
-                new Scoring(2, 1, 4, new[] { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies }),
+                new Scoring(2, 1, 4, 0, new[] { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies }),
                 cancellationToken);
 
         _logger.LogInformation(" League {leagueId} imported.", leagueId.ToUpper());

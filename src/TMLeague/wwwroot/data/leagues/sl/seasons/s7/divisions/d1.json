@@ -29,9 +29,10 @@
     {
       "player": "Nightcrawler",
       "game": 285887,
-      "points": -5,
+      "points": 5,
       "details": "for KM - Martell should take Kings Landing when it was empty"
     }
   ],
-  "isFinished": false
+  "isFinished": true,
+  "winnerTitle": "Silent Champion"
 }

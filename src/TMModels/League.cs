@@ -16,6 +16,7 @@ public record Scoring(
     [property: JsonPropertyName("pointsPerStronghold")] ushort PointsPerStronghold,
     [property: JsonPropertyName("pointsPerCastle")] ushort PointsPerCastle,
     [property: JsonPropertyName("pointsPerWin")] ushort PointsPerWin,
+    [property: JsonPropertyName("requiredBattlesBefore10thTurn")] ushort RequiredBattlesBefore10thTurn,
     [property: JsonPropertyName("tiebreakers")] Tiebreaker[] Tiebreakers
 );
 
