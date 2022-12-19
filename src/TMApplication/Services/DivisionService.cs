@@ -28,9 +28,6 @@ public class DivisionService
         foreach (var gameId in division.Games)
         {
             var game = await _gameService.GetGameSummaryVm(gameId, cancellationToken);
-            if (game == null)
-                continue;
-
             games.Add(game);
             progress += game.Progress;
         }

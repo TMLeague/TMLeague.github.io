@@ -2,6 +2,7 @@
 @using TMApplication.Services
 @using TMApplication.ViewModels
 @inject SeasonService SeasonService
+@inject ILogger<SeasonSummary> Logger
 
 <h4>@(SeasonSummaryDetails?.SeasonName ?? "Season") summary</h4>
 
@@ -9,7 +10,14 @@
     <div class="row">
         @if (SeasonSummaryDetails == null)
         {
-            <Loading></Loading>
+            @if (_isInitialized)
+            {
+                <div class="lead">The league has no seasons.</div>
+            }
+            else
+            {
+                <Loading></Loading>
+            }
         }
         else
         {
@@ -32,9 +40,15 @@
 
     private SeasonSummaryViewModel? SeasonSummaryDetails { get; set; }
 
+    private bool _isInitialized;
+
     protected override async Task OnInitializedAsync()
     {
         if (LeagueId != null && SeasonId != null)
             SeasonSummaryDetails = await SeasonService.GetSeasonSummaryVm(LeagueId, SeasonId);
+        else
+            Logger.LogError($"Parameters {nameof(LeagueId)} and {nameof(SeasonId)} are required!");
+
+        _isInitialized = true;
     }
 }

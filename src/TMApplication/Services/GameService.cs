@@ -12,11 +12,11 @@ public class GameService
         _dataProvider = dataProvider;
     }
 
-    public async Task<GameSummaryViewModel?> GetGameSummaryVm(uint gameId, CancellationToken cancellationToken = default)
+    public async Task<GameSummaryViewModel> GetGameSummaryVm(uint gameId, CancellationToken cancellationToken = default)
     {
         var game = await _dataProvider.GetGame(gameId, cancellationToken);
         if (game == null)
-            return null;
+            return new GameSummaryViewModel(gameId, null, 0, 0, false, false, null, null);
 
         var progress = game.IsFinished ?
             100 :

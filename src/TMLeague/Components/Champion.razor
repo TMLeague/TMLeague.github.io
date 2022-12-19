@@ -9,7 +9,7 @@
 {
     @if (_isInitialized)
     {
-        <div class="lead">x</div>
+        <div class="lead">The league has no champion.</div>
     }
     else
     {
@@ -31,13 +31,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (LeagueId == null)
-        {
-            _isInitialized = true;
-            Logger.LogError($"Parameter {LeagueId} is required!");
-            return;
-        }
+        if (LeagueId != null)
+            ChampionVm = await LeagueService.GetLeagueChampionVm(LeagueId);
+        else
+            Logger.LogError($"Parameter {nameof(LeagueId)} is required!");
 
-        ChampionVm = await LeagueService.GetLeagueChampionVm(LeagueId);
+        _isInitialized = true;
     }
 }

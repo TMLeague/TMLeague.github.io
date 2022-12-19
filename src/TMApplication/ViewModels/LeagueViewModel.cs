@@ -26,19 +26,19 @@ public record DivisionSummaryViewModel(
     string DivisionId,
     string? DivisionName,
     double Progress,
-    IReadOnlyCollection<GameSummaryViewModel?> Games,
+    IReadOnlyCollection<GameSummaryViewModel> Games,
     string? WinnerPlayerName,
     DateTimeOffset GeneratedTime);
 
 public record GameSummaryViewModel(
     uint Id,
-    string Name,
+    string? Name,
     double Progress,
     uint Turn,
     bool IsFinished,
     bool IsStalling,
     string? WinnerPlayerName,
-    DateTimeOffset GeneratedTime
+    DateTimeOffset? GeneratedTime
 );
 
 public record GamePlayerSummaryViewModel(
