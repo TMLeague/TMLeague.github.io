@@ -4,7 +4,11 @@
 @inject SeasonService SeasonService
 @inject ILogger<SeasonSummary> Logger
 
-<h4>@(SeasonSummaryDetails?.SeasonName ?? "Season") summary</h4>
+<h4>
+    <a class="text-white" href="@($"league/{LeagueId}/season/{SeasonId}")">
+        @(SeasonSummaryDetails?.SeasonName ?? "Season")
+    </a> summary
+</h4>
 
 <div class="container">
     <div class="row">

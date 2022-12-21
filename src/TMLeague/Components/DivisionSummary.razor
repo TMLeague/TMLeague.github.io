@@ -4,9 +4,12 @@
 @using TMLeague.Components
 @inject DivisionService DivisionService
 @inject GameService GameService
-@inject IJSRuntime Js
 
-<h5>@(DivisionVm?.DivisionName ?? "DivisionVm")</h5>
+<h5>
+    <a class="text-white" href="@($"league/{LeagueId}/season/{SeasonId}/{DivisionId}")">
+        @(DivisionVm?.DivisionName ?? "Division")
+    </a>
+</h5>
 
 @if (DivisionVm == null)
 {
@@ -17,7 +20,7 @@ else
     @if (DivisionVm.WinnerPlayerName != null)
     {
         <div class="container">
-            <span>Win: </span>
+            <span>Winner: </span>
 
             <PlayerLink PlayerName="@DivisionVm.WinnerPlayerName"></PlayerLink>
         </div>
@@ -30,7 +33,7 @@ else
          aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)DivisionVm.Progress}%")"></div>
         </div>
     }
-    <div class="container @(ShowDetails ? "" : "d-none")">
+    <div class="container collapse @(ShowDetails ? "show" : "")">
         <div class="row">
             @foreach (var (game, i) in DivisionVm.Games.Select((model, i) => (model, i)))
             {
@@ -76,9 +79,9 @@ else
     [Parameter]
     public string? DivisionId { get; set; }
 
-    private bool ShowDetails { get; set; } = false;
-
     private DivisionSummaryViewModel? DivisionVm { get; set; }
+
+    private bool ShowDetails { get; set; } = false;
 
     private void ChangeVisibility() => ShowDetails = !ShowDetails;
 

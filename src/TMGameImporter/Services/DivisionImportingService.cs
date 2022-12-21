@@ -130,16 +130,16 @@ internal class DivisionImportingService
         return (ushort)Math.Max(0, scoring.RequiredBattlesBefore10thTurn - battlesBefore10ThTurn);
     }
 
-    private static PlayerPenalty[] GetPenalties(string playerName, Division division, IEnumerable<HouseResult> houseResults) =>
-        division.Penalties?
+    private static PlayerPenalty[] GetPenalties(string playerName, Division division, IEnumerable<HouseResult> houseResults)
+    {
+        var divisionPenalties = division.Penalties?
             .Where(penalty => penalty.Player == playerName)
-            .Select(penalty => new PlayerPenalty(penalty.Game, penalty.Points, penalty.Details))
-            .Concat(houseResults
-                .Where(houseResult => houseResult.BattlePenalty > 0)
-                .Select(houseResult => new PlayerPenalty(houseResult.Game,
-                    houseResult.BattlePenalty, "for not enough battles before 10th round")))
-            .ToArray() ??
-        Array.Empty<PlayerPenalty>();
+            .Select(penalty => new PlayerPenalty(penalty.Game, penalty.Points, penalty.Details));
+        var battlePenalties = houseResults
+            .Where(houseResult => houseResult.BattlePenalty > 0)
+            .Select(houseResult => new PlayerPenalty(houseResult.Game, houseResult.BattlePenalty, "for not enough battles before 10th round"));
+        return (divisionPenalties?.Concat(battlePenalties) ?? battlePenalties).ToArray();
+    }
 
     private static int Compare(PlayerResult p1, PlayerResult p2, IEnumerable<Tiebreaker> tiebreakers)
     {

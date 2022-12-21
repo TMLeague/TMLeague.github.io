@@ -14,7 +14,7 @@
                 <path fill-rule="evenodd"
                   d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z" />
             </svg>
-            <NavLink class="navbar-brand" href=@($"/league/{LeagueId}/index") Match="NavLinkMatch.All">
+            <NavLink class="navbar-brand" href=@($"league/{LeagueId}/index") Match="NavLinkMatch.All">
                 Leagues
             </NavLink>
             <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -24,16 +24,13 @@
             <div class="collapse navbar-collapse @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <NavLink class="nav-link" href=@($"/league/{LeagueId}/summary") Match="NavLinkMatch.All">Summary</NavLink>
+                        <NavLink class="nav-link" href=@($"league/{LeagueId}/summary") Match="NavLinkMatch.All">Summary</NavLink>
                     </li>
                     <li class="nav-item">
-                        <NavLink class="nav-link" href=@($"/league/{LeagueId}/players")>Players</NavLink>
+                        <NavLink class="nav-link" href=@($"league/{LeagueId}/players") Match="NavLinkMatch.All">Players</NavLink>
                     </li>
                     <li class="nav-item">
-                        <NavLink class="nav-link" href=@($"/league/{LeagueId}/seasons")>Seasons</NavLink>
-                    </li>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href=@($"/league/{LeagueId}/judge")>Judge Panel</NavLink>
+                        <NavLink class="nav-link" href=@($"league/{LeagueId}/seasons") Match="NavLinkMatch.All">Seasons</NavLink>
                     </li>
                 </ul>
             </div>
@@ -59,7 +56,7 @@
 
     private void SetLeagueId(string location)
     {
-        var match = Regex.Match(location, "league/(.*)/", RegexOptions.IgnoreCase);
+        var match = Regex.Match(location, @"league\/([^\/]*)\/", RegexOptions.IgnoreCase);
         LeagueId = match.Success ? match.Groups[1].Value : null;
         StateHasChanged();
     }

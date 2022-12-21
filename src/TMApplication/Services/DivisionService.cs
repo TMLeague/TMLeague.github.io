@@ -19,7 +19,7 @@ public class DivisionService
     {
         var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
 
-        var games = new List<GameSummaryViewModel?>();
+        var games = new List<GameSummaryViewModel>();
 
         if (division == null)
             return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, null, 0, games, null, DateTimeOffset.Now);
@@ -49,4 +49,56 @@ public class DivisionService
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
         return results?.Players.First().Player;
     }
+
+    public async Task<DivisionViewModel?> GetDivisionVm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
+    {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+        if (league == null)
+            return null;
+
+        var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
+        if (season == null)
+            return null;
+
+        var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null)
+            return null;
+
+        var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+        return new DivisionViewModel(league.Name, season.Name, division.Name, division.Judge, division.IsFinished, division.WinnerTitle,
+            (results?.Players.Select(GetPlayerVm) ??
+             division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray());
+    }
+
+    private static DivisionPlayerViewModel GetPlayerVm(PlayerResult playerResult) => new(
+        playerResult.Player,
+        playerResult.TotalPoints,
+        playerResult.Wins,
+        playerResult.Cla,
+        playerResult.Supplies,
+        playerResult.PowerTokens,
+        playerResult.MinutesPerMove,
+        playerResult.Moves,
+        playerResult.Houses.Select(GetPlayerHouseVm).ToArray(),
+        playerResult.PenaltiesPoints,
+        playerResult.PenaltiesDetails.Select(GetPlayerPenaltyVm).ToArray());
+
+    private static PlayerHouseViewModel GetPlayerHouseVm(HouseResult houseResult) => new(
+        houseResult.Game,
+        houseResult.House,
+        houseResult.IsWinner,
+        houseResult.Points,
+        houseResult.BattlePenalty,
+        houseResult.Strongholds,
+        houseResult.Castles,
+        houseResult.Cla,
+        houseResult.Supplies,
+        houseResult.PowerTokens,
+        houseResult.MinutesPerMove,
+        houseResult.Moves);
+
+    private static PlayerPenaltyViewModel GetPlayerPenaltyVm(PlayerPenalty playerPenalty) => new(
+        playerPenalty.Game,
+        playerPenalty.Points,
+        playerPenalty.Details);
 }
