@@ -4,6 +4,7 @@
   "backgroundImage": "data/leagues/sl/sl.png",
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=81775",
   "discord": "https://discord.gg/DkbBJpmjYM",
+  "judgeTitle": "Many-Faced God",
   "seasons": [ "s7" ],
   "scoring": {
     "pointsPerStronghold": 2,
