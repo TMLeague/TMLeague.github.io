@@ -6,6 +6,7 @@ public record DivisionViewModel(
     string LeagueName,
     string SeasonName,
     string DivisionName,
+    string JudgeTitle,
     string Judge,
     bool IsFinished,
     string? WinnerTitle,

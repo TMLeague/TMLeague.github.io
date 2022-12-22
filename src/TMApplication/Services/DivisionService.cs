@@ -65,7 +65,7 @@ public class DivisionService
             return null;
 
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
-        return new DivisionViewModel(league.Name, season.Name, division.Name, division.Judge, division.IsFinished, division.WinnerTitle,
+        return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, division.IsFinished, division.WinnerTitle,
             (results?.Players.Select(GetPlayerVm) ??
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray());
     }
@@ -101,4 +101,13 @@ public class DivisionService
         playerPenalty.Game,
         playerPenalty.Points,
         playerPenalty.Details);
+
+    public async Task<string?> GetGameName(string leagueId, string seasonId, string divisionId, uint id, CancellationToken cancellationToken = default)
+    {
+        var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null)
+            return null;
+        var gameIdx = Array.IndexOf(division.Games, id);
+        return gameIdx < 0 ? null : $"G{gameIdx + 1}";
+    }
 }

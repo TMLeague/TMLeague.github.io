@@ -227,6 +227,7 @@ a, .btn-link {
     }
 
 /* Arrows */
+
 .arrow-up {
     width: 0;
     height: 0;
@@ -257,4 +258,39 @@ a, .btn-link {
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
     border-right: 5px solid #ddd;
+}
+
+/* Tooltip */
+
+.tt {
+    position: relative;
+}
+
+    .tt .tt-inner {
+        visibility: hidden;
+        width: 200px;
+        background-color: black;
+        text-align: center;
+        border-radius: 0 6px 6px 6px;
+        padding: 5px 1px;
+        position: absolute;
+        right: -180px;
+        top: 0;
+        z-index: 1;
+        opacity: 0.9;
+        font-size: 14px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    .tt:hover .tt-inner {
+        visibility: visible;
+    }
+
+.text-inherit {
+    color: inherit !important;
+}
+
+.list-group-flush > .list-group-item {
+    border-color: #000;
 }
