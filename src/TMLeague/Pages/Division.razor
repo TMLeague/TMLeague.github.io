@@ -2,6 +2,8 @@
 @using TMApplication.ViewModels
 @using TMApplication.Services
 @using TMLeague.Components
+@using TMLeague.Components.Division
+@using TMLeague.Components.TmLinks
 @using TMModels
 @inject DivisionService DivisionService
 
@@ -50,39 +52,29 @@
                             <td class="text-warning">@playerVm.TotalPoints</td>
                             <td>@playerVm.Wins</td>
                             <td class="tt" ontouchstart="">
-                                @playerVm.TotalPenaltyPoints
-                                @if (playerVm.TotalPenaltyPoints > 0 && playerVm.Penalties != null)
-                                {
-                                    <div class="tt-inner">
-                                        <ul class="list-group list-group-flush text-bg-dark">
-                                            @foreach (var playerPenalty in playerVm.Penalties)
-                                            {
-                                                <li class="list-group-item text-bg-dark">
-                                                    <span><b>@playerPenalty.Points</b> @playerPenalty.Details</span>
-                                                    @if (playerPenalty.Game != null)
-                                                    {
-                                                        <span> in </span>
-                                                        <GameLink Id="@playerPenalty.Game"
-                                              LeagueId="@LeagueId"
-                                              SeasonId="@SeasonId"
-                                              DivisionId="@DivisionId" />
-                                                    }
-                                                    <span>.</span>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                }
+                                <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
                             </td>
                             <td>@playerVm.Cla</td>
                             <td>@playerVm.Supplies</td>
                             <td class="invisible border-0 collapse @(ShowHouses ? "show" : "")"></td>
-                            <td class="collapse @(ShowHouses ? "show" : "")">@playerVm.GetHouse(House.Baratheon).Points</td>
-                            <td class="collapse @(ShowHouses ? "show" : "")">@playerVm.GetHouse(House.Lannister).Points</td>
-                            <td class="collapse @(ShowHouses ? "show" : "")">@playerVm.GetHouse(House.Stark).Points</td>
-                            <td class="collapse @(ShowHouses ? "show" : "")">@playerVm.GetHouse(House.Tyrell).Points</td>
-                            <td class="collapse @(ShowHouses ? "show" : "")">@playerVm.GetHouse(House.Greyjoy).Points</td>
-                            <td class="collapse @(ShowHouses ? "show" : "")">@playerVm.GetHouse(House.Martell).Points</td>
+                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"></HouseCell>
+                            </td>
+                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)"></HouseCell>
+                            </td>
+                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)"></HouseCell>
+                            </td>
+                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)"></HouseCell>
+                            </td>
+                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)"></HouseCell>
+                            </td>
+                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)"></HouseCell>
+                            </td>
                         </tr>
                     }
                 </tbody>

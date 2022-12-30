@@ -1,0 +1,51 @@
+﻿@using TMApplication.ViewModels
+@using TMLeague.Components.TmLinks
+
+@if (HouseVm != null)
+{
+    <span class="@(HouseVm.IsWinner ? "text-warning" : "")">@HouseVm.Points</span>
+    @if (HouseVm.Game != null)
+    {
+        <div class="tt-inner">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-bg-dark @(HouseVm.IsWinner ? "text-warning" : "")">
+                    <b>Game: </b>
+                    <GameLink Id="@HouseVm.Game"
+                      LeagueId="@LeagueId"
+                      SeasonId="@SeasonId"
+                      DivisionId="@DivisionId" />
+                </li>
+                <li class="list-group-item text-bg-dark @(HouseVm.IsWinner ? "text-warning" : "")">
+                    <b>Strongholds: </b>
+                    <span>@HouseVm.Strongholds</span>
+                </li>
+                <li class="list-group-item text-bg-dark @(HouseVm.IsWinner ? "text-warning" : "")">
+                    <b>Castles: </b>
+                    <span>@HouseVm.Castles</span>
+                </li>
+                <li class="list-group-item text-bg-dark @(HouseVm.IsWinner ? "text-warning" : "")">
+                    <b>Cla: </b>
+                    <span>@HouseVm.Cla</span>
+                </li>
+                <li class="list-group-item text-bg-dark @(HouseVm.IsWinner ? "text-warning" : "")">
+                    <b>Supply: </b>
+                    <span>@HouseVm.Supplies</span>
+                </li>
+            </ul>
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    [Parameter]
+    public string? SeasonId { get; set; }
+
+    [Parameter]
+    public string? DivisionId { get; set; }
+
+    [Parameter]
+    public PlayerHouseViewModel? HouseVm { get; set; }
+}

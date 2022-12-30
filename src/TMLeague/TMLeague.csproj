@@ -21,6 +21,7 @@
     <_ContentIncludedByDefault Remove="Components\AllChampions.razor" />
     <_ContentIncludedByDefault Remove="Components\Champion.razor" />
     <_ContentIncludedByDefault Remove="Components\DivisionSummary.razor" />
+    <_ContentIncludedByDefault Remove="Components\Division\HouseCell.razor" />
     <_ContentIncludedByDefault Remove="Components\GameLink.razor" />
     <_ContentIncludedByDefault Remove="Components\HallOfFame.razor" />
     <_ContentIncludedByDefault Remove="Pages\Season.razor" />
@@ -55,6 +56,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Components\GameLink.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Division\HouseCell.razor" />
   </ItemGroup>
 
 </Project>
