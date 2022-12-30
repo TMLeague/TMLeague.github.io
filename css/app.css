@@ -287,6 +287,17 @@ a, .btn-link {
         visibility: visible;
     }
 
+    .tt .tt-inner::after {
+        content: "";
+        position: absolute;
+        top: 20px;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
+    }
+
 .text-inherit {
     color: inherit !important;
 }
