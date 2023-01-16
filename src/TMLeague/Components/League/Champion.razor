@@ -1,5 +1,6 @@
 ﻿@using TMApplication.Services
 @using TMApplication.ViewModels
+@using TMLeague.Components.TmLinks
 @inject LeagueService LeagueService
 @inject ILogger<Champion> Logger
 
@@ -18,7 +19,9 @@
 }
 else
 {
-    <h4 class="fw-bold fst-italic">@ChampionVm.PlayerName</h4>
+    <h4 class="fw-bold fst-italic">
+        <PlayerLink PlayerName="@ChampionVm.PlayerName"></PlayerLink>
+    </h4>
 }
 
 @code {
