@@ -65,7 +65,7 @@ internal class DivisionImportingService
 
     private static PlayerResult GetPlayerResults(string playerName, IEnumerable<Game> games, Scoring scoring, Division division)
     {
-        var houseResults = GetHouses(playerName, division.Replaces ?? Array.Empty<Replace>(), games, scoring);
+        var houseResults = GetHouses(playerName, division.Replacements ?? Array.Empty<Replacement>(), games, scoring);
         var penalties = GetPenalties(playerName, division, houseResults);
         var penaltiesPoints = (ushort)penalties.Sum(penalty => penalty.Points);
         var moves = (ushort)houseResults.Sum(houseResult => houseResult.Moves);
@@ -84,18 +84,17 @@ internal class DivisionImportingService
             penalties);
     }
 
-    private static HouseResult[] GetHouses(string playerName, Replace[] divisionReplaces, IEnumerable<Game> games, Scoring scoring) =>
+    private static HouseResult[] GetHouses(string playerName, Replacement[] divisionReplacements, IEnumerable<Game> games, Scoring scoring) =>
         games
-            .Select(game => GetPlayerHouse(playerName, divisionReplaces, game))
+            .Select(game => GetPlayerHouse(playerName, divisionReplacements, game))
             .Where(tuple => tuple.HouseScore != null)
             .Select(tuple => GetHouseResult(tuple.Game, tuple.HouseScore!, scoring))
             .ToArray();
 
-    private static (Game Game, HouseScore? HouseScore) GetPlayerHouse(string playerName, Replace[]? divisionReplaces, Game game) => (game,
+    private static (Game Game, HouseScore? HouseScore) GetPlayerHouse(string playerName, Replacement[] divisionReplacements, Game game) => (game,
         game.Houses
             .FirstOrDefault(houseScore => houseScore.Player == playerName ||
-                                          divisionReplaces != null &&
-                                          divisionReplaces.Contains(new Replace(playerName, houseScore.Player, game.Id))));
+                                          divisionReplacements.Contains(new Replacement(playerName, houseScore.Player, game.Id))));
 
     private static HouseResult GetHouseResult(Game game, HouseScore houseScore, Scoring scoring)
     {

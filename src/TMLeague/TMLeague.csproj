@@ -62,4 +62,6 @@
     <UpToDateCheckInput Remove="Components\Division\HouseCell.razor" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>
