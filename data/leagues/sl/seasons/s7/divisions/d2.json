@@ -25,6 +25,53 @@
     285866,
     285886
   ],
-  "penalties": null,
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "ThyLear",
+      "game": null,
+      "points": 3,
+      "details": null
+    },
+    {
+      "player": "We_do_not_sow",
+      "game": null,
+      "points": 6,
+      "details": null
+    },
+    {
+      "player": "OrangePeanut",
+      "game": null,
+      "points": 7,
+      "details": null
+    },
+    {
+      "player": "Mandy Storm",
+      "game": null,
+      "points": 14,
+      "details": null
+    }
+  ],
+  "replacements": [
+    {
+      "from": "Mandy Storm",
+      "to": "Karijin",
+      "game": 285878
+    },
+    {
+      "from": "Mandy Storm",
+      "to": "NIghtCrawler",
+      "game": 286113
+    },
+    {
+      "from": "Mandy Storm",
+      "to": "NIghtCrawler",
+      "game": 285909
+    },
+    {
+      "from": "Mandy Storm",
+      "to": "Karijin",
+      "game": 285866
+    }
+  ],
+  "isFinished": true
 }
