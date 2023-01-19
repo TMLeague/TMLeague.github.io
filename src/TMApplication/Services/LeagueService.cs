@@ -51,4 +51,23 @@ public class LeagueService
 
         return await _seasonService.GetSeasonChampionVm(leagueId, league.Seasons[^2], cancellationToken);
     }
+
+    public async Task<DivisionSetupViewModel?> GetDivisionSetupVm(string leagueId, CancellationToken cancellationToken = default)
+    {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+        if (league == null)
+            return null;
+
+        var nextMainSeason = league.Seasons
+            .Max(season =>
+                int.TryParse(season[1..], out var seasonNumber) ?
+                    seasonNumber + 1 :
+                    1)
+            .ToString();
+
+        return new DivisionSetupViewModel(
+            league.Name,
+            league.InitialMessage?.SpecialNote,
+            nextMainSeason);
+    }
 }

@@ -10,8 +10,9 @@ public record League(
     [property: JsonPropertyName("discord")] string? Discord,
     [property: JsonPropertyName("judgeTitle")] string? JudgeTitle,
     [property: JsonPropertyName("seasons")] string[] Seasons,
-    [property: JsonPropertyName("scoring")] Scoring? Scoring
-    );
+    [property: JsonPropertyName("scoring")] Scoring? Scoring,
+    [property: JsonPropertyName("initialMessage")] InitialMessage? InitialMessage
+);
 
 public record Scoring(
     [property: JsonPropertyName("pointsPerStronghold")] ushort PointsPerStronghold,
@@ -26,3 +27,5 @@ public enum Tiebreaker
 {
     Wins, Penalties, Cla, Supplies, PowerTokens, MinutesPerMove
 }
+
+public record InitialMessage([property: JsonPropertyName("specialNote")] string? SpecialNote);

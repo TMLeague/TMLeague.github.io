@@ -1,6 +1,138 @@
 ﻿@page "/league/{leagueId}/judge"
-<h3>League @LeagueId</h3>
+@using TMLeague.Models.Judge
+@using TMLeague.Components
+@using TMApplication.Services
+@inject LeagueService LeagueService
+<h3>@LeagueName</h3>
 <h4>Judge panel</h4>
+
+<lead>
+    Welcome to the Silent League generator. If you are here, that means that you are a ManyFaced God who wants to generate the draft for a new Season!<br />
+    Fill in the configuration. Make sure that you enter the correct data so you don't have to correct it manually later!<br />
+    When you submit the form, draft would be generated.<br />
+    You should send it later by an email to yourself or save it in another way, because it is not stored anywhere else!
+</lead>
+
+@if (DivisionForm == null)
+{
+    @if (_isInitialized)
+    {
+        <div class="lead">The league @LeagueId not found.</div>
+    }
+    else
+    {
+        <Loading></Loading>
+    }
+}
+else
+{
+    <EditForm Model="@DivisionForm" OnSubmit="@HandleSubmit" class="text-start row">
+        <div class="col-md-6">
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="season" class="form-label text-start">Season</label>
+                <div id="seasonHelp" class="form-text">The number of Season for which you want to generate the draft.</div>
+                <InputText id="season" @bind-Value="DivisionForm.Season" placeholder="6" class="form-control" aria-describedby="seasonHelp" />
+            </div>
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="division" class="form-label text-start">Division</label>
+                <div id="divisionHelp" class="form-text">The Division for which you want to generate the draft.</div>
+                <InputText id="division" @bind-Value="DivisionForm.Division" placeholder="1" class="form-control" aria-describedby="divisionHelp" />
+            </div>
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="password" class="form-label text-start">Password</label>
+                <div id="passwordHelp" class="form-text">Come up with a fancy but simple password for all games of your Division.</div>
+                <InputText id="password" @bind-Value="DivisionForm.Password" placeholder="Cersei" class="form-control" aria-describedby="passwordHelp" />
+            </div>
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="contact" class="form-label text-start">Contact</label>
+                <div id="contactHelp" class="form-text">Say which ManyFaced God to turn to in case you find yourself in a controversial situation. It would be part of generated message to the players so it can be something like: "me or Der Seynmaster".</div>
+                <InputText id="contact" @bind-Value="DivisionForm.Contact" placeholder="me" class="form-control" aria-describedby="contactHelp" />
+            </div>
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="judgeName" class="form-label text-start">Judge</label>
+                <div id="judgeNameHelp" class="form-text">Introduce yourself with your nickname on Thronemaster.net.</div>
+                <InputText id="judgeName" @bind-Value="DivisionForm.JudgeName" placeholder="TM name" class="form-control" aria-describedby="judgeNameHelp" />
+            </div>
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="specialNote" class="form-label text-start">Special Note</label>
+                <div id="specialNoteHelp" class="form-text">
+                    Note that is added at the end of generated messages.
+                </div>
+                <InputTextArea id="specialNote" @bind-Value="DivisionForm.SpecialNote" placeholder="..." class="form-control" aria-describedby="specialNoteHelp" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="season" class="form-label text-start">Players</label>
+                <div id="playersHelp" class="form-text">
+                    Please insert the <b>Thronemaster's names of players</b> from the <b>Division</b> for which you are the judge.
+                </div>
+                <div class="row">
+                    <label class="col-1">1.</label>
+                    <div class="col-11">
+                        <InputText id="player1" @bind-Value="DivisionForm.Player1" placeholder="TM name" class="form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">2.</label>
+                    <div class="col-11">
+                        <InputText id="player2" @bind-Value="DivisionForm.Player2" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">3.</label>
+                    <div class="col-11">
+                        <InputText id="player3" @bind-Value="DivisionForm.Player3" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">4.</label>
+                    <div class="col-11">
+                        <InputText id="player4" @bind-Value="DivisionForm.Player4" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">5.</label>
+                    <div class="col-11">
+                        <InputText id="player5" @bind-Value="DivisionForm.Player5" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">6.</label>
+                    <div class="col-11">
+                        <InputText id="player6" @bind-Value="DivisionForm.Player6" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">7.</label>
+                    <div class="col-11">
+                        <InputText id="player7" @bind-Value="DivisionForm.Player7" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">8.</label>
+                    <div class="col-11">
+                        <InputText id="player8" @bind-Value="DivisionForm.Player8" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">9.</label>
+                    <div class="col-11">
+                        <InputText id="player9" @bind-Value="DivisionForm.Player9" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-1">10.</label>
+                    <div class="col-11">
+                        <InputText id="player10" @bind-Value="DivisionForm.Player10" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Generate draw</button>
+    </EditForm>
+}
 
 <div class="container-fluid align-content-center">
     <TMLeague.Components.WorkInProgress></TMLeague.Components.WorkInProgress>
@@ -9,4 +141,74 @@
 @code {
     [Parameter]
     public string? LeagueId { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "season")]
+    public string? SeasonQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "division")]
+    public string? DivisionQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "contact")]
+    public string? ContactQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "judgeName")]
+    public string? JudgeNameQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "password")]
+    public string? PasswordQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "specialNote")]
+    public string? SpecialNoteQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "players")]
+    public string[] PlayersQuery { get; set; } = Array.Empty<string>();
+
+    private string? LeagueName { get; set; }
+    private DivisionForm? DivisionForm { get; set; }
+
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (LeagueId != null)
+        {
+            var divisionSetup = await LeagueService.GetDivisionSetupVm(LeagueId);
+            _isInitialized = true;
+            if (divisionSetup == null)
+                return;
+
+            LeagueName = divisionSetup.Name;
+            DivisionForm = new DivisionForm
+                {
+                    Season = SeasonQuery ?? divisionSetup.NextMainSeason,
+                    Division = DivisionQuery ?? "1",
+                    Contact = ContactQuery ?? string.Empty,
+                    JudgeName = JudgeNameQuery ?? string.Empty,
+                    Password = PasswordQuery ?? string.Empty,
+                    Player1 = PlayersQuery.Length >= 1 ? PlayersQuery[0] : string.Empty,
+                    Player2 = PlayersQuery.Length >= 2 ? PlayersQuery[1] : string.Empty,
+                    Player3 = PlayersQuery.Length >= 3 ? PlayersQuery[2] : string.Empty,
+                    Player4 = PlayersQuery.Length >= 4 ? PlayersQuery[3] : string.Empty,
+                    Player5 = PlayersQuery.Length >= 5 ? PlayersQuery[4] : string.Empty,
+                    Player6 = PlayersQuery.Length >= 6 ? PlayersQuery[5] : string.Empty,
+                    Player7 = PlayersQuery.Length >= 7 ? PlayersQuery[6] : string.Empty,
+                    Player8 = PlayersQuery.Length >= 8 ? PlayersQuery[7] : string.Empty,
+                    Player9 = PlayersQuery.Length >= 9 ? PlayersQuery[8] : string.Empty,
+                    Player10 = PlayersQuery.Length >= 10 ? PlayersQuery[9] : string.Empty,
+                    SpecialNote = divisionSetup?.SpecialNote ?? string.Empty
+                };
+        }
+    }
+
+    private void HandleSubmit()
+    {
+        // Process the form
+    }
 }

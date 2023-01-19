@@ -305,3 +305,35 @@ a, .btn-link {
 .list-group-flush > .list-group-item {
     border-color: #000;
 }
+
+/* Forms */
+.form-label {
+    margin: 0 0 6px;
+}
+
+.form-text {
+    color: #889090;
+    margin: 0 0 12px;
+    font-style: italic;
+}
+
+.form-control {
+    color: #ddd;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid #394252;
+    border-radius: 0;
+    padding: 2px;
+}
+
+    .form-control:focus {
+        color: #ddd;
+        background: none;
+        border: 0;
+        border-bottom: 2px solid #496288;
+        box-shadow: none;
+    }
+
+    .form-control:focus-visible {
+        outline: none;
+    }
