@@ -22,6 +22,6 @@ public class DivisionForm
     public string Player10 { get; set; }
 }
 
-public record DivisionDraw(List<PlayerDraw> Draw);
+public record DivisionDraft(List<PlayerDraft> Draw);
 
-public record PlayerDraw(string Name, House[] Games, string Message);
+public record PlayerDraft(string Name, House[] Games, string Message);
