@@ -11,65 +11,72 @@
 <h4>Draft generator</h4>
 
 <lead>
-    Welcome to the Silent League generator. If you are here, that means that you are a ManyFaced God who wants to generate the draft for a new Season!<br />
+    Welcome to the Silent League generator. If you are here, that means that you are a judge that who wants to generate the draft for a new Season!<br />
     Fill in the configuration. Make sure that you enter the correct data so you don't have to correct it manually later!<br />
     When you submit the form, draft would be generated.<br />
-    You should send it later by an email to yourself or save it in another way, because it is not stored anywhere else!
+    Remember to save the draft, because it is not stored anywhere else!
 </lead>
 
-@if (DivisionDraft != null)
+@if (DivisionDraft != null || _isDraftLoading)
 {
     <h4 class="mt-4">Draft table</h4>
-    <table class="table table-dark table-draft align-middle pb-0" width="@(300 + DivisionDraft.Games * 100)px">
-        <thead>
-            <tr>
-                <th scope="col" class="bg-transparent" style="width: 200px" colspan="2">Message</th>
-                <th scope="col" class="bg-transparent" style="width: 200px"></th>
-                @for (var i = 0; i < DivisionDraft.Games; ++i)
-                {
-                    <th scope="col" style="width: 100px">@($"G{i + 1}")</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var player in DivisionDraft.Draft)
-            {
+    @if (_isDraftLoading)
+    {
+        <Loading></Loading>
+    }
+    else
+    {
+        <table class="table table-dark table-draft align-middle pb-0 mx-auto" width="@(300 + DivisionDraft.Games * 100)px" style="max-width: @(300 + DivisionDraft.Games * 100)px">
+            <thead>
                 <tr>
-                    <td class="bg-transparent p-0">
-                        <button class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Copy</button>
-                    </td>
-                    <td class="bg-transparent p-0">
-                        <a href="@($"https://www.thronemaster.net/?goto=account&sub=private_messages&type=new&to={player.Name}")" target="blank"
-                           class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
-                    </td>
-                    <th scope="row">@player.Name</th>
-                    @foreach (var house in player.Games)
+                    <th scope="col" class="bg-transparent" style="width: 200px" colspan="2">Message</th>
+                    <th scope="col" class="bg-transparent" style="width: 200px"></th>
+                    @for (var i = 0; i < DivisionDraft.Games; ++i)
                     {
-                        <PlayerGameCell House="house"></PlayerGameCell>
+                        <th scope="col" style="width: 100px">@($"G{i + 1}")</th>
                     }
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var player in DivisionDraft.Draft)
+                {
+                    <tr>
+                        <td class="bg-transparent p-0">
+                            <button class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Copy</button>
+                        </td>
+                        <td class="bg-transparent p-0">
+                            <a href="@($"https://www.thronemaster.net/?goto=account&sub=private_messages&type=new&to={player.Name}")" target="blank"
+                   class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
+                        </td>
+                        <th scope="row">@player.Name</th>
+                        @foreach (var house in player.Games)
+                        {
+                            <PlayerGameCell House="house"></PlayerGameCell>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-    @if (MessagesVisible)
-    {
-        <h4>Welcome messages</h4>
-        <p>Subject: <b>@(DivisionDraft.Draft.FirstOrDefault()?.MessageSubject ?? $"{LeagueName} draft")</b></p>
-        <dl>
-            @foreach (var player in DivisionDraft.Draft)
-            {
-                <dt class="text-start bg-dark-container border-0">
-                    @player.Name
-                </dt>
-                <dd class="text-justify ms-3 fs-7 bg-dark-container-2">
-                    @((MarkupString)Regex.Replace(HttpUtility.HtmlEncode(player.MessageBody), "\r?\n|\r", "<br />"))
-                </dd>
-            }
-        </dl>
+        @if (MessagesVisible)
+        {
+            <h4>Welcome messages</h4>
+            <p>Subject: <b>@(DivisionDraft.Draft.FirstOrDefault()?.MessageSubject ?? $"{LeagueName} draft")</b></p>
+            <dl>
+                @foreach (var player in DivisionDraft.Draft)
+                {
+                    <dt class="text-start bg-dark-container border-0">
+                        @player.Name
+                    </dt>
+                    <dd class="text-justify ms-3 fs-7 bg-dark-container-2">
+                        @((MarkupString)Regex.Replace(HttpUtility.HtmlEncode(player.MessageBody), "\r?\n|\r", "<br />"))
+                    </dd>
+                }
+            </dl>
+        }
+
+        <button class="btn btn-primary w-100 mt-4" @onclick="SwitchMessagesVisible">@(MessagesVisible ? "Hide messages" : "Show messages")</button>
     }
-
-    <button class="btn btn-primary w-100 mt-4" @onclick="SwitchMessagesVisible">@(MessagesVisible ? "Hide messages" : "Show messages")</button>
 }
 
 @if (DivisionForm == null)
@@ -249,6 +256,7 @@ else
     private bool MessagesVisible { get; set; }
 
     private bool _isInitialized;
+    private bool _isDraftLoading;
 
     protected override async Task OnInitializedAsync()
     {
@@ -287,7 +295,11 @@ else
     private async Task HandleSubmit()
     {
         if (DivisionForm != null)
+        {
+            _isDraftLoading = true;
             DivisionDraft = await LeagueService.GetDraft(DivisionForm);
+            _isDraftLoading = false;
+        }
 
         MessagesVisible = false;
 

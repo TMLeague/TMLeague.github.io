@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using TMApplication.Extensions;
+﻿using TMApplication.Extensions;
 using TMApplication.Providers;
 using TMApplication.ViewModels;
 using TMLeague.Models.Judge;
@@ -82,18 +81,29 @@ public class LeagueService
 
     public async Task<DivisionDraft?> GetDraft(DivisionForm divisionForm, CancellationToken cancellationToken = default)
     {
+        if (divisionForm.League == null)
+            return null;
+
         var league = await _dataProvider.GetLeague(divisionForm.League, cancellationToken);
         if (league == null)
             return null;
 
         var playersLength = divisionForm.Players.Length;
         var drafts = await _dataProvider.GetDrafts(playersLength, cancellationToken);
-        var draft = drafts.Length > 0 ? _draftService.GetDraft(drafts[Random.Shared.Next(drafts.Length)]) : _draftService.GetDraft(playersLength);
+
+        Draft? draft;
+        if (drafts.Length > 0)
+            draft = await _draftService.GetDraft(drafts[Random.Shared.Next(drafts.Length)]).ConfigureAwait(false);
+        else
+            draft = await _draftService.GetDraft(playersLength, 6).ConfigureAwait(false);
+        if (draft == null)
+            return null;
+
         var draftTable = draft.Table.Select(housesTemplate =>
             housesTemplate.Select(HouseParser.Parse).ToArray());
 
-        var messageSubject = divisionForm.MessageSubject.FillParameters(divisionForm);
-        var messageBody = divisionForm.MessageBody.FillParameters(divisionForm);
+        var messageSubject = divisionForm.MessageSubject?.FillParameters(divisionForm) ?? string.Empty;
+        var messageBody = divisionForm.MessageBody?.FillParameters(divisionForm) ?? string.Empty;
         var playerDrafts = divisionForm.Players.Zip(draftTable)
             .Select(playerKv => new PlayerDraft(
                 playerKv.First,
