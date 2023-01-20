@@ -21,6 +21,7 @@ builder.Services
     .AddScoped<SeasonService>()
     .AddScoped<DivisionService>()
     .AddScoped<GameService>()
-    .AddScoped<PlayerService>();
+    .AddScoped<PlayerService>()
+    .AddScoped<DraftService>();
 
 await builder.Build().RunAsync();

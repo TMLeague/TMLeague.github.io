@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Judge\" />
     <Folder Include="wwwroot\data\games\" />
     <Folder Include="wwwroot\data\players\" />
     <Folder Include="wwwroot\data\results\" />

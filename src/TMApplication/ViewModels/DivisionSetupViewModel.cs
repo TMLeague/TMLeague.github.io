@@ -2,5 +2,6 @@
 
 public record DivisionSetupViewModel(
     string Name,
-    string? SpecialNote, 
+    string InitialMessageSubject, 
+    string InitialMessageBody, 
     string NextMainSeason);

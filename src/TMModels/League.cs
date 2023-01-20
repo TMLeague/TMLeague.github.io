@@ -28,4 +28,6 @@ public enum Tiebreaker
     Wins, Penalties, Cla, Supplies, PowerTokens, MinutesPerMove
 }
 
-public record InitialMessage([property: JsonPropertyName("specialNote")] string? SpecialNote);
+public record InitialMessage(
+    [property: JsonPropertyName("subject")] string Subject,
+    [property: JsonPropertyName("body")] string[] Body);

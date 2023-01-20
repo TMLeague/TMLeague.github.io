@@ -337,3 +337,65 @@ a, .btn-link {
     .form-control:focus-visible {
         outline: none;
     }
+
+/* Houses */
+
+/*house-unknown {
+    background: none;
+}*/
+
+.house-baratheon {
+    background-color: #ca2 !important;
+}
+
+.house-lannister {
+    background-color: #811 !important;
+}
+
+.house-stark {
+    color: #25292C;
+    background-color: #999 !important;
+}
+
+.house-tyrell {
+    background-color: #050 !important;
+}
+
+.house-greyjoy {
+    background-color: #222 !important;
+}
+
+.house-martell {
+    background-color: #b62 !important;
+}
+
+.house-arryn {
+    background-color: #036 !important;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 0;
+}
+
+.table-draft {
+    border: 0;
+}
+
+    .table-draft tr {
+        border: 0;
+    }
+
+        .table-draft tr th,
+        .table-draft tr td {
+            border: 1px solid #212529;
+            border-radius: 5px !important;
+            padding: 5px;
+        }
+
+        .table-draft tr th {
+            background-color: #292C2F;
+        }
+
+        .table-draft tr td {
+            background-color: #25292C;
+        }

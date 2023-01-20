@@ -11,4 +11,5 @@ public interface IDataProvider
         CancellationToken cancellationToken);
     public Task<Game?> GetGame(uint gameId, CancellationToken cancellationToken);
     public Task<Results?> GetResults(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken);
+    public Task<Draft[]> GetDrafts(int players, CancellationToken cancellationToken);
 };

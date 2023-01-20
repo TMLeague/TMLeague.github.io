@@ -1,5 +1,9 @@
-﻿using TMApplication.Providers;
+﻿using System.Text.RegularExpressions;
+using TMApplication.Extensions;
+using TMApplication.Providers;
 using TMApplication.ViewModels;
+using TMLeague.Models.Judge;
+using TMModels;
 
 namespace TMApplication.Services;
 
@@ -7,11 +11,13 @@ public class LeagueService
 {
     private readonly IDataProvider _dataProvider;
     private readonly SeasonService _seasonService;
+    private readonly DraftService _draftService;
 
-    public LeagueService(IDataProvider dataProvider, SeasonService seasonService)
+    public LeagueService(IDataProvider dataProvider, SeasonService seasonService, DraftService draftService)
     {
         _dataProvider = dataProvider;
         _seasonService = seasonService;
+        _draftService = draftService;
     }
 
     public async Task<LeagueViewModel> GetLeagueVm(string leagueId, CancellationToken cancellationToken = default)
@@ -67,7 +73,45 @@ public class LeagueService
 
         return new DivisionSetupViewModel(
             league.Name,
-            league.InitialMessage?.SpecialNote,
+            league.InitialMessage?.Subject ?? string.Empty,
+            league.InitialMessage?.Body == null ?
+                string.Empty :
+                string.Join(Environment.NewLine, league.InitialMessage.Body),
             nextMainSeason);
     }
+
+    public async Task<DivisionDraft?> GetDraft(DivisionForm divisionForm, CancellationToken cancellationToken = default)
+    {
+        var league = await _dataProvider.GetLeague(divisionForm.League, cancellationToken);
+        if (league == null)
+            return null;
+
+        var playersLength = divisionForm.Players.Length;
+        var drafts = await _dataProvider.GetDrafts(playersLength, cancellationToken);
+        var draft = drafts.Length > 0 ? _draftService.GetDraft(drafts[Random.Shared.Next(drafts.Length)]) : _draftService.GetDraft(playersLength);
+        var draftTable = draft.Table.Select(housesTemplate =>
+            housesTemplate.Select(HouseParser.Parse).ToArray());
+
+        var messageSubject = divisionForm.MessageSubject.FillParameters(divisionForm);
+        var messageBody = divisionForm.MessageBody.FillParameters(divisionForm);
+        var playerDrafts = divisionForm.Players.Zip(draftTable)
+            .Select(playerKv => new PlayerDraft(
+                playerKv.First,
+                playerKv.Second,
+                messageSubject,
+                messageBody.FillParameters(GetPlayerHouseGames(playerKv.Second)))).ToList();
+
+        var divisionDraft = new DivisionDraft(playerDrafts);
+
+        return divisionDraft;
+    }
+
+    private static PlayerHouseGames GetPlayerHouseGames(House[] houses) => new(
+        Array.IndexOf(houses, House.Baratheon) + 1,
+        Array.IndexOf(houses, House.Lannister) + 1,
+        Array.IndexOf(houses, House.Stark) + 1,
+        Array.IndexOf(houses, House.Tyrell) + 1,
+        Array.IndexOf(houses, House.Greyjoy) + 1,
+        Array.IndexOf(houses, House.Martell) + 1,
+        Array.IndexOf(houses, House.Arryn) + 1);
 }

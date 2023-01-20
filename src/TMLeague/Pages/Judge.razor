@@ -1,6 +1,7 @@
 ﻿@page "/league/{leagueId}/judge"
 @using TMLeague.Models.Judge
 @using TMLeague.Components
+@using TMLeague.Components.Judge
 @using TMApplication.Services
 @inject LeagueService LeagueService
 @inject IJSRuntime JSRuntime
@@ -14,11 +15,47 @@
     You should send it later by an email to yourself or save it in another way, because it is not stored anywhere else!
 </lead>
 
+@if (DivisionDraft != null)
+{
+    <h4 class="mt-4">Draft table</h4>
+    <table class="table table-dark table-draft align-middle pb-0" width="@(300 + DivisionDraft.Games * 100)px">
+        <thead>
+            <tr>
+                <th scope="col" class="bg-transparent" style="width: 200px"></th>
+                @for (var i = 0; i < DivisionDraft.Games; ++i)
+                {
+                    <th scope="col" style="width: 100px">@($"G{i + 1}")</th>
+                }
+                <th scope="col" style="width: 200px" colspan="2">Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in DivisionDraft.Draw)
+            {
+                <tr>
+                    <th scope="row">@player.Name</th>
+                    @foreach (var house in player.Games)
+                    {
+                        <PlayerGameCell House="house"></PlayerGameCell>
+                    }
+                    <td class="bg-transparent p-0">
+                        <button class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Copy</button>
+                    </td>
+                    <td class="bg-transparent p-0">
+                        <a href="@($"https://www.thronemaster.net/?goto=account&sub=private_messages&type=new&to={player.Name}")" target="blank"
+                   class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 @if (DivisionForm == null)
 {
     @if (_isInitialized)
     {
-        <div class="lead">The league @LeagueId not found.</div>
+        <div class="lead mt-4">The league @LeagueId not found.</div>
     }
     else
     {
@@ -27,7 +64,9 @@
 }
 else
 {
-    <EditForm Model="@DivisionForm" OnSubmit="@HandleSubmit" class="text-start row">
+    <EditForm Model="@DivisionForm" OnSubmit="@HandleSubmit" class="text-start row mt-4">
+        <button type="submit" class="btn btn-primary mb-4 @(DivisionDraft == null ? "d-none" : "")">Generate draft</button>
+
         <div class="col-md-6">
             <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
                 <label for="season" class="form-label text-start">Season</label>
@@ -54,13 +93,6 @@ else
                 <div id="judgeNameHelp" class="form-text">Introduce yourself with your nickname on Thronemaster.net.</div>
                 <InputText id="judgeName" @bind-Value="DivisionForm.JudgeName" placeholder="TM name" class="form-control" aria-describedby="judgeNameHelp" />
             </div>
-            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                <label for="specialNote" class="form-label text-start">Special Note</label>
-                <div id="specialNoteHelp" class="form-text">
-                    Note that is added at the end of generated messages.
-                </div>
-                <InputTextArea id="specialNote" @bind-Value="DivisionForm.SpecialNote" placeholder="..." class="form-control" aria-describedby="specialNoteHelp" />
-            </div>
         </div>
         <div class="col-md-6">
             <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
@@ -68,61 +100,61 @@ else
                 <div id="playersHelp" class="form-text">
                     Please insert the <b>Thronemaster's names of players</b> from the <b>Division</b> for which you are the judge.
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">1.</label>
                     <div class="col-11">
                         <InputText id="player1" @bind-Value="DivisionForm.Player1" placeholder="TM name" class="form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">2.</label>
                     <div class="col-11">
                         <InputText id="player2" @bind-Value="DivisionForm.Player2" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">3.</label>
                     <div class="col-11">
                         <InputText id="player3" @bind-Value="DivisionForm.Player3" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">4.</label>
                     <div class="col-11">
                         <InputText id="player4" @bind-Value="DivisionForm.Player4" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">5.</label>
                     <div class="col-11">
                         <InputText id="player5" @bind-Value="DivisionForm.Player5" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">6.</label>
                     <div class="col-11">
                         <InputText id="player6" @bind-Value="DivisionForm.Player6" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">7.</label>
                     <div class="col-11">
                         <InputText id="player7" @bind-Value="DivisionForm.Player7" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">8.</label>
                     <div class="col-11">
                         <InputText id="player8" @bind-Value="DivisionForm.Player8" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">9.</label>
                     <div class="col-11">
                         <InputText id="player9" @bind-Value="DivisionForm.Player9" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <label class="col-1">10.</label>
                     <div class="col-11">
                         <InputText id="player10" @bind-Value="DivisionForm.Player10" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
@@ -130,14 +162,26 @@ else
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="messageSubject" class="form-label text-start">Initial message subject</label>
+                <div id="messageSubjectHelp" class="form-text">
+                    Subject format of the initial message.
+                </div>
+                <InputText id="messageSubject" @bind-Value="DivisionForm.MessageSubject" placeholder="@($"{LeagueName}, S{{season}}, D{{division}}")" class="form-control" aria-describedby="messageSubjectHelp" />
+            </div>
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="messageBody" class="form-label text-start">Initial message body</label>
+                <div id="messageBodyHelp" class="form-text">
+                    Body format of the initial message.
+                </div>
+                <InputTextArea id="messageBody" style="height: 400px;" @bind-Value="DivisionForm.MessageBody" placeholder="..." class="form-control" aria-describedby="messageBodyHelp" />
+            </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Generate draft</button>
+        <button type="submit" class="btn btn-primary my-4 @(DivisionDraft == null ? "" : "d-none")">Generate draft</button>
     </EditForm>
 }
-
-<div class="container-fluid align-content-center">
-    <TMLeague.Components.WorkInProgress></TMLeague.Components.WorkInProgress>
-</div>
 
 @code {
     [Parameter]
@@ -173,6 +217,7 @@ else
 
     private string? LeagueName { get; set; }
     private DivisionForm? DivisionForm { get; set; }
+    private DivisionDraft? DivisionDraft { get; set; }
 
     private bool _isInitialized;
 
@@ -188,6 +233,7 @@ else
             LeagueName = divisionSetup.Name;
             DivisionForm = new DivisionForm
                 {
+                    League = LeagueId,
                     Season = SeasonQuery ?? divisionSetup.NextMainSeason,
                     Division = DivisionQuery ?? "1",
                     Contact = ContactQuery ?? string.Empty,
@@ -203,18 +249,22 @@ else
                     Player8 = PlayersQuery.Length >= 8 ? PlayersQuery[7] : string.Empty,
                     Player9 = PlayersQuery.Length >= 9 ? PlayersQuery[8] : string.Empty,
                     Player10 = PlayersQuery.Length >= 10 ? PlayersQuery[9] : string.Empty,
-                    SpecialNote = divisionSetup?.SpecialNote ?? string.Empty
+                    MessageSubject = divisionSetup?.InitialMessageSubject ?? string.Empty,
+                    MessageBody = divisionSetup?.InitialMessageBody ?? string.Empty
                 };
         }
     }
 
-    private void HandleSubmit()
+    private async Task HandleSubmit()
     {
-        // Process the form
+        if (DivisionForm != null)
+            DivisionDraft = await LeagueService.GetDraft(DivisionForm);
+
+        await JSRuntime.InvokeVoidAsync("scrollToTop");
     }
 
-    private async Task CopyTextToClipboard()
+    private async Task CopyTextToClipboard(string data)
     {
-        await JSRuntime.InvokeVoidAsync("copyClipboard", "Test");
+        await JSRuntime.InvokeVoidAsync("copyClipboard", data);
     }
 }

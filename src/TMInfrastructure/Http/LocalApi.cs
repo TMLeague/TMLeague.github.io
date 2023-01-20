@@ -73,6 +73,13 @@ public class LocalApi : IDataProvider
             $"/data/results/{leagueId}/{seasonId}/{divisionId}.json", cancellationToken);
     }
 
+    public async Task<Draft[]> GetDrafts(int players, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(players);
+
+        return await Get<Draft[]>($"Drafts for {players}p", $"/data/drafts/p{players}.json", cancellationToken) ?? Array.Empty<Draft>();
+    }
+
     private async Task<T?> Get<T>(string logName, string requestUri, CancellationToken cancellationToken) where T : class
     {
         if (_cache.TryGetValue(requestUri, out var cacheResult))

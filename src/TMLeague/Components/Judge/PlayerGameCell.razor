@@ -1,0 +1,18 @@
+﻿@using TMModels
+
+<td class="@HouseClass">
+    @HouseText
+</td>
+
+@code {
+    [Parameter]
+    public House House { get; set; }
+
+    private string HouseText => House switch
+    {
+        House.Unknown => "X",
+        _ => House.ToString()
+    };
+
+    private string HouseClass => $"house-{House.ToString().ToLower()}";
+}
