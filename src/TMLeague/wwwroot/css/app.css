@@ -14,6 +14,26 @@ a, .btn-link {
     color: #0071c1;
 }
 
+.text-justify {
+    text-align: justify !important;
+}
+
+.fs-7 {
+    font-size: 14px;
+}
+
+.fs-8 {
+    font-size: 12px;
+}
+
+.fs-9 {
+    font-size: 10px;
+}
+
+.fs-10 {
+    font-size: 8px;
+}
+
 /* Colors */
 
 .text-primary {

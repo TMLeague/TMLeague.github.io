@@ -1,6 +1,6 @@
 ﻿@using TMModels
 
-<td class="@HouseClass">
+<td class="@HouseClass" style="@HouseStyle">
     @HouseText
 </td>
 
@@ -15,4 +15,17 @@
     };
 
     private string HouseClass => $"house-{House.ToString().ToLower()}";
+
+    private string HouseStyle => House switch
+    {
+        House.Unknown => "",
+        House.Baratheon => "background-color: #ca2;",
+        House.Lannister => "background-color: #811;",
+        House.Stark => "color: #25292C; background-color: #999;",
+        House.Tyrell => "background-color: #050;",
+        House.Greyjoy => "background-color: #222;",
+        House.Martell => "background-color: #b62;",
+        House.Arryn => "background-color: #036;",
+        _ => throw new ArgumentOutOfRangeException()
+    };
 }

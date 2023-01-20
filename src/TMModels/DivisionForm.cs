@@ -26,10 +26,10 @@ public class DivisionForm
         .Where(p => !string.IsNullOrWhiteSpace(p)).ToArray();
 }
 
-public record DivisionDraft(List<PlayerDraft> Draw)
+public record DivisionDraft(List<PlayerDraft> Draft)
 {
-    public int Players => Draw.Count;
-    public int Games => Draw.FirstOrDefault()?.Games.Length ?? 0;
+    public int Players => Draft.Count;
+    public int Games => Draft.FirstOrDefault()?.Games.Length ?? 0;
 }
 
 public record PlayerDraft(string Name, House[] Games, string MessageSubject, string MessageBody);
