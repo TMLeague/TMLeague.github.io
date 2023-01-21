@@ -33,6 +33,36 @@ public record DivisionDraft(List<PlayerDraft> Draft)
     public int Games => Draft.FirstOrDefault()?.Games.Length ?? 0;
 }
 
-public record PlayerDraft(string Name, House[] Games, string MessageSubject, string MessageBody);
+public record PlayerDraft(
+    string Name,
+    House[] Games,
+    string MessageSubject,
+    string MessageBody,
+    PlayerDraftStats? Stats);
+
+public record PlayerDraftStats(
+    List<PlayerDraftStat> Enemies,
+    List<PlayerDraftStat> Neighbors)
+{
+    public PlayerDraftStat CommonEnemy
+    {
+        get
+        {
+            var max = Enemies.Max(stat => stat.Games);
+            return Enemies.First(stat => stat.Games == max);
+        }
+    }
+
+    public PlayerDraftStat CommonNeighbor
+    {
+        get
+        {
+            var max = Neighbors.Max(stat => stat.Games);
+            return Neighbors.First(stat => stat.Games == max);
+        }
+    }
+}
+
+public record PlayerDraftStat(string Player, int Games);
 
 public record PlayerHouseGames(int Baratheon, int Lannister, int Stark, int Tyrell, int Greyjoy, int Martell, int Arryn);

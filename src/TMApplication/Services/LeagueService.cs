@@ -11,12 +11,14 @@ public class LeagueService
     private readonly IDataProvider _dataProvider;
     private readonly SeasonService _seasonService;
     private readonly DraftService _draftService;
+    private readonly PlayerStatsService _playerStatsService;
 
-    public LeagueService(IDataProvider dataProvider, SeasonService seasonService, DraftService draftService)
+    public LeagueService(IDataProvider dataProvider, SeasonService seasonService, DraftService draftService, PlayerStatsService playerStatsService)
     {
         _dataProvider = dataProvider;
         _seasonService = seasonService;
         _draftService = draftService;
+        _playerStatsService = playerStatsService;
     }
 
     public async Task<LeagueViewModel> GetLeagueVm(string leagueId, CancellationToken cancellationToken = default)
@@ -100,16 +102,19 @@ public class LeagueService
             return null;
 
         var draftTable = draft.Table.Select(housesTemplate =>
-            housesTemplate.Select(HouseParser.Parse).ToArray());
+            housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
+        var players = divisionForm.Players.OrderBy(p => p).ToArray();
+        var stats = _playerStatsService.GetStats(draftTable, players);
 
         var messageSubject = divisionForm.MessageSubject?.FillParameters(divisionForm) ?? string.Empty;
         var messageBody = divisionForm.MessageBody?.FillParameters(divisionForm) ?? string.Empty;
-        var playerDrafts = divisionForm.Players.Zip(draftTable)
+        var playerDrafts = players
+            .Zip(draftTable, stats)
             .Select(playerKv => new PlayerDraft(
                 playerKv.First,
                 playerKv.Second,
                 messageSubject,
-                messageBody.FillParameters(GetPlayerHouseGames(playerKv.Second)))).ToList();
+                messageBody.FillParameters(GetPlayerHouseGames(playerKv.Second)), playerKv.Third)).ToList();
 
         var divisionDraft = new DivisionDraft(playerDrafts);
 

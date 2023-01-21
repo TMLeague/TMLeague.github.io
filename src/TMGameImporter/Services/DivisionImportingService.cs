@@ -44,7 +44,7 @@ internal class DivisionImportingService
             return;
         }
 
-        //foreach (var playerName in division.Players)
+        //foreach (var playerName in division.Enemies)
         //    await _playerImportingService.Import(playerName, cancellationToken);
         var games = division.Games
             .Select(gameId => _gameImportingService.Import(gameId, cancellationToken))

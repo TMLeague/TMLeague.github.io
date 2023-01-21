@@ -26,7 +26,7 @@
     }
     else
     {
-        <table class="table table-dark table-draft align-middle pb-0 mx-auto" width="@(300 + DivisionDraft.Games * 100)px" style="max-width: @(300 + DivisionDraft.Games * 100)px">
+        <table class="table table-dark table-draft align-middle pb-0 mx-auto" width="@(TableWidth)px" style="max-width: @(TableWidth)px">
             <thead>
                 <tr>
                     <th scope="col" class="bg-transparent" style="width: 200px" colspan="2">Message</th>
@@ -34,6 +34,11 @@
                     @for (var i = 0; i < DivisionDraft.Games; ++i)
                     {
                         <th scope="col" style="width: 100px">@($"G{i + 1}")</th>
+                    }
+                    @if (_areStatsVisible)
+                    {
+                        <th scope="col" style="width: 100px">Common neighbor</th>
+                        <th scope="col" style="width: 100px">Common player</th>
                     }
                 </tr>
             </thead>
@@ -53,12 +58,14 @@
                         {
                             <PlayerGameCell House="house"></PlayerGameCell>
                         }
+                        <td>@player.Stats?.CommonNeighbor.Games</td>
+                        <td>@player.Stats?.CommonEnemy.Games</td>
                     </tr>
                 }
             </tbody>
         </table>
 
-        @if (MessagesVisible)
+        @if (_areMessagesVisible)
         {
             <h4>Welcome messages</h4>
             <p>Subject: <b>@(DivisionDraft.Draft.FirstOrDefault()?.MessageSubject ?? $"{LeagueName} draft")</b></p>
@@ -75,7 +82,14 @@
             </dl>
         }
 
-        <button class="btn btn-primary w-100 mt-4" @onclick="SwitchMessagesVisible">@(MessagesVisible ? "Hide messages" : "Show messages")</button>
+        <div class="row mt-4">
+            <div class="col-6 pe-2">
+                <button class="btn btn-primary w-100" @onclick="SwitchMessagesVisible">@(_areMessagesVisible ? "Hide messages" : "Show messages")</button>
+            </div>
+            <div class="col-6 ps-2">
+                <button class="btn btn-primary w-100" @onclick="SwitchStatsVisible">@(_areStatsVisible ? "Hide stats" : "Show stats")</button>
+            </div>
+        </div>
     }
 }
 
@@ -126,7 +140,7 @@ else
         </div>
         <div class="col-md-6">
             <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                <label for="season" class="form-label text-start">Players</label>
+                <label for="season" class="form-label text-start">Enemies</label>
                 <div id="playersHelp" class="form-text">
                     Please insert the <b>Thronemaster's names of players</b> from the <b>Division</b> for which you are the judge.
                 </div>
@@ -253,7 +267,10 @@ else
 
     private DivisionDraft? DivisionDraft { get; set; }
 
-    private bool MessagesVisible { get; set; }
+    private int TableWidth => 300 + (DivisionDraft?.Games ?? 0) * 100 + (_areStatsVisible ? 200 : 0);
+
+    private bool _areMessagesVisible;
+    private bool _areStatsVisible;
 
     private bool _isInitialized;
     private bool _isDraftLoading;
@@ -301,7 +318,7 @@ else
             _isDraftLoading = false;
         }
 
-        MessagesVisible = false;
+        _areMessagesVisible = false;
 
         await JSRuntime.InvokeVoidAsync("scrollToTop");
     }
@@ -311,8 +328,7 @@ else
         await JSRuntime.InvokeVoidAsync("copyClipboard", data);
     }
 
-    private void SwitchMessagesVisible()
-    {
-        MessagesVisible = !MessagesVisible;
-    }
+    private void SwitchMessagesVisible() => _areMessagesVisible = !_areMessagesVisible;
+
+    private void SwitchStatsVisible() => _areStatsVisible = !_areStatsVisible;
 }
