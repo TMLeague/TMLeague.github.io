@@ -66,14 +66,18 @@ public class PlayerStatsService
 
     private static IEnumerable<IEnumerable<PlayerDraftStat>> GetPlayersDraftStats(House[][] draftTable, IReadOnlyList<string> players, Func<House, House, bool> isRelated) =>
         draftTable
-            .Select(playerGames => playerGames
-                .SelectMany((playerHouse, gameIdx) => draftTable
-                    .Where(enemyGames => isRelated(playerHouse, enemyGames[gameIdx]))
-                    .Select((_, enemyIdx) => enemyIdx))
+            .Select(playerGames => SelectAllRelated(playerGames, draftTable, isRelated)
                 .GroupBy(enemyIdx => enemyIdx)
                 .Select(enemyIdxGrouping =>
                     new PlayerDraftStat(players[enemyIdxGrouping.Key],
                         enemyIdxGrouping.Count())));
+
+    private static IEnumerable<int> SelectAllRelated(IEnumerable<House> playerGames, House[][] draftTable, Func<House, House, bool> isRelated) =>
+        playerGames
+            .SelectMany((playerHouse, gameIdx) => draftTable
+                .Select((enemyGames, enemyIdx) => (enemyGames, enemyIdx))
+                .Where(kv => isRelated(playerHouse, kv.enemyGames[gameIdx]))
+                .Select(kv => kv.enemyIdx));
 
     private static bool IsEnemy(House playerHouse, House enemyHouse) =>
         playerHouse != House.Unknown && enemyHouse != House.Unknown && enemyHouse != playerHouse;

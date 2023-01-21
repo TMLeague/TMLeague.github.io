@@ -24,7 +24,7 @@
     {
         <Loading></Loading>
     }
-    else
+    else if (DivisionDraft != null)
     {
         <table class="table table-dark table-draft align-middle pb-0 mx-auto" width="@(TableWidth)px" style="max-width: @(TableWidth)px">
             <thead>
@@ -37,8 +37,8 @@
                     }
                     @if (_areStatsVisible)
                     {
-                        <th scope="col" style="width: 100px">Common neighbor</th>
-                        <th scope="col" style="width: 100px">Common player</th>
+                        <th scope="col" style="width: 100px" class="tt">Neighbor<div class="tt-inner">Max number of games with the same player as a neighbor</div></th>
+                        <th scope="col" style="width: 100px" class="tt">Player<div class="tt-inner">Max number of games against the same player</div></th>
                     }
                 </tr>
             </thead>
@@ -58,8 +58,11 @@
                         {
                             <PlayerGameCell House="house"></PlayerGameCell>
                         }
-                        <td>@player.Stats?.CommonNeighbor.Games</td>
-                        <td>@player.Stats?.CommonEnemy.Games</td>
+                        @if (_areStatsVisible)
+                        {
+                            <td>@player.Stats?.CommonNeighbor.Games</td>
+                            <td>@player.Stats?.CommonEnemy.Games</td>
+                        }
                     </tr>
                 }
             </tbody>

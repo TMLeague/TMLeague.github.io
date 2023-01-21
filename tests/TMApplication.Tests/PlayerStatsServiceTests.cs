@@ -33,6 +33,9 @@ public class PlayerStatsServiceTests
         var players = Enumerable.Range(0, 10).Select(i => $"P{i}").ToArray();
 
         var stats = _sut.GetStats(draftTable, players).ToArray();
+
+        foreach (var stat in stats) 
+            stat.CommonEnemy.Games.Should().Be(4);
     }
 
     [Theory]
