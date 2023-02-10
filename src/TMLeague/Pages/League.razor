@@ -11,15 +11,16 @@
     @LeagueDetails?.Description
 </p>
 
+<div class="bg-dark-container">
+    <Champion LeagueId="@LeagueId"></Champion>
+</div>
+
 <div class="container">
     <div class="row">
-        <div class="col-sm-3 overflow-auto bg-dark-container">
-            <Champion LeagueId="@LeagueId"></Champion>
+        <div class="col-lg-4 col-xl-3 overflow-auto bg-dark-container">
+            <AllChampions LeagueId="@LeagueId"></AllChampions>
         </div>
-        <div class="col-sm-3 overflow-auto bg-dark-container">
-            <AllChampions></AllChampions>
-        </div>
-        <div class="col-sm-6 overflow-auto bg-dark-container">
+        <div class="col-lg-8 col-xl-9 overflow-auto bg-dark-container">
             <HallOfFame></HallOfFame>
         </div>
     </div>

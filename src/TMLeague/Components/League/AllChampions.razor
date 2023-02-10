@@ -1,7 +1,58 @@
-﻿<h4>Champions of all seasons</h4>
+﻿@using TMApplication.Services
+@using TMApplication.ViewModels
+@using TMLeague.Components.TmLinks
+@inject LeagueService LeagueService
+@inject ILogger<AllChampions> Logger
 
-<TMLeague.Components.WorkInProgress></TMLeague.Components.WorkInProgress>
+<h4>Champions of all seasons</h4>
+
+<div class="overflow-auto" style="max-height: 300px;">
+@if (LeagueChampions == null)
+{
+    @if (_isInitialized)
+    {
+        <div class="lead">The league has no champions.</div>
+    }
+    else
+    {
+        <Loading Size="10vh"></Loading>
+    }
+}
+else
+{
+    <div class="flex-row">
+    @foreach (var champion in LeagueChampions.Champions)
+    {
+        <div class="flex-row text-start">
+            <h5 class="w-100 mb-0 mt-2">
+                <a class="text-white" href="@RouteProvider.GetRoute(LeagueId, champion.SeasonId)">
+                    @champion.SeasonName
+                </a>
+            </h5>
+            <span class="w-100 ms-3 fst-italic">
+                <PlayerLink PlayerName="@champion.PlayerName"></PlayerLink>, @champion.Title
+            </span>
+        </div>
+    }
+    </div>
+}
+</div>
 
 @code {
-    
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    private LeagueChampionsViewModel? LeagueChampions { get; set; }
+
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (LeagueId != null)
+            LeagueChampions = await LeagueService.GetLeagueChampionsVm(LeagueId);
+        else
+            Logger.LogError($"Parameter {nameof(LeagueId)} is required!");
+
+        _isInitialized = true;
+    }
 }

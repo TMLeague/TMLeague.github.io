@@ -48,8 +48,10 @@ public record GamePlayerSummaryViewModel(
     string? AvatarUri);
 
 public record LeagueChampionsViewModel(
-    SeasonChampionViewModel[] Champions);
+    IReadOnlyList<SeasonChampionViewModel> Champions);
 
 public record SeasonChampionViewModel(
-    string? PlayerName = null,
-    string? Title = null);
+    string SeasonId,
+    string SeasonName,
+    string PlayerName,
+    string Title);

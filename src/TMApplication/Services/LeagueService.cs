@@ -50,7 +50,7 @@ public class LeagueService
             return null;
 
         var champion = await _seasonService.GetSeasonChampionVm(leagueId, league.Seasons.Last(), cancellationToken);
-        if (!string.IsNullOrEmpty(champion.PlayerName))
+        if (champion != null)
             return champion;
 
         if (league.Seasons.Length < 2)
@@ -119,6 +119,23 @@ public class LeagueService
         var divisionDraft = new DivisionDraft(playerDrafts);
 
         return divisionDraft;
+    }
+
+    public async Task<LeagueChampionsViewModel?> GetLeagueChampionsVm(string leagueId, CancellationToken cancellationToken = default)
+    {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+        if (league == null)
+            return null;
+
+        var champions = new List<SeasonChampionViewModel>();
+        foreach (var seasonId in league.Seasons.Reverse())
+        {
+            var champion = await _seasonService.GetSeasonChampionVm(leagueId, seasonId, cancellationToken);
+            if (champion != null)
+                champions.Add(champion);
+        }
+
+        return new LeagueChampionsViewModel(champions);
     }
 
     private static PlayerHouseGames GetPlayerHouseGames(House[] houses) => new(
