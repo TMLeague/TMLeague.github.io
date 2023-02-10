@@ -1,7 +1,6 @@
 ﻿@page "/League/{leagueId}/seasons"
 @using TMApplication.ViewModels
 @using TMApplication.Services
-@using TMLeague.Components.TmLinks
 @inject LeagueService LeagueService
 @inject ILogger<Seasons> Logger
 
@@ -16,7 +15,7 @@
     }
     else
     {
-        <Loading Size="10vh"></Loading>
+        <Loading></Loading>
     }
 }
 else
@@ -32,17 +31,6 @@ else
                 </h5>
                 @foreach (var division in season.Divisions)
                 {
-@*                    <div class="col-4 bg-dark-container-2">
-                        <h6 class="mt-2">
-                            <a class="text-white" href="@RouteProvider.GetRoute(LeagueId, season.SeasonId, division.DivisionId)">
-                                @division.DivisionName
-                            </a>
-                        </h6>
-                        <span class="ms-3 fst-italic">
-                            <PlayerLink PlayerName="@division.PlayerName"></PlayerLink>
-                            @(string.IsNullOrWhiteSpace(@division.Title) ? "" : $", {division.Title}")
-                        </span>
-                    </div>*@
                     <div class="col-4 p-2">
                         <a class="btn btn-primary w-100" href="@RouteProvider.GetRoute(LeagueId, season.SeasonId, division.DivisionId)">
                             <h6 class="mb-0">
