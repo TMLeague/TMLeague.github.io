@@ -1,0 +1,35 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "NIghtCrawler",
+    "Ril",
+    "OrangePeanut",
+    "TheReignOfChaos",
+    "RodrigoLannister",
+    "Mel",
+    "GITTAR",
+    "Saizzo",
+    "fabidehuracan",
+    "Burjaufojad"
+  ],
+  "games": [
+    268203,
+    268178,
+    268216,
+    268237,
+    268207,
+    268222,
+    268170,
+    268229,
+    268180,
+    268184
+  ],
+  "penalties": [
+    {
+      "player": "Burjaufojad",
+      "points": 10
+    }
+  ],
+  "isFinished": true
+}

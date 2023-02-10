@@ -1,0 +1,59 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "Saizzo",
+    "Zesty18",
+    "El Grande",
+    "18HopeCSF",
+    "Mandy Storm",
+    "We_do_not_sow",
+    "RodrigoLannister",
+    "OrangePeanut",
+    "b00yashaka",
+    "fabidehuracan"
+  ],
+  "games": [
+    282317,
+    282348,
+    282323,
+    282299,
+    282420,
+    282314,
+    282271,
+    282371,
+    282409,
+    282298
+  ],
+  "penalties": [
+    {
+      "player": "Saizzo",
+      "points": 3
+    },
+    {
+      "player": "Mandy Storm",
+      "points": 5
+    },
+    {
+      "player": "We_do_not_sow",
+      "points": 9
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 8
+    },
+    {
+      "player": "OrangePeanut",
+      "points": 3
+    },
+    {
+      "player": "OrangePeanut",
+      "points": 18
+    },
+    {
+      "player": "b00yashaka",
+      "points": 7
+    }
+  ],
+  "isFinished": true
+}

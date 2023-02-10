@@ -6,7 +6,7 @@
 @using System.Text.RegularExpressions
 @using System.Web
 @inject LeagueService LeagueService
-@inject IJSRuntime JSRuntime
+@inject IJSRuntime JsRuntime
 <h3>@LeagueName</h3>
 <h4>Draft generator</h4>
 
@@ -323,12 +323,12 @@ else
 
         _areMessagesVisible = false;
 
-        await JSRuntime.InvokeVoidAsync("scrollToTop");
+        await JsRuntime.InvokeVoidAsync("scrollToTop");
     }
 
     private async Task CopyTextToClipboard(string data)
     {
-        await JSRuntime.InvokeVoidAsync("copyClipboard", data);
+        await JsRuntime.InvokeVoidAsync("copyClipboard", data);
     }
 
     private void SwitchMessagesVisible() => _areMessagesVisible = !_areMessagesVisible;

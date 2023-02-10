@@ -1,0 +1,31 @@
+{
+  "name": "Qualifiers",
+  "judge": null,
+  "players": [
+    "diogobensabat",
+    "JulianSnow",
+    "War Daddy",
+    "Kamil_J",
+    "jayhawk",
+    "ryder121"
+  ],
+  "games": [
+    268337,
+    268331,
+    268333,
+    268344,
+    268353,
+    268341
+  ],
+  "penalties": [
+    {
+      "player": "jayhawk",
+      "points": 5
+    },
+    {
+      "player": "ryder121",
+      "points": 3
+    }
+  ],
+  "isFinished": true
+}

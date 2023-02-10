@@ -1,0 +1,52 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "damrej",
+    "wick",
+    "initiate",
+    "Karijin",
+    "Guess_the_Conqueror",
+    "18HopeCSF",
+    "Blaan",
+    "TheReignOfChaos",
+    "NIghtCrawler",
+    "Zesty18"
+  ],
+  "games": [
+    274921,
+    274910,
+    274936,
+    274917,
+    274970,
+    274963,
+    274909,
+    274912,
+    274940,
+    274916
+  ],
+  "penalties": [
+    {
+      "player": "wick",
+      "points": 5
+    },
+    {
+      "player": "Guess_the_Conqueror",
+      "points": 5
+    },
+    {
+      "player": "Blaan",
+      "points": 5
+    },
+    {
+      "player": "TheReignOfChaos",
+      "points": 5
+    },
+    {
+      "player": "NIghtCrawler",
+      "points": 5
+    }
+  ],
+  "isFinished": true,
+  "winnerTitle": "Lord Podrick, The King"
+}
