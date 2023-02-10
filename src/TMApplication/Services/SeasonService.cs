@@ -1,5 +1,6 @@
 ﻿using TMApplication.Providers;
 using TMApplication.ViewModels;
+using TMModels;
 
 namespace TMApplication.Services;
 
@@ -46,5 +47,32 @@ public class SeasonService
         }
 
         return null;
+    }
+
+    public async Task<SeasonDivisionsViewModel?> GetSeasonDivisionsVm(
+        string leagueId, string seasonId, CancellationToken cancellationToken = default)
+    {
+        var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
+        if (season == null)
+            return null;
+
+        var champions = new List<DivisionChampionViewModel>();
+        foreach (var divisionId in season.Divisions)
+        {
+            var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+            if (division is not { IsFinished: true })
+                continue;
+
+            var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+            var player = results?.Players.FirstOrDefault();
+            if (player == null)
+                continue;
+
+            var divisionChampion = new DivisionChampionViewModel(
+                divisionId, division.Name, player.Player, division.WinnerTitle);
+            champions.Add(divisionChampion);
+        }
+
+        return new SeasonDivisionsViewModel(seasonId, season.Name, champions);
     }
 }

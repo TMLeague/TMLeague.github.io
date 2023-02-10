@@ -121,6 +121,23 @@ public class LeagueService
         return divisionDraft;
     }
 
+    public async Task<LeagueSeasonsViewModel?> GetLeagueSeasonsVm(string leagueId, CancellationToken cancellationToken = default)
+    {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+        if (league == null)
+            return null;
+
+        var divisions = new List<SeasonDivisionsViewModel>();
+        foreach (var seasonId in league.Seasons.Reverse())
+        {
+            var seasonDivisionsVm = await _seasonService.GetSeasonDivisionsVm(leagueId, seasonId, cancellationToken);
+            if (seasonDivisionsVm is { Divisions.Count: > 0 })
+                divisions.Add(seasonDivisionsVm);
+        }
+
+        return new LeagueSeasonsViewModel(leagueId, league.Name, divisions);
+    }
+
     public async Task<LeagueChampionsViewModel?> GetLeagueChampionsVm(string leagueId, CancellationToken cancellationToken = default)
     {
         var league = await _dataProvider.GetLeague(leagueId, cancellationToken);

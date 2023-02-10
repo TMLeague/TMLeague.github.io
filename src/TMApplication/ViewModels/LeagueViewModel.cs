@@ -55,3 +55,19 @@ public record SeasonChampionViewModel(
     string SeasonName,
     string PlayerName,
     string Title);
+
+public record LeagueSeasonsViewModel(
+    string LeagueId,
+    string LeagueName,
+    IReadOnlyList<SeasonDivisionsViewModel> Seasons);
+
+public record SeasonDivisionsViewModel(
+    string SeasonId,
+    string SeasonName,
+    IReadOnlyList<DivisionChampionViewModel> Divisions);
+
+public record DivisionChampionViewModel(
+    string DivisionId,
+    string DivisionName,
+    string PlayerName,
+    string? Title);
