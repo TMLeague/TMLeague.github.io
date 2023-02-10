@@ -1,0 +1,40 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "wick",
+    "PhantasticPhil",
+    "Karijin",
+    "Blaan",
+    "damrej",
+    "Der Seynmaster",
+    "Guess_the_Conqueror",
+    "Mandy Storm",
+    "OrangePeanut",
+    "18HopeCSF"
+  ],
+  "games": [
+    278341,
+    278395,
+    278340,
+    278372,
+    278319,
+    278330,
+    278321,
+    278329,
+    278334,
+    278339
+  ],
+  "penalties": [
+    {
+      "player": "Guess_the_Conqueror",
+      "points": 5
+    },
+    {
+      "player": "18HopeCSF",
+      "points": 5
+    }
+  ],
+  "isFinished": true,
+  "winnerTitle": "Lady Dragon"
+}

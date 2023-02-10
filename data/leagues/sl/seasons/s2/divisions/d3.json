@@ -1,0 +1,39 @@
+{
+  "name": "Division 3",
+  "judge": null,
+  "players": [
+    "yclzju",
+    "wick",
+    "Zesty18",
+    "LordAlex",
+    "YwoR",
+    "Lord Sustancia",
+    "Mandy Storm",
+    "sicre",
+    "Doru11",
+    "Xenon Radon"
+  ],
+  "games": [
+    268142,
+    268123,
+    268161,
+    268124,
+    268127,
+    268298,
+    268162,
+    268168,
+    268132,
+    268148
+  ],
+  "penalties": [
+    {
+      "player": "Mandy Storm",
+      "points": 5
+    },
+    {
+      "player": "Xenon Radon",
+      "points": 5
+    }
+  ],
+  "isFinished": true
+}

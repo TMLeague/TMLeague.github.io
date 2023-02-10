@@ -1,0 +1,42 @@
+{
+  "name": "Division 3",
+  "judge": null,
+  "players": [
+    "El Grande",
+    "diamonnd",
+    "fabidehuracan",
+    "b00yashaka",
+    "BarteqZw",
+    "LordAlex",
+    "gauntlet",
+    "Kamil_J",
+    "GameOfPwns",
+    "DemonInside"
+  ],
+  "games": [
+    278466,
+    278366,
+    278367,
+    278405,
+    278403,
+    278380,
+    278374,
+    278467,
+    278379,
+    278460
+  ],
+  "penalties": [],
+  "replacements": [
+    {
+      "from": "diamonnd",
+      "to": "NIghtCrawler",
+      "game": 278367
+    },
+    {
+      "from": "JulianSnow",
+      "to": "Imrihil",
+      "game": 271246
+    }
+  ],
+  "isFinished": true
+}

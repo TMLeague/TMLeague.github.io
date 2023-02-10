@@ -1,0 +1,52 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "wick",
+    "NIghtCrawler",
+    "PhantasticPhil",
+    "damrej",
+    "Der Seynmaster",
+    "Blaan",
+    "Karijin",
+    "LoPHH",
+    "Imrihil",
+    "Guess_the_Conqueror"
+  ],
+  "games": [
+    282282,
+    282350,
+    282280,
+    282286,
+    282284,
+    282277,
+    282294,
+    282296,
+    282281,
+    282287
+  ],
+  "penalties": [
+    {
+      "player": "PhantasticPhil",
+      "points": 4
+    },
+    {
+      "player": "Blaan",
+      "points": 17
+    },
+    {
+      "player": "LoPHH",
+      "points": 5
+    },
+    {
+      "player": "Imrihil",
+      "points": 5
+    },
+    {
+      "player": "Guess_the_Conqueror",
+      "points": 5
+    }
+  ],
+  "isFinished": true,
+  "winnerTitle": "Lady Dragon"
+}

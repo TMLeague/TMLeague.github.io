@@ -1,0 +1,39 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "Der Seynmaster",
+    "PhantasticPhil",
+    "Mandy Storm",
+    "Blaan",
+    "Sean_Snow",
+    "OrangePeanut",
+    "diogobensabat",
+    "jayhawk",
+    "Kamil_J",
+    "b00yashaka"
+  ],
+  "games": [
+    274887,
+    275050,
+    274892,
+    275021,
+    274890,
+    274904,
+    274888,
+    274906,
+    274891,
+    274967
+  ],
+  "penalties": [
+    {
+      "player": "diogobensabat",
+      "points": 10
+    },
+    {
+      "player": "b00yashaka",
+      "points": 13
+    }
+  ],
+  "isFinished": true
+}

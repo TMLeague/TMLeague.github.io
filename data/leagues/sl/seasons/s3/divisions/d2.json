@@ -1,0 +1,78 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "wick",
+    "Zesty18",
+    "Guess_the_Conqueror",
+    "18HopeCSF",
+    "TheReignOfChaos",
+    "PhantasticPhil",
+    "Mel",
+    "Lord Sustancia",
+    "RodrigoLannister",
+    "GITTAR"
+  ],
+  "games": [
+    271079,
+    271045,
+    271038,
+    271036,
+    271039,
+    271050,
+    271059,
+    271080,
+    271037,
+    271066
+  ],
+  "penalties": [
+    {
+      "player": "TheReignOfChaos",
+      "points": 6
+    },
+    {
+      "player": "Mel",
+      "points": 3
+    },
+    {
+      "player": "Lord Sustancia",
+      "points": 16
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 3
+    },
+    {
+      "player": "GITTAR",
+      "points": 25
+    }
+  ],
+  "replacements": [
+    {
+      "from": "GITTAR",
+      "to": "damrej",
+      "game": 271050
+    },
+    {
+      "from": "GITTAR",
+      "to": "damrej",
+      "game": 271059
+    },
+    {
+      "from": "GITTAR",
+      "to": "damrej",
+      "game": 271079
+    },
+    {
+      "from": "Lord Sustancia",
+      "to": "Mandy Storm",
+      "game": 271079
+    },
+    {
+      "from": "Lord Sustancia",
+      "to": "Mandy Storm",
+      "game": 271045
+    }
+  ],
+  "isFinished": true
+}

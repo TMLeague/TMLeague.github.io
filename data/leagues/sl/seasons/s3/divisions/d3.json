@@ -1,0 +1,73 @@
+{
+  "name": "Division 3",
+  "judge": null,
+  "players": [
+    "Mandy Storm",
+    "Sean_Snow",
+    "b00yashaka",
+    "diogobensabat",
+    "jayhawk",
+    "Kamil_J",
+    "fabidehuracan",
+    "Guga",
+    "LordAlex",
+    "BarteqZw",
+    "JulianSnow"
+  ],
+  "games": [
+    271040,
+    270991,
+    270998,
+    271006,
+    271032,
+    271246,
+    271051,
+    270997,
+    271031,
+    270999,
+    271272
+  ],
+  "penalties": [
+    {
+      "player": "Sean_Snow",
+      "points": 3
+    },
+    {
+      "player": "b00yashaka",
+      "points": 6
+    },
+    {
+      "player": "diogobensabat",
+      "points": 3
+    },
+    {
+      "player": "jayhawk",
+      "points": 3
+    },
+    {
+      "player": "Guga",
+      "points": 3
+    },
+    {
+      "player": "LordAlex",
+      "points": 2
+    },
+    {
+      "player": "JulianSnow",
+      "points": 22
+    }
+  ],
+  "replacements": [
+    {
+      "from": "JulianSnow",
+      "to": "Imrihil",
+      "game": 271032
+    },
+    {
+      "from": "JulianSnow",
+      "to": "Imrihil",
+      "game": 271246
+    }
+  ],
+  "isFinished": true
+}

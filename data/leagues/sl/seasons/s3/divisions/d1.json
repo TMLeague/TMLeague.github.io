@@ -1,0 +1,36 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "NIghtCrawler",
+    "initiate",
+    "Ril",
+    "Karijin",
+    "damrej",
+    "Azmodeus",
+    "Menegroth",
+    "Der Seynmaster",
+    "OrangePeanut",
+    "Blaan"
+  ],
+  "games": [
+    270989,
+    270970,
+    271047,
+    270974,
+    271018,
+    270978,
+    270973,
+    270988,
+    270972,
+    270971
+  ],
+  "penalties": [
+    {
+      "player": "Der Seynmaster",
+      "points": 5
+    }
+  ],
+  "isFinished": true,
+  "winnerTitle": "Master of War"
+}

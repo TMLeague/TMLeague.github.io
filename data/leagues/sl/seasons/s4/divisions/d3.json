@@ -1,0 +1,37 @@
+{
+  "name": "Division 3",
+  "judge": null,
+  "players": [
+    "Imrihil",
+    "Nomaris",
+    "geennaam",
+    "LoPHH",
+    "Saizzo",
+    "RodrigoLannister",
+    "Kaisers landing",
+    "Guga",
+    "Mr.Clyde",
+    "LordAlex",
+    "fabidehuracan"
+  ],
+  "games": [
+    275038,
+    275080,
+    275063,
+    275054,
+    275073,
+    275044,
+    275033,
+    275079,
+    275066,
+    275052,
+    275072
+  ],
+  "penalties": [
+    {
+      "player": "Saizzo",
+      "points": 3
+    }
+  ],
+  "isFinished": true
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Qualifiers",
+  "judge": null,
+  "players": [
+    "Stanimir",
+    "Min4o_Praznikov",
+    "Reaper",
+    "Pietro1906",
+    "Cambeia",
+    "PawcioF"
+  ],
+  "games": [
+    282304,
+    282328,
+    282308,
+    282319,
+    282307,
+    282313
+  ],
+  "penalties": [
+    {
+      "player": "Stanimir",
+      "points": 3
+    },
+    {
+      "player": "Min4o_Praznikov",
+      "points": 3
+    },
+    {
+      "player": "PawcioF",
+      "points": 5
+    }
+  ],
+  "isFinished": true
+}

@@ -1,0 +1,55 @@
+{
+  "name": "Division 3",
+  "judge": null,
+  "players": [
+    "Kaisers landing",
+    "LordAlex",
+    "ThyLear",
+    "sicre",
+    "diogobensabat",
+    "Kamil_J",
+    "YwoR",
+    "BarteqZw",
+    "TheMoth",
+    "gauntlet"
+  ],
+  "games": [
+    282305,
+    282322,
+    282292,
+    282333,
+    282343,
+    282316,
+    282362,
+    282291,
+    282290,
+    282331
+  ],
+  "penalties": [
+    {
+      "player": "ThyLear",
+      "points": 3
+    },
+    {
+      "player": "sicre",
+      "points": 10
+    },
+    {
+      "player": "Kamil_J",
+      "points": 3
+    },
+    {
+      "player": "YwoR",
+      "points": 3
+    },
+    {
+      "player": "BarteqZw",
+      "points": 6
+    },
+    {
+      "player": "TheMoth",
+      "points": 3
+    }
+  ],
+  "isFinished": true
+}

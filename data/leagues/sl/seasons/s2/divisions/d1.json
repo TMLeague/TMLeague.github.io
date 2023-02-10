@@ -1,0 +1,36 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "Azmodeus",
+    "Menegroth",
+    "damrej",
+    "initiate",
+    "Der Seynmaster",
+    "Karijin",
+    "Blaan",
+    "PhantasticPhil",
+    "BelaIV",
+    "18HopeCSF"
+  ],
+  "games": [
+    268255,
+    268221,
+    268200,
+    268187,
+    268214,
+    268225,
+    268183,
+    268189,
+    268191,
+    268192
+  ],
+  "penalties": [
+    {
+      "player": "BelaIV",
+      "points": 5
+    }
+  ],
+  "isFinished": true,
+  "winnerTitle": "Jaqen H’ghar"
+}
