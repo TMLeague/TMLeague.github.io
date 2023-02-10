@@ -30,8 +30,10 @@ else
     {
         <div class="progress mb-1">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-         role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)DivisionVm.Progress)"
-         aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)DivisionVm.Progress}%")"></div>
+                 role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)DivisionVm.Progress)"
+                 aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)DivisionVm.Progress}%")">
+                @($"{Math.Round(DivisionVm.Progress)}%")
+            </div>
         </div>
     }
     <div class="container collapse @(ShowDetails ? "show" : "")">
