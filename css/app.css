@@ -66,6 +66,7 @@ a, .btn-link {
 .btn-primary {
     background-color: #333;
     border: solid 2px #333;
+    outline: none;
 }
 
     .btn-primary:hover,
@@ -73,8 +74,9 @@ a, .btn-link {
         background-color: #2A2A2A;
         border-top: solid 4px #2A2A2A;
         border-left: solid 4px #2A2A2A;
-        border-right: 0;
-        border-bottom: 0;
+        border-right: solid 0 #2A2A2A;
+        border-bottom: solid 0 #2A2A2A;
+        outline: none;
     }
 
     .btn-primary:active {
@@ -83,6 +85,7 @@ a, .btn-link {
         border-left: solid 3px #222;
         border-right: solid 1px #222;
         border-bottom: solid 1px #222;
+        outline: none;
     }
 
 .btn-league {
