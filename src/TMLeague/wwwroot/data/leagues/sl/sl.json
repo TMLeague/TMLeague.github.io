@@ -5,7 +5,7 @@
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=81775",
   "discord": "https://discord.gg/DkbBJpmjYM",
   "judgeTitle": "Many-Faced God",
-  "seasons": [ "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8" ],
+  "seasons": [ "s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8" ],
   "scoring": {
     "pointsPerStronghold": 2,
     "pointsPerCastle": 1,

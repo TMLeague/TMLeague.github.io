@@ -42,7 +42,7 @@ internal abstract class StateDictionary : Dictionary<string, string>
 {
     protected StateDictionary(IEnumerable<string> array) :
         base(array.Select(row => row.Split(','))
-            .Where(row => row.Length == 3)
-            .ToDictionary(row => row[1], row => row[2]))
+            .Where(row => row.Length >= 3)
+            .ToDictionary(row => row[1], row => string.Join(",", row[2..])))
     { }
 }
