@@ -1,14 +1,74 @@
 ﻿@page "/league/{leagueId}/season/{seasonId}"
-<h3>League @LeagueId</h3>
-<h4>Season @SeasonId</h4>
+@using TMApplication.Services
+@using TMApplication.ViewModels
+@inject SeasonService SeasonService
+@inject ILogger<Season> Logger
 
-<div class="container-fluid align-content-center">
-    <TMLeague.Components.WorkInProgress></TMLeague.Components.WorkInProgress>
-</div>
+<h3>League @LeagueId</h3>
+<h4>@(SeasonVm?.Name ?? "Season")</h4>
+
+
+@if (SeasonVm == null)
+{
+    @if (_isInitialized)
+    {
+        <div class="lead">The season has no divisions.</div>
+    }
+    else
+    {
+        <Loading></Loading>
+    }
+}
+else
+{
+    <div class="container row p-2 bg-dark-container">
+        @foreach (var division in SeasonVm.Divisions)
+        {
+            <div class="col-4 bg-dark-container-2">
+                <a class="text-white" href="@RouteProvider.GetRoute(LeagueId, SeasonId, division.Id)">
+                    <h5>
+                        @division.Name
+                    </h5>
+                </a>
+                <table class="table table-striped table-dark pb-0" width="300px">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 200px">Player</th>
+                            <th scope="col" style="width: 100px">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerVm in division.Players)
+                        {
+                            <tr>
+                                <th scope="row">@playerVm.Name</th>
+                                <td>@playerVm.Points</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+}
 
 @code {
     [Parameter]
     public string? LeagueId { get; set; }
     [Parameter]
     public string? SeasonId { get; set; }
+
+    private SeasonViewModel? SeasonVm { get; set; }
+
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (LeagueId != null && SeasonId != null)
+            SeasonVm = await SeasonService.GetSeasonVm(LeagueId, SeasonId);
+        else
+            Logger.LogError($"Parameters {nameof(LeagueId)} and {nameof(SeasonId)} are required!");
+
+        _isInitialized = true;
+    }
 }

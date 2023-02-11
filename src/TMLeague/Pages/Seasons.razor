@@ -37,8 +37,8 @@ else
                                 @division.DivisionName
                             </h6>
                             <span class="ms-3 fst-italic">
-                                @(string.IsNullOrWhiteSpace(@division.Title) ? 
-                                    division.PlayerName : 
+                                @(string.IsNullOrWhiteSpace(@division.Title) ?
+                                    $"Winner: {division.PlayerName}" :
                                     $"{division.PlayerName}, {division.Title}")
                             </span>
                         </a>

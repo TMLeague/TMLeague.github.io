@@ -1,6 +1,5 @@
 ﻿using TMApplication.Providers;
 using TMApplication.ViewModels;
-using TMModels;
 
 namespace TMApplication.Services;
 
@@ -13,15 +12,15 @@ public class SeasonService
         _dataProvider = dataProvider;
     }
 
-    public async Task<SeasonSummaryViewModel> GetSeasonSummaryVm(
+    public async Task<LeagueSeasonSummaryViewModel> GetSeasonSummaryVm(
         string leagueId, string seasonId, CancellationToken cancellationToken = default)
     {
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
-        return new SeasonSummaryViewModel(leagueId, seasonId, season?.Name,
+        return new LeagueSeasonSummaryViewModel(leagueId, seasonId, season?.Name,
             season?.Divisions ?? Array.Empty<string>());
     }
 
-    public async Task<SeasonChampionViewModel?> GetSeasonChampionVm(
+    public async Task<LeagueSeasonChampionViewModel?> GetSeasonChampionVm(
         string leagueId, string seasonId, CancellationToken cancellationToken = default)
     {
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
@@ -42,21 +41,21 @@ public class SeasonService
                 if (player == null)
                     return null;
 
-                return new SeasonChampionViewModel(seasonId, season.Name, player.Player, division.WinnerTitle ?? "The Champion");
+                return new LeagueSeasonChampionViewModel(seasonId, season.Name, player.Player, division.WinnerTitle ?? "The Champion");
             }
         }
 
         return null;
     }
 
-    public async Task<SeasonDivisionsViewModel?> GetSeasonDivisionsVm(
+    public async Task<LeagueSeasonViewModel?> GetSeasonDivisionsVm(
         string leagueId, string seasonId, CancellationToken cancellationToken = default)
     {
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
         if (season == null)
             return null;
 
-        var champions = new List<DivisionChampionViewModel>();
+        var champions = new List<LeagueDivisionChampionViewModel>();
         foreach (var divisionId in season.Divisions)
         {
             var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
@@ -68,11 +67,38 @@ public class SeasonService
             if (player == null)
                 continue;
 
-            var divisionChampion = new DivisionChampionViewModel(
+            var divisionChampion = new LeagueDivisionChampionViewModel(
                 divisionId, division.Name, player.Player, division.WinnerTitle);
             champions.Add(divisionChampion);
         }
 
-        return new SeasonDivisionsViewModel(seasonId, season.Name, champions);
+        return new LeagueSeasonViewModel(seasonId, season.Name, champions);
+    }
+
+    public async Task<SeasonViewModel?> GetSeasonVm(
+        string leagueId, string seasonId, CancellationToken cancellationToken = default)
+    {
+        var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
+        if (season == null)
+            return null;
+
+        var divisions = new List<SeasonDivisionViewModel>();
+        foreach (var divisionId in season.Divisions)
+        {
+            var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+            if (division == null)
+                continue;
+
+            var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+            if (results == null)
+                continue;
+
+            var players = results.Players.Select(playerResult =>
+                new SeasonPlayerViewModel(playerResult.Player, playerResult.TotalPoints)).ToList();
+            var divisionVm = new SeasonDivisionViewModel(divisionId, division.Name, players);
+            divisions.Add(divisionVm);
+        }
+
+        return new SeasonViewModel(season.Name, divisions);
     }
 }

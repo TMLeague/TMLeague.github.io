@@ -40,7 +40,7 @@ public class LeagueService
         return new LeagueViewModel(leagueId, league.Name, league.Description, league.Rules, league.Discord, seasons);
     }
 
-    public async Task<SeasonChampionViewModel?> GetLeagueChampionVm(string leagueId, CancellationToken cancellationToken = default)
+    public async Task<LeagueSeasonChampionViewModel?> GetLeagueChampionVm(string leagueId, CancellationToken cancellationToken = default)
     {
         var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
         if (league == null)
@@ -127,7 +127,7 @@ public class LeagueService
         if (league == null)
             return null;
 
-        var divisions = new List<SeasonDivisionsViewModel>();
+        var divisions = new List<LeagueSeasonViewModel>();
         foreach (var seasonId in league.Seasons.Reverse())
         {
             var seasonDivisionsVm = await _seasonService.GetSeasonDivisionsVm(leagueId, seasonId, cancellationToken);
@@ -144,7 +144,7 @@ public class LeagueService
         if (league == null)
             return null;
 
-        var champions = new List<SeasonChampionViewModel>();
+        var champions = new List<LeagueSeasonChampionViewModel>();
         foreach (var seasonId in league.Seasons.Reverse())
         {
             var champion = await _seasonService.GetSeasonChampionVm(leagueId, seasonId, cancellationToken);

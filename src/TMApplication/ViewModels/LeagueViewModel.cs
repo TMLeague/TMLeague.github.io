@@ -1,6 +1,4 @@
-﻿using TMModels;
-
-namespace TMApplication.ViewModels;
+﻿namespace TMApplication.ViewModels;
 
 public record LeagueViewModel(
     string Id,
@@ -14,23 +12,23 @@ public record LeagueSeasonButtonViewModel(
     string Id,
     string Name);
 
-public record SeasonSummaryViewModel(
+public record LeagueSeasonSummaryViewModel(
     string LeagueId,
     string SeasonId,
     string? SeasonName,
     IReadOnlyCollection<string> DivisionIds);
 
-public record DivisionSummaryViewModel(
+public record LeagueDivisionSummaryViewModel(
     string LeagueId,
     string SeasonId,
     string DivisionId,
     string? DivisionName,
     double Progress,
-    IReadOnlyCollection<GameSummaryViewModel> Games,
+    IReadOnlyCollection<LeagueGameSummaryViewModel> Games,
     string? WinnerPlayerName,
     DateTimeOffset GeneratedTime);
 
-public record GameSummaryViewModel(
+public record LeagueGameSummaryViewModel(
     uint Id,
     string? Name,
     double Progress,
@@ -41,16 +39,10 @@ public record GameSummaryViewModel(
     DateTimeOffset? GeneratedTime
 );
 
-public record GamePlayerSummaryViewModel(
-    string GameId,
-    string Name,
-    House House,
-    string? AvatarUri);
-
 public record LeagueChampionsViewModel(
-    IReadOnlyList<SeasonChampionViewModel> Champions);
+    IReadOnlyList<LeagueSeasonChampionViewModel> Champions);
 
-public record SeasonChampionViewModel(
+public record LeagueSeasonChampionViewModel(
     string SeasonId,
     string SeasonName,
     string PlayerName,
@@ -59,14 +51,14 @@ public record SeasonChampionViewModel(
 public record LeagueSeasonsViewModel(
     string LeagueId,
     string LeagueName,
-    IReadOnlyList<SeasonDivisionsViewModel> Seasons);
+    IReadOnlyList<LeagueSeasonViewModel> Seasons);
 
-public record SeasonDivisionsViewModel(
+public record LeagueSeasonViewModel(
     string SeasonId,
     string SeasonName,
-    IReadOnlyList<DivisionChampionViewModel> Divisions);
+    IReadOnlyList<LeagueDivisionChampionViewModel> Divisions);
 
-public record DivisionChampionViewModel(
+public record LeagueDivisionChampionViewModel(
     string DivisionId,
     string DivisionName,
     string PlayerName,

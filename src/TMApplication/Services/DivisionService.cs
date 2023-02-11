@@ -15,14 +15,14 @@ public class DivisionService
         _gameService = gameService;
     }
 
-    public async Task<DivisionSummaryViewModel?> GetDivisionSummaryVm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
+    public async Task<LeagueDivisionSummaryViewModel?> GetDivisionSummaryVm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
     {
         var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
 
-        var games = new List<GameSummaryViewModel>();
+        var games = new List<LeagueGameSummaryViewModel>();
 
         if (division == null)
-            return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, null, 0, games, null, DateTimeOffset.Now);
+            return new LeagueDivisionSummaryViewModel(leagueId, seasonId, divisionId, null, 0, games, null, DateTimeOffset.Now);
 
         var progress = 0.0;
         foreach (var gameId in division.Games)
@@ -37,7 +37,7 @@ public class DivisionService
         var winnerPlayerName = await GetWinner(leagueId, seasonId, divisionId, division, cancellationToken);
 
         var lastModifiedDate = games.Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
-        return new DivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games, winnerPlayerName, lastModifiedDate.ToLocalTime());
+        return new LeagueDivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games, winnerPlayerName, lastModifiedDate.ToLocalTime());
     }
 
     private async Task<string?> GetWinner(string leagueId, string seasonId, string divisionId,
