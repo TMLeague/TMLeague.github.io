@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using TMGameImporter.Files;
 
-namespace TMGameImporter.Services;
+namespace TMGameImporter.Services.Import;
 
 internal class MainImportingService
 {

@@ -6,7 +6,8 @@ using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
 using TMGameImporter.Http.Converters;
-using TMGameImporter.Services;
+using TMGameImporter.Services.Import;
+using TMGameImporter.Services.Summaries;
 
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
@@ -36,8 +37,15 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<DivisionImportingService>()
             .AddScoped<SeasonImportingService>()
             .AddScoped<LeagueImportingService>()
-            .AddScoped<MainImportingService>())
+            .AddScoped<MainImportingService>()
+            .AddScoped<DivisionSummaryCalculatingService>()
+            .AddScoped<SeasonSummaryCalculatingService>()
+            .AddScoped<LeagueSummaryCalculatingService>()
+            .AddScoped<SummaryCalculatingService>())
     .Build();
 
-var service = host.Services.GetRequiredService<MainImportingService>();
-await service.Import();
+var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
+await mainImportingService.Import();
+
+var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
+await summaryCalculatingService.Calculate();

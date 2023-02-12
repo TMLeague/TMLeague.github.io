@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using TMModels;
 
 namespace TMGameImporter.Files;
@@ -30,12 +31,16 @@ internal class FileLoader
     public async Task<Player?> LoadPlayer(string playerName, CancellationToken cancellationToken) =>
         await DeserializeFile<Player>(_pathProvider.GetPlayerFilePath(playerName), false, cancellationToken);
 
+    public async Task<Results?> LoadResults(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken) =>
+        await DeserializeFile<Results>(_pathProvider.GetResultsFilePath(leagueId, seasonId, divisionId), false, cancellationToken);
+
     public bool ExistsResults(string leagueId, string seasonId, string divisionId) =>
         File.Exists(_pathProvider.GetResultsFilePath(leagueId, seasonId, divisionId));
 
     private static readonly JsonSerializerOptions Options = new()
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true,
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
     };
 
     private static async Task<T?> DeserializeFile<T>(string path, bool throwErrorOnNotFound, CancellationToken cancellationToken)

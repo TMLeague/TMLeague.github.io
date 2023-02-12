@@ -28,7 +28,7 @@ public class LeagueService
             return new LeagueViewModel(leagueId);
 
         var seasons = new List<LeagueSeasonButtonViewModel>();
-        foreach (var seasonId in league.Seasons)
+        foreach (var seasonId in league.AllSeasons)
         {
             var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
             if (season == null)
@@ -65,7 +65,7 @@ public class LeagueService
         if (league == null)
             return null;
 
-        var nextMainSeason = league.Seasons
+        var nextMainSeason = league.AllSeasons
             .Max(season =>
                 int.TryParse(season[1..], out var seasonNumber) ?
                     seasonNumber + 1 :
@@ -128,7 +128,7 @@ public class LeagueService
             return null;
 
         var divisions = new List<LeagueSeasonViewModel>();
-        foreach (var seasonId in league.Seasons.Reverse())
+        foreach (var seasonId in league.AllSeasons.Reverse())
         {
             var seasonDivisionsVm = await _seasonService.GetSeasonDivisionsVm(leagueId, seasonId, cancellationToken);
             if (seasonDivisionsVm is { Divisions.Count: > 0 })

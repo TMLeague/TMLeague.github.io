@@ -9,10 +9,14 @@ public record League(
     [property: JsonPropertyName("rules")] string? Rules,
     [property: JsonPropertyName("discord")] string? Discord,
     [property: JsonPropertyName("judgeTitle")] string? JudgeTitle,
+    [property: JsonPropertyName("trainingSeasons")] string[] TrainingSeasons,
     [property: JsonPropertyName("seasons")] string[] Seasons,
     [property: JsonPropertyName("scoring")] Scoring? Scoring,
     [property: JsonPropertyName("initialMessage")] InitialMessage? InitialMessage
-);
+)
+{
+    public IEnumerable<string> AllSeasons => TrainingSeasons.Concat(Seasons);
+}
 
 public record Scoring(
     [property: JsonPropertyName("pointsPerStronghold")] ushort PointsPerStronghold,

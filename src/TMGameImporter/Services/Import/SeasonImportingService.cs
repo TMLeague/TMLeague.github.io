@@ -2,7 +2,7 @@
 using TMGameImporter.Files;
 using TMModels;
 
-namespace TMGameImporter.Services;
+namespace TMGameImporter.Services.Import;
 
 internal class SeasonImportingService
 {
@@ -25,7 +25,7 @@ internal class SeasonImportingService
         var season = await _fileLoader.LoadSeason(leagueId, seasonId, cancellationToken);
         if (season == null)
         {
-            _logger.LogError("  Season {leagueId}/{seasonId} cannot be deserialized correctly.", 
+            _logger.LogError("  Season {leagueId}/{seasonId} cannot be deserialized correctly.",
                 leagueId.ToUpper(), seasonId.ToUpper());
             return;
         }

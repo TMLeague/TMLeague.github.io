@@ -3,7 +3,7 @@ using TMGameImporter.Files;
 using TMGameImporter.Http;
 using TMGameImporter.Http.Converters;
 
-namespace TMGameImporter.Services;
+namespace TMGameImporter.Services.Import;
 
 internal class PlayerImportingService
 {

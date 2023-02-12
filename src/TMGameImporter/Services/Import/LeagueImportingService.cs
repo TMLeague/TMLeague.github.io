@@ -2,7 +2,7 @@
 using TMGameImporter.Files;
 using TMModels;
 
-namespace TMGameImporter.Services;
+namespace TMGameImporter.Services.Import;
 
 internal class LeagueImportingService
 {
