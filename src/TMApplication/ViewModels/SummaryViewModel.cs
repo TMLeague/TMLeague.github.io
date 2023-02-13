@@ -4,10 +4,6 @@ namespace TMApplication.ViewModels;
 
 public record SummaryViewModel(
     string LeagueName,
-    IReadOnlyCollection<SummaryDivisionViewModel> Divisions);
-
-public record SummaryDivisionViewModel(
-    string DivisionId,
     string DivisionName,
     IReadOnlyCollection<PlayerScoreViewModel> Players);
 

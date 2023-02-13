@@ -44,8 +44,8 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<SummaryCalculatingService>())
     .Build();
 
-//var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
-//await mainImportingService.Import();
+var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
+await mainImportingService.Import();
 
 var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
 await summaryCalculatingService.Calculate();

@@ -13,22 +13,25 @@ public class SummaryService
         _dataProvider = dataProvider;
     }
 
-    public async Task<SummaryViewModel?> GetSummaryVm(string leagueId, CancellationToken cancellationToken = default)
+    public async Task<SummaryViewModel?> GetSummaryVm(string leagueId, string? divisionId = null, CancellationToken cancellationToken = default)
     {
         var summary = await _dataProvider.GetSummary(leagueId, cancellationToken);
         if (summary == null)
             return null;
 
+        var division = divisionId == null
+            ? summary.Divisions.Aggregate(
+                new SummaryDivision(string.Empty, string.Empty),
+                (division1, division2) => division1 + division2)
+            : summary.Divisions.FirstOrDefault(summaryDivision =>
+                summaryDivision.DivisionId == divisionId) ??
+              new SummaryDivision(divisionId, string.Empty);
+
         return new SummaryViewModel(
             summary.LeagueName,
-            summary.Divisions.Select(GetDivision).ToArray());
+            division.DivisionName,
+            division.Players.Select(GetPlayer).ToArray());
     }
-
-    private static SummaryDivisionViewModel GetDivision(SummaryDivision division) => new(
-        division.DivisionId,
-        division.DivisionName,
-        division.Players.Select(GetPlayer).ToArray()
-    );
 
     private static PlayerScoreViewModel GetPlayer(SummaryPlayerScore playerScore)
     {
