@@ -19,10 +19,11 @@ internal class SeasonSummaryCalculatingService
         _logger = logger;
     }
 
-    public async Task<Summary?> Calculate(string leagueId, string seasonId, CancellationToken cancellationToken)
+    public async Task<Summary?> Calculate(string leagueId, string leagueName, string seasonId,
+        string[] leagueMainDivisions, CancellationToken cancellationToken)
     {
         _logger.LogInformation(
-            "  Season {leagueId}/{seasonId} summary calculation started...", 
+            "  Season {leagueId}/{seasonId} summary calculation started...",
             leagueId.ToUpper(), seasonId.ToUpper());
 
         var season = await _fileLoader.LoadSeason(leagueId, seasonId, cancellationToken);
@@ -35,17 +36,27 @@ internal class SeasonSummaryCalculatingService
         }
 
         var divisions = new List<SummaryDivision>();
-        foreach (var divisionId in season.Divisions)
+        foreach (var divisionId in season.Divisions
+                     .Where(leagueMainDivisions.Contains))
         {
-            var summaryDivision = await _divisionSummaryCalculatingService.Calculate(leagueId, seasonId, divisionId, cancellationToken);
+            var summaryDivision = await _divisionSummaryCalculatingService.Calculate(
+                leagueId, seasonId, divisionId, cancellationToken);
             if (summaryDivision != null)
                 divisions.Add(summaryDivision);
+        }
+
+        if (divisions.Count == 0)
+        {
+            _logger.LogWarning(
+                "  Season {leagueId}/{seasonId} has no finished divisions.",
+                leagueId.ToUpper(), seasonId.ToUpper());
+            return null;
         }
 
         _logger.LogInformation(
             "  Season {leagueId}/{seasonId} summary calculated.",
             leagueId.ToUpper(), seasonId.ToUpper());
 
-        return new Summary(leagueId, divisions.ToArray());
+        return new Summary(leagueId, leagueName, divisions.ToArray());
     }
 }

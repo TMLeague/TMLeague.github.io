@@ -22,30 +22,34 @@ internal class LeagueSummaryCalculatingService
     public async Task<Summary?> Calculate(string leagueId, CancellationToken cancellationToken)
     {
         _logger.LogInformation(
-            " League {leagueId} summary calculation started...", 
+            " League {leagueId} summary calculation started...",
             leagueId.ToUpper());
 
         var league = await _fileLoader.LoadLeague(leagueId, cancellationToken);
         if (league == null)
         {
             _logger.LogError(
-                " League {leagueId} cannot be deserialized correctly.", 
+                " League {leagueId} cannot be deserialized correctly.",
                 leagueId.ToUpper());
             return null;
         }
 
-        var summary = new Summary(leagueId, Array.Empty<SummaryDivision>());
+        var summary = new Summary(leagueId, league.Name, Array.Empty<SummaryDivision>());
 
         foreach (var seasonId in league.Seasons)
         {
-            var seasonSummary = await _seasonSummaryCalculatingService.Calculate(leagueId, seasonId, cancellationToken);
+            var seasonSummary = await _seasonSummaryCalculatingService.Calculate(
+                leagueId, league.Name, seasonId, league.MainDivisions, cancellationToken);
             if (seasonSummary != null)
                 summary += seasonSummary;
         }
 
         _logger.LogInformation(
-            " League {leagueId} summary calculated.", 
+            " League {leagueId} summary calculated.",
             leagueId.ToUpper());
+
+        summary.Sort(league.Scoring?.Tiebreakers ??
+                     new[] { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies });
 
         return summary;
     }

@@ -3,29 +3,38 @@
 namespace TMModels;
 
 public record Summary(
-    [property: JsonPropertyName("league")] string League,
+    [property: JsonPropertyName("leagueId")] string LeagueId,
+    [property: JsonPropertyName("leagueName")] string LeagueName,
     [property: JsonPropertyName("divisions")] SummaryDivision[] Divisions)
 {
     public static Summary operator +(Summary summary1, Summary summary2)
     {
         var divisions = summary1.Divisions
             .Concat(summary2.Divisions)
-            .GroupBy(division => division.Division)
+            .GroupBy(division => (division.DivisionId, division.DivisionName))
             .Select(grouping => grouping.Aggregate(
-                new SummaryDivision(grouping.Key),
+                new SummaryDivision(grouping.Key.DivisionId, grouping.Key.DivisionName),
                 (divisionS1, divisionS2) => divisionS1 + divisionS2))
             .ToArray();
 
         return summary1 with { Divisions = divisions };
     }
+
+    public void Sort(Tiebreaker[] tiebreakers)
+    {
+        foreach (var division in Divisions)
+            division.Sort(tiebreakers);
+    }
 }
 
 public record SummaryDivision(
-    [property: JsonPropertyName("division")] string Division,
+    [property: JsonPropertyName("divisionId")] string DivisionId,
+    [property: JsonPropertyName("divisionName")] string DivisionName,
     [property: JsonPropertyName("players")] SummaryPlayerScore[] Players)
 {
-    public SummaryDivision(string division) :
-        this(division, Array.Empty<SummaryPlayerScore>())
+    [JsonConstructor]
+    public SummaryDivision(string divisionId, string divisionName) :
+        this(divisionId, divisionName, Array.Empty<SummaryPlayerScore>())
     { }
 
     public static SummaryDivision operator +(SummaryDivision division1, SummaryDivision division2)
@@ -40,6 +49,10 @@ public record SummaryDivision(
 
         return division1 with { Players = players };
     }
+
+    public void Sort(Tiebreaker[] tiebreakers) => 
+        Array.Sort(Players, (player1, player2) => 
+            -player1.Compare(player2, tiebreakers));
 }
 
 public record SummaryPlayerScore(
@@ -48,6 +61,7 @@ public record SummaryPlayerScore(
     [property: JsonPropertyName("total")] SummaryScore Total,
     [property: JsonPropertyName("seasons")] ushort Seasons = 1)
 {
+    [JsonConstructor]
     public SummaryPlayerScore(string player) :
         this(player, new SummaryScore(), new SummaryScore(), 0)
     { }
@@ -59,6 +73,53 @@ public record SummaryPlayerScore(
             Total = player1.Total + player2.Total,
             Seasons = (ushort)(player1.Seasons + player2.Seasons)
         };
+
+    public int Compare(SummaryPlayerScore other, IEnumerable<Tiebreaker> tiebreakers)
+    {
+        if (Best.TotalPoints != other.Best.TotalPoints)
+            return Best.TotalPoints - other.Best.TotalPoints;
+
+        foreach (var tiebreaker in tiebreakers)
+        {
+            switch (tiebreaker)
+            {
+                case Tiebreaker.Wins:
+                    if (Best.Wins.CompareTo(other.Best.Wins) == 0)
+                        continue;
+                    return Best.Wins.CompareTo(other.Best.Wins);
+
+                case Tiebreaker.Penalties:
+                    if (Best.PenaltiesPoints.CompareTo(other.Best.PenaltiesPoints) == 0)
+                        continue;
+                    return other.Best.PenaltiesPoints.CompareTo(Best.PenaltiesPoints);
+
+                case Tiebreaker.Cla:
+                    if (Best.Cla.CompareTo(other.Best.Cla) == 0)
+                        continue;
+                    return Best.Cla.CompareTo(other.Best.Cla);
+
+                case Tiebreaker.Supplies:
+                    if (Best.Supplies.CompareTo(other.Best.Supplies) == 0)
+                        continue;
+                    return Best.Supplies.CompareTo(other.Best.Supplies);
+
+                case Tiebreaker.PowerTokens:
+                    if (Best.PowerTokens.CompareTo(other.Best.PowerTokens) == 0)
+                        continue;
+                    return Best.PowerTokens.CompareTo(other.Best.PowerTokens);
+
+                case Tiebreaker.MinutesPerMove:
+                    if (Best.MinutesPerMove.CompareTo(other.Best.MinutesPerMove) == 0)
+                        continue;
+                    return Best.MinutesPerMove.CompareTo(other.Best.MinutesPerMove);
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        return 0;
+    }
 }
 
 public record SummaryScore(

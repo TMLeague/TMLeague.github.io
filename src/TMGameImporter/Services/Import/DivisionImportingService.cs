@@ -175,9 +175,9 @@ internal class DivisionImportingService
                     return p1.PowerTokens - p2.PowerTokens;
 
                 case Tiebreaker.MinutesPerMove:
-                    if ((int)p1.MinutesPerMove == (int)p2.MinutesPerMove)
+                    if (p1.MinutesPerMove.CompareTo(p2.MinutesPerMove) == 0)
                         continue;
-                    return (int)(p2.MinutesPerMove - p1.MinutesPerMove);
+                    return p1.MinutesPerMove.CompareTo(p2.MinutesPerMove);
 
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -21,6 +21,23 @@ internal class DivisionSummaryCalculatingService
             "   Division {leagueId}/{seasonId}/{divisionId} summary calculation started...",
             leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
 
+        var division = await _fileLoader.LoadDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null)
+        {
+            _logger.LogError(
+                "   Division {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
+                leagueId, seasonId, divisionId);
+            return null;
+        }
+
+        if (!division.IsFinished)
+        {
+            _logger.LogWarning(
+                "   Division {leagueId}/{seasonId}/{divisionId} is not finished.",
+                leagueId, seasonId, divisionId);
+            return null;
+        }
+
         var results = await _fileLoader.LoadResults(leagueId, seasonId, divisionId, cancellationToken);
         if (results == null)
         {
@@ -40,7 +57,7 @@ internal class DivisionSummaryCalculatingService
             "   Division {leagueId}/{seasonId}/{divisionId} summary calculated.",
             leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
 
-        return new SummaryDivision(divisionId, players);
+        return new SummaryDivision(divisionId, division.Name, players);
     }
 
     private static SummaryScore GetPlayerSummaryScore(PlayerResult playerResult) => new(

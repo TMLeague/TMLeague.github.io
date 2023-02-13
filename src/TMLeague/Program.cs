@@ -23,6 +23,7 @@ builder.Services
     .AddScoped<GameService>()
     .AddScoped<PlayerService>()
     .AddScoped<DraftService>()
-    .AddScoped<PlayerStatsService>();
+    .AddScoped<PlayerStatsService>()
+    .AddScoped<SummaryService>();
 
 await builder.Build().RunAsync();

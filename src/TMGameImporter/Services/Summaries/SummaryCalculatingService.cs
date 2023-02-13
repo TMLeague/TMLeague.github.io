@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using TMGameImporter.Files;
+using TMModels;
 
 namespace TMGameImporter.Services.Summaries;
 
@@ -34,8 +35,9 @@ internal class SummaryCalculatingService
         {
             try
             {
-                var leagueSummary = await _leagueSummaryCalculatingService.Calculate(leagueId, cancellationToken);
-                if (leagueSummary != null)
+                var leagueSummary = await _leagueSummaryCalculatingService.Calculate(
+                    leagueId, cancellationToken);
+                if (leagueSummary != null) 
                     await _fileSaver.SaveSummary(leagueSummary, leagueId, cancellationToken);
             }
             catch (Exception ex)
