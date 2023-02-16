@@ -33,6 +33,11 @@ public enum Tiebreaker
     Wins, Penalties, Cla, Supplies, PowerTokens, MinutesPerMove
 }
 
+public static class Tiebreakers
+{
+    public static readonly Tiebreaker[] Default = { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies };
+}
+
 public record InitialMessage(
     [property: JsonPropertyName("subject")] string Subject,
     [property: JsonPropertyName("body")] string[] Body);

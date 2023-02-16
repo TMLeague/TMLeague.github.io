@@ -48,8 +48,7 @@ internal class LeagueSummaryCalculatingService
             " League {leagueId} summary calculated.",
             leagueId.ToUpper());
 
-        summary.Sort(league.Scoring?.Tiebreakers ??
-                     new[] { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies });
+        summary.Sort(league.Scoring?.Tiebreakers ?? Tiebreakers.Default);
 
         return summary;
     }

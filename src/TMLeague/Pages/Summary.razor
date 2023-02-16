@@ -4,7 +4,7 @@
 @using TMApplication.ViewModels
 @inject SummaryService SummaryService
 @inject ILogger<Summary> Logger
-<h3>League @LeagueId</h3>
+<h3>@(SummaryVm?.LeagueName ?? "League")</h3>
 <h4>Summary</h4>
 
 @if (SummaryVm == null)
@@ -59,7 +59,7 @@ else
                     <td>@player.Tyrell(ScoreType)</td>
                     <td>@player.Greyjoy(ScoreType)</td>
                     <td>@player.Martell(ScoreType)</td>
-                    <td>0</td>
+                    <td>@player.Position(ScoreType)</td>
                     <td>@player.Seasons</td>
                 </tr>
             }

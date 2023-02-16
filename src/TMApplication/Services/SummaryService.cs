@@ -15,6 +15,8 @@ public class SummaryService
 
     public async Task<SummaryViewModel?> GetSummaryVm(string leagueId, string? divisionId = null, CancellationToken cancellationToken = default)
     {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+
         var summary = await _dataProvider.GetSummary(leagueId, cancellationToken);
         if (summary == null)
             return null;
@@ -26,6 +28,8 @@ public class SummaryService
             : summary.Divisions.FirstOrDefault(summaryDivision =>
                 summaryDivision.DivisionId == divisionId) ??
               new SummaryDivision(divisionId, string.Empty);
+
+        Array.Sort(division.Players, (score1, score2) => -score1.Compare(score2, league?.Scoring?.Tiebreakers ?? Tiebreakers.Default));
 
         return new SummaryViewModel(
             summary.LeagueName,
@@ -60,7 +64,8 @@ public class SummaryService
         score.MinutesPerMove,
         (double)score.Moves / seasons,
         GetHousesAverage(score.Houses, seasons),
-        (double)score.PenaltiesPoints / seasons);
+        (double)score.PenaltiesPoints / seasons,
+        (double)score.Position / seasons);
 
     private static Dictionary<House, double> GetHousesAverage(IEnumerable<SummaryHouseScore> houses, uint seasons) =>
         houses.ToDictionary(score => score.House, score => (double)score.Points / seasons);

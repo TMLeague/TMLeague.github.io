@@ -131,10 +131,11 @@ public record SummaryScore(
     [property: JsonPropertyName("minutesPerMove")] double MinutesPerMove,
     [property: JsonPropertyName("moves")] uint Moves,
     [property: JsonPropertyName("houses")] SummaryHouseScore[] Houses,
-    [property: JsonPropertyName("penaltiesPoints")] uint PenaltiesPoints)
+    [property: JsonPropertyName("penaltiesPoints")] uint PenaltiesPoints,
+    [property: JsonPropertyName("position")] uint Position)
 {
     public SummaryScore() :
-        this(0, 0, 0, 0, 0, double.MaxValue, 0, Array.Empty<SummaryHouseScore>(), 0)
+        this(0, 0, 0, 0, 0, double.MaxValue, 0, Array.Empty<SummaryHouseScore>(), 0, uint.MaxValue)
     { }
 
     public static SummaryScore Max(SummaryScore score1, SummaryScore score2) => new(
@@ -152,7 +153,8 @@ public record SummaryScore(
                 new SummaryHouseScore(grouping.Key),
                 SummaryHouseScore.Max))
             .ToArray(),
-        Math.Min(score1.PenaltiesPoints, score2.PenaltiesPoints));
+        Math.Min(score1.PenaltiesPoints, score2.PenaltiesPoints),
+        Math.Min(score1.Position, score2.Position));
 
     public static SummaryScore operator +(SummaryScore score1, SummaryScore score2) => new(
         score1.TotalPoints + score2.TotalPoints,
@@ -169,7 +171,8 @@ public record SummaryScore(
                 new SummaryHouseScore(grouping.Key),
                 (houseScore1, houseScore2) => houseScore1 + houseScore2))
             .ToArray(),
-        score1.PenaltiesPoints + score2.PenaltiesPoints
+        score1.PenaltiesPoints + score2.PenaltiesPoints,
+        score1.Position + score2.Position
     );
 }
 

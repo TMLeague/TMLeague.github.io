@@ -47,10 +47,10 @@ internal class DivisionSummaryCalculatingService
             return null;
         }
 
-        var players = results.Players.Select(playerResult => new SummaryPlayerScore(
+        var players = results.Players.Select((playerResult, idx) => new SummaryPlayerScore(
             playerResult.Player,
-            GetPlayerSummaryScore(playerResult),
-            GetPlayerSummaryScore(playerResult)))
+            GetPlayerSummaryScore(playerResult, idx),
+            GetPlayerSummaryScore(playerResult, idx)))
             .ToArray();
 
         _logger.LogInformation(
@@ -60,7 +60,7 @@ internal class DivisionSummaryCalculatingService
         return new SummaryDivision(divisionId, division.Name, players);
     }
 
-    private static SummaryScore GetPlayerSummaryScore(PlayerResult playerResult) => new(
+    private static SummaryScore GetPlayerSummaryScore(PlayerResult playerResult, int position) => new(
         playerResult.TotalPoints,
         playerResult.Wins,
         playerResult.Cla,
@@ -69,7 +69,8 @@ internal class DivisionSummaryCalculatingService
         playerResult.MinutesPerMove,
         playerResult.Moves,
         GetSummaryHouseScore(playerResult.Houses),
-        playerResult.PenaltiesPoints);
+        playerResult.PenaltiesPoints,
+        (uint)position + 1);
 
     private static SummaryHouseScore[] GetSummaryHouseScore(IEnumerable<HouseResult> houses) =>
         houses.Select(houseResult => new SummaryHouseScore(
