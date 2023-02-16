@@ -38,8 +38,11 @@ internal class LeagueSummaryCalculatingService
 
         foreach (var seasonId in league.Seasons)
         {
+            var mainDivisions = league.MainDivisions
+                .Select(division => division.Id)
+                .ToArray();
             var seasonSummary = await _seasonSummaryCalculatingService.Calculate(
-                leagueId, league.Name, seasonId, league.MainDivisions, cancellationToken);
+                leagueId, league.Name, seasonId, mainDivisions, cancellationToken);
             if (seasonSummary != null)
                 summary += seasonSummary;
         }

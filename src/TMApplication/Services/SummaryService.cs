@@ -34,7 +34,8 @@ public class SummaryService
         return new SummaryViewModel(
             summary.LeagueName,
             division.DivisionName,
-            division.Players.Select(GetPlayer).ToArray());
+            division.Players.Select(GetPlayer).ToArray(),
+            league?.MainDivisions ?? Array.Empty<IdName>());
     }
 
     private static PlayerScoreViewModel GetPlayer(SummaryPlayerScore playerScore)

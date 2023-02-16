@@ -50,8 +50,8 @@ public record SummaryDivision(
         return division1 with { Players = players };
     }
 
-    public void Sort(Tiebreaker[] tiebreakers) => 
-        Array.Sort(Players, (player1, player2) => 
+    public void Sort(Tiebreaker[] tiebreakers) =>
+        Array.Sort(Players, (player1, player2) =>
             -player1.Compare(player2, tiebreakers));
 }
 
@@ -109,9 +109,11 @@ public record SummaryPlayerScore(
                     return Best.PowerTokens.CompareTo(other.Best.PowerTokens);
 
                 case Tiebreaker.MinutesPerMove:
-                    if (Best.MinutesPerMove.CompareTo(other.Best.MinutesPerMove) == 0)
+                    if (Best.MinutesPerMove == null ||
+                        other.Best.MinutesPerMove == null ||
+                        Best.MinutesPerMove.Value.CompareTo(other.Best.MinutesPerMove) == 0)
                         continue;
-                    return Best.MinutesPerMove.CompareTo(other.Best.MinutesPerMove);
+                    return Best.MinutesPerMove.Value.CompareTo(other.Best.MinutesPerMove);
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -128,14 +130,14 @@ public record SummaryScore(
     [property: JsonPropertyName("cla")] uint Cla,
     [property: JsonPropertyName("supplies")] uint Supplies,
     [property: JsonPropertyName("powerTokens")] uint PowerTokens,
-    [property: JsonPropertyName("minutesPerMove")] double MinutesPerMove,
+    [property: JsonPropertyName("minutesPerMove")] double? MinutesPerMove,
     [property: JsonPropertyName("moves")] uint Moves,
     [property: JsonPropertyName("houses")] SummaryHouseScore[] Houses,
     [property: JsonPropertyName("penaltiesPoints")] uint PenaltiesPoints,
-    [property: JsonPropertyName("position")] uint Position)
+    [property: JsonPropertyName("position")] uint? Position)
 {
     public SummaryScore() :
-        this(0, 0, 0, 0, 0, double.MaxValue, 0, Array.Empty<SummaryHouseScore>(), 0, uint.MaxValue)
+        this(0, 0, 0, 0, 0, null, 0, Array.Empty<SummaryHouseScore>(), 0, null)
     { }
 
     public static SummaryScore Max(SummaryScore score1, SummaryScore score2) => new(
@@ -144,7 +146,9 @@ public record SummaryScore(
         Math.Max(score1.Cla, score2.Cla),
         Math.Max(score1.Supplies, score2.Supplies),
         Math.Max(score1.PowerTokens, score2.PowerTokens),
-        Math.Min(score1.MinutesPerMove, score2.MinutesPerMove),
+        score1.MinutesPerMove != null && score2.MinutesPerMove != null ?
+            Math.Min(score1.MinutesPerMove.Value, score2.MinutesPerMove.Value) :
+            score1.MinutesPerMove ?? score2.MinutesPerMove,
         Math.Max(score1.Moves, score2.Moves),
         score1.Houses
             .Concat(score2.Houses)
@@ -153,8 +157,10 @@ public record SummaryScore(
                 new SummaryHouseScore(grouping.Key),
                 SummaryHouseScore.Max))
             .ToArray(),
-        Math.Min(score1.PenaltiesPoints, score2.PenaltiesPoints),
-        Math.Min(score1.Position, score2.Position));
+        Math.Max(score1.PenaltiesPoints, score2.PenaltiesPoints),
+        score1.Position != null && score2.Position != null ?
+            Math.Min(score1.Position.Value, score2.Position.Value) :
+            score1.Position ?? score2.Position);
 
     public static SummaryScore operator +(SummaryScore score1, SummaryScore score2) => new(
         score1.TotalPoints + score2.TotalPoints,
@@ -162,7 +168,9 @@ public record SummaryScore(
         score1.Cla + score2.Cla,
         score1.Supplies + score2.Supplies,
         score1.PowerTokens + score2.PowerTokens,
-        (score1.MinutesPerMove * score1.Moves + score2.MinutesPerMove * score2.Moves) / (score1.Moves + score2.Moves),
+        score1.MinutesPerMove != null && score2.MinutesPerMove != null ?
+            (score1.MinutesPerMove * score1.Moves + score2.MinutesPerMove * score2.Moves) / (score1.Moves + score2.Moves) :
+            score1.MinutesPerMove ?? score2.MinutesPerMove,
         score1.Moves + score2.Moves,
         score1.Houses
             .Concat(score2.Houses)
@@ -172,7 +180,9 @@ public record SummaryScore(
                 (houseScore1, houseScore2) => houseScore1 + houseScore2))
             .ToArray(),
         score1.PenaltiesPoints + score2.PenaltiesPoints,
-        score1.Position + score2.Position
+        score1.Position != null && score2.Position != null ?
+            score1.Position + score2.Position :
+            score1.Position ?? score2.Position
     );
 }
 

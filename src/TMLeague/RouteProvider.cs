@@ -1,4 +1,6 @@
-﻿namespace TMLeague;
+﻿using TMApplication.ViewModels;
+
+namespace TMLeague;
 
 internal class RouteProvider
 {
@@ -20,15 +22,21 @@ internal class RouteProvider
         return $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
     }
 
-    public static string GetLeagueIndexRoute(string leagueId) => 
+    public static string GetLeagueIndexRoute(string leagueId) =>
         $"{League}/{leagueId}/index";
 
-    public static string GetLeagueSummaryRoute(string leagueId) => 
-        $"{League}/{leagueId}/summary";
+    public static string GetLeagueSummaryRoute(string leagueId, string? divisionId = null, ScoreType? scoreType = null) =>
+        scoreType == null ?
+            (string.IsNullOrEmpty(divisionId) ?
+                $"{League}/{leagueId}/summary" :
+                $"{League}/{leagueId}/summary/{ScoreType.Best}/{divisionId}") :
+        string.IsNullOrEmpty(divisionId)
+            ? $"{League}/{leagueId}/summary/{scoreType}"
+            : $"{League}/{leagueId}/summary/{scoreType}/{divisionId}";
 
-    public static string GetLeaguePlayersRoute(string leagueId) => 
+    public static string GetLeaguePlayersRoute(string leagueId) =>
         $"{League}/{leagueId}/players";
 
-    public static string GetLeagueSeasonsRoute(string leagueId) => 
+    public static string GetLeagueSeasonsRoute(string leagueId) =>
         $"{League}/{leagueId}/seasons";
 }

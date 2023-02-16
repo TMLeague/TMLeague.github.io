@@ -5,7 +5,8 @@ namespace TMApplication.ViewModels;
 public record SummaryViewModel(
     string LeagueName,
     string DivisionName,
-    IReadOnlyCollection<PlayerScoreViewModel> Players);
+    IReadOnlyCollection<PlayerScoreViewModel> Players,
+    IdName[] AvailableDivisions);
 
 public record PlayerScoreViewModel(
     string Player,
@@ -17,10 +18,10 @@ public record PlayerScoreViewModel(
     public double Cla(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Cla, decimals);
     public double Supplies(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Supplies, decimals);
     public double PowerTokens(ScoreType type, int decimals = 1) => Math.Round(Scores[type].PowerTokens, decimals);
-    public double MinutesPerMove(ScoreType type, int decimals = 0) => Math.Round(Scores[type].MinutesPerMove, decimals);
+    public double MinutesPerMove(ScoreType type, int decimals = 0) => Math.Round(Scores[type].MinutesPerMove ?? 0, decimals);
     public double Moves(ScoreType type, int decimals = 0) => Math.Round(Scores[type].Moves, decimals);
     public double PenaltiesPoints(ScoreType type, int decimals = 1) => Math.Round(Scores[type].PenaltiesPoints, decimals);
-    public double Position(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Position, decimals);
+    public double Position(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Position ?? 0, decimals);
     public double Baratheon(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Baratheon, out var score) ? score : 0, decimals);
     public double Lannister(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Lannister, out var score) ? score : 0, decimals);
     public double Stark(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Stark, out var score) ? score : 0, decimals);
@@ -35,14 +36,19 @@ public enum ScoreType
     Best, Average, Total
 }
 
+public static class ScoreTypes
+{
+    public static readonly ScoreType[] All = { ScoreType.Best, ScoreType.Average, ScoreType.Total };
+}
+
 public record ScoreViewModel(
     double TotalPoints,
     double Wins,
     double Cla,
     double Supplies,
     double PowerTokens,
-    double MinutesPerMove,
+    double? MinutesPerMove,
     double Moves,
     Dictionary<House, double> Houses,
     double PenaltiesPoints,
-    double Position);
+    double? Position);

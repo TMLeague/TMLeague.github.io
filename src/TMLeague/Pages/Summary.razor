@@ -1,5 +1,6 @@
 ﻿@page "/league/{leagueId}/summary"
-@page "/league/{leagueId}/summary/{divisionId}"
+@page "/league/{leagueId}/summary/{type}"
+@page "/league/{leagueId}/summary/{type}/{divisionId}"
 @using TMApplication.Services
 @using TMApplication.ViewModels
 @inject SummaryService SummaryService
@@ -7,65 +8,101 @@
 <h3>@(SummaryVm?.LeagueName ?? "League")</h3>
 <h4>Summary</h4>
 
-@if (SummaryVm == null)
-{
-    @if (_isInitialized)
-    {
-        <div class="lead">The league has no finished seasons.</div>
-    }
-    else
-    {
-        <Loading></Loading>
-    }
-}
-else
-{
-    @if (!string.IsNullOrEmpty(SummaryVm.DivisionName))
-    {
-        <h5>@SummaryVm.DivisionName</h5>
-    }
-    <table class="table table-striped table-dark pb-0" width="1500px">
-        <thead>
-            <tr>
-                <th scope="col" style="width: 200px">Player</th>
-                <th scope="col" style="width: 100px">Points</th>
-                <th scope="col" style="width: 100px">Wins</th>
-                <th scope="col" style="width: 100px">Penalties</th>
-                <th scope="col" style="width: 100px">Cla</th>
-                <th scope="col" style="width: 100px">Supply</th>
-                <th scope="col" style="width: 100px">Baratheon</th>
-                <th scope="col" style="width: 100px">Lannister</th>
-                <th scope="col" style="width: 100px">Stark</th>
-                <th scope="col" style="width: 100px">Tyrell</th>
-                <th scope="col" style="width: 100px">Greyjoy</th>
-                <th scope="col" style="width: 100px">Martell</th>
-                <th scope="col" style="width: 100px">Position</th>
-                <th scope="col" style="width: 100px">All seasons</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var player in SummaryVm.Players)
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row my-1">
+        <div class="btn-group">
+            <a class="btn btn-primary @(DivisionId == null ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, null, ScoreType)" disabled=@(DivisionId == null)>
+                Total
+            </a>
+            @if (SummaryVm != null)
             {
-                <tr>
-                    <th scope="row">@player.Player</th>
-                    <td class="text-warning">@player.TotalPoints(ScoreType)</td>
-                    <td>@player.Wins(ScoreType)</td>
-                    <td>@player.PenaltiesPoints(ScoreType)</td>
-                    <td>@player.Cla(ScoreType)</td>
-                    <td>@player.Supplies(ScoreType)</td>
-                    <td>@player.Baratheon(ScoreType)</td>
-                    <td>@player.Lannister(ScoreType)</td>
-                    <td>@player.Stark(ScoreType)</td>
-                    <td>@player.Tyrell(ScoreType)</td>
-                    <td>@player.Greyjoy(ScoreType)</td>
-                    <td>@player.Martell(ScoreType)</td>
-                    <td>@player.Position(ScoreType)</td>
-                    <td>@player.Seasons</td>
-                </tr>
+                @foreach (var division in SummaryVm.AvailableDivisions)
+                {
+                    <a class="btn btn-primary @(DivisionId == division.Id ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, @division.Id, ScoreType)" disabled=@(DivisionId == division.Id)>
+                        @division.Name
+                    </a>
+                }
             }
-        </tbody>
-    </table>
-}
+        </div>
+    </div>
+    <div class="d-flex flex-row my-1">
+        <div class="btn-group">
+            @foreach (var type in ScoreTypes.All)
+            {
+                <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, DivisionId, type)" disabled=@(ScoreType == type)>
+                    @type
+                </a>
+            }
+        </div>
+    </div>
+    <div class="flex-row">
+        @if (SummaryVm == null)
+        {
+            @if (_isInitialized)
+            {
+                <div class="lead">The league has no finished seasons.</div>
+            }
+            else
+            {
+                <Loading></Loading>
+            }
+        }
+        else
+        {
+            <table class="table table-striped table-dark pb-0" width="1700px">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 200px">Player</th>
+                        <th scope="col" style="width: 100px">Points</th>
+                        <th scope="col" style="width: 100px">Wins</th>
+                        <th scope="col" style="width: 100px">Penalties</th>
+                        <th scope="col" style="width: 100px">Cla</th>
+                        <th scope="col" style="width: 100px">Supply</th>
+                        <th scope="col" style="width: 100px">PT</th>
+                        <th scope="col" style="width: 100px">Baratheon</th>
+                        <th scope="col" style="width: 100px">Lannister</th>
+                        <th scope="col" style="width: 100px">Stark</th>
+                        <th scope="col" style="width: 100px">Tyrell</th>
+                        <th scope="col" style="width: 100px">Greyjoy</th>
+                        <th scope="col" style="width: 100px">Martell</th>
+                        @if (ScoreType != ScoreType.Total)
+                        {
+                            <th scope="col" style="width: 100px">Position</th>
+                            <th scope="col" style="width: 100px">MPM</th>
+                        }
+                        <th scope="col" style="width: 100px">All seasons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var player in SummaryVm.Players)
+                    {
+                        <tr>
+                            <th scope="row">@player.Player</th>
+                            <td class="text-warning">@player.TotalPoints(ScoreType)</td>
+                            <td>@player.Wins(ScoreType)</td>
+                            <td>@player.PenaltiesPoints(ScoreType)</td>
+                            <td>@player.Cla(ScoreType)</td>
+                            <td>@player.Supplies(ScoreType)</td>
+                            <td>@player.PowerTokens(ScoreType)</td>
+                            <td>@player.Baratheon(ScoreType)</td>
+                            <td>@player.Lannister(ScoreType)</td>
+                            <td>@player.Stark(ScoreType)</td>
+                            <td>@player.Tyrell(ScoreType)</td>
+                            <td>@player.Greyjoy(ScoreType)</td>
+                            <td>@player.Martell(ScoreType)</td>
+                            @if (ScoreType != ScoreType.Total)
+                            {
+                                <td>@player.Position(ScoreType)</td>
+                                <td>@player.MinutesPerMove(ScoreType)</td>
+                            }
+                            <td>@player.Seasons</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
 
 @code {
     [Parameter]
@@ -74,11 +111,22 @@ else
     [Parameter]
     public string? DivisionId { get; set; }
 
-    private ScoreType ScoreType { get; set; }
+    [Parameter]
+    public string? Type { get; set; }
+
+    private ScoreType ScoreType => Enum.TryParse<ScoreType>(Type ?? "", out var scoreType) ? scoreType : ScoreType.Best;
 
     private SummaryViewModel? SummaryVm { get; set; }
 
     private bool _isInitialized;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (LeagueId != null)
+            SummaryVm = await SummaryService.GetSummaryVm(LeagueId, DivisionId);
+
+        await base.OnParametersSetAsync();
+    }
 
     protected override async Task OnInitializedAsync()
     {
