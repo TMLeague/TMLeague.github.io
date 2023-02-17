@@ -1,0 +1,18 @@
+﻿@using TMApplication.ViewModels
+@using TMLeague.Components.League
+
+@if (SectionVm != null)
+{
+    <h4>@SectionVm.Section</h4>
+    <div class="d-flex flex-row">
+        @foreach (var division in SectionVm.Divisions)
+        {
+            <HallOfFameDivision DivisionVm="division"></HallOfFameDivision>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public HallOfFameSectionViewModel? SectionVm { get; set; }
+}

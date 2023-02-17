@@ -465,3 +465,12 @@ a, .btn-link {
         .table-draft tr td {
             background-color: #25292C;
         }
+
+.table-winner tbody tr:first-child th,
+.table-winner tbody tr:first-child td {
+    color: #fff090;
+}
+
+.text-clip {
+    text-overflow: clip;
+}

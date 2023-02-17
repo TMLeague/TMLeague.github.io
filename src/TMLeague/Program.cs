@@ -24,6 +24,7 @@ builder.Services
     .AddScoped<PlayerService>()
     .AddScoped<DraftService>()
     .AddScoped<PlayerStatsService>()
-    .AddScoped<SummaryService>();
+    .AddScoped<SummaryService>()
+    .AddScoped<HallOfFameService>();
 
 await builder.Build().RunAsync();

@@ -1,7 +1,65 @@
-﻿<h4>Hall of Fame</h4>
+﻿@using TMApplication.Services
+@using TMApplication.ViewModels
+@using TMLeague.Components.League
+@inject HallOfFameService HallOfFameService
+@inject ILogger<HallOfFame> Logger
 
-<TMLeague.Components.WorkInProgress></TMLeague.Components.WorkInProgress>
+<h4>Hall of Fame</h4>
+
+@if (HallOfFameVm == null)
+{
+    @if (_isInitialized)
+    {
+        <div class="lead">The league has no hall of fame yet.</div>
+    }
+    else
+    {
+        <Loading Size="10vh"></Loading>
+    }
+}
+else
+{
+    <div id="hallOfFameCarousel" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hallOfFameCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Points"></button>
+            <button type="button" data-bs-target="#hallOfFameCarousel" data-bs-slide-to="1" aria-label="Wins"></button>
+            <button type="button" data-bs-target="#hallOfFameCarousel" data-bs-slide-to="2" aria-label="Controlled Land Territories"></button>
+            <button type="button" data-bs-target="#hallOfFameCarousel" data-bs-slide-to="3" aria-label="Supplies"></button>
+        </div>
+        <div class="carousel-inner pb-4">
+            @foreach (var (section, i) in HallOfFameVm.Sections.Select((s, i) => (s, i)))
+            {
+                <div class="carousel-item @(i == 0 ? "active" : "")" data-bs-interval="10000">
+                    <HallOfFameSlide SectionVm="section"></HallOfFameSlide>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hallOfFameCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hallOfFameCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+}
 
 @code {
-    
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    private HallOfFameViewModel? HallOfFameVm { get; set; }
+
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (LeagueId != null)
+            HallOfFameVm = await HallOfFameService.GetHallOfFameVm(LeagueId);
+        else
+            Logger.LogError($"Parameter {nameof(LeagueId)} is required!");
+
+        _isInitialized = true;
+    }
 }
