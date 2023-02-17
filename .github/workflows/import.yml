@@ -26,7 +26,7 @@ jobs:
       run: dotnet restore src/TMGameImporter
       
     - name: Run
-      run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj --no-restore --configuration Release --property:BaseLocation=../../../../TMLeague/wwwroot/data
+      run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj --no-restore --configuration Release --BaseLocation src/TMLeague/wwwroot/data
 
     - name: Commit results
       uses: JamesIves/github-pages-deploy-action@3.7.1
