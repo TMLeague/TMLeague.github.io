@@ -17,11 +17,12 @@ var host = Host.CreateDefaultBuilder()
         app.AddJsonFile("appsettings.json", true, true);
         if (!string.IsNullOrEmpty(environmentName))
             app.AddJsonFile($"appsettings.{environmentName}.json", true, true);
+        app.AddCommandLine(args);
     })
     .ConfigureServices((context, services) =>
         services
             .AddLogging()
-            .Configure<ImporterOptions>(context.Configuration.GetSection("Importer"))
+            .Configure<ImporterOptions>(context.Configuration)
             .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net") })
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
