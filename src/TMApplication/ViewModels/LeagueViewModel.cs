@@ -25,8 +25,11 @@ public record LeagueDivisionSummaryViewModel(
     string? DivisionName,
     double Progress,
     IReadOnlyCollection<LeagueGameSummaryViewModel> Games,
-    string? WinnerPlayerName,
-    DateTimeOffset GeneratedTime);
+    string? WinnerPlayerName)
+{
+    public DateTimeOffset? GeneratedTime => Games
+        .Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
+}
 
 public record LeagueGameSummaryViewModel(
     uint Id,
@@ -36,8 +39,7 @@ public record LeagueGameSummaryViewModel(
     bool IsFinished,
     bool IsStalling,
     string? WinnerPlayerName,
-    DateTimeOffset? GeneratedTime
-);
+    DateTimeOffset? GeneratedTime);
 
 public record LeagueChampionsViewModel(
     IReadOnlyList<LeagueSeasonChampionViewModel> Champions);

@@ -23,6 +23,6 @@ public class GameService
             game.IsStalling ?
                 97 :
                 100 * (double)game.Turn / 11;
-        return new LeagueGameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished, game.IsStalling, game.Winner, game.ModifiedDate);
+        return new LeagueGameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished, game.IsStalling, game.Winner, game.GeneratedTime);
     }
 }

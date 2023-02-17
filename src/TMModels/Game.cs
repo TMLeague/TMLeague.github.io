@@ -11,7 +11,7 @@ public record Game(
     [property: JsonPropertyName("map")] Map Map,
     [property: JsonPropertyName("houses")] HouseScore[] Houses,
     [property: JsonPropertyName("winner")] string? Winner,
-    [property: JsonPropertyName("modifiedDate")] DateTimeOffset ModifiedDate);
+    [property: JsonPropertyName("generatedTime")] DateTimeOffset GeneratedTime);
 
 public record HouseScore(
     [property: JsonPropertyName("name")] House House,
