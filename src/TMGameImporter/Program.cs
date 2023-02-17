@@ -23,7 +23,7 @@ var host = Host.CreateDefaultBuilder()
         services
             .AddLogging()
             .Configure<ImporterOptions>(context.Configuration)
-            .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net") })
+            .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net"), Timeout = TimeSpan.FromSeconds(5) })
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
             .AddScoped<PlayerConverter>()

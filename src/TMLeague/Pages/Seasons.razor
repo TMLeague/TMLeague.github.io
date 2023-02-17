@@ -31,12 +31,12 @@ else
                 </h5>
                 @foreach (var division in season.Divisions)
                 {
-                    <div class="col-4 p-2">
+                    <div class="col-4 p-2 text-truncate">
                         <a class="btn btn-primary w-100" href="@RouteProvider.GetRoute(LeagueId, season.SeasonId, division.DivisionId)">
                             <h6 class="mb-0">
                                 @division.DivisionName
                             </h6>
-                            <span class="ms-3 fst-italic">
+                            <span class="fst-italic">
                                 @(string.IsNullOrWhiteSpace(@division.Title) ?
                                     $"Winner: {division.PlayerName}" :
                                     $"{division.PlayerName}, {division.Title}")
