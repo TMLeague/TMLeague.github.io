@@ -46,7 +46,7 @@ internal class DivisionImportingService
 
         //foreach (var playerName in division.Enemies)
         //    await _playerImportingService.Import(playerName, cancellationToken);
-        var games = division.Games
+        var games = division.Games.AsParallel()
             .Select(gameId => _gameImportingService.Import(gameId, cancellationToken))
             .Select(task => task.Result)
             .OfType<Game>()

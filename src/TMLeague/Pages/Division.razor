@@ -48,7 +48,7 @@
                     @foreach (var playerVm in DivisionVm.Players)
                     {
                         <tr>
-                            <th scope="row">@playerVm.Name</th>
+                            <th scope="row"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
                             <td class="text-warning">@playerVm.TotalPoints</td>
                             <td>@playerVm.Wins</td>
                             <td class="tt" ontouchstart="">

@@ -35,14 +35,16 @@ public class HallOfFameService
         Summary summary, string title, Func<SummaryScore, double> getValue)
     {
         var divisions = summary.Divisions
-            .Select(division => GetHallOfFameDivisionVm(division, getValue))
+            .Select(division => GetHallOfFameDivisionVm(summary.LeagueId, division, getValue))
             .ToArray();
 
         return new HallOfFameSectionViewModel(title, divisions);
     }
 
     private static HallOfFameDivisionViewModel GetHallOfFameDivisionVm(
-        SummaryDivision division, Func<SummaryScore, double> getValue) => new(
+        string leagueId, SummaryDivision division, Func<SummaryScore, double> getValue) => new(
+        leagueId,
+        division.DivisionId,
         division.DivisionName,
         division.Players
             .Select(score => new HallOfFamePlayerViewModel(

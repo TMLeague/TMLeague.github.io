@@ -21,8 +21,11 @@ internal class StateConverter
     {
         try
         {
-            var chat = chatRaw?.Chat.FirstOrDefault(item =>
-                item is string str && str.StartsWith("The battle for Westeros begins, now!")) as string;
+            var chat = chatRaw?.Chat
+                .OfType<JsonElement>()
+                .Where(item => item.ValueKind == JsonValueKind.String)
+                .Select(item => item.GetString())
+                .FirstOrDefault(item => item?.Contains("The battle for Westeros begins, now!") ?? false);
             var data = new Data(stateRaw.Data);
             var setup = new Setup(stateRaw.Setup);
             var stats = stateRaw.Stats

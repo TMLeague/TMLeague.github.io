@@ -8,7 +8,9 @@ public record HallOfFameSectionViewModel(
     IReadOnlyCollection<HallOfFameDivisionViewModel> Divisions);
 
 public record HallOfFameDivisionViewModel(
-    string Division,
+    string LeagueId,
+    string DivisionId,
+    string DivisionName,
     IReadOnlyCollection<HallOfFamePlayerViewModel> Players);
 
 public record HallOfFamePlayerViewModel(

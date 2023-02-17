@@ -7,35 +7,35 @@
 <h4>Champions of all seasons</h4>
 
 <div class="overflow-auto" style="max-height: 330px;">
-@if (LeagueChampions == null)
-{
-    @if (_isInitialized)
+    @if (LeagueChampions == null)
     {
-        <div class="lead">The league has no champions.</div>
+        @if (_isInitialized)
+        {
+            <div class="lead">The league has no champions.</div>
+        }
+        else
+        {
+            <Loading Size="10vh"></Loading>
+        }
     }
     else
     {
-        <Loading Size="10vh"></Loading>
-    }
-}
-else
-{
-    <div class="flex-row">
-    @foreach (var champion in LeagueChampions.Champions)
-    {
-        <div class="flex-row text-start">
-            <h5 class="w-100 mb-0 mt-2">
-                <a class="text-white" href="@RouteProvider.GetRoute(LeagueId, champion.SeasonId)">
-                    @champion.SeasonName
-                </a>
-            </h5>
-            <span class="w-100 ms-3 fst-italic">
-                <PlayerLink PlayerName="@champion.PlayerName"></PlayerLink>, @champion.Title
-            </span>
+        <div class="flex-row">
+            @foreach (var champion in LeagueChampions.Champions)
+            {
+                <div class="flex-row text-start">
+                    <h5 class="w-100 mb-0 mt-2">
+                        <a class="text-inherit" href="@RouteProvider.GetRoute(LeagueId, champion.SeasonId)">
+                            @champion.SeasonName
+                        </a>
+                    </h5>
+                    <span class="w-100 ms-3 fst-italic">
+                        <span class="winner"><PlayerLink PlayerName="@champion.PlayerName"></PlayerLink></span>, @champion.Title
+                    </span>
+                </div>
+            }
         </div>
     }
-    </div>
-}
 </div>
 
 @code {

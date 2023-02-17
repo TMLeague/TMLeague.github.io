@@ -6,7 +6,7 @@
 @inject ILogger<SeasonSummary> Logger
 
 <h4>
-    <a class="text-white" href="@RouteProvider.GetRoute(LeagueId, SeasonId)">
+    <a class="text-inherit" href="@RouteProvider.GetRoute(LeagueId, SeasonId)">
         @(SeasonSummaryDetails?.SeasonName ?? "Season")
     </a> summary
 </h4>

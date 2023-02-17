@@ -1,4 +1,5 @@
 ﻿@using TMApplication.ViewModels
+@using TMLeague.Components.TmLinks
 
 @if (DivisionVm != null)
 {
@@ -6,7 +7,11 @@
         <table class="table table-striped table-dark pb-0 table-winner" width="200px">
             <thead>
                 <tr>
-                    <th scope="col" colspan="2" style="width: 200px"><h5>@DivisionVm.Division</h5></th>
+                    <th scope="col" colspan="2" style="width: 200px">
+                        <a href="@RouteProvider.GetLeagueSummaryRoute(DivisionVm.LeagueId, DivisionVm.DivisionId)">
+                            <h6>@DivisionVm.DivisionName</h6>
+                        </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -14,7 +19,7 @@
                 {
                     <tr>
                         <th scope="row" style="width: 50px">@player.Score</th>
-                        <td style="width: 150px" class="text-clip">@player.Player</td>
+                        <td style="width: 150px" class="text-clip"><PlayerLink PlayerName="@player.Player"></PlayerLink></td>
                     </tr>
                 }
             </tbody>

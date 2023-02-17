@@ -3,6 +3,7 @@
 @page "/league/{leagueId}/summary/{type}/{divisionId}"
 @using TMApplication.Services
 @using TMApplication.ViewModels
+@using TMLeague.Components.TmLinks
 @inject SummaryService SummaryService
 @inject ILogger<Summary> Logger
 <h3>@(SummaryVm?.LeagueName ?? "League")</h3>
@@ -77,7 +78,7 @@
                     @foreach (var player in SummaryVm.Players)
                     {
                         <tr>
-                            <th scope="row">@player.Player</th>
+                            <th scope="row"><PlayerLink PlayerName="@player.Player"></PlayerLink></th>
                             <td class="text-warning">@player.TotalPoints(ScoreType)</td>
                             <td>@player.Wins(ScoreType)</td>
                             <td>@player.PenaltiesPoints(ScoreType)</td>

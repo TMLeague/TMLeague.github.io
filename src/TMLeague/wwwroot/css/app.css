@@ -11,7 +11,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: inherit;
 }
 
 .text-justify {
@@ -467,10 +467,19 @@ a, .btn-link {
         }
 
 .table-winner tbody tr:first-child th,
-.table-winner tbody tr:first-child td {
-    color: #fff090;
+.table-winner tbody tr:first-child td,
+.winner {
+    color: #ff9;
 }
 
 .text-clip {
     text-overflow: clip;
+}
+
+h1, h2, h3 {
+    color: #9f9;
+}
+
+h4, h5, h6 {
+    color: #ddd;
 }
