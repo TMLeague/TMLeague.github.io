@@ -15,7 +15,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services
     .Configure<LocalApiOptions>(builder.Configuration.GetSection("LocalApi"))
-    .AddScoped(_ => new HttpClient(new DefaultBrowserOptionsMessageHandler
+    .AddScoped(_ => new HttpClient(new DefaultBrowserOptionsMessageHandler(new HttpClientHandler())
     { DefaultBrowserRequestCache = BrowserRequestCache.NoCache })
     { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
     .AddScoped<IMemoryCache, MemoryCache>()
