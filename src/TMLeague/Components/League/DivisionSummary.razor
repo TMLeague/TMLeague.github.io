@@ -58,7 +58,7 @@ else
                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
                      role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)game.Progress)"
                      aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)game.Progress}%")">
-                                @($"T{game.Turn}")
+                                @(game.IsStalling ? "Stalling" : $"T{game.Turn}")
                             </div>
                         </div>
                     </div>
