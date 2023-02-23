@@ -65,12 +65,14 @@ public class LeagueService
         if (league == null)
             return null;
 
-        var nextMainSeason = league.AllSeasons
-            .Max(season =>
-                int.TryParse(season[1..], out var seasonNumber) ?
-                    seasonNumber + 1 :
-                    1)
-            .ToString();
+        var nextMainSeason = league.Seasons.Length == 0 ?
+            "1" :
+            league.Seasons
+                .Max(season =>
+                    int.TryParse(season[1..], out var seasonNumber) ?
+                        seasonNumber + 1 :
+                        1)
+                .ToString();
 
         return new DivisionSetupViewModel(
             league.Name,

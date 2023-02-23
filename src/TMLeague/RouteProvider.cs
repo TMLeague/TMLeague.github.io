@@ -39,4 +39,7 @@ internal class RouteProvider
 
     public static string GetLeagueSeasonsRoute(string leagueId) =>
         $"{League}/{leagueId}/seasons";
+
+    public static string GetLeagueJudgeRoute(string leagueId) =>
+        $"{League}/{leagueId}/judge";
 }

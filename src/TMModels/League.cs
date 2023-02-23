@@ -9,9 +9,9 @@ public record League(
     [property: JsonPropertyName("rules")] string? Rules,
     [property: JsonPropertyName("discord")] string? Discord,
     [property: JsonPropertyName("judgeTitle")] string? JudgeTitle,
+    [property: JsonPropertyName("seasons")] string[] Seasons,
     [property: JsonPropertyName("trainingSeasons")] string[] TrainingSeasons,
     [property: JsonPropertyName("mainDivisions")] IdName[] MainDivisions,
-    [property: JsonPropertyName("seasons")] string[] Seasons,
     [property: JsonPropertyName("scoring")] Scoring? Scoring,
     [property: JsonPropertyName("initialMessage")] InitialMessage? InitialMessage
 )
