@@ -55,7 +55,7 @@ public class LocalApi : IDataProvider
             $"/data/leagues/{leagueId}/seasons/{seasonId}/divisions/{divisionId}.json", cancellationToken);
     }
 
-    public async Task<Game?> GetGame(uint gameId, CancellationToken cancellationToken)
+    public async Task<Game?> GetGame(int gameId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(gameId);
 

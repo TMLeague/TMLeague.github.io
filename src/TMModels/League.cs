@@ -20,10 +20,10 @@ public record League(
 }
 
 public record Scoring(
-    [property: JsonPropertyName("pointsPerStronghold")] ushort PointsPerStronghold,
-    [property: JsonPropertyName("pointsPerCastle")] ushort PointsPerCastle,
-    [property: JsonPropertyName("pointsPerWin")] ushort PointsPerWin,
-    [property: JsonPropertyName("requiredBattlesBefore10thTurn")] ushort RequiredBattlesBefore10thTurn,
+    [property: JsonPropertyName("pointsPerStronghold")] double PointsPerStronghold,
+    [property: JsonPropertyName("pointsPerCastle")] double PointsPerCastle,
+    [property: JsonPropertyName("pointsPerWin")] double PointsPerWin,
+    [property: JsonPropertyName("requiredBattlesBefore10thTurn")] int RequiredBattlesBefore10thTurn,
     [property: JsonPropertyName("tiebreakers")] Tiebreaker[] Tiebreakers
 );
 
@@ -36,6 +36,17 @@ public enum Tiebreaker
 public static class Tiebreakers
 {
     public static readonly Tiebreaker[] Default = { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies };
+
+    public static string Name(this Tiebreaker tiebreaker) => tiebreaker switch
+    {
+        Tiebreaker.Wins => "Wins",
+        Tiebreaker.Penalties => "Penalties",
+        Tiebreaker.Cla => "CLA",
+        Tiebreaker.Supplies => "Supplies",
+        Tiebreaker.PowerTokens => "Power Tokens",
+        Tiebreaker.MinutesPerMove => "MPM",
+        _ => ""
+    };
 }
 
 public record InitialMessage(

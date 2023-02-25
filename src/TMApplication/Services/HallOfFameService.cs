@@ -22,7 +22,7 @@ public class HallOfFameService
 
         var sections = new List<HallOfFameSectionViewModel>
         {
-            GetHallOfFameSectionVm(summary, "Most points in a single season", score => score.TotalPoints),
+            GetHallOfFameSectionVm(summary, "Most points in a single season", score => (double)score.TotalPoints),
             GetHallOfFameSectionVm(summary, "Most wins in a single season", score => score.Wins),
             GetHallOfFameSectionVm(summary, "Most land territories in a single season", score => score.Cla),
             GetHallOfFameSectionVm(summary, "Most supplies in a single season", score => score.Supplies)

@@ -30,8 +30,8 @@ else
     {
         <div class="progress mb-1">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                 role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)DivisionVm.Progress)"
-                 aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)DivisionVm.Progress}%")">
+                 role="progressbar" aria-label="Animated striped example" aria-valuenow="@((int)DivisionVm.Progress)"
+                 aria-valuemin="0" aria-valuemax="100" style="@($"width: {(int)DivisionVm.Progress}%")">
                 @($"{Math.Round(DivisionVm.Progress)}%")
             </div>
         </div>
@@ -56,8 +56,8 @@ else
                     <div class="col-4 col-sm-9 col-md-10 col-xl-5 py-1">
                         <div class="progress h-100" title="@(string.IsNullOrEmpty(game.Name) ? "Game unavailable" : $"Turn {game.Turn}")">
                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                     role="progressbar" aria-label="Animated striped example" aria-valuenow="@((ushort)game.Progress)"
-                     aria-valuemin="0" aria-valuemax="100" style="@($"width: {(ushort)game.Progress}%")">
+                     role="progressbar" aria-label="Animated striped example" aria-valuenow="@((int)game.Progress)"
+                     aria-valuemin="0" aria-valuemax="100" style="@($"width: {(int)game.Progress}%")">
                                 @(game.IsStalling ? "Stalling" : $"T{game.Turn}")
                             </div>
                         </div>

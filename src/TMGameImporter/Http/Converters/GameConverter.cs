@@ -19,7 +19,7 @@ internal class GameConverter
         _logger = logger;
     }
 
-    public Game? Convert(uint gameId, string dataString, string chatString, string logHtmlString)
+    public Game? Convert(int gameId, string dataString, string chatString, string logHtmlString)
     {
         var stateRaw = JsonSerializer.Deserialize<StateRaw>(dataString);
         var chatRaw = JsonSerializer.Deserialize<StateRaw>(chatString);
@@ -47,7 +47,7 @@ internal class GameConverter
 
     private static HouseScore[] GetHouses(State state, Log? log)
     {
-        const ushort houseSize = 6;
+        const int houseSize = 6;
 
         var logsPerTurn = log?.Logs.GroupBy(item => item.Turn);
 
@@ -61,17 +61,17 @@ internal class GameConverter
         return houses;
     }
 
-    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IEnumerable<IGrouping<uint, LogItem>>? logsPerTurn)
+    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IEnumerable<IGrouping<int, LogItem>>? logsPerTurn)
     {
         var player = state.Players[idx];
-        var throne = ushort.Parse(houseDataRaw[..1]);
-        var fiefdoms = ushort.Parse(houseDataRaw[1..2]);
-        var kingsCourt = ushort.Parse(houseDataRaw[2..3]);
-        var supplies = ushort.Parse(houseDataRaw[3..4]);
-        var powerTokens = ushort.Parse(houseDataRaw[4..6]);
-        ushort strongholds = 0;
-        ushort castles = 0;
-        ushort cla = 0;
+        var throne = int.Parse(houseDataRaw[..1]);
+        var fiefdoms = int.Parse(houseDataRaw[1..2]);
+        var kingsCourt = int.Parse(houseDataRaw[2..3]);
+        var supplies = int.Parse(houseDataRaw[3..4]);
+        var powerTokens = int.Parse(houseDataRaw[4..6]);
+        var strongholds = 0;
+        var castles = 0;
+        var cla = 0;
         foreach (var land in state.Map.Lands)
         {
             if (land.House != house)
@@ -87,9 +87,9 @@ internal class GameConverter
         var houseSpeed = state.Stats.FirstOrDefault(speed => speed.House == house);
 
         var battlesInTurn = logsPerTurn?
-            .Select(items => (ushort)items
+            .Select(items => items
                 .Count(item => IsPlayerBattleLogItem(house, item)))
-            .ToArray() ?? Array.Empty<ushort>();
+            .ToArray() ?? Array.Empty<int>();
 
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,

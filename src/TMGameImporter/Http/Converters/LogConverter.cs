@@ -14,7 +14,7 @@ internal class LogConverter
         _logger = logger;
     }
 
-    public Log? Convert(uint gameId, string htmlString)
+    public Log? Convert(int gameId, string htmlString)
     {
         var html = new HtmlDocument();
         html.LoadHtml(htmlString);
@@ -115,10 +115,10 @@ internal class LogConverter
             .Replace("\u003E", ">")
             .Trim();
 
-    private static uint? GetNumber(HtmlNode node)
+    private static int? GetNumber(HtmlNode node)
     {
         var text = GetText(node);
-        if (uint.TryParse(text, out var res))
+        if (int.TryParse(text, out var res))
             return res;
 
         return null;
