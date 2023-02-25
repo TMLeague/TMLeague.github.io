@@ -48,7 +48,7 @@ public record LeagueSeasonChampionViewModel(
     string SeasonId,
     string SeasonName,
     string PlayerName,
-    string Title);
+    string? Title);
 
 public record LeagueSeasonsViewModel(
     string LeagueId,
@@ -63,5 +63,5 @@ public record LeagueSeasonViewModel(
 public record LeagueDivisionChampionViewModel(
     string DivisionId,
     string DivisionName,
-    string PlayerName,
+    string? PlayerName,
     string? Title);

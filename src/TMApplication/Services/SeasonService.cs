@@ -41,7 +41,7 @@ public class SeasonService
                 if (player == null)
                     return null;
 
-                return new LeagueSeasonChampionViewModel(seasonId, season.Name, player.Player, division.WinnerTitle ?? "The Champion");
+                return new LeagueSeasonChampionViewModel(seasonId, season.Name, player.Player, division.WinnerTitle);
             }
         }
 
@@ -59,8 +59,14 @@ public class SeasonService
         foreach (var divisionId in season.Divisions)
         {
             var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
-            if (division is not { IsFinished: true })
+            if (division == null)
                 continue;
+
+            if (!division.IsFinished)
+            {
+                champions.Add(new LeagueDivisionChampionViewModel(divisionId, division.Name, null, null));
+                continue;
+            }
 
             var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
             var player = results?.Players.FirstOrDefault();

@@ -77,7 +77,7 @@ public record SummaryPlayerScore(
     public int Compare(SummaryPlayerScore other, IEnumerable<Tiebreaker> tiebreakers)
     {
         if (Best.TotalPoints != other.Best.TotalPoints)
-            return Best.TotalPoints - other.Best.TotalPoints;
+            return Best.TotalPoints.CompareTo(other.Best.TotalPoints);
 
         foreach (var tiebreaker in tiebreakers)
         {
@@ -125,7 +125,7 @@ public record SummaryPlayerScore(
 }
 
 public record SummaryScore(
-    [property: JsonPropertyName("totalPoints")] int TotalPoints,
+    [property: JsonPropertyName("totalPoints")] decimal TotalPoints,
     [property: JsonPropertyName("wins")] uint Wins,
     [property: JsonPropertyName("cla")] uint Cla,
     [property: JsonPropertyName("supplies")] uint Supplies,
@@ -133,7 +133,7 @@ public record SummaryScore(
     [property: JsonPropertyName("minutesPerMove")] double? MinutesPerMove,
     [property: JsonPropertyName("moves")] uint Moves,
     [property: JsonPropertyName("houses")] SummaryHouseScore[] Houses,
-    [property: JsonPropertyName("penaltiesPoints")] uint PenaltiesPoints,
+    [property: JsonPropertyName("penaltiesPoints")] decimal PenaltiesPoints,
     [property: JsonPropertyName("position")] uint? Position)
 {
     public SummaryScore() :
@@ -188,7 +188,7 @@ public record SummaryScore(
 
 public record SummaryHouseScore(
     [property: JsonPropertyName("house")] House House,
-    [property: JsonPropertyName("points")] uint Points = 0)
+    [property: JsonPropertyName("points")] decimal Points = 0)
 {
     public static SummaryHouseScore Max(SummaryHouseScore score1, SummaryHouseScore score2) =>
         score1 with { Points = Math.Max(score1.Points, score2.Points) };

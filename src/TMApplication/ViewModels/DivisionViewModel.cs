@@ -14,7 +14,7 @@ public record DivisionViewModel(
 
 public record DivisionPlayerViewModel(
     string Name,
-    short TotalPoints = 0,
+    decimal TotalPoints = 0,
     ushort Wins = 0,
     ushort Cla = 0,
     ushort Supplies = 0,
@@ -22,7 +22,7 @@ public record DivisionPlayerViewModel(
     double MinutesPerMove = 0,
     ushort Moves = 0,
     PlayerHouseViewModel[]? Houses = null,
-    ushort TotalPenaltyPoints = 0,
+    decimal TotalPenaltyPoints = 0,
     PlayerPenaltyViewModel[]? Penalties = null)
 {
     public PlayerHouseViewModel GetHouse(House house) =>
@@ -34,7 +34,7 @@ public record PlayerHouseViewModel(
     uint? Game,
     House House,
     bool IsWinner = false,
-    ushort Points = 0,
+    decimal Points = 0,
     ushort BattlePenalty = 0,
     ushort Strongholds = 0,
     ushort Castles = 0,
@@ -46,5 +46,5 @@ public record PlayerHouseViewModel(
 
 public record PlayerPenaltyViewModel(
     uint? Game,
-    ushort Points,
+    decimal Points,
     string Details);

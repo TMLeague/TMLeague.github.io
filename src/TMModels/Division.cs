@@ -15,7 +15,7 @@ public record Division(
 public record Penalty(
     [property: JsonPropertyName("player")] string Player,
     [property: JsonPropertyName("game")] uint? Game,
-    [property: JsonPropertyName("points")] ushort Points,
+    [property: JsonPropertyName("points")] decimal Points,
     [property: JsonPropertyName("details")] string Details);
 
 public record Replacement(

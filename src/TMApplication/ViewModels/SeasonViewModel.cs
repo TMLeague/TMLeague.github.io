@@ -11,4 +11,4 @@ public record SeasonDivisionViewModel(
 
 public record SeasonPlayerViewModel(
     string Name,
-    int Points);
+    decimal Points);
