@@ -11,24 +11,24 @@ public record SummaryViewModel(
 public record PlayerScoreViewModel(
     string Player,
     IReadOnlyDictionary<ScoreType, ScoreViewModel> Scores,
-    uint Seasons)
+    int Seasons)
 {
-    public double TotalPoints(ScoreType type, int decimals = 1) => Math.Round(Scores[type].TotalPoints, decimals);
-    public double Wins(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Wins, decimals);
-    public double Cla(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Cla, decimals);
-    public double Supplies(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Supplies, decimals);
-    public double PowerTokens(ScoreType type, int decimals = 1) => Math.Round(Scores[type].PowerTokens, decimals);
-    public double MinutesPerMove(ScoreType type, int decimals = 0) => Math.Round(Scores[type].MinutesPerMove ?? 0, decimals);
-    public double Moves(ScoreType type, int decimals = 0) => Math.Round(Scores[type].Moves, decimals);
-    public double PenaltiesPoints(ScoreType type, int decimals = 1) => Math.Round(Scores[type].PenaltiesPoints, decimals);
-    public double Position(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Position ?? 0, decimals);
-    public double Baratheon(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Baratheon, out var score) ? score : 0, decimals);
-    public double Lannister(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Lannister, out var score) ? score : 0, decimals);
-    public double Stark(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Stark, out var score) ? score : 0, decimals);
-    public double Tyrell(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Tyrell, out var score) ? score : 0, decimals);
-    public double Greyjoy(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Greyjoy, out var score) ? score : 0, decimals);
-    public double Martell(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Martell, out var score) ? score : 0, decimals);
-    public double Arryn(ScoreType type, int decimals = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Arryn, out var score) ? score : 0, decimals);
+    public double TotalPoints(ScoreType type, int doubles = 1) => Math.Round(Scores[type].TotalPoints, doubles);
+    public double Wins(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Wins, doubles);
+    public double Cla(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Cla, doubles);
+    public double Supplies(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Supplies, doubles);
+    public double PowerTokens(ScoreType type, int doubles = 1) => Math.Round(Scores[type].PowerTokens, doubles);
+    public double MinutesPerMove(ScoreType type, int doubles = 0) => Math.Round(Scores[type].MinutesPerMove ?? 0, doubles);
+    public double Moves(ScoreType type, int doubles = 0) => Math.Round(Scores[type].Moves, doubles);
+    public double PenaltiesPoints(ScoreType type, int doubles = 1) => Math.Round(Scores[type].PenaltiesPoints, doubles);
+    public double Position(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Position ?? 0, doubles);
+    public double Baratheon(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Baratheon, out var score) ? score : 0, doubles);
+    public double Lannister(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Lannister, out var score) ? score : 0, doubles);
+    public double Stark(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Stark, out var score) ? score : 0, doubles);
+    public double Tyrell(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Tyrell, out var score) ? score : 0, doubles);
+    public double Greyjoy(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Greyjoy, out var score) ? score : 0, doubles);
+    public double Martell(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Martell, out var score) ? score : 0, doubles);
+    public double Arryn(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Arryn, out var score) ? score : 0, doubles);
 }
 
 public enum ScoreType

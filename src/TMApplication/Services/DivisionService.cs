@@ -101,7 +101,7 @@ public class DivisionService
         playerPenalty.Points,
         playerPenalty.Details);
 
-    public async Task<string?> GetGameName(string leagueId, string seasonId, string divisionId, uint id, CancellationToken cancellationToken = default)
+    public async Task<string?> GetGameName(string leagueId, string seasonId, string divisionId, int id, CancellationToken cancellationToken = default)
     {
         var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
         if (division == null)

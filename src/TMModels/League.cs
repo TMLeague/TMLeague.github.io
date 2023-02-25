@@ -20,10 +20,10 @@ public record League(
 }
 
 public record Scoring(
-    [property: JsonPropertyName("pointsPerStronghold")] decimal PointsPerStronghold,
-    [property: JsonPropertyName("pointsPerCastle")] decimal PointsPerCastle,
-    [property: JsonPropertyName("pointsPerWin")] decimal PointsPerWin,
-    [property: JsonPropertyName("requiredBattlesBefore10thTurn")] ushort RequiredBattlesBefore10thTurn,
+    [property: JsonPropertyName("pointsPerStronghold")] double PointsPerStronghold,
+    [property: JsonPropertyName("pointsPerCastle")] double PointsPerCastle,
+    [property: JsonPropertyName("pointsPerWin")] double PointsPerWin,
+    [property: JsonPropertyName("requiredBattlesBefore10thTurn")] int RequiredBattlesBefore10thTurn,
     [property: JsonPropertyName("tiebreakers")] Tiebreaker[] Tiebreakers
 );
 

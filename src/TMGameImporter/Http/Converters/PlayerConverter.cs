@@ -26,11 +26,11 @@ internal class PlayerConverter
             country = flagNode.GetAttributeValue("title", string.Empty);
 
         var rankPointsNode = html.DocumentNode.SelectNodes("//big[. = 'Rank TotalPoints']/parent::node()/parent::node()/th/big/a")?.FirstOrDefault();
-        uint rankPoints = 0;
+        var rankPoints = 0;
         if (rankPointsNode == null)
             _logger.LogWarning("Rank points node not found!");
         else
-            uint.TryParse(rankPointsNode.InnerText, out rankPoints);
+            int.TryParse(rankPointsNode.InnerText, out rankPoints);
 
         var locationNode = html.DocumentNode.SelectNodes("//td[. = 'Location']/parent::node()/td[2]")?.FirstOrDefault();
         var location = string.Empty;

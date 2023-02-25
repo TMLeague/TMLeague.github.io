@@ -32,7 +32,7 @@ internal class StateConverter
                 .Select(row => row.Split(','))
                 .Where(row => row.Length == 4)
                 .Select(row => new HouseSpeed(HouseParser.Parse(row[0]),
-                    double.Parse(row[2], CultureInfo.InvariantCulture), ushort.Parse(row[3])))
+                    double.Parse(row[2], CultureInfo.InvariantCulture), int.Parse(row[3])))
                 .ToArray();
 
             return new State(
@@ -55,13 +55,13 @@ internal class StateConverter
         }
     }
 
-    private static uint? GetGameId(Setup setup) => uint.Parse(setup["g-id"]);
+    private static int? GetGameId(Setup setup) => int.Parse(setup["g-id"]);
 
     private static string GetName(Setup setup) => setup["g-ttl"];
 
     private static bool GetIsFinished(Setup setup) => setup["g-stts"] != "1";
 
-    private static uint GetTurn(Data data) => uint.Parse(data["gamestate"][..1]) + 1;
+    private static int GetTurn(Data data) => int.Parse(data["gamestate"][..1]) + 1;
 
     private static string GetHousesDataRaw(Data data) => data["houses"];
 
@@ -123,28 +123,28 @@ internal class StateConverter
             _ => AreaType.Unknown
         };
 
-        var id = ushort.Parse(areaId[1..]);
+        var id = int.Parse(areaId[1..]);
 
         return new Area(isEnabled, type, id, areaRaw[3].GetString()!);
     }
 
-    private static List<Land> GetLands(string landsRaw, IReadOnlyDictionary<ushort, Area> areas)
+    private static List<Land> GetLands(string landsRaw, IReadOnlyDictionary<int, Area> areas)
     {
         const int landSize = 8;
 
         var lands = new List<Land>();
-        for (ushort i = 0; i < areas.Count; i++)
+        for (var i = 0; i < areas.Count; i++)
         {
             var landRaw = landsRaw[(i * landSize)..((i + 1) * landSize)];
             var area = areas[i];
             var house = HouseParser.Parse(landRaw[0]);
-            var footmen = ushort.Parse(landRaw[1..2]);
-            var knights = ushort.Parse(landRaw[2..3]);
-            var siegeEngines = ushort.Parse(landRaw[3..4]);
-            var powerTokens = ushort.Parse(landRaw[4..5]);
-            var mobilizationPoints = ushort.Parse(landRaw[5..6]);
-            var supplies = ushort.Parse(landRaw[6..7]);
-            var crowns = ushort.Parse(landRaw[7..8]);
+            var footmen = int.Parse(landRaw[1..2]);
+            var knights = int.Parse(landRaw[2..3]);
+            var siegeEngines = int.Parse(landRaw[3..4]);
+            var powerTokens = int.Parse(landRaw[4..5]);
+            var mobilizationPoints = int.Parse(landRaw[5..6]);
+            var supplies = int.Parse(landRaw[6..7]);
+            var crowns = int.Parse(landRaw[7..8]);
             lands.Add(new Land(area.IsEnabled, area.Id,
                 area.Name, house, footmen, knights, siegeEngines,
                 powerTokens, mobilizationPoints, supplies, crowns));
@@ -153,17 +153,17 @@ internal class StateConverter
         return lands;
     }
 
-    private static List<Sea> GetSeas(string seasRaw, IReadOnlyDictionary<ushort, Area> areas)
+    private static List<Sea> GetSeas(string seasRaw, IReadOnlyDictionary<int, Area> areas)
     {
         const int seaSize = 2;
 
         var seas = new List<Sea>();
-        for (ushort i = 0; i < areas.Count; i++)
+        for (var i = 0; i < areas.Count; i++)
         {
             var seaRaw = seasRaw[(i * seaSize)..((i + 1) * seaSize)];
             var area = areas[i];
             var house = HouseParser.Parse(seaRaw[0]);
-            var ships = ushort.Parse(seaRaw[1..2]);
+            var ships = int.Parse(seaRaw[1..2]);
             seas.Add(new Sea(area.IsEnabled, area.Id,
                 area.Name, house, ships));
         }
@@ -171,13 +171,13 @@ internal class StateConverter
         return seas;
     }
 
-    private static List<Port> GetPorts(string portsRaw, IReadOnlyDictionary<ushort, Area> areas)
+    private static List<Port> GetPorts(string portsRaw, IReadOnlyDictionary<int, Area> areas)
     {
         var ports = new List<Port>();
-        for (ushort i = 0; i < areas.Count; i++)
+        for (var i = 0; i < areas.Count; i++)
         {
             var area = areas[i];
-            var ships = ushort.Parse(portsRaw[..1]);
+            var ships = int.Parse(portsRaw[..1]);
             ports.Add(new Port(area.IsEnabled, area.Id,
                 area.Name, ships));
         }

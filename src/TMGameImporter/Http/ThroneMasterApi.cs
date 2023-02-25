@@ -17,7 +17,7 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
         _logger = logger;
     }
 
-    public async Task<string?> GetGameData(uint gameId, CancellationToken cancellationToken)
+    public async Task<string?> GetGameData(int gameId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(gameId);
 
@@ -26,7 +26,7 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
             cancellationToken);
     }
 
-    public async Task<string?> GetChat(uint gameId, CancellationToken cancellationToken)
+    public async Task<string?> GetChat(int gameId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(gameId);
 
@@ -35,7 +35,7 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
             cancellationToken);
     }
 
-    public async Task<string?> GetLog(uint gameId, CancellationToken cancellationToken)
+    public async Task<string?> GetLog(int gameId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(gameId);
 
@@ -117,9 +117,9 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
 
 internal interface IThroneMasterDataProvider
 {
-    public Task<string?> GetGameData(uint gameId, CancellationToken cancellationToken);
-    public Task<string?> GetChat(uint gameId, CancellationToken cancellationToken);
-    public Task<string?> GetLog(uint gameId, CancellationToken cancellationToken);
+    public Task<string?> GetGameData(int gameId, CancellationToken cancellationToken);
+    public Task<string?> GetChat(int gameId, CancellationToken cancellationToken);
+    public Task<string?> GetLog(int gameId, CancellationToken cancellationToken);
     public Task<string?> GetPlayer(string playerName, CancellationToken cancellationToken);
     public Task<Stream?> GetImage(string requestUri, CancellationToken cancellationToken);
 }

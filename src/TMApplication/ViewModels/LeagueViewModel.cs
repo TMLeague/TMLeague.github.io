@@ -32,10 +32,10 @@ public record LeagueDivisionSummaryViewModel(
 }
 
 public record LeagueGameSummaryViewModel(
-    uint Id,
+    int Id,
     string? Name,
     double Progress,
-    uint Turn,
+    int Turn,
     bool IsFinished,
     bool IsStalling,
     string? WinnerPlayerName,
