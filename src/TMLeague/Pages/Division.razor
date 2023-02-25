@@ -26,15 +26,15 @@
     else
     {
         <div class="col-lg-11">
-            <table class="table table-striped table-dark pb-0" width="1340px">
+            <table class="table table-striped table-dark pb-0" width="@(940 + DivisionVm.Tiebreakers.Length * 100)px">
                 <thead>
                     <tr>
                         <th scope="col" style="width: 200px">Player</th>
                         <th scope="col" style="width: 100px">Points</th>
-                        <th scope="col" style="width: 100px">Wins</th>
-                        <th scope="col" style="width: 100px">Penalties</th>
-                        <th scope="col" style="width: 100px">Cla</th>
-                        <th scope="col" style="width: 100px">Supply</th>
+                        @foreach (var tiebreaker in DivisionVm.Tiebreakers)
+                        {
+                            <th scope="col" style="width: 100px">@tiebreaker.Name()</th>
+                        }
                         <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></th>
                         <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Baratheon</th>
                         <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Lannister</th>
@@ -50,12 +50,34 @@
                         <tr>
                             <th scope="row"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
                             <td class="text-warning">@playerVm.TotalPoints</td>
-                            <td>@playerVm.Wins</td>
-                            <td class="tt" ontouchstart="">
-                                <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
-                            </td>
-                            <td>@playerVm.Cla</td>
-                            <td>@playerVm.Supplies</td>
+                            @foreach (var tiebreaker in DivisionVm.Tiebreakers)
+                            {
+                                switch (tiebreaker)
+                                {
+                                    case Tiebreaker.Wins:
+                                        <td>@playerVm.Wins</td>
+                                        break;
+                                    case Tiebreaker.Penalties:
+                                        <td class="tt" ontouchstart="">
+                                            <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                                        </td>
+                                        break;
+                                    case Tiebreaker.Cla:
+                                        <td>@playerVm.Cla</td>
+                                        break;
+                                    case Tiebreaker.Supplies:
+                                        <td>@playerVm.Supplies</td>
+                                        break;
+                                    case Tiebreaker.PowerTokens:
+                                        <td>@playerVm.PowerTokens</td>
+                                        break;
+                                    case Tiebreaker.MinutesPerMove:
+                                        <td>@Math.Round(playerVm.MinutesPerMove)</td>
+                                        break;
+                                    default:
+                                        throw new ArgumentOutOfRangeException();
+                                }
+                            }
                             <td class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></td>
                             <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
                                 <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"></HouseCell>

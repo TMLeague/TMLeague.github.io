@@ -36,6 +36,17 @@ public enum Tiebreaker
 public static class Tiebreakers
 {
     public static readonly Tiebreaker[] Default = { Tiebreaker.Wins, Tiebreaker.Penalties, Tiebreaker.Cla, Tiebreaker.Supplies };
+
+    public static string Name(this Tiebreaker tiebreaker) => tiebreaker switch
+    {
+        Tiebreaker.Wins => "Wins",
+        Tiebreaker.Penalties => "Penalties",
+        Tiebreaker.Cla => "CLA",
+        Tiebreaker.Supplies => "Supplies",
+        Tiebreaker.PowerTokens => "Power Tokens",
+        Tiebreaker.MinutesPerMove => "MPM",
+        _ => ""
+    };
 }
 
 public record InitialMessage(

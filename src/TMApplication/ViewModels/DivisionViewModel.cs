@@ -10,7 +10,8 @@ public record DivisionViewModel(
     string Judge,
     bool IsFinished,
     string? WinnerTitle,
-    DivisionPlayerViewModel[] Players);
+    DivisionPlayerViewModel[] Players,
+    Tiebreaker[] Tiebreakers);
 
 public record DivisionPlayerViewModel(
     string Name,

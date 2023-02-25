@@ -35,7 +35,7 @@ public class DivisionService
         progress /= games.Count;
 
         var winnerPlayerName = await GetWinner(leagueId, seasonId, divisionId, division, cancellationToken);
-        
+
         return new LeagueDivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games, winnerPlayerName);
     }
 
@@ -66,7 +66,8 @@ public class DivisionService
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
         return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, division.IsFinished, division.WinnerTitle,
             (results?.Players.Select(GetPlayerVm) ??
-             division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray());
+             division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
+            league.Scoring?.Tiebreakers ?? Tiebreakers.Default);
     }
 
     private static DivisionPlayerViewModel GetPlayerVm(PlayerResult playerResult) => new(
