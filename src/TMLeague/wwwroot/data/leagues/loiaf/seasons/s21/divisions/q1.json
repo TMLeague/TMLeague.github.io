@@ -1,0 +1,81 @@
+{
+  "name": "Qualifiers Group 1",
+  "judge": null,
+  "players": [
+    "spartan109",
+    "Sean_Snow",
+    "jcggarrett1",
+    "Turambar",
+    "oAntares",
+    "diamonnd",
+    "s1naps3"
+  ],
+  "games": [
+    285160,
+    284862,
+    285543,
+    285292,
+    285113,
+    285118,
+    284867
+  ],
+  "penalties": [
+    {
+      "player": "jcggarrett1",
+      "game": null,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "oAntares",
+      "game": null,
+      "points": 24,
+      "details": "repeated delaying"
+    },
+    {
+      "player": "diamonnd",
+      "game": null,
+      "points": 24,
+      "details": "repeated delaying"
+    },
+    {
+      "player": "s1naps3",
+      "game": null,
+      "points": 24,
+      "details": "repeated delaying"
+    }
+  ],
+  "replacements": [
+    {
+      "from": "s1naps3",
+      "to": "erathirea",
+      "game": 285160
+    },
+    {
+      "from": "s1naps3",
+      "to": "erathirea",
+      "game": 284862
+    },
+    {
+      "from": "s1naps3",
+      "to": "erathirea",
+      "game": 285292
+    },
+    {
+      "from": "s1naps3",
+      "to": "erathirea",
+      "game": 285113
+    },
+    {
+      "from": "s1naps3",
+      "to": "erathirea",
+      "game": 285118
+    },
+    {
+      "from": "s1naps3",
+      "to": "erathirea",
+      "game": 284867
+    }
+  ],
+  "isFinished": true
+}

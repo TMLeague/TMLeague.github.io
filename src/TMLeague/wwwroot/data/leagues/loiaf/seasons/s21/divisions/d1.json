@@ -1,0 +1,62 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "DawidW",
+    "El Grande",
+    "Gordalicious",
+    "Karijin",
+    "rasmus842",
+    "Shade89",
+    "Strongest_Gallic",
+    "TheReignOfChaos",
+    "ThyLear",
+    "Zesty18"
+  ],
+  "games": [
+    284794,
+    284775,
+    284776,
+    284777,
+    284778,
+    284795,
+    284779,
+    284780,
+    284812,
+    284798
+  ],
+  "penalties": [
+    {
+      "player": "Strongest_Gallic",
+      "game": 284798,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "Strongest_Gallic",
+      "game": 284794,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "DawidW",
+      "game": 284794,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "Gordalicious",
+      "game": 284794,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "TheReignOfChaos",
+      "game": 284798,
+      "points": 3,
+      "details": "minor KM"
+    }
+  ],
+  "isFinished": true,
+  "winnerTitle": null
+}

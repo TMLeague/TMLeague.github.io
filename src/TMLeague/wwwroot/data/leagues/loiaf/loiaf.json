@@ -2,10 +2,24 @@
   "name": "League of Ice and Fire",
   "description": null,
   "backgroundImage": "data/leagues/loiaf/loiaf.jpg",
-  "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=58957",
+  "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=87066",
   "discord": null,
-  "seasons": [],
+  "seasons": [ "s21", "s22" ],
   "trainingSeasons": [],
+  "mainDivisions": [
+    {
+      "id": "d1",
+      "name": "Division 1"
+    },
+    {
+      "id": "d2",
+      "name": "Division 2"
+    },
+    {
+      "id": "d3",
+      "name": "Division 3"
+    }
+  ],
   "scoring": {
     "pointsPerStronghold": 1,
     "pointsPerCastle": 1,
