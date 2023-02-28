@@ -48,7 +48,7 @@ public class LeagueService
             if (result != null)
                 results.Add(result);
         }
-        return new LeagueSeasonButtonViewModel(seasonId, season.Name, results.Min(result => result.GeneratedTime));
+        return new LeagueSeasonButtonViewModel(seasonId, season.Name, results.Max(result => result.GeneratedTime));
     }
 
     public async Task<LeagueSeasonChampionViewModel?> GetLeagueChampionVm(string leagueId, CancellationToken cancellationToken = default)
