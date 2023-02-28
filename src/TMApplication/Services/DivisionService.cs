@@ -67,7 +67,8 @@ public class DivisionService
         return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, division.IsFinished, division.WinnerTitle,
             (results?.Players.Select(GetPlayerVm) ??
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
-            league.Scoring?.Tiebreakers ?? Tiebreakers.Default);
+            league.Scoring?.Tiebreakers ?? Tiebreakers.Default,
+            results?.GeneratedTime);
     }
 
     private static DivisionPlayerViewModel GetPlayerVm(PlayerResult playerResult) => new(

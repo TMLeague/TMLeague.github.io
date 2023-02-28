@@ -124,6 +124,10 @@
     {
         <p class="mb-0">Division @DivisionVm.JudgeTitle: <MessageLink PlayerName="@DivisionVm?.Judge" />.</p>
     }
+    @if (DivisionVm?.GeneratedTime != null)
+    {
+        <p class="mb-0">Data fetched at @DivisionVm.GeneratedTime.Value.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
+    }
 </footer>
 
 @code {
