@@ -10,8 +10,15 @@ h1:focus {
     outline: none;
 }
 
-a, .btn-link {
+a,
+.btn-link,
+.btn-link:hover,
+.btn-link:active,
+.btn-link:focus {
     color: inherit;
+    background: none;
+    font: inherit;
+    border: none;
 }
 
 .text-justify {

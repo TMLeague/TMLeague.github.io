@@ -24,6 +24,11 @@
         "js/fontawesome-iconpicker.min.js",
         "css/fontawesome-iconpicker.min.css"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-icons@1.10.3",
+      "destination": "wwwroot/lib/bootstrap-icons/"
     }
   ]
 }

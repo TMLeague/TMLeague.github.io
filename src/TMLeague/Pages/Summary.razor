@@ -4,7 +4,7 @@
 @using TMApplication.Services
 @using TMApplication.ViewModels
 @using TMLeague.Components.TmLinks
-@using System.Collections
+@using TMLeague.Components
 @inject SummaryService SummaryService
 @inject ILogger<Summary> Logger
 <h3>@(SummaryVm?.LeagueName ?? "League")</h3>
@@ -54,25 +54,89 @@
             <table class="table table-striped table-dark pb-0" width="1700px">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 200px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Player)">Player</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Points)">Points</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Wins)">Wins</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Penalties)">Penalties</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Cla)">Cla</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Supply)">Supply</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.PT)">PT</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Baratheon)">Baratheon</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Lannister)">Lannister</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Stark)">Stark</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Tyrell)">Tyrell</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Greyjoy)">Greyjoy</button></th>
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Martell)">Martell</button></th>
+                        <th scope="col" style="width: 200px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Player)">
+                                Player <SortedColumnCaret Column="@SummaryColumn.Player" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Points)">
+                                Points <SortedColumnCaret Column="@SummaryColumn.Points" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Wins)">
+                                Wins <SortedColumnCaret Column="@SummaryColumn.Wins" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Penalties)">
+                                Penalties <SortedColumnCaret Column="@SummaryColumn.Penalties" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Cla)">
+                                Cla <SortedColumnCaret Column="@SummaryColumn.Cla" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Supply)">
+                                Supply <SortedColumnCaret Column="@SummaryColumn.Supply" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.PT)">
+                                PT <SortedColumnCaret Column="@SummaryColumn.PT" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Baratheon)">
+                                Baratheon <SortedColumnCaret Column="@SummaryColumn.Baratheon" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Lannister)">
+                                Lannister <SortedColumnCaret Column="@SummaryColumn.Lannister" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Stark)">
+                                Stark <SortedColumnCaret Column="@SummaryColumn.Stark" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Tyrell)">
+                                Tyrell <SortedColumnCaret Column="@SummaryColumn.Tyrell" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Greyjoy)">
+                                Greyjoy <SortedColumnCaret Column="@SummaryColumn.Greyjoy" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Martell)">
+                                Martell <SortedColumnCaret Column="@SummaryColumn.Martell" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
                         @if (ScoreType != ScoreType.Total)
                         {
-                            <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Position)">Position</button></th>
-                            <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.MPM)">MPM</button></th>
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Position)">
+                                    Position <SortedColumnCaret Column="@SummaryColumn.Position" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.MPM)">
+                                    MPM <SortedColumnCaret Column="@SummaryColumn.MPM" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
                         }
-                        <th scope="col" style="width: 100px"><button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.AllSeasons)">All seasons</button></th>
+                        <th scope="col" style="width: 100px">
+                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.AllSeasons)">
+                                All seasons <SortedColumnCaret Column="@SummaryColumn.AllSeasons" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                            </button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
