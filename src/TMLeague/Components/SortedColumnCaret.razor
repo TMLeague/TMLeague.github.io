@@ -1,0 +1,27 @@
+﻿@if (CaretUp.HasValue)
+{
+    @if (CaretUp.Value)
+    {
+        <i class="bi bi-caret-up-fill"></i>
+    }
+    else
+    {
+        <i class="bi bi-caret-down-fill"></i>
+    }
+}
+
+@code {
+    [Parameter]
+    public object? Column { get; set; }
+
+    [Parameter]
+    public object? SortedColumn { get; set; }
+
+    [Parameter]
+    public bool? IsAscending { get; set; }
+
+    private bool? CaretUp =>
+        Column == null || SortedColumn == null || !Column.Equals(SortedColumn) ?
+            null :
+            IsAscending;
+}
