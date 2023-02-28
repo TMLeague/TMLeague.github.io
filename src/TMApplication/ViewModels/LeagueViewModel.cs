@@ -2,15 +2,21 @@
 
 public record LeagueViewModel(
     string Id,
-    string? Name = null,
-    string? Description = null,
-    string? Rules = null,
-    string? Discord = null,
-    IReadOnlyCollection<LeagueSeasonButtonViewModel>? Seasons = null);
+    string? Name,
+    string? Description,
+    string? Rules,
+    string? Discord,
+    LeagueSeasonButtonViewModel? LastSeason)
+{
+    public LeagueViewModel(string id) :
+        this(id, null, null,
+            null, null, null) { }
+};
 
 public record LeagueSeasonButtonViewModel(
     string Id,
-    string Name);
+    string Name,
+    DateTimeOffset? GeneratedTime);
 
 public record LeagueSeasonSummaryViewModel(
     string LeagueId,
