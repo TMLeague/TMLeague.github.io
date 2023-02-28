@@ -4,7 +4,7 @@ namespace TMModels;
 
 public record Results(
     [property: JsonPropertyName("players")] PlayerResult[] Players,
-    [property: JsonPropertyName("modifiedDate")] DateTimeOffset ModifiedDate
+    [property: JsonPropertyName("generatedTime")] DateTimeOffset GeneratedTime
 );
 
 public record PlayerResult(
