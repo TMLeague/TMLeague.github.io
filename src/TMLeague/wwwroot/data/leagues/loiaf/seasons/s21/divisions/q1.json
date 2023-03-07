@@ -8,7 +8,7 @@
     "Turambar",
     "oAntares",
     "diamonnd",
-    "s1naps3"
+    "erathirea"
   ],
   "games": [
     285160,
@@ -43,38 +43,6 @@
       "game": null,
       "points": 24,
       "details": "repeated delaying"
-    }
-  ],
-  "replacements": [
-    {
-      "from": "s1naps3",
-      "to": "erathirea",
-      "game": 285160
-    },
-    {
-      "from": "s1naps3",
-      "to": "erathirea",
-      "game": 284862
-    },
-    {
-      "from": "s1naps3",
-      "to": "erathirea",
-      "game": 285292
-    },
-    {
-      "from": "s1naps3",
-      "to": "erathirea",
-      "game": 285113
-    },
-    {
-      "from": "s1naps3",
-      "to": "erathirea",
-      "game": 285118
-    },
-    {
-      "from": "s1naps3",
-      "to": "erathirea",
-      "game": 284867
     }
   ],
   "isFinished": true
