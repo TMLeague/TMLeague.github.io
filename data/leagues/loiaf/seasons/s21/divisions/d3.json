@@ -1,0 +1,43 @@
+{
+  "name": "Division 3",
+  "judge": null,
+  "players": [
+    "PawcioF",
+    "Venge",
+    "Cubehead",
+    "Doru11",
+    "18HopeCSF",
+    "Figueira",
+    "RodrigoLannister",
+    "BarteqZw",
+    "brandon87t",
+    "Cambeia"
+  ],
+  "games": [
+    284824,
+    284808,
+    284799,
+    284800,
+    284801,
+    284818,
+    284802,
+    284809,
+    284803,
+    284804
+  ],
+  "penalties": [
+    {
+      "player": "18HopeCSF",
+      "game": null,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "brandon87t",
+      "game": null,
+      "points": 3,
+      "details": "minor KM"
+    }
+  ],
+  "isFinished": true
+}
