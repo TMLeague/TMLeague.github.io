@@ -1,0 +1,35 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "TheReignOfChaos",
+    "Gordalicious",
+    "DawidW",
+    "Shade89",
+    "Karijin",
+    "Zesty18",
+    "ThyLear",
+    "Corsairxt",
+    "Lance",
+    "Aeron_Damphair1"
+  ],
+  "games": [
+    281659,
+    281684,
+    281685,
+    281686,
+    281662,
+    281661,
+    281663,
+    281696,
+    281664,
+    281665
+  ],
+  "penalties": [
+    {
+      "player": "Aeron_Damphair1",
+      "points": 3
+    }
+  ],
+  "isFinished": true
+}  
