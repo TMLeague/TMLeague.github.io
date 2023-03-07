@@ -1,0 +1,88 @@
+{
+  "name": "Qualifiers Group 2",
+  "judge": null,
+  "players": [
+    "Megageek1980",
+    "JulianSnow",
+    "Lily",
+    "MalcolmWest",
+    "TywinB",
+    "Cleatus",
+    "Furtum Vitae"
+  ],
+  "games": [
+    284827,
+    285126,
+    284830,
+    285142,
+    285127,
+    284833,
+    285129
+  ],
+  "penalties": [
+    {
+      "player": "JulianSnow",
+      "game": null,
+      "points": 2,
+      "details": null
+    },
+    {
+      "player": "MalcolmWest",
+      "game": null,
+      "points": 3,
+      "details": null
+    },
+    {
+      "player": "MalcolmWest",
+      "game": null,
+      "points": 0.5,
+      "details": null
+    },
+    {
+      "player": "Cleatus",
+      "game": null,
+      "points": 4,
+      "details": null
+    },
+    {
+      "player": "Cleatus",
+      "game": null,
+      "points": 0.5,
+      "details": null
+    },
+    {
+      "player": "Furtum Vitae",
+      "game": null,
+      "points": 24,
+      "details": "repeated delaying"
+    }
+  ],
+  "replacements": [
+    {
+      "from": "Furtum Vitae",
+      "to": "Guiscard",
+      "game": 284827
+    },
+    {
+      "from": "Furtum Vitae",
+      "to": "Guiscard",
+      "game": 285126
+    },
+    {
+      "from": "Furtum Vitae",
+      "to": "Guiscard",
+      "game": 285142
+    },
+    {
+      "from": "Furtum Vitae",
+      "to": "Guiscard",
+      "game": 285127
+    },
+    {
+      "from": "Furtum Vitae",
+      "to": "Guiscard",
+      "game": 285129
+    }
+  ],
+  "isFinished": true
+}

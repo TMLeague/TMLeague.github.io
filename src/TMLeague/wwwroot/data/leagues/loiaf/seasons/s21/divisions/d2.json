@@ -1,0 +1,73 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "texas55",
+    "heyjakel",
+    "Kamil_J",
+    "SerOberynMartell",
+    "diogobensabat",
+    "TheMoth",
+    "Lance",
+    "La1985",
+    "TONY-BENZEMA",
+    "b00yashaka"
+  ],
+  "games": [
+    284783,
+    284784,
+    284789,
+    284790,
+    284785,
+    284791,
+    284786,
+    284787,
+    284793,
+    284788
+  ],
+  "penalties": [
+    {
+      "player": "Kamil_J",
+      "game": 284789,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "La1985",
+      "game": 284789,
+      "points": 1.5,
+      "details": "speed"
+    },
+    {
+      "player": "TONY-BENZEMA",
+      "game": 284789,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Lance",
+      "game": 284784,
+      "points": 6,
+      "details": "major KM"
+    },
+    {
+      "player": "Kamil_J",
+      "game": 284784,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "b00yashaka",
+      "game": 284790,
+      "points": 3,
+      "details": "spoiling"
+    },
+    {
+      "player": "TONY-BENZEMA",
+      "game": null,
+      "points": 3,
+      "details": null
+    }
+  ],
+  "isFinished": true
+}
