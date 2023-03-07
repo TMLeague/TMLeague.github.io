@@ -26,7 +26,7 @@
     else
     {
         <div class="col-lg-11">
-            <table class="table table-striped table-dark pb-0" width="@(940 + DivisionVm.Tiebreakers.Length * 100)px">
+            <table class="table table-striped table-dark pb-0" width="@(TableWidth)px">
                 <thead>
                     <tr>
                         <th scope="col" style="width: 200px">Player</th>
@@ -34,6 +34,10 @@
                         @foreach (var tiebreaker in DivisionVm.Tiebreakers)
                         {
                             <th scope="col" style="width: 100px">@tiebreaker.Name()</th>
+                        }
+                        @if (!DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties))
+                        {
+                            <th scope="col" style="width: 100px">Penalties</th>
                         }
                         <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></th>
                         <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Baratheon</th>
@@ -77,6 +81,12 @@
                                     default:
                                         throw new ArgumentOutOfRangeException();
                                 }
+                            }
+                            @if (!DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties))
+                            {
+                                <td class="tt" ontouchstart="">
+                                    <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                                </td>
                             }
                             <td class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></td>
                             <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
@@ -137,6 +147,12 @@
     private DivisionViewModel? DivisionVm { get; set; }
 
     private bool ShowHouses { get; set; } = false;
+
+    private int TableWidth => DivisionVm == null ?
+        0 :
+        940 +
+        DivisionVm.Tiebreakers.Length * 100 + 
+        (DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties) ? 0 : 100);
 
     private void ChangeVisibility() => ShowHouses = !ShowHouses;
 
