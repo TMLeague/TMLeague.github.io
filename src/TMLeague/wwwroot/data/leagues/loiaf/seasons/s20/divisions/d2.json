@@ -1,0 +1,40 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "rasmus842",
+    "El Grande",
+    "Kamil_J",
+    "b00yashaka",
+    "La1985",
+    "SerOberynMartell",
+    "diogobensabat",
+    "Cubehead",
+    "msold87",
+    "BarteqZw"
+  ],
+  "games": [
+    281676,
+    281678,
+    281679,
+    281680,
+    281681,
+    281692,
+    281689,
+    281682,
+    281690,
+    281691
+  ],
+  "penalties": [
+    {
+      "player": "diogobensabat",
+      "points": 6
+    },
+    {
+      "player": "BarteqZw",
+      "points": 6
+    }
+  ],
+  "isFinished": true
+  }
+  

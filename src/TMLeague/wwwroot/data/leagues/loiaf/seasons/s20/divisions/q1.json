@@ -1,0 +1,28 @@
+{
+  "name": "Qualifiers Group 1",
+  "judge": null,
+  "players": [
+    "heyjakel",
+    "Doru11",
+    "Cambeia",
+    "Figueira",
+    "Venge",
+    "Nice Marmot"
+  ],
+  "games": [
+    281666,
+    281667,
+    281668,
+    281669,
+    281670,
+    281671
+  ],
+  "penalties": [
+    {
+      "player": "Nice Marmot",
+      "points": 9
+    }
+  ],
+  "isFinished": true
+  }
+  
