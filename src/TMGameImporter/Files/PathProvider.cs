@@ -37,7 +37,7 @@ internal class PathProvider
             Leagues, leagueId, Seasons, seasonId, Divisions, $"{divisionId}.json");
     }
 
-    public string GetGamePath(uint gameId)
+    public string GetGamePath(int gameId)
     {
         Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Games));
         return Path.Combine(_options.Value.BaseLocation, Games, $"{gameId}.json");

@@ -59,7 +59,7 @@ public record SummaryPlayerScore(
     [property: JsonPropertyName("player")] string Player,
     [property: JsonPropertyName("best")] SummaryScore Best,
     [property: JsonPropertyName("total")] SummaryScore Total,
-    [property: JsonPropertyName("seasons")] ushort Seasons = 1)
+    [property: JsonPropertyName("seasons")] int Seasons = 1)
 {
     [JsonConstructor]
     public SummaryPlayerScore(string player) :
@@ -71,13 +71,13 @@ public record SummaryPlayerScore(
         {
             Best = SummaryScore.Max(player1.Best, player2.Best),
             Total = player1.Total + player2.Total,
-            Seasons = (ushort)(player1.Seasons + player2.Seasons)
+            Seasons = player1.Seasons + player2.Seasons
         };
 
     public int Compare(SummaryPlayerScore other, IEnumerable<Tiebreaker> tiebreakers)
     {
         if (Best.TotalPoints != other.Best.TotalPoints)
-            return Best.TotalPoints - other.Best.TotalPoints;
+            return Best.TotalPoints.CompareTo(other.Best.TotalPoints);
 
         foreach (var tiebreaker in tiebreakers)
         {
@@ -125,16 +125,16 @@ public record SummaryPlayerScore(
 }
 
 public record SummaryScore(
-    [property: JsonPropertyName("totalPoints")] int TotalPoints,
-    [property: JsonPropertyName("wins")] uint Wins,
-    [property: JsonPropertyName("cla")] uint Cla,
-    [property: JsonPropertyName("supplies")] uint Supplies,
-    [property: JsonPropertyName("powerTokens")] uint PowerTokens,
+    [property: JsonPropertyName("totalPoints")] double TotalPoints,
+    [property: JsonPropertyName("wins")] int Wins,
+    [property: JsonPropertyName("cla")] int Cla,
+    [property: JsonPropertyName("supplies")] int Supplies,
+    [property: JsonPropertyName("powerTokens")] int PowerTokens,
     [property: JsonPropertyName("minutesPerMove")] double? MinutesPerMove,
-    [property: JsonPropertyName("moves")] uint Moves,
+    [property: JsonPropertyName("moves")] int Moves,
     [property: JsonPropertyName("houses")] SummaryHouseScore[] Houses,
-    [property: JsonPropertyName("penaltiesPoints")] uint PenaltiesPoints,
-    [property: JsonPropertyName("position")] uint? Position)
+    [property: JsonPropertyName("penaltiesPoints")] double PenaltiesPoints,
+    [property: JsonPropertyName("position")] int? Position)
 {
     public SummaryScore() :
         this(0, 0, 0, 0, 0, null, 0, Array.Empty<SummaryHouseScore>(), 0, null)
@@ -188,7 +188,7 @@ public record SummaryScore(
 
 public record SummaryHouseScore(
     [property: JsonPropertyName("house")] House House,
-    [property: JsonPropertyName("points")] uint Points = 0)
+    [property: JsonPropertyName("points")] double Points = 0)
 {
     public static SummaryHouseScore Max(SummaryHouseScore score1, SummaryHouseScore score2) =>
         score1 with { Points = Math.Max(score1.Points, score2.Points) };

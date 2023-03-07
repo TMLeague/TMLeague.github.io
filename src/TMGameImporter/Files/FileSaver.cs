@@ -16,7 +16,7 @@ internal class FileSaver
         _logger = logger;
     }
 
-    public async Task SaveGame(Game game, uint gameId, CancellationToken cancellationToken)
+    public async Task SaveGame(Game game, int gameId, CancellationToken cancellationToken)
     {
         var path = _pathProvider.GetGamePath(gameId);
         await SaveFile(game, cancellationToken, path);

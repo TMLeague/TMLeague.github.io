@@ -10,19 +10,21 @@ public record DivisionViewModel(
     string Judge,
     bool IsFinished,
     string? WinnerTitle,
-    DivisionPlayerViewModel[] Players);
+    DivisionPlayerViewModel[] Players,
+    Tiebreaker[] Tiebreakers,
+    DateTimeOffset? GeneratedTime);
 
 public record DivisionPlayerViewModel(
     string Name,
-    short TotalPoints = 0,
-    ushort Wins = 0,
-    ushort Cla = 0,
-    ushort Supplies = 0,
-    ushort PowerTokens = 0,
+    double TotalPoints = 0,
+    int Wins = 0,
+    int Cla = 0,
+    int Supplies = 0,
+    int PowerTokens = 0,
     double MinutesPerMove = 0,
-    ushort Moves = 0,
+    int Moves = 0,
     PlayerHouseViewModel[]? Houses = null,
-    ushort TotalPenaltyPoints = 0,
+    double TotalPenaltyPoints = 0,
     PlayerPenaltyViewModel[]? Penalties = null)
 {
     public PlayerHouseViewModel GetHouse(House house) =>
@@ -31,20 +33,20 @@ public record DivisionPlayerViewModel(
 }
 
 public record PlayerHouseViewModel(
-    uint? Game,
+    int? Game,
     House House,
     bool IsWinner = false,
-    ushort Points = 0,
-    ushort BattlePenalty = 0,
-    ushort Strongholds = 0,
-    ushort Castles = 0,
-    ushort Cla = 0,
-    ushort Supplies = 0,
-    ushort PowerTokens = 0,
+    double Points = 0,
+    int BattlePenalty = 0,
+    int Strongholds = 0,
+    int Castles = 0,
+    int Cla = 0,
+    int Supplies = 0,
+    int PowerTokens = 0,
     double MinutesPerMove = 0,
-    ushort Moves = 0);
+    int Moves = 0);
 
 public record PlayerPenaltyViewModel(
-    uint? Game,
-    ushort Points,
+    int? Game,
+    double Points,
     string Details);

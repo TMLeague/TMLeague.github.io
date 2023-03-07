@@ -3,11 +3,11 @@
 namespace TMGameImporter.Http.Converters.Models;
 
 internal record State(
-    uint? GameId,
+    int? GameId,
     string Name,
     DateTimeOffset Time,
     bool IsFinished,
-    uint Turn,
+    int Turn,
     string HousesDataRaw,
     House[] HousesOrder,
     string[] Players,
@@ -15,9 +15,9 @@ internal record State(
     HouseSpeed[] Stats,
     string? Chat);
 
-internal record HouseSpeed(House House, double MinutesPerMove, ushort MovesCount);
+internal record HouseSpeed(House House, double MinutesPerMove, int MovesCount);
 
-internal record Area(bool IsEnabled, AreaType Type, ushort Id, string Name);
+internal record Area(bool IsEnabled, AreaType Type, int Id, string Name);
 
 internal enum AreaType
 {

@@ -6,7 +6,7 @@ public record Division(
     [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("judge")] string Judge,
     [property: JsonPropertyName("players")] string[] Players,
-    [property: JsonPropertyName("games")] uint[] Games,
+    [property: JsonPropertyName("games")] int[] Games,
     [property: JsonPropertyName("penalties")] Penalty[]? Penalties,
     [property: JsonPropertyName("replacements")] Replacement[]? Replacements,
     [property: JsonPropertyName("isFinished")] bool IsFinished,
@@ -14,11 +14,11 @@ public record Division(
 
 public record Penalty(
     [property: JsonPropertyName("player")] string Player,
-    [property: JsonPropertyName("game")] uint? Game,
-    [property: JsonPropertyName("points")] ushort Points,
+    [property: JsonPropertyName("game")] int? Game,
+    [property: JsonPropertyName("points")] double Points,
     [property: JsonPropertyName("details")] string Details);
 
 public record Replacement(
     [property: JsonPropertyName("from")] string From,
     [property: JsonPropertyName("to")] string To,
-    [property: JsonPropertyName("game")] uint Game);
+    [property: JsonPropertyName("game")] int Game);

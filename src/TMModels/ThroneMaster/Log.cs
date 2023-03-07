@@ -3,7 +3,7 @@
 namespace TMModels.ThroneMaster;
 
 public record Log(
-    uint Id,
+    int Id,
     string Name,
     DateTimeOffset Created,
     bool IsProfessional,
@@ -13,8 +13,8 @@ public record Log(
 public class Settings : Dictionary<string, bool> { }
 
 public record LogItem(
-    uint? Id,
-    uint Turn,
+    int? Id,
+    int Turn,
     Phase Phase,
     string Player,
     string Message,

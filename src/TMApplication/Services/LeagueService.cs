@@ -27,17 +27,28 @@ public class LeagueService
         if (league == null)
             return new LeagueViewModel(leagueId);
 
-        var seasons = new List<LeagueSeasonButtonViewModel>();
-        foreach (var seasonId in league.AllSeasons)
+        var seasonButton = await GetSeasonButtonViewModel(leagueId, league, cancellationToken);
+        return new LeagueViewModel(leagueId, league.Name, league.Description, league.Rules, league.Discord, seasonButton);
+    }
+
+    private async Task<LeagueSeasonButtonViewModel?> GetSeasonButtonViewModel(string leagueId, League league, CancellationToken cancellationToken)
+    {
+        var seasonId = league.AllSeasons.LastOrDefault();
+        if (seasonId == null) 
+            return null;
+
+        var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
+        if (season == null)
+            return null;
+
+        var results = new List<Results>();
+        foreach (var divisionId in season.Divisions)
         {
-            var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
-            if (season == null)
-                continue;
-
-            seasons.Add(new LeagueSeasonButtonViewModel(seasonId, season.Name));
+            var result = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+            if (result != null)
+                results.Add(result);
         }
-
-        return new LeagueViewModel(leagueId, league.Name, league.Description, league.Rules, league.Discord, seasons);
+        return new LeagueSeasonButtonViewModel(seasonId, season.Name, results.Max(result => result.GeneratedTime));
     }
 
     public async Task<LeagueSeasonChampionViewModel?> GetLeagueChampionVm(string leagueId, CancellationToken cancellationToken = default)

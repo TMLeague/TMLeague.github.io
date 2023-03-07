@@ -4,40 +4,40 @@ namespace TMModels;
 
 public record Results(
     [property: JsonPropertyName("players")] PlayerResult[] Players,
-    [property: JsonPropertyName("modifiedDate")] DateTimeOffset ModifiedDate
+    [property: JsonPropertyName("generatedTime")] DateTimeOffset GeneratedTime
 );
 
 public record PlayerResult(
     [property: JsonPropertyName("player")] string Player,
-    [property: JsonPropertyName("totalPoints")] short TotalPoints,
-    [property: JsonPropertyName("wins")] ushort Wins,
-    [property: JsonPropertyName("cla")] ushort Cla,
-    [property: JsonPropertyName("supplies")] ushort Supplies,
-    [property: JsonPropertyName("powerTokens")] ushort PowerTokens,
+    [property: JsonPropertyName("totalPoints")] double TotalPoints,
+    [property: JsonPropertyName("wins")] int Wins,
+    [property: JsonPropertyName("cla")] int Cla,
+    [property: JsonPropertyName("supplies")] int Supplies,
+    [property: JsonPropertyName("powerTokens")] int PowerTokens,
     [property: JsonPropertyName("minutesPerMove")] double MinutesPerMove,
-    [property: JsonPropertyName("moves")] ushort Moves,
+    [property: JsonPropertyName("moves")] int Moves,
     [property: JsonPropertyName("houses")] HouseResult[] Houses,
-    [property: JsonPropertyName("penaltiesPoints")] ushort PenaltiesPoints,
+    [property: JsonPropertyName("penaltiesPoints")] double PenaltiesPoints,
     [property: JsonPropertyName("penaltiesDetails")] PlayerPenalty[] PenaltiesDetails
 );
 
 public record HouseResult(
-    [property: JsonPropertyName("game")] uint Game,
+    [property: JsonPropertyName("game")] int Game,
     [property: JsonPropertyName("house")] House House,
     [property: JsonPropertyName("isWinner")] bool IsWinner,
-    [property: JsonPropertyName("points")] ushort Points,
-    [property: JsonPropertyName("battlePenalty")] ushort BattlePenalty,
-    [property: JsonPropertyName("strongholds")] ushort Strongholds,
-    [property: JsonPropertyName("castles")] ushort Castles,
-    [property: JsonPropertyName("cla")] ushort Cla,
-    [property: JsonPropertyName("supplies")] ushort Supplies,
-    [property: JsonPropertyName("powerTokens")] ushort PowerTokens,
+    [property: JsonPropertyName("points")] double Points,
+    [property: JsonPropertyName("battlePenalty")] int BattlePenalty,
+    [property: JsonPropertyName("strongholds")] int Strongholds,
+    [property: JsonPropertyName("castles")] int Castles,
+    [property: JsonPropertyName("cla")] int Cla,
+    [property: JsonPropertyName("supplies")] int Supplies,
+    [property: JsonPropertyName("powerTokens")] int PowerTokens,
     [property: JsonPropertyName("minutesPerMove")] double MinutesPerMove,
-    [property: JsonPropertyName("moves")] ushort Moves
+    [property: JsonPropertyName("moves")] int Moves
 );
 
 public record PlayerPenalty(
-    [property: JsonPropertyName("game")] uint? Game,
-    [property: JsonPropertyName("points")] ushort Points,
+    [property: JsonPropertyName("game")] int? Game,
+    [property: JsonPropertyName("points")] double Points,
     [property: JsonPropertyName("details")] string Details
 );

@@ -2,7 +2,7 @@
 
 public static class ThroneMasterUriProvider
 {
-    public static string GetGameUri(uint gameId) =>
+    public static string GetGameUri(int gameId) =>
         $"https://game.thronemaster.net/?game={gameId}";
 
     public static string GetPlayerUri(string playerName) => 

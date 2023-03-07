@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<footer class="text-white-50 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+<footer class="text-white-50 d-block">
     @if (LeagueVm?.Rules != null)
     {
         <p class="mb-0">Rules of the league are <a id="league-rules-link" href="@LeagueVm.Rules" target="_blank" class="text-primary">here</a>.</p>
@@ -47,13 +47,17 @@
     {
         <p class="mb-0">Join discord server <a id="league-discord-link" href="@LeagueVm.Discord" target="_blank" class="text-primary">here</a>.</p>
     }
+    @if (LeagueVm?.LastSeason?.GeneratedTime != null)
+    {
+        <p class="mb-0">Data fetched at @LeagueVm.LastSeason.GeneratedTime.Value.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
+    }
 </footer>
 
 @code {
     [Parameter]
     public string? LeagueId { get; set; }
 
-    private string? SeasonId => LeagueVm?.Seasons?.LastOrDefault()?.Id;
+    private string? SeasonId => LeagueVm?.LastSeason?.Id;
 
     private LeagueViewModel? LeagueVm { get; set; }
 

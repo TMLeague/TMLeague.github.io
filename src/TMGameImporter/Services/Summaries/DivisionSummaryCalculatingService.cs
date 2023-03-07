@@ -70,7 +70,7 @@ internal class DivisionSummaryCalculatingService
         playerResult.Moves,
         GetSummaryHouseScore(playerResult.Houses),
         playerResult.PenaltiesPoints,
-        (uint)position + 1);
+        position + 1);
 
     private static SummaryHouseScore[] GetSummaryHouseScore(IEnumerable<HouseResult> houses) =>
         houses.Select(houseResult => new SummaryHouseScore(

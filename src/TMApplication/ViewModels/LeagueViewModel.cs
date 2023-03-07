@@ -2,15 +2,21 @@
 
 public record LeagueViewModel(
     string Id,
-    string? Name = null,
-    string? Description = null,
-    string? Rules = null,
-    string? Discord = null,
-    IReadOnlyCollection<LeagueSeasonButtonViewModel>? Seasons = null);
+    string? Name,
+    string? Description,
+    string? Rules,
+    string? Discord,
+    LeagueSeasonButtonViewModel? LastSeason)
+{
+    public LeagueViewModel(string id) :
+        this(id, null, null,
+            null, null, null) { }
+};
 
 public record LeagueSeasonButtonViewModel(
     string Id,
-    string Name);
+    string Name,
+    DateTimeOffset? GeneratedTime);
 
 public record LeagueSeasonSummaryViewModel(
     string LeagueId,
@@ -32,10 +38,10 @@ public record LeagueDivisionSummaryViewModel(
 }
 
 public record LeagueGameSummaryViewModel(
-    uint Id,
+    int Id,
     string? Name,
     double Progress,
-    uint Turn,
+    int Turn,
     bool IsFinished,
     bool IsStalling,
     string? WinnerPlayerName,
@@ -48,7 +54,7 @@ public record LeagueSeasonChampionViewModel(
     string SeasonId,
     string SeasonName,
     string PlayerName,
-    string Title);
+    string? Title);
 
 public record LeagueSeasonsViewModel(
     string LeagueId,
@@ -63,5 +69,5 @@ public record LeagueSeasonViewModel(
 public record LeagueDivisionChampionViewModel(
     string DivisionId,
     string DivisionName,
-    string PlayerName,
+    string? PlayerName,
     string? Title);

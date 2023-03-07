@@ -30,7 +30,16 @@
                         </a>
                     </h5>
                     <span class="w-100 ms-3 fst-italic">
-                        <span class="winner"><PlayerLink PlayerName="@champion.PlayerName"></PlayerLink></span>, @champion.Title
+                        @if (string.IsNullOrEmpty(champion.Title))
+                        {
+                            <span class="winner"><PlayerLink PlayerName="@champion.PlayerName"></PlayerLink></span>
+                        }
+                        else
+                        {
+                            <span>
+                                <span class="winner"><PlayerLink PlayerName="@champion.PlayerName"></PlayerLink></span>, @champion.Title
+                            </span>
+                        }
                     </span>
                 </div>
             }
