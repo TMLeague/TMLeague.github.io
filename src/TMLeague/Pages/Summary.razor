@@ -13,9 +13,12 @@
 <div class="d-flex flex-column">
     <div class="d-flex flex-row my-1">
         <div class="btn-group">
-            <a class="btn btn-primary @(DivisionId == null ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, null, ScoreType)" disabled=@(DivisionId == null)>
-                Total
-            </a>
+            @if (LeagueId != null)
+            {
+                <a class="btn btn-primary @(DivisionId == null ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, null, ScoreType)" disabled=@(DivisionId == null)>
+                    Total
+                </a>
+            }
             @if (SummaryVm != null)
             {
                 @foreach (var division in SummaryVm.AvailableDivisions)
