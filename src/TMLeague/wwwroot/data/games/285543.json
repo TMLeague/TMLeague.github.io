@@ -11,6 +11,21 @@
   },
   "houses": [
     {
+      "name": 4,
+      "player": "spartan109",
+      "throne": 6,
+      "fiefdoms": 1,
+      "kingsCourt": 1,
+      "supplies": 5,
+      "powerTokens": 7,
+      "strongholds": 3,
+      "castles": 3,
+      "cla": 10,
+      "minutesPerMove": 250,
+      "moves": 50,
+      "battlesInTurn": []
+    },
+    {
       "name": 3,
       "player": "jcggarrett1",
       "throne": 1,
@@ -66,21 +81,6 @@
       "strongholds": 1,
       "castles": 0,
       "cla": 2,
-      "minutesPerMove": 250,
-      "moves": 50,
-      "battlesInTurn": []
-    },
-    {
-      "name": 4,
-      "player": "spartan109",
-      "throne": 6,
-      "fiefdoms": 1,
-      "kingsCourt": 1,
-      "supplies": 5,
-      "powerTokens": 7,
-      "strongholds": 3,
-      "castles": 3,
-      "cla": 10,
       "minutesPerMove": 250,
       "moves": 50,
       "battlesInTurn": []
