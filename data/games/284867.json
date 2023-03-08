@@ -11,6 +11,21 @@
   },
   "houses": [
     {
+      "name": 1,
+      "player": "spartan109",
+      "throne": 1,
+      "fiefdoms": 1,
+      "kingsCourt": 1,
+      "supplies": 2,
+      "powerTokens": 6,
+      "strongholds": 2,
+      "castles": 3,
+      "cla": 8,
+      "minutesPerMove": 250,
+      "moves": 50,
+      "battlesInTurn": []
+    },
+    {
       "name": 3,
       "player": "diamonnd",
       "throne": 5,
@@ -51,21 +66,6 @@
       "strongholds": 2,
       "castles": 0,
       "cla": 3,
-      "minutesPerMove": 250,
-      "moves": 50,
-      "battlesInTurn": []
-    },
-    {
-      "name": 1,
-      "player": "spartan109",
-      "throne": 1,
-      "fiefdoms": 1,
-      "kingsCourt": 1,
-      "supplies": 2,
-      "powerTokens": 6,
-      "strongholds": 2,
-      "castles": 3,
-      "cla": 8,
       "minutesPerMove": 250,
       "moves": 50,
       "battlesInTurn": []
