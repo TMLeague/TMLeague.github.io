@@ -63,7 +63,8 @@ string[] GetArgumentsString() =>
     new[]
     {
         GetArgumentLine(nameof(options.Value.BaseLocation), options.Value.BaseLocation),
-        GetArgumentLine(nameof(options.Value.FetchFinishedDivisions), options.Value.FetchFinishedDivisions)
+        GetArgumentLine(nameof(options.Value.FetchFinishedDivisions), options.Value.FetchFinishedDivisions),
+        GetArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames)
     };
 
 string GetArgumentLine(string name, object value) => 

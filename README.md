@@ -115,6 +115,8 @@ Division configuration file contains following properties.
 # Importing games locally
 To import games locally, it is needed to have installed [.NET6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). Then it is possible to execute following command from the root folder:
 ```
-dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data --FetchFinishedDivisions false
+dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data --FetchFinishedDivisions false --FetchFinishedGames false
 ```
-where `FetchFinishedDivisions` should be set to `true` when already fetched division results needs to be recalculated.
+where:
+- `FetchFinishedDivisions` should be set to `true` when already fetched division results needs to be recalculated and
+- `FetchFinishedGames` should be set to `true` when already fetched and finished games need to be recalculated.

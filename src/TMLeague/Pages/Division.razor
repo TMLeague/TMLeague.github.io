@@ -146,15 +146,14 @@
 
     private DivisionViewModel? DivisionVm { get; set; }
 
-    private bool ShowHouses { get; set; } = false;
+    private bool ShowHouses { get; set; }
+    private void ChangeVisibility() => ShowHouses = !ShowHouses;
 
     private int TableWidth => DivisionVm == null ?
         0 :
-        940 +
+        900 +
         DivisionVm.Tiebreakers.Length * 100 + 
         (DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties) ? 0 : 100);
-
-    private void ChangeVisibility() => ShowHouses = !ShowHouses;
 
     private bool _isInitialized;
 
