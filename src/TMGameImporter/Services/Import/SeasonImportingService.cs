@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMModels;
 
@@ -8,12 +10,15 @@ internal class SeasonImportingService
 {
     private readonly DivisionImportingService _divisionImportingService;
     private readonly FileLoader _fileLoader;
+    private readonly IOptions<ImporterOptions> _options;
     private readonly ILogger<SeasonImportingService> _logger;
 
-    public SeasonImportingService(DivisionImportingService divisionImportingService, FileLoader fileLoader, ILogger<SeasonImportingService> logger)
+    public SeasonImportingService(DivisionImportingService divisionImportingService,
+        FileLoader fileLoader, IOptions<ImporterOptions> options, ILogger<SeasonImportingService> logger)
     {
         _divisionImportingService = divisionImportingService;
         _fileLoader = fileLoader;
+        _options = options;
         _logger = logger;
     }
 
@@ -29,8 +34,16 @@ internal class SeasonImportingService
                 leagueId.ToUpper(), seasonId.ToUpper());
             return;
         }
-        foreach (var divisionId in season.Divisions)
-            await _divisionImportingService.Import(leagueId, seasonId, divisionId, scoring, cancellationToken);
+
+        if (string.IsNullOrEmpty(_options.Value.Division))
+        {
+            foreach (var divisionId in season.Divisions)
+                await _divisionImportingService.Import(leagueId, seasonId, divisionId, scoring, cancellationToken);
+        }
+        else
+        {
+            await _divisionImportingService.Import(leagueId, seasonId, _options.Value.Division, scoring, cancellationToken);
+        }
 
         _logger.LogInformation("  Season {leagueId}/{seasonId} imported.",
             leagueId.ToUpper(), seasonId.ToUpper());
