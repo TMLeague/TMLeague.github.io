@@ -26,6 +26,7 @@
     <_ContentIncludedByDefault Remove="Components\HallOfFame.razor" />
     <_ContentIncludedByDefault Remove="Components\League\HallOfFameDivision.razor" />
     <_ContentIncludedByDefault Remove="Components\League\HallOfFameSlide.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Game.razor" />
     <_ContentIncludedByDefault Remove="Pages\Season.razor" />
   </ItemGroup>
 
@@ -73,6 +74,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Components\League\HallOfFameDivision.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Game.razor" />
   </ItemGroup>
 
 </Project>

@@ -107,14 +107,14 @@ public record BattleStats
 
 public record UnitStats
 {
-    public int Footman { get; set; }
+    public int Footmen { get; set; }
     public int Knights { get; set; }
     public int Ships { get; set; }
     public int SiegeEngines { get; set; }
 
     public static UnitStats operator +(UnitStats stats1, UnitStats stats2) => new()
     {
-        Footman = stats1.Footman + stats2.Footman,
+        Footmen = stats1.Footmen + stats2.Footmen,
         Knights = stats1.Knights + stats2.Knights,
         Ships = stats1.Ships + stats2.Ships,
         SiegeEngines = stats1.SiegeEngines + stats2.SiegeEngines

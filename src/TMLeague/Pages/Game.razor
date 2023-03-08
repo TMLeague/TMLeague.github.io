@@ -1,0 +1,193 @@
+﻿@page "/game/{gameId}"
+@using TMApplication.Services
+@using TMApplication.ViewModels
+@using TMInfrastructure.Http
+@using TMLeague.Components
+@using TMLeague.Components.TmLinks
+@inject GameService GameService
+@if (GameVm == null)
+{
+    <h3>Game @GameId</h3>
+}
+else if (GameIdInt != null)
+{
+    <h3>
+        <a href="@ThroneMasterUriProvider.GetGameUri(GameIdInt.Value)" target="_blank">Game @GameVm.Name</a>
+    </h3>
+}
+
+<div class="row">
+    @if (GameVm == null)
+    {
+        @if (_isInitialized)
+        {
+            @if (GameIdInt is null or < 0)
+            {
+                <div class="lead">Game ID @GameIdInt is not valid.</div>
+            }
+            else
+            {
+                <div class="lead">Game @GameIdInt not exists in the application.</div>
+            }
+        }
+        else
+        {
+            <Loading></Loading>
+        }
+    }
+    else
+    {
+        <div class="col-lg-11">
+            <table class="table table-striped table-dark pb-0" width="1000px">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 200px">Player</th>
+                        <th scope="col" style="width: 50px">Castles</th>
+                        <th scope="col" style="width: 50px">CLA</th>
+                        <th scope="col" style="width: 50px">Supply</th>
+                        <th scope="col" style="width: 100px">Tracks</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></th>
+                        <th scope="col" style="width: 50px" class="collapse @(ShowStats ? "show" : "")">MPM</th>
+                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Battles</th>
+                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Kills</th>
+                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Casualties</th>
+                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Power Tokens</th>
+                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Bids</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var houseScore in GameVm.Houses)
+                    {
+                        <tr>
+                            <th scope="row">
+                                @if (!string.IsNullOrEmpty(houseScore.Player))
+                                {
+                                    <h6><PlayerLink PlayerName="@houseScore.Player"></PlayerLink></h6>
+                                    <br/>
+                                }
+                                @houseScore.House
+                            </th>
+                            <td class="tt" ontouchstart="">
+                                @(houseScore.Castles + houseScore.Strongholds)
+                                <div class="tt-inner">
+                                    <ul class="list-group list-group-flush text-bg-dark">
+                                        <li class="list-group-item text-bg-dark">Strongholds: @houseScore.Strongholds</li>
+                                        <li class="list-group-item text-bg-dark">Castles: @houseScore.Castles</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>@houseScore.Cla</td>
+                            <td>@houseScore.Supplies</td>
+                            <td class="tt" ontouchstart="">
+                                IT: @houseScore.Throne F: @houseScore.Fiefdoms KC: @houseScore.KingsCourt
+                                <div class="tt-inner">
+                                    <ul class="list-group list-group-flush text-bg-dark">
+                                        <li class="list-group-item text-bg-dark">Iron Throne: @houseScore.Throne</li>
+                                        <li class="list-group-item text-bg-dark">Fiefdoms: @houseScore.Fiefdoms</li>
+                                        <li class="list-group-item text-bg-dark">King's Court: @houseScore.KingsCourt</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
+                            <td class="collapse @(ShowStats ? "show" : "")">
+                                @Math.Round(houseScore.MinutesPerMove)
+                            </td>
+                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                                @($"{houseScore.Stats.Battles.Won}/{houseScore.Stats.Battles.Lost}")
+                                <div class="tt-inner">
+                                    <ul class="list-group list-group-flush text-bg-dark">
+                                        <li class="list-group-item text-bg-dark">Won: @houseScore.Stats.Battles.Won</li>
+                                        <li class="list-group-item text-bg-dark">Lost: @houseScore.Stats.Battles.Lost</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                                @($"{houseScore.Stats.Kills.Footmen}F") @($"{houseScore.Stats.Kills.Knights}K") @($"{houseScore.Stats.Kills.SiegeEngines}SE") @($"{houseScore.Stats.Kills.Ships}S")
+                                <div class="tt-inner">
+                                    <ul class="list-group list-group-flush text-bg-dark">
+                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Kills.Footmen</li>
+                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Kills.Knights</li>
+                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Kills.SiegeEngines</li>
+                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Kills.Ships</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                                @($"{houseScore.Stats.Casualties.Footmen}F") @($"{houseScore.Stats.Casualties.Knights}K") @($"{houseScore.Stats.Casualties.SiegeEngines}SE") @($"{houseScore.Stats.Casualties.Ships}S")
+                                <div class="tt-inner">
+                                    <ul class="list-group list-group-flush text-bg-dark">
+                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Casualties.Footmen</li>
+                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Casualties.Knights</li>
+                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Casualties.SiegeEngines</li>
+                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Casualties.Ships</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                                @($"GoT:+{houseScore.Stats.PowerTokens.GameOfThrones} CP:+{houseScore.Stats.PowerTokens.ConsolidatePower} R:+{houseScore.Stats.PowerTokens.Raids}")
+                                <div class="tt-inner">
+                                    <ul class="list-group list-group-flush text-bg-dark">
+                                        <li class="list-group-item text-bg-dark">Game of Thrones: @houseScore.Stats.PowerTokens.GameOfThrones</li>
+                                        <li class="list-group-item text-bg-dark">Consolidate Power: @houseScore.Stats.PowerTokens.ConsolidatePower</li>
+                                        <li class="list-group-item text-bg-dark">Raids: @houseScore.Stats.PowerTokens.Raids</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                                @($"IT:{houseScore.Stats.Bids.IronThrone} F:{houseScore.Stats.Bids.Fiefdoms} KC:{houseScore.Stats.Bids.KingsCourt} W:{houseScore.Stats.Bids.Wildlings}")
+                                <div class="tt-inner">
+                                    <ul class="list-group list-group-flush text-bg-dark">
+                                        <li class="list-group-item text-bg-dark">Iron Throne: @houseScore.Stats.Bids.IronThrone</li>
+                                        <li class="list-group-item text-bg-dark">Fiefdoms: @houseScore.Stats.Bids.Fiefdoms</li>
+                                        <li class="list-group-item text-bg-dark">King's Court: @houseScore.Stats.Bids.KingsCourt</li>
+                                        <li class="list-group-item text-bg-dark">Wildlings: @houseScore.Stats.Bids.Wildlings</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <button class="col-lg-1 btn btn-primary" @onclick="ChangeVisibility">
+            @if (ShowStats)
+            {
+                <i class="bi bi-chevron-compact-left display-6"></i>
+            }
+            else
+            {
+                <i class="bi bi-chevron-compact-right display-6"></i>
+            }
+        </button>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? GameId { get; set; }
+    private int? GameIdInt => GameId == null ? 
+        null : 
+        int.TryParse(GameId, out var gameId) ?
+            gameId :
+            null;
+
+    private GameViewModel? GameVm { get; set; }
+
+    private bool ShowStats { get; set; }
+    private void ChangeVisibility() => ShowStats = !ShowStats;
+
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (GameIdInt == null)
+        {
+            _isInitialized = true;
+            return;
+        }
+
+        GameVm = await GameService.GetGameVm(GameIdInt.Value);
+
+        _isInitialized = true;
+    }
+}

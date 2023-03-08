@@ -78,8 +78,8 @@ internal static class StatsConverter
         {
             if (int.TryParse(footmenMatch.Groups[1].Value, out var footmen))
             {
-                houseScores.Get(winner).Stats.Kills.Footman += footmen;
-                houseScores.Get(looser).Stats.Casualties.Footman += footmen;
+                houseScores.Get(winner).Stats.Kills.Footmen += footmen;
+                houseScores.Get(looser).Stats.Casualties.Footmen += footmen;
             }
         }
         var knightsMatch = Regex.Match(logItem.Message, @"(\d+) Knight");
