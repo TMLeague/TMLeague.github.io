@@ -23,7 +23,8 @@ public class GameService
             game.IsStalling ?
                 97 :
                 100 * (double)game.Turn / 11;
-        return new LeagueGameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished, game.IsStalling, game.Houses.First().Player, game.GeneratedTime);
+        return new LeagueGameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished,
+            game.IsStalling, game.IsFinished ? game.Houses.First().Player : null, game.GeneratedTime);
     }
 
     public async Task<GameViewModel?> GetGameVm(int gameId, CancellationToken cancellationToken = default)
