@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
@@ -45,8 +47,24 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<SummaryCalculatingService>())
     .Build();
 
+var logger = host.Services.GetRequiredService<ILogger<Program>>();
+var options = host.Services.GetRequiredService<IOptions<ImporterOptions>>();
+logger.LogInformation(
+    "Importing program started with following arguments: {arguments}", 
+    string.Join("", GetArgumentsString()));
+
 var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
 await mainImportingService.Import();
 
 var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
 await summaryCalculatingService.Calculate();
+
+string[] GetArgumentsString() =>
+    new[]
+    {
+        GetArgumentLine(nameof(options.Value.BaseLocation), options.Value.BaseLocation),
+        GetArgumentLine(nameof(options.Value.FetchFinishedDivisions), options.Value.FetchFinishedDivisions)
+    };
+
+string GetArgumentLine(string name, object value) => 
+    $"{Environment.NewLine} - {name}: {value}";

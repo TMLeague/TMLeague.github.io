@@ -73,7 +73,7 @@ To add a new season to the league, its index must be added to `seasons` or `trai
 | initialMessage:subject | A subject of the message with draft that should be send to players at the beginning of the season. It can contain following phrases that will be replaced with appropriate values: `{season}`, `{division}`, `{stark}`, `{greyjoy}`, `{lannister}`, `{tyrell}`, `{martell}`, `{baratheon}`, `{arryn}`, `{password}`, `{contact}`, `{judgeName}`. |
 | initialMessage:body | An array of body lines format of the message with draft. It can contain the same phrases like the subject. |
 
-# Season
+## Season
 Season configuration file contains following properties.
 
 To add a new division to the league, its index must be added to `divisions` array.
@@ -85,7 +85,7 @@ To add a new division to the league, its index must be added to `divisions` arra
 | endDate | A deadline of the season in ISO 8601 format. |
 | divisions * | An array of divisions identifiers. |
 
-# Division
+## Division
 Before the season start, many division arrays is empty. They can be set later.
 
 **It's very important to mark finished seasons to avoid generating unnecessary traffic to the Thronemaster's API.**
@@ -111,3 +111,10 @@ Division configuration file contains following properties.
 | replacements[*]:game | A Thronemaster's game id. |
 | isFinished * | If `true`, then every time when results are fetched from the Thronemasters, all games from that division will be updated (few times a day). Set to `false`, when the division is correctly fetched at least once and no more recalculation is needed. |
 | winnerTitle | A winner title. |
+
+# Importing games locally
+To import games locally, it is needed to have installed [.NET6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). Then it is possible to execute following command from the root folder:
+```
+dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data --FetchFinishedDivisions false
+```
+where `FetchFinishedDivisions` should be set to `true` when already fetched division results needs to be recalculated.
