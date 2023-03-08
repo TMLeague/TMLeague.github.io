@@ -117,6 +117,9 @@ To import games locally, it is needed to have installed [.NET6](https://dotnet.m
 ```
 dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data --FetchFinishedDivisions false --FetchFinishedGames false
 ```
-where:
+where there are possible following parameters:
 - `FetchFinishedDivisions` should be set to `true` when already fetched division results needs to be recalculated and
-- `FetchFinishedGames` should be set to `true` when already fetched and finished games need to be recalculated.
+- `FetchFinishedGames` should be set to `true` when already fetched and finished games need to be recalculated,
+- `League` - id of the league to import (when `null` or empty, all leagues are imported)
+- `Season` - id of the season to import (when `null` or empty, all seasons are imported)
+- `Division` - id of the division to import (when `null` or empty, all division are imported)
