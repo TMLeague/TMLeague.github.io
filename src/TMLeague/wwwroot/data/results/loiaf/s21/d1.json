@@ -208,6 +208,110 @@
       "penaltiesDetails": []
     },
     {
+      "player": "DawidW",
+      "totalPoints": 23.5,
+      "wins": 1,
+      "cla": 37,
+      "supplies": 24,
+      "powerTokens": 52,
+      "minutesPerMove": 311.2537585421412,
+      "moves": 439,
+      "houses": [
+        {
+          "game": 284794,
+          "house": 5,
+          "isWinner": false,
+          "points": 4,
+          "battlePenalty": 0,
+          "strongholds": 2,
+          "castles": 2,
+          "cla": 5,
+          "supplies": 3,
+          "powerTokens": 10,
+          "minutesPerMove": 319.2,
+          "moves": 73
+        },
+        {
+          "game": 284776,
+          "house": 6,
+          "isWinner": false,
+          "points": 5,
+          "battlePenalty": 0,
+          "strongholds": 2,
+          "castles": 3,
+          "cla": 6,
+          "supplies": 4,
+          "powerTokens": 3,
+          "minutesPerMove": 300.4,
+          "moves": 93
+        },
+        {
+          "game": 284778,
+          "house": 3,
+          "isWinner": true,
+          "points": 9,
+          "battlePenalty": 0,
+          "strongholds": 1,
+          "castles": 5,
+          "cla": 13,
+          "supplies": 6,
+          "powerTokens": 19,
+          "minutesPerMove": 321.9,
+          "moves": 65
+        },
+        {
+          "game": 284795,
+          "house": 2,
+          "isWinner": false,
+          "points": 2,
+          "battlePenalty": 0,
+          "strongholds": 1,
+          "castles": 1,
+          "cla": 3,
+          "supplies": 3,
+          "powerTokens": 10,
+          "minutesPerMove": 241,
+          "moves": 75
+        },
+        {
+          "game": 284812,
+          "house": 4,
+          "isWinner": false,
+          "points": 2,
+          "battlePenalty": 0,
+          "strongholds": 2,
+          "castles": 0,
+          "cla": 4,
+          "supplies": 4,
+          "powerTokens": 5,
+          "minutesPerMove": 340.6,
+          "moves": 74
+        },
+        {
+          "game": 284798,
+          "house": 1,
+          "isWinner": false,
+          "points": 2,
+          "battlePenalty": 0,
+          "strongholds": 1,
+          "castles": 1,
+          "cla": 6,
+          "supplies": 4,
+          "powerTokens": 5,
+          "minutesPerMove": 359.3,
+          "moves": 59
+        }
+      ],
+      "penaltiesPoints": 0.5,
+      "penaltiesDetails": [
+        {
+          "game": 284794,
+          "points": 0.5,
+          "details": "speed"
+        }
+      ]
+    },
+    {
       "player": "Zesty18",
       "totalPoints": 23,
       "wins": 1,
@@ -402,110 +506,6 @@
       ],
       "penaltiesPoints": 0,
       "penaltiesDetails": []
-    },
-    {
-      "player": "DawidW",
-      "totalPoints": 23.5,
-      "wins": 1,
-      "cla": 37,
-      "supplies": 24,
-      "powerTokens": 52,
-      "minutesPerMove": 311.2537585421412,
-      "moves": 439,
-      "houses": [
-        {
-          "game": 284794,
-          "house": 5,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 5,
-          "supplies": 3,
-          "powerTokens": 10,
-          "minutesPerMove": 319.2,
-          "moves": 73
-        },
-        {
-          "game": 284776,
-          "house": 6,
-          "isWinner": false,
-          "points": 5,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 3,
-          "cla": 6,
-          "supplies": 4,
-          "powerTokens": 3,
-          "minutesPerMove": 300.4,
-          "moves": 93
-        },
-        {
-          "game": 284778,
-          "house": 3,
-          "isWinner": true,
-          "points": 9,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 5,
-          "cla": 13,
-          "supplies": 6,
-          "powerTokens": 19,
-          "minutesPerMove": 321.9,
-          "moves": 65
-        },
-        {
-          "game": 284795,
-          "house": 2,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 1,
-          "cla": 3,
-          "supplies": 3,
-          "powerTokens": 10,
-          "minutesPerMove": 241,
-          "moves": 75
-        },
-        {
-          "game": 284812,
-          "house": 4,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 0,
-          "cla": 4,
-          "supplies": 4,
-          "powerTokens": 5,
-          "minutesPerMove": 340.6,
-          "moves": 74
-        },
-        {
-          "game": 284798,
-          "house": 1,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 1,
-          "cla": 6,
-          "supplies": 4,
-          "powerTokens": 5,
-          "minutesPerMove": 359.3,
-          "moves": 59
-        }
-      ],
-      "penaltiesPoints": 0.5,
-      "penaltiesDetails": [
-        {
-          "game": 284794,
-          "points": 0.5,
-          "details": "speed"
-        }
-      ]
     },
     {
       "player": "rasmus842",
