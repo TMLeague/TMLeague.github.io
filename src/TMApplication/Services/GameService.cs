@@ -32,6 +32,6 @@ public class GameService
         if (game == null)
             return null;
 
-        return new GameViewModel(game.Id, game.Name, game.IsFinished, game.Turn, game.Houses, game.GeneratedTime);
+        return new GameViewModel(game.Id, game.Name, game.IsFinished, game.IsStalling, game.Turn, game.Houses, game.GeneratedTime);
     }
 }

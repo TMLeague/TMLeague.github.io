@@ -28,6 +28,8 @@ public record HouseScore(
     [property: JsonPropertyName("battlesInTurn")] int[] BattlesInTurn,
     [property: JsonPropertyName("stats")] HouseStats Stats) : IComparable<HouseScore>
 {
+    public HouseStats Stats { get; } = Stats ?? new HouseStats();
+
     public int CompareTo(HouseScore? otherHouse)
     {
         if (otherHouse == null)

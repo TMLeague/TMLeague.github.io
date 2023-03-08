@@ -1,4 +1,5 @@
-﻿@page "/game/{gameId}"
+﻿@page "/league/{leagueId}/game/{gameId}"
+@page "/game/{gameId}"
 @using TMApplication.Services
 @using TMApplication.ViewModels
 @using TMInfrastructure.Http
@@ -12,8 +13,43 @@
 else if (GameIdInt != null)
 {
     <h3>
-        <a href="@ThroneMasterUriProvider.GetGameUri(GameIdInt.Value)" target="_blank">Game @GameVm.Name</a>
+        <a href="@ThroneMasterUriProvider.GetGameUri(GameIdInt.Value)" class="text-inherit" target="_blank">Game @GameVm.Name</a>
     </h3>
+
+    <div class="progress mb-1 w-100">
+        @if (GameVm.IsFinished)
+        {
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+         role="progressbar" aria-valuenow="10"
+         aria-valuemin="0" aria-valuemax="10" style="width: 100%">
+                Finished
+            </div>
+        }
+        else if (GameVm.IsStalling)
+        {
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+         role="progressbar" aria-valuenow="9"
+         aria-valuemin="0" aria-valuemax="10" style="width: 97%">
+                Stalling
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                 role="progressbar" aria-valuenow="1"
+                 aria-valuemin="0" aria-valuemax="10" style="width: 3%">
+            </div>
+        }
+        else
+        {
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+         role="progressbar" aria-valuenow="@(GameVm.Turn - 1)"
+         aria-valuemin="0" aria-valuemax="10" style="@($"width: {100 * (GameVm.Turn - 1) / 10}%")">
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+         role="progressbar" aria-valuenow="1"
+         aria-valuemin="0" aria-valuemax="10" style="width: 10%">
+                @($"T{GameVm.Turn}")
+            </div>
+        }
+    </div>
 }
 
 <div class="row">
@@ -38,34 +74,121 @@ else if (GameIdInt != null)
     else
     {
         <div class="col-lg-11">
-            <table class="table table-striped table-dark pb-0" width="1000px">
+            <table class="table table-striped table-dark pb-0" width="800px">
                 <thead>
-                    <tr>
-                        <th scope="col" style="width: 200px">Player</th>
-                        <th scope="col" style="width: 50px">Castles</th>
-                        <th scope="col" style="width: 50px">CLA</th>
-                        <th scope="col" style="width: 50px">Supply</th>
-                        <th scope="col" style="width: 100px">Tracks</th>
-                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></th>
-                        <th scope="col" style="width: 50px" class="collapse @(ShowStats ? "show" : "")">MPM</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Battles</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Kills</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Casualties</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Power Tokens</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Bids</th>
+                    <tr class="align-middle">
+                        <th scope="col" style="width: 200px" rowspan="2">Player</th>
+                        <th scope="col" style="width: 50px" rowspan="2">Castles</th>
+                        <th scope="col" style="width: 50px" rowspan="2">CLA</th>
+                        <th scope="col" style="width: 50px" rowspan="2">Supply</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0" rowspan="2"></th>
+                        <th scope="col" style="width: 60px" colspan="3">Tracks</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0" rowspan="2"></th>
+                        <th scope="col" style="width: 50px" rowspan="2">MPM</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
+                        <th scope="col" style="width: 40px" class="collapse @(ShowStats ? "show" : "")" colspan="2">Battles</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
+                        <th scope="col" style="width: 80px" class="collapse @(ShowStats ? "show" : "")" colspan="4">Kills</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
+                        <th scope="col" style="width: 80px" class="collapse @(ShowStats ? "show" : "")" colspan="4">Casualties</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
+                        <th scope="col" style="width: 60px" class="collapse @(ShowStats ? "show" : "")" colspan="3">PT</th>
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
+                        <th scope="col" style="width: 80px" class="collapse @(ShowStats ? "show" : "")" colspan="4">Bids</th>
+                    </tr>
+                    <tr class="align-middle">
+                        <th scope="col" style="width: 20px" class="tt">
+                            IT
+                            <div class="tt-inner">Iron Throne track</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="tt">
+                            F
+                            <div class="tt-inner">Fiefdoms track</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="tt">
+                            KC
+                            <div class="tt-inner">King's court track</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            W
+                            <div class="tt-inner">Won</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            L
+                            <div class="tt-inner">Lost</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            F
+                            <div class="tt-inner">Footmen</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            K
+                            <div class="tt-inner">Knights</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            SE
+                            <div class="tt-inner">Siege Engines</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            S
+                            <div class="tt-inner">Ships</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            F
+                            <div class="tt-inner">Footmen</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            K
+                            <div class="tt-inner">Knights</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            SE
+                            <div class="tt-inner">Siege Engines</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            S
+                            <div class="tt-inner">Ships</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            GoT
+                            <div class="tt-inner">Game of Throne Westeros card</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            CP
+                            <div class="tt-inner">Consolidate Power order</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            R
+                            <div class="tt-inner">Raid order</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            IT
+                            <div class="tt-inner">Iron Throne track</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            F
+                            <div class="tt-inner">Fiefdoms track</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            KC
+                            <div class="tt-inner">King's court track</div>
+                        </th>
+                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                            W
+                            <div class="tt-inner">Wildlings Westeros card</div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var houseScore in GameVm.Houses)
                     {
-                        <tr>
+                        <tr class="align-middle">
                             <th scope="row">
                                 @if (!string.IsNullOrEmpty(houseScore.Player))
                                 {
-                                    <h6><PlayerLink PlayerName="@houseScore.Player"></PlayerLink></h6>
-                                    <br/>
+                                    <p class="m-0"><PlayerLink PlayerName="@houseScore.Player"></PlayerLink></p>
                                 }
-                                @houseScore.House
+                                <p class="m-0 fw-light fst-italic">@houseScore.House</p>
                             </th>
                             <td class="tt" ontouchstart="">
                                 @(houseScore.Castles + houseScore.Strongholds)
@@ -78,72 +201,34 @@ else if (GameIdInt != null)
                             </td>
                             <td>@houseScore.Cla</td>
                             <td>@houseScore.Supplies</td>
-                            <td class="tt" ontouchstart="">
-                                IT: @houseScore.Throne F: @houseScore.Fiefdoms KC: @houseScore.KingsCourt
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Iron Throne: @houseScore.Throne</li>
-                                        <li class="list-group-item text-bg-dark">Fiefdoms: @houseScore.Fiefdoms</li>
-                                        <li class="list-group-item text-bg-dark">King's Court: @houseScore.KingsCourt</li>
-                                    </ul>
-                                </div>
-                            </td>
+                            <td class="p-1 invisible border-0"></td>
+                            <td>@houseScore.Throne</td>
+                            <td>@houseScore.Fiefdoms</td>
+                            <td>@houseScore.KingsCourt</td>
+                            <td class="p-1 invisible border-0"></td>
+                            <td>@Math.Round(houseScore.MinutesPerMove)</td>
                             <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
-                            <td class="collapse @(ShowStats ? "show" : "")">
-                                @Math.Round(houseScore.MinutesPerMove)
-                            </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"{houseScore.Stats.Battles.Won}/{houseScore.Stats.Battles.Lost}")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Won: @houseScore.Stats.Battles.Won</li>
-                                        <li class="list-group-item text-bg-dark">Lost: @houseScore.Stats.Battles.Lost</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"{houseScore.Stats.Kills.Footmen}F") @($"{houseScore.Stats.Kills.Knights}K") @($"{houseScore.Stats.Kills.SiegeEngines}SE") @($"{houseScore.Stats.Kills.Ships}S")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Kills.Footmen</li>
-                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Kills.Knights</li>
-                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Kills.SiegeEngines</li>
-                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Kills.Ships</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"{houseScore.Stats.Casualties.Footmen}F") @($"{houseScore.Stats.Casualties.Knights}K") @($"{houseScore.Stats.Casualties.SiegeEngines}SE") @($"{houseScore.Stats.Casualties.Ships}S")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Casualties.Footmen</li>
-                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Casualties.Knights</li>
-                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Casualties.SiegeEngines</li>
-                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Casualties.Ships</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"GoT:+{houseScore.Stats.PowerTokens.GameOfThrones} CP:+{houseScore.Stats.PowerTokens.ConsolidatePower} R:+{houseScore.Stats.PowerTokens.Raids}")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Game of Thrones: @houseScore.Stats.PowerTokens.GameOfThrones</li>
-                                        <li class="list-group-item text-bg-dark">Consolidate Power: @houseScore.Stats.PowerTokens.ConsolidatePower</li>
-                                        <li class="list-group-item text-bg-dark">Raids: @houseScore.Stats.PowerTokens.Raids</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"IT:{houseScore.Stats.Bids.IronThrone} F:{houseScore.Stats.Bids.Fiefdoms} KC:{houseScore.Stats.Bids.KingsCourt} W:{houseScore.Stats.Bids.Wildlings}")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Iron Throne: @houseScore.Stats.Bids.IronThrone</li>
-                                        <li class="list-group-item text-bg-dark">Fiefdoms: @houseScore.Stats.Bids.Fiefdoms</li>
-                                        <li class="list-group-item text-bg-dark">King's Court: @houseScore.Stats.Bids.KingsCourt</li>
-                                        <li class="list-group-item text-bg-dark">Wildlings: @houseScore.Stats.Bids.Wildlings</li>
-                                    </ul>
-                                </div>
-                            </td>
+                            <td class="collapse @(ShowStats ? "show" : "")">@houseScore.Stats.Battles.Won</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Battles.Lost</td>
+                            <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Kills.Footmen</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Kills.Knights</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Kills.SiegeEngines</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Kills.Ships</td>
+                            <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Casualties.Footmen</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Casualties.Knights</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Casualties.SiegeEngines</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Casualties.Ships</td>
+                            <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.PowerTokens.GameOfThrones</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.PowerTokens.ConsolidatePower</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.PowerTokens.Raids</td>
+                            <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Bids.IronThrone</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Bids.Fiefdoms</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Bids.KingsCourt</td>
+                            <td class="collapse @(ShowStats ? "show" : "")"> @houseScore.Stats.Bids.Wildlings</td>
                         </tr>
                     }
                 </tbody>
@@ -162,11 +247,21 @@ else if (GameIdInt != null)
     }
 </div>
 
+<footer class="text-white-50 d-block">
+    @if (GameVm?.GeneratedTime != null)
+    {
+        <p class="mb-0">Data fetched at @GameVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
+    }
+</footer>
+
 @code {
     [Parameter]
+    public string? LeagueId { get; set; }
+
+    [Parameter]
     public string? GameId { get; set; }
-    private int? GameIdInt => GameId == null ? 
-        null : 
+    private int? GameIdInt => GameId == null ?
+        null :
         int.TryParse(GameId, out var gameId) ?
             gameId :
             null;
