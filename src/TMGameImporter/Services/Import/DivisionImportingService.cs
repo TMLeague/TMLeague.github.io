@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMModels;
 
@@ -10,16 +12,18 @@ internal class DivisionImportingService
     private readonly PlayerImportingService _playerImportingService;
     private readonly FileLoader _fileLoader;
     private readonly FileSaver _fileSaver;
+    private readonly IOptions<ImporterOptions> _options;
     private readonly ILogger<DivisionImportingService> _logger;
 
     public DivisionImportingService(GameImportingService gameImportingService,
         PlayerImportingService playerImportingService, FileLoader fileLoader,
-        FileSaver fileSaver, ILogger<DivisionImportingService> logger)
+        FileSaver fileSaver, IOptions<ImporterOptions> options, ILogger<DivisionImportingService> logger)
     {
         _gameImportingService = gameImportingService;
         _playerImportingService = playerImportingService;
         _fileLoader = fileLoader;
         _fileSaver = fileSaver;
+        _options = options;
         _logger = logger;
     }
 
@@ -37,7 +41,7 @@ internal class DivisionImportingService
             return;
         }
 
-        if (division.IsFinished && _fileLoader.ExistsResults(leagueId, seasonId, divisionId))
+        if (division.IsFinished && _fileLoader.ExistsResults(leagueId, seasonId, divisionId) && !_options.Value.FetchFinishedDivisions)
         {
             _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} is already fetched and is finished.",
                 leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());

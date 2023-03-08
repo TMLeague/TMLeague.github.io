@@ -23,6 +23,15 @@ public class GameService
             game.IsStalling ?
                 97 :
                 100 * (double)game.Turn / 11;
-        return new LeagueGameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished, game.IsStalling, game.Winner, game.GeneratedTime);
+        return new LeagueGameSummaryViewModel(gameId, game.Name, progress, game.Turn, game.IsFinished, game.IsStalling, game.Houses.First().Player, game.GeneratedTime);
+    }
+
+    public async Task<GameViewModel?> GetGameVm(int gameId, CancellationToken cancellationToken = default)
+    {
+        var game = await _dataProvider.GetGame(gameId, cancellationToken);
+        if (game == null)
+            return null;
+
+        return new GameViewModel(game.Id, game.Name, game.IsFinished, game.IsStalling, game.Turn, game.Houses, game.GeneratedTime);
     }
 }

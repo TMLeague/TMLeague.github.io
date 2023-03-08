@@ -3,7 +3,16 @@
 
 @if (HouseVm != null)
 {
-    <span class="@(HouseVm.IsWinner ? "text-warning" : "")">@HouseVm.Points</span>
+    @if (HouseVm.Game == null)
+    {
+        <span class="@(HouseVm.IsWinner ? "text-warning" : "")">@HouseVm.Points</span>
+    }
+    else
+    {
+        <a href="@RouteProvider.GetGameRoute(LeagueId, HouseVm.Game.Value)" class="text-inherit">
+            <span class="@(HouseVm.IsWinner ? "text-warning" : "")">@HouseVm.Points</span>
+        </a>
+    }
     @if (HouseVm.Game != null)
     {
         <div class="tt-inner">

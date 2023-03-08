@@ -22,6 +22,8 @@ public record LogItem(
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public TimeSpan? Duration { get; set; }
+
+    public House House => Enum.TryParse<House>(Message.Split()[Message.StartsWith("Wildlings Attack: ") ? 2 : 0], out var house) ? house : House.Unknown;
 }
 
 public enum Phase

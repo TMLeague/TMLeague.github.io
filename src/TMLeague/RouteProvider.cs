@@ -7,6 +7,7 @@ internal class RouteProvider
     private const string League = "league";
     private const string Season = "season";
     private const string Division = "division";
+    private const string Game = "game";
 
     public static string GetRoute(string? leagueId = null, string? seasonId = null, string? divisionId = null)
     {
@@ -42,4 +43,12 @@ internal class RouteProvider
 
     public static string GetLeagueJudgeRoute(string leagueId) =>
         $"{League}/{leagueId}/judge";
+
+    public static string GetGameRoute(string? leagueId, int gameId) =>
+        leagueId == null ?
+            GetGameRoute(gameId) :
+            $"{League}/{leagueId}/{Game}/{gameId}";
+
+    public static string GetGameRoute(int gameId) =>
+        $"{Game}/{gameId}";
 }
