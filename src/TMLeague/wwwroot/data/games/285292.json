@@ -11,6 +11,21 @@
   },
   "houses": [
     {
+      "name": 6,
+      "player": "oAntares",
+      "throne": 4,
+      "fiefdoms": 3,
+      "kingsCourt": 3,
+      "supplies": 3,
+      "powerTokens": 18,
+      "strongholds": 1,
+      "castles": 3,
+      "cla": 6,
+      "minutesPerMove": 250,
+      "moves": 50,
+      "battlesInTurn": []
+    },
+    {
       "name": 3,
       "player": "Sean_Snow",
       "throne": 3,
@@ -84,22 +99,7 @@
       "minutesPerMove": 250,
       "moves": 50,
       "battlesInTurn": []
-    },
-    {
-      "name": 6,
-      "player": "oAntares",
-      "throne": 4,
-      "fiefdoms": 3,
-      "kingsCourt": 3,
-      "supplies": 3,
-      "powerTokens": 18,
-      "strongholds": 1,
-      "castles": 3,
-      "cla": 6,
-      "minutesPerMove": 250,
-      "moves": 50,
-      "battlesInTurn": []
-    }          
+    }        
   ],
   "winner": "oAntares",
   "generatedTime": "2023-03-06T00:00:00.123456+00:00"

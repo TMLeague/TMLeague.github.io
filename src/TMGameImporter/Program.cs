@@ -64,8 +64,11 @@ string[] GetArgumentsString() =>
     {
         GetArgumentLine(nameof(options.Value.BaseLocation), options.Value.BaseLocation),
         GetArgumentLine(nameof(options.Value.FetchFinishedDivisions), options.Value.FetchFinishedDivisions),
-        GetArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames)
+        GetArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames),
+        GetArgumentLine(nameof(options.Value.League), options.Value.League),
+        GetArgumentLine(nameof(options.Value.Season), options.Value.Season),
+        GetArgumentLine(nameof(options.Value.Division), options.Value.Division)
     };
 
-string GetArgumentLine(string name, object value) => 
+string GetArgumentLine(string name, object? value) => 
     $"{Environment.NewLine} - {name}: {value}";

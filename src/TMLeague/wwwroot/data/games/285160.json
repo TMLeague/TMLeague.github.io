@@ -11,6 +11,21 @@
   },
   "houses": [
     {
+      "name": 6,
+      "player": "jcggarrett1",
+      "throne": 6,
+      "fiefdoms": 3,
+      "kingsCourt": 3,
+      "supplies": 4,
+      "powerTokens": 16,
+      "strongholds": 1,
+      "castles": 3,
+      "cla": 7,
+      "minutesPerMove": 250,
+      "moves": 50,
+      "battlesInTurn": []
+    },
+    {
       "name": 3,
       "player": "oAntares",
       "throne": 3,
@@ -84,22 +99,7 @@
       "minutesPerMove": 250,
       "moves": 50,
       "battlesInTurn": []
-    },
-    {
-      "name": 6,
-      "player": "jcggarrett1",
-      "throne": 6,
-      "fiefdoms": 3,
-      "kingsCourt": 3,
-      "supplies": 4,
-      "powerTokens": 16,
-      "strongholds": 0,
-      "castles": 2,
-      "cla": 6,
-      "minutesPerMove": 250,
-      "moves": 50,
-      "battlesInTurn": []
-    }          
+    }         
   ],
   "winner": "jcggarrett1",
   "generatedTime": "2023-03-06T00:00:00.123456+00:00"
