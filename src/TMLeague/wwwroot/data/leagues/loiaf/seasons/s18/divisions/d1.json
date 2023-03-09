@@ -1,0 +1,39 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "wick",
+    "The Achaialander",
+    "Karijin",
+    "Zesty18",
+    "Shade89",
+    "damrej",
+    "DawidW",
+    "ThyLear",
+    "TheReignOfChaos",
+    "War Daddy"
+  ],
+  "games": [
+    274551,
+    274502,
+    274504,
+    274556,
+    274506,
+    274508,
+    274552,
+    274509,
+    274557,
+    274511
+  ],
+  "penalties": [
+    {
+      "player": "ThyLear",
+      "points": 0.5
+    },
+    {
+      "player": "War Daddy",
+      "points": 1
+    }
+  ],
+  "isFinished": true
+}  
