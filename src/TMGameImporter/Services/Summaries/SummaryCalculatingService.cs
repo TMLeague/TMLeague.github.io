@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using TMGameImporter.Configuration;
 using TMGameImporter.Files;
-using TMModels;
 
 namespace TMGameImporter.Services.Summaries;
 
@@ -9,14 +10,16 @@ internal class SummaryCalculatingService
     private readonly LeagueSummaryCalculatingService _leagueSummaryCalculatingService;
     private readonly FileLoader _fileLoader;
     private readonly FileSaver _fileSaver;
+    private readonly IOptions<ImporterOptions> _options;
     private readonly ILogger<SummaryCalculatingService> _logger;
 
     public SummaryCalculatingService(LeagueSummaryCalculatingService leagueSummaryCalculatingService,
-        FileLoader fileLoader, FileSaver fileSaver, ILogger<SummaryCalculatingService> logger)
+        FileLoader fileLoader, FileSaver fileSaver, IOptions<ImporterOptions> options, ILogger<SummaryCalculatingService> logger)
     {
         _leagueSummaryCalculatingService = leagueSummaryCalculatingService;
         _fileLoader = fileLoader;
         _fileSaver = fileSaver;
+        _options = options;
         _logger = logger;
     }
 
@@ -31,23 +34,32 @@ internal class SummaryCalculatingService
             return;
         }
 
-        foreach (var leagueId in home.Leagues)
+        if (string.IsNullOrEmpty(_options.Value.League))
         {
-            try
-            {
-                var leagueSummary = await _leagueSummaryCalculatingService.Calculate(
-                    leagueId, cancellationToken);
-                if (leagueSummary != null) 
-                    await _fileSaver.SaveSummary(leagueSummary, leagueId, cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex,
-                    "An error occurred during league {leagueId} summary calculation.",
-                    leagueId.ToUpper());
-            }
+            foreach (var leagueId in home.Leagues) 
+                await CalculateSummary(leagueId, cancellationToken);
+        }
+        else
+        {
+            await CalculateSummary(_options.Value.League, cancellationToken);
         }
 
         _logger.LogInformation("Summary calculation finished.");
+    }
+
+    private async Task CalculateSummary(string leagueId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var leagueSummary = await _leagueSummaryCalculatingService.Calculate(leagueId, cancellationToken);
+            if (leagueSummary != null)
+                await _fileSaver.SaveSummary(leagueSummary, leagueId, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex,
+                "An error occurred during league {leagueId} summary calculation.",
+                leagueId.ToUpper());
+        }
     }
 }

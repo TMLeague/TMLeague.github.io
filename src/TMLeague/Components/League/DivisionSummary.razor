@@ -57,9 +57,9 @@ else
             @foreach (var (game, i) in DivisionVm.Games.Select((model, i) => (model, i)))
             {
                 <div class="col-2 col-sm-3 col-md-2 col-xl-1">
-                    <GameLink Id="@game.Id" Name="@($"G{i + 1}")"></GameLink>
+                    <a href="@RouteProvider.GetGameRoute(LeagueId, game.Id)" class="text-inherit">@($"G{i + 1}")</a>
                 </div>
-                @if (game.WinnerPlayerName != null)
+                @if (!string.IsNullOrEmpty(game.WinnerPlayerName))
                 {
                     <div class="col-4 col-sm-9 col-md-10 col-xl-5">
                         <div title="Winner" class="overflow-hidden text-nowrap">

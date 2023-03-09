@@ -39,13 +39,10 @@ internal class GameConverter
 
         var houses = GetHouses(state, log);
 
-        var winner = state.IsFinished ?
-            houses.First().Player : null;
-
-        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn, state.Map, houses, winner, DateTimeOffset.UtcNow);
+        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn, state.Map, houses, DateTimeOffset.UtcNow);
     }
 
-    private static HouseScore[] GetHouses(State state, Log? log)
+    private HouseScore[] GetHouses(State state, Log? log)
     {
         const int houseSize = 6;
 
@@ -58,6 +55,17 @@ internal class GameConverter
         Array.Sort(houses);
         Array.Reverse(houses);
 
+        if (log == null) 
+            return houses;
+
+        try
+        {
+            houses = houses.CalculateStats(log);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning("Calculating stats for game {gameId} failed.", state.GameId);
+        }
         return houses;
     }
 
@@ -93,7 +101,7 @@ internal class GameConverter
 
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
-            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn);
+            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, new HouseStats());
     }
 
     private static bool IsPlayerBattleLogItem(House house, LogItem item) =>

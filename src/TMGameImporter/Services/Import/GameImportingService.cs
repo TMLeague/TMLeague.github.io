@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
 using TMGameImporter.Http.Converters;
@@ -12,14 +14,16 @@ internal class GameImportingService
     private readonly GameConverter _converter;
     private readonly FileLoader _fileLoader;
     private readonly FileSaver _fileSaver;
+    private readonly IOptions<ImporterOptions> _options;
     private readonly ILogger<GameImportingService> _logger;
 
-    public GameImportingService(IThroneMasterDataProvider api, GameConverter converter, FileLoader fileLoader, FileSaver fileSaver, ILogger<GameImportingService> logger)
+    public GameImportingService(IThroneMasterDataProvider api, GameConverter converter, FileLoader fileLoader, FileSaver fileSaver, IOptions<ImporterOptions> options, ILogger<GameImportingService> logger)
     {
         _api = api;
         _converter = converter;
         _fileLoader = fileLoader;
         _fileSaver = fileSaver;
+        _options = options;
         _logger = logger;
     }
 
@@ -30,7 +34,7 @@ internal class GameImportingService
             _logger.LogInformation("    Game {gameId} import started...", gameId);
 
             var game = await _fileLoader.LoadGame(gameId, cancellationToken);
-            if (game?.IsFinished ?? false)
+            if ((game?.IsFinished ?? false) && !_options.Value.FetchFinishedGames)
             {
                 _logger.LogInformation("    Game {gameId} is already fetched and is finished.", gameId);
                 return game;
