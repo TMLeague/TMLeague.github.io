@@ -25,6 +25,19 @@
     289283,
     289284
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "diogobensabat",
+      "game": 289282,
+      "points": 6,
+      "details": "major KM"
+    },
+    {
+      "player": "Venge",
+      "game": 289284,
+      "points": 6,
+      "details": "major KM"
+    }
+  ],
   "isFinished": false
 }
