@@ -1,0 +1,47 @@
+{
+  "name": "Division 3",
+  "judge": null,
+  "players": [
+    "scorpi0",
+    "diogobensabat",
+    "b00yashaka",
+    "Marco Martell",
+    "Doru11",
+    "krusty891",
+    "diamonnd",
+    "Jold",
+    "Guga",
+    "PrinceToberyn"
+  ],
+  "games": [
+    274570,
+    274538,
+    274560,
+    274562,
+    274539,
+    274540,
+    274541,
+    274542,
+    274543,
+    274563
+  ],
+  "penalties": [
+    {
+      "player": "diamonnd",
+      "points": 2.5
+    },
+    {
+      "player": "Jold",
+      "points": 5
+    },
+    {
+      "player": "Guga",
+      "points": 6.5
+    },
+    {
+      "player": "PrinceToberyn",
+      "points": 26.5
+    }
+  ],
+  "isFinished": true
+}  

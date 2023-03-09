@@ -1,0 +1,35 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "Strongest_Gallic",
+    "Aeron_Damphair1",
+    "JohnnyCee",
+    "rasmus842",
+    "Lance",
+    "initiate",
+    "Gordalicious",
+    "Kamil_J",
+    "SerOberynMartell",
+    "MichalWawer"
+  ],
+  "games": [
+    274500,
+    274518,
+    274519,
+    274520,
+    274501,
+    274503,
+    274505,
+    274521,
+    274507,
+    274510
+  ],
+  "penalties": [
+    {
+      "player": "SerOberynMartell",
+      "points": 6
+    }
+  ],
+  "isFinished": true
+}  
