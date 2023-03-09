@@ -1,0 +1,51 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "ThyLear",
+    "Aeron_Damphair1",
+    "damrej",
+    "Strongest_Gallic",
+    "Zesty18",
+    "Karijin",
+    "DawidW",
+    "Shade89",
+    "JohnnyCee",
+    "The Achaialander"
+  ],
+  "games": [
+    278507,
+    278508,
+    278509,
+    278510,
+    278511,
+    278513,
+    278514,
+    278512,
+    278515,
+    278545
+  ],
+  "penalties": [
+    {
+      "player": "ThyLear",
+      "points": 3
+    },
+    {
+      "player": "damrej",
+      "points": 3
+    },
+    {
+      "player": "Strongest_Gallic",
+      "points": 2.5
+    },
+    {
+      "player": "JohnnyCee",
+      "points": 0.5
+    },
+    {
+      "player": "The Achaialander",
+      "points": 3
+    }
+  ],
+  "isFinished": true
+} 

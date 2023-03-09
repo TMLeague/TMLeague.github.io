@@ -1,0 +1,39 @@
+{
+  "name": "Division 2",
+  "judge": null,
+  "players": [
+    "wrona",
+    "Gordalicious",
+    "TheReignOfChaos",
+    "Lance",
+    "b00yashaka",
+    "msold87",
+    "diogobensabat",
+    "rasmus842",
+    "War Daddy",
+    "scorpi0"
+  ],
+  "games": [
+    278518,
+    278535,
+    278519,
+    278520,
+    278537,
+    278538,
+    278521,
+    278522,
+    278523,
+    278536
+  ],
+  "penalties": [
+    {
+      "player": "b00yashaka",
+      "points": 1.5
+    },
+    {
+      "player": "War Daddy",
+      "points": 13
+    }
+  ],
+  "isFinished": true
+}

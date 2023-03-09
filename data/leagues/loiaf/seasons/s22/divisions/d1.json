@@ -25,7 +25,20 @@
     289262,
     289263
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "ThyLear",
+      "game": 289263,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "SerOberynMartell",
+      "game": 289263,
+      "points": 3,
+      "details": "minor KM"
+    }
+  ],
   "isFinished": false,
   "winnerTitle": null
 }
