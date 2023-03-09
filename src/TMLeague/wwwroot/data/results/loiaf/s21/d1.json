@@ -704,110 +704,6 @@
       "penaltiesDetails": []
     },
     {
-      "player": "TheReignOfChaos",
-      "totalPoints": 20,
-      "wins": 0,
-      "cla": 40,
-      "supplies": 23,
-      "powerTokens": 35,
-      "minutesPerMove": 267.5561274509804,
-      "moves": 408,
-      "houses": [
-        {
-          "game": 284775,
-          "house": 4,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 0,
-          "cla": 6,
-          "supplies": 4,
-          "powerTokens": 4,
-          "minutesPerMove": 275.4,
-          "moves": 77
-        },
-        {
-          "game": 284778,
-          "house": 1,
-          "isWinner": false,
-          "points": 5,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 2,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 18,
-          "minutesPerMove": 234.9,
-          "moves": 66
-        },
-        {
-          "game": 284795,
-          "house": 3,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 4,
-          "supplies": 2,
-          "powerTokens": 3,
-          "minutesPerMove": 308.1,
-          "moves": 63
-        },
-        {
-          "game": 284780,
-          "house": 6,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 7,
-          "supplies": 3,
-          "powerTokens": 0,
-          "minutesPerMove": 306.2,
-          "moves": 62
-        },
-        {
-          "game": 284812,
-          "house": 5,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 3,
-          "minutesPerMove": 242.1,
-          "moves": 85
-        },
-        {
-          "game": 284798,
-          "house": 2,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 1,
-          "cla": 7,
-          "supplies": 6,
-          "powerTokens": 7,
-          "minutesPerMove": 245.1,
-          "moves": 55
-        }
-      ],
-      "penaltiesPoints": 3,
-      "penaltiesDetails": [
-        {
-          "game": 284798,
-          "points": 3,
-          "details": "minor KM"
-        }
-      ]
-    },
-    {
       "player": "Gordalicious",
       "totalPoints": 20,
       "wins": 0,
@@ -908,6 +804,110 @@
           "game": 284794,
           "points": 1,
           "details": "speed"
+        }
+      ]
+    },
+    {
+      "player": "TheReignOfChaos",
+      "totalPoints": 20,
+      "wins": 0,
+      "cla": 40,
+      "supplies": 23,
+      "powerTokens": 35,
+      "minutesPerMove": 267.5561274509804,
+      "moves": 408,
+      "houses": [
+        {
+          "game": 284775,
+          "house": 4,
+          "isWinner": false,
+          "points": 2,
+          "battlePenalty": 0,
+          "strongholds": 2,
+          "castles": 0,
+          "cla": 6,
+          "supplies": 4,
+          "powerTokens": 4,
+          "minutesPerMove": 275.4,
+          "moves": 77
+        },
+        {
+          "game": 284778,
+          "house": 1,
+          "isWinner": false,
+          "points": 5,
+          "battlePenalty": 0,
+          "strongholds": 3,
+          "castles": 2,
+          "cla": 8,
+          "supplies": 4,
+          "powerTokens": 18,
+          "minutesPerMove": 234.9,
+          "moves": 66
+        },
+        {
+          "game": 284795,
+          "house": 3,
+          "isWinner": false,
+          "points": 4,
+          "battlePenalty": 0,
+          "strongholds": 1,
+          "castles": 3,
+          "cla": 4,
+          "supplies": 2,
+          "powerTokens": 3,
+          "minutesPerMove": 308.1,
+          "moves": 63
+        },
+        {
+          "game": 284780,
+          "house": 6,
+          "isWinner": false,
+          "points": 4,
+          "battlePenalty": 0,
+          "strongholds": 1,
+          "castles": 3,
+          "cla": 7,
+          "supplies": 3,
+          "powerTokens": 0,
+          "minutesPerMove": 306.2,
+          "moves": 62
+        },
+        {
+          "game": 284812,
+          "house": 5,
+          "isWinner": false,
+          "points": 4,
+          "battlePenalty": 0,
+          "strongholds": 2,
+          "castles": 2,
+          "cla": 8,
+          "supplies": 4,
+          "powerTokens": 3,
+          "minutesPerMove": 242.1,
+          "moves": 85
+        },
+        {
+          "game": 284798,
+          "house": 2,
+          "isWinner": false,
+          "points": 4,
+          "battlePenalty": 0,
+          "strongholds": 3,
+          "castles": 1,
+          "cla": 7,
+          "supplies": 6,
+          "powerTokens": 7,
+          "minutesPerMove": 245.1,
+          "moves": 55
+        }
+      ],
+      "penaltiesPoints": 3,
+      "penaltiesDetails": [
+        {
+          "game": 284798,
+          "points": 3,
+          "details": "minor KM"
         }
       ]
     },
