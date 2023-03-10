@@ -23,7 +23,7 @@ public class SeasonService
             1);
 
         return new LeagueSeasonSummaryViewModel(leagueId, seasonId, season?.Name,
-            season?.Divisions ?? Array.Empty<string>(), season.StartDate, season.EndDate, progress);
+            season?.Divisions ?? Array.Empty<string>(), season?.StartDate, season?.EndDate, progress);
     }
 
     public async Task<LeagueSeasonChampionViewModel?> GetSeasonChampionVm(
