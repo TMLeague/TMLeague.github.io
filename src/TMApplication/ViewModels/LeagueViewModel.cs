@@ -22,7 +22,10 @@ public record LeagueSeasonSummaryViewModel(
     string LeagueId,
     string SeasonId,
     string? SeasonName,
-    IReadOnlyCollection<string> DivisionIds);
+    IReadOnlyCollection<string> DivisionIds,
+    DateTimeOffset? PlannedStart,
+    DateTimeOffset? PlannedEnd,
+    double Progress);
 
 public record LeagueDivisionSummaryViewModel(
     string LeagueId,

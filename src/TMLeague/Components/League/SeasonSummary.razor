@@ -1,20 +1,21 @@
-﻿@using TMLeague.Components
-@using TMLeague.Components.League
+﻿@using TMApplication.Providers
 @using TMApplication.Services
 @using TMApplication.ViewModels
+@using TMLeague.Components
+@using TMLeague.Components.League
 @inject SeasonService SeasonService
 @inject ILogger<SeasonSummary> Logger
 
 <h4>
     <a class="text-inherit" href="@RouteProvider.GetRoute(LeagueId, SeasonId)">
-        @(SeasonSummaryDetails?.SeasonName ?? "Season")
+        @(SeasonVm?.SeasonName ?? "Season")
     </a> summary
 </h4>
 
 <div class="container">
-    <div class="row">
-        @if (SeasonSummaryDetails == null)
-        {
+    @if (SeasonVm == null)
+    {
+        <div class="row">
             @if (_isInitialized)
             {
                 <div class="lead">The league has no seasons.</div>
@@ -23,17 +24,36 @@
             {
                 <Loading></Loading>
             }
-        }
-        else
+        </div>
+    }
+    else
+    {
+        @if (SeasonVm.PlannedEnd != null && SeasonVm.PlannedStart != null)
         {
-            @foreach (var division in SeasonSummaryDetails.DivisionIds)
+            <div class="d-flex flex-row justify-content-between">
+                <div>@SeasonVm.PlannedStart.Value.ToLocalTime().ToString("yyyy-MM-dd")</div>
+                <div class="my-auto">-</div>
+                <div>@SeasonVm.PlannedEnd.Value.ToLocalTime().ToString("yyyy-MM-dd")</div>
+            </div>
+            <div class="row">
+                <div class="progress mb-2 px-0">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated @(SeasonVm.Progress < 100 ? "bg-warning" : "bg-danger")"
+                         role="progressbar" aria-valuenow="@(SeasonVm.Progress)"
+                         aria-valuemin="0" aria-valuemax="100" style="@($"width: {(int)SeasonVm.Progress}%")">
+                        @($"{Math.Round(SeasonVm.Progress)}%")
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            @foreach (var division in SeasonVm.DivisionIds)
             {
                 <div class="col-sm-4 bg-dark-container-2">
                     <DivisionSummary LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@division"></DivisionSummary>
                 </div>
             }
-        }
-    </div>
+        </div>
+    }
 </div>
 
 @code {
@@ -43,14 +63,14 @@
     [Parameter]
     public string? SeasonId { get; set; }
 
-    private LeagueSeasonSummaryViewModel? SeasonSummaryDetails { get; set; }
+    private LeagueSeasonSummaryViewModel? SeasonVm { get; set; }
 
     private bool _isInitialized;
 
     protected override async Task OnInitializedAsync()
     {
         if (LeagueId != null && SeasonId != null)
-            SeasonSummaryDetails = await SeasonService.GetSeasonSummaryVm(LeagueId, SeasonId);
+            SeasonVm = await SeasonService.GetSeasonSummaryVm(LeagueId, SeasonId);
         else
             Logger.LogError($"Parameters {nameof(LeagueId)} and {nameof(SeasonId)} are required!");
 

@@ -49,7 +49,8 @@ public class DivisionService
         return results?.Players.First().Player;
     }
 
-    public async Task<DivisionViewModel?> GetDivisionVm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
+    public async Task<DivisionViewModel?> GetDivisionVm(string leagueId, string seasonId, string divisionId,
+        CancellationToken cancellationToken = default)
     {
         var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
         if (league == null)
@@ -64,11 +65,43 @@ public class DivisionService
             return null;
 
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+
+        var messages = await GetMessages(leagueId, seasonId, divisionId, division, cancellationToken);
+
         return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, division.IsFinished, division.WinnerTitle,
             (results?.Players.Select(GetPlayerVm) ??
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
-            league.Scoring?.Tiebreakers ?? Tiebreakers.Default,
+            league.Scoring?.Tiebreakers ?? Tiebreakers.Default, messages,
             results?.GeneratedTime);
+    }
+
+    private async Task<NotificationMessage[]> GetMessages(string leagueId, string seasonId, string divisionId,
+        Division division, CancellationToken cancellationToken = default)
+    {
+        if (division.IsFinished)
+            return Array.Empty<NotificationMessage>();
+
+        var messages = new List<NotificationMessage>();
+
+        foreach (var (gameId, gameIdx) in division.Games.Select((g, i) => (g, i)))
+        {
+            var game = await _dataProvider.GetGame(gameId, cancellationToken);
+            if (game == null || game.IsStalling || game.IsFinished)
+                continue;
+            foreach (var houseScore in game.Houses)
+            {
+                if (houseScore.MinutesPerMove >= 500)
+                    messages.Add(new NotificationMessage(
+                        NotificationLevel.Critical, 
+                        $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
+                else if (houseScore.MinutesPerMove >= 300)
+                    messages.Add(new NotificationMessage(
+                        NotificationLevel.Warning, 
+                        $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
+            }
+        }
+
+        return messages.OrderBy(message => -(int)message.Level).ToArray();
     }
 
     private static DivisionPlayerViewModel GetPlayerVm(PlayerResult playerResult) => new(
