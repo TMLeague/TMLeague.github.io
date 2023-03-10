@@ -490,18 +490,19 @@ h4, h5, h6 {
 /* Alerts */
 
 .alert-info {
-    background: #666;
-    border-color: #606060;
-    color: #bbb;
+    background: #575c72;
+    border-color: #50506a;
+    color: #ddd;
 }
 
 .alert-warning {
-    background: #ccaa22;
-    border-color: #c0a020;
+    background: #8b762a;
+    border-color: #807020;
+    color: #ddd;
 }
 
 .alert-danger {
-    background: #811;
-    border-color: #801010;
-    color: #daa;
+    background: #72121b;
+    border-color: #701010;
+    color: #ddd;
 }
