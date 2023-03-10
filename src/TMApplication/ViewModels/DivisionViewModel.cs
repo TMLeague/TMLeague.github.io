@@ -12,6 +12,7 @@ public record DivisionViewModel(
     string? WinnerTitle,
     DivisionPlayerViewModel[] Players,
     Tiebreaker[] Tiebreakers,
+    NotificationMessage[] Messages,
     DateTimeOffset? GeneratedTime);
 
 public record DivisionPlayerViewModel(
@@ -50,3 +51,12 @@ public record PlayerPenaltyViewModel(
     int? Game,
     double Points,
     string Details);
+
+public record NotificationMessage(
+    NotificationLevel Level,
+    string Message);
+
+public enum NotificationLevel
+{
+    Info, Warning, Critical
+}

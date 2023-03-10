@@ -16,8 +16,14 @@ public class SeasonService
         string leagueId, string seasonId, CancellationToken cancellationToken = default)
     {
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
+        var progress = 100 * Math.Min(
+            Math.Max(
+                (DateTimeOffset.UtcNow - season?.StartDate) / (season?.EndDate - season?.StartDate) ?? 0,
+                0),
+            1);
+
         return new LeagueSeasonSummaryViewModel(leagueId, seasonId, season?.Name,
-            season?.Divisions ?? Array.Empty<string>());
+            season?.Divisions ?? Array.Empty<string>(), season?.StartDate, season?.EndDate, progress);
     }
 
     public async Task<LeagueSeasonChampionViewModel?> GetSeasonChampionVm(

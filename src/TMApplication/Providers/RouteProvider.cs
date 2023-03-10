@@ -1,8 +1,8 @@
 ﻿using TMApplication.ViewModels;
 
-namespace TMLeague;
+namespace TMApplication.Providers;
 
-internal class RouteProvider
+public class RouteProvider
 {
     private const string League = "league";
     private const string Season = "season";

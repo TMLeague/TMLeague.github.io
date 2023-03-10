@@ -486,3 +486,23 @@ h1, h2, h3 {
 h4, h5, h6 {
     color: #ddd;
 }
+
+/* Alerts */
+
+.alert-info {
+    background: #575c72;
+    border-color: #50506a;
+    color: #ddd;
+}
+
+.alert-warning {
+    background: #8b762a;
+    border-color: #807020;
+    color: #ddd;
+}
+
+.alert-danger {
+    background: #72121b;
+    border-color: #701010;
+    color: #ddd;
+}

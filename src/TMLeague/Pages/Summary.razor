@@ -1,6 +1,7 @@
 ﻿@page "/league/{leagueId}/summary"
 @page "/league/{leagueId}/summary/{type}"
 @page "/league/{leagueId}/summary/{type}/{divisionId}"
+@using TMApplication.Providers
 @using TMApplication.Services
 @using TMApplication.ViewModels
 @using TMLeague.Components.TmLinks
@@ -18,14 +19,14 @@
                 <a class="btn btn-primary @(DivisionId == null ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, null, ScoreType)" disabled=@(DivisionId == null)>
                     Total
                 </a>
-            }
-            @if (SummaryVm != null)
-            {
-                @foreach (var division in SummaryVm.AvailableDivisions)
+                @if (SummaryVm != null)
                 {
-                    <a class="btn btn-primary @(DivisionId == division.Id ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, @division.Id, ScoreType)" disabled=@(DivisionId == division.Id)>
-                        @division.Name
-                    </a>
+                    @foreach (var division in SummaryVm.AvailableDivisions)
+                    {
+                        <a class="btn btn-primary @(DivisionId == division.Id ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, @division.Id, ScoreType)" disabled=@(DivisionId == division.Id)>
+                            @division.Name
+                        </a>
+                    }
                 }
             }
         </div>
