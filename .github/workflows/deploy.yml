@@ -7,7 +7,10 @@ name: Deploy to GitHub Pages branch
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: 
+    - "master"
+    paths-ignore:
+    - .github/workflows
 
 jobs:
   deploy-to-github-pages:
