@@ -5,11 +5,9 @@ name: Deploy to GitHub Pages branch
 
 # Run workflow on every push to the master branch
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
-  workflow_dispatch:
-  schedule:
-    - cron: '51 5,8,11,14,17,20 * * *'
 
 jobs:
   deploy-to-github-pages:
@@ -24,9 +22,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0
-    
-    - name: Run TMGameImporter
-      run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data
 
     # publishes Blazor project to the release-folder
     - name: Publish TMLeague
