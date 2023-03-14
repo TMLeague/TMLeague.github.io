@@ -181,6 +181,10 @@ else if (GameIdInt != null)
                                         <li class="list-group-item text-bg-dark">Game of Thrones: @houseScore.Stats.PowerTokens.GameOfThrones</li>
                                         <li class="list-group-item text-bg-dark">Consolidate Power: @houseScore.Stats.PowerTokens.ConsolidatePower</li>
                                         <li class="list-group-item text-bg-dark">Raids: @houseScore.Stats.PowerTokens.Raids</li>
+                                        @if (houseScore.Stats.PowerTokens.Wildlings > 0)
+                                        {
+                                            <li class="list-group-item text-bg-dark">Skinchanger Scout: @houseScore.Stats.PowerTokens.Wildlings</li>
+                                        }
                                         @if (houseScore.House == House.Lannister)
                                         {
                                             <li class="list-group-item text-bg-dark">Tywin: @houseScore.Stats.PowerTokens.Tywin</li>

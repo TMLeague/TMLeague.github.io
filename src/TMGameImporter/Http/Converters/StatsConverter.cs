@@ -52,6 +52,8 @@ internal static class StatsConverter
                         houseScores.CountKingsCourt(logItem);
                     if (logItem.Message.Contains("against the wildlings."))
                         houseScores.CountWildlings(logItem);
+                    if (logItem.Message.Contains("Power tokens to his available Power."))
+                        houseScores.CountWildlingsSkinchanger(logItem);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -84,7 +86,7 @@ internal static class StatsConverter
 
         return new Battle(new FightingHouse(logItem.House), new FightingHouse(defender), area, from, attackerUnits);
 
-        static int GetUnitsFromGroup(Match match, string name) => 
+        static int GetUnitsFromGroup(Match match, string name) =>
             string.IsNullOrEmpty(match.Groups[name].Value) ? 0 : int.Parse(match.Groups[name].Value[..1]);
     }
 
@@ -180,6 +182,17 @@ internal static class StatsConverter
         var match = Regex.Match(logItem.Message, @"\[(\d+)\]");
         var tokens = int.Parse(match.Groups[1].Value);
         houseScores.Get(logItem.House).Stats.Bids.Wildlings += tokens;
+    }
+
+    private static void CountWildlingsSkinchanger(this HouseScore[] houseScores, LogItem logItem)
+    {
+        var match = Regex.Match(logItem.Message, @"(\w+) returned \[(\d+)\] Power tokens to his available Power");
+        if (!match.Success)
+            return;
+
+        _ = Enum.TryParse<House>(match.Groups[1].Value, out var house);
+        var tokens = int.Parse(match.Groups[2].Value);
+        houseScores.Get(house).Stats.PowerTokens.Wildlings += tokens;
     }
 
     private static HouseScore Get(this IEnumerable<HouseScore> houseScores, House house) =>

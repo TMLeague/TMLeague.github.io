@@ -141,8 +141,9 @@ public record PowerTokenStats
     public int ConsolidatePower { get; set; }
     public int Raids { get; set; }
     public int GameOfThrones { get; set; }
+    public int Wildlings { get; set; }
     public int Tywin { get; set; }
-    public int Total => ConsolidatePower + Raids + GameOfThrones + Tywin;
+    public int Total => ConsolidatePower + Raids + GameOfThrones + Wildlings + Tywin;
 
     public static PowerTokenStats operator +(PowerTokenStats stats1, PowerTokenStats stats2) => new()
     {
