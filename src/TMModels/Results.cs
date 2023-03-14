@@ -2,8 +2,8 @@
 
 public record Results(
     PlayerResult[] Players,
-    DateTimeOffset GeneratedTime
-);
+    DateTimeOffset GeneratedTime,
+    bool IsCreatedManually = false);
 
 public record PlayerResult(
     string Player,
@@ -16,9 +16,11 @@ public record PlayerResult(
     int Moves,
     HouseResult[] Houses,
     double PenaltiesPoints,
-    PlayerPenalty[] PenaltiesDetails//,
-    //Stats[] Stats
-);
+    PlayerPenalty[] PenaltiesDetails,
+    Stats? Stats)
+{
+    public Stats Stats { get; } = Stats ?? new Stats();
+}
 
 public record HouseResult(
     int Game,
@@ -32,11 +34,13 @@ public record HouseResult(
     int Supplies,
     int PowerTokens,
     double MinutesPerMove,
-    int Moves
-);
+    int Moves,
+    Stats? Stats)
+{
+    public Stats Stats { get; } = Stats ?? new Stats();
+}
 
 public record PlayerPenalty(
     int? Game,
     double Points,
-    string Details
-);
+    string Details);

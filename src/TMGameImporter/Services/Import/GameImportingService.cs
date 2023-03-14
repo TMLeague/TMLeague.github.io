@@ -34,6 +34,12 @@ internal class GameImportingService
             _logger.LogInformation("    Game {gameId} import started...", gameId);
 
             var game = await _fileLoader.LoadGame(gameId, cancellationToken);
+            if (game?.IsCreatedManually ?? false)
+            {
+                _logger.LogInformation("    Game {gameId} is created manually and can't be overriden.", gameId);
+                return game;
+            }
+
             if ((game?.IsFinished ?? false) && !_options.Value.FetchFinishedGames)
             {
                 _logger.LogInformation("    Game {gameId} is already fetched and is finished.", gameId);

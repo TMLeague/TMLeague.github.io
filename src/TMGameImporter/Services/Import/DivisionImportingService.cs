@@ -48,6 +48,14 @@ internal class DivisionImportingService
             return;
         }
 
+        var oldResults = await _fileLoader.LoadResults(leagueId, seasonId, divisionId, cancellationToken);
+        if (oldResults?.IsCreatedManually ?? false)
+        {
+            _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} is created manually and can't be overriden.",
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+            return;
+        }
+
         //foreach (var playerName in division.Enemies)
         //    await _playerImportingService.Import(playerName, cancellationToken);
         var games = division.Games
@@ -86,7 +94,8 @@ internal class DivisionImportingService
             moves,
             houseResults,
             penaltiesPoints,
-            penalties);
+            penalties,
+            houseResults.Aggregate(new Stats(), (sum, results) => sum + results.Stats));
     }
 
     private static HouseResult[] GetHouses(string playerName, Replacement[] divisionReplacements, IEnumerable<Game> games, Scoring scoring) =>
@@ -115,7 +124,8 @@ internal class DivisionImportingService
             houseScore.Supplies,
             houseScore.PowerTokens,
             houseScore.MinutesPerMove,
-            houseScore.Moves);
+            houseScore.Moves,
+            houseScore.Stats);
     }
 
     private static double GetPointsForGame(HouseScore houseScore, bool isWinner, Scoring scoring) =>

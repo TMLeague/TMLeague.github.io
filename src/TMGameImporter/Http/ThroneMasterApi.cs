@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System.Net;
+using System.Text.Json;
+using TMModels.ThroneMaster;
 
 namespace TMGameImporter.Http;
 
@@ -17,22 +19,32 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
         _logger = logger;
     }
 
-    public async Task<string?> GetGameData(int gameId, CancellationToken cancellationToken)
+    public async Task<StateRaw?> GetGameData(int gameId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(gameId);
 
-        return await Get($"TM state \"{gameId}\"",
+        var dataString = await Get($"TM state \"{gameId}\"",
             $"ajax.php?game={gameId}&get=GAMEDATA",
             cancellationToken);
+
+        if (dataString == null)
+            return null;
+
+        return JsonSerializer.Deserialize<StateRaw>(dataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
-    public async Task<string?> GetChat(int gameId, CancellationToken cancellationToken)
+    public async Task<StateRaw?> GetChat(int gameId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(gameId);
 
-        return await Get($"TM chat \"{gameId}\"",
+        var dataString = await Get($"TM chat \"{gameId}\"",
             $"ajax.php?game={gameId}&get=CHAT",
             cancellationToken);
+
+        if (dataString == null)
+            return null;
+
+        return JsonSerializer.Deserialize<StateRaw>(dataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
     public async Task<string?> GetLog(int gameId, CancellationToken cancellationToken)
@@ -117,8 +129,8 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
 
 internal interface IThroneMasterDataProvider
 {
-    public Task<string?> GetGameData(int gameId, CancellationToken cancellationToken);
-    public Task<string?> GetChat(int gameId, CancellationToken cancellationToken);
+    public Task<StateRaw?> GetGameData(int gameId, CancellationToken cancellationToken);
+    public Task<StateRaw?> GetChat(int gameId, CancellationToken cancellationToken);
     public Task<string?> GetLog(int gameId, CancellationToken cancellationToken);
     public Task<string?> GetPlayer(string playerName, CancellationToken cancellationToken);
     public Task<Stream?> GetImage(string requestUri, CancellationToken cancellationToken);

@@ -10,7 +10,8 @@ public record Game(
     int Turn,
     Map Map,
     HouseScore[] Houses,
-    DateTimeOffset GeneratedTime);
+    DateTimeOffset GeneratedTime,
+    bool IsCreatedManually = false);
 
 public record HouseScore(
     House House,
