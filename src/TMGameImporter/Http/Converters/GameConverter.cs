@@ -64,7 +64,7 @@ internal class GameConverter
         }
         catch (Exception ex)
         {
-            _logger.LogWarning("Calculating stats for game {gameId} failed.", state.GameId);
+            _logger.LogWarning(ex, "Calculating stats for game {gameId} failed.", state.GameId);
         }
         return houses;
     }

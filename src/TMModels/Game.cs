@@ -100,6 +100,7 @@ public record BattleStats
 {
     public int Won { get; set; }
     public int Lost { get; set; }
+    public int Total => Won + Lost;
 
     public static BattleStats operator +(BattleStats stats1, BattleStats stats2) => new()
     {
@@ -110,17 +111,28 @@ public record BattleStats
 
 public record UnitStats
 {
+    public UnitStats() { }
+    public UnitStats(int footmen, int knights, int siegeEngines, int ships)
+    {
+        Footmen = footmen;
+        Knights = knights;
+        SiegeEngines = siegeEngines;
+        Ships = ships;
+    }
+
     public int Footmen { get; set; }
     public int Knights { get; set; }
-    public int Ships { get; set; }
     public int SiegeEngines { get; set; }
+    public int Ships { get; set; }
+    public int Total => Footmen + Knights + SiegeEngines + Ships;
+    public int MobilizationPoints => Footmen + 2 * Knights + 2 * SiegeEngines + Ships;
 
     public static UnitStats operator +(UnitStats stats1, UnitStats stats2) => new()
     {
         Footmen = stats1.Footmen + stats2.Footmen,
         Knights = stats1.Knights + stats2.Knights,
-        Ships = stats1.Ships + stats2.Ships,
-        SiegeEngines = stats1.SiegeEngines + stats2.SiegeEngines
+        SiegeEngines = stats1.SiegeEngines + stats2.SiegeEngines,
+        Ships = stats1.Ships + stats2.Ships
     };
 }
 
@@ -129,6 +141,9 @@ public record PowerTokenStats
     public int ConsolidatePower { get; set; }
     public int Raids { get; set; }
     public int GameOfThrones { get; set; }
+    public int Wildlings { get; set; }
+    public int Tywin { get; set; }
+    public int Total => ConsolidatePower + Raids + GameOfThrones + Wildlings + Tywin;
 
     public static PowerTokenStats operator +(PowerTokenStats stats1, PowerTokenStats stats2) => new()
     {
@@ -144,6 +159,8 @@ public record BidStats
     public int Fiefdoms { get; set; }
     public int KingsCourt { get; set; }
     public int Wildlings { get; set; }
+    public int Aeron { get; set; }
+    public int Total => IronThrone + Fiefdoms + KingsCourt + Wildlings + Aeron;
 
     public static BidStats operator +(BidStats stats1, BidStats stats2) => new()
     {
