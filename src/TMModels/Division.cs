@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TMModels;
+﻿namespace TMModels;
 
 public record Division(
     string Name,

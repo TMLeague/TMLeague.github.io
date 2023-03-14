@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TMModels;
+﻿namespace TMModels;
 
 public record Results(
     PlayerResult[] Players,

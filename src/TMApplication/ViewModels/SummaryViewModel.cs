@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using TMModels;
+﻿using TMModels;
 
 namespace TMApplication.ViewModels;
 
