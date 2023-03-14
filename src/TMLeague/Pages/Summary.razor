@@ -12,10 +12,10 @@
 <h4>Summary</h4>
 
 <div class="d-flex flex-column">
-    <div class="d-flex flex-row my-1">
-        <div class="btn-group">
-            @if (LeagueId != null)
-            {
+    @if (LeagueId != null)
+    {
+        <div class="d-flex flex-row my-1">
+            <div class="btn-group">
                 <a class="btn btn-primary @(DivisionId == null ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, null, ScoreType)" disabled=@(DivisionId == null)>
                     Total
                 </a>
@@ -28,19 +28,19 @@
                         </a>
                     }
                 }
-            }
+            </div>
         </div>
-    </div>
-    <div class="d-flex flex-row my-1">
-        <div class="btn-group">
-            @foreach (var type in ScoreTypes.All)
-            {
-                <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, DivisionId, type)" disabled=@(ScoreType == type)>
-                    @type
-                </a>
-            }
+        <div class="d-flex flex-row my-1">
+            <div class="btn-group">
+                @foreach (var type in ScoreTypes.All)
+                {
+                    <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, DivisionId, type)" disabled=@(ScoreType == type)>
+                        @type
+                    </a>
+                }
+            </div>
         </div>
-    </div>
+    }
     <div class="flex-row">
         @if (SummaryVm == null)
         {

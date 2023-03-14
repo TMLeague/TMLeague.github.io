@@ -33,8 +33,8 @@ else if (GameIdInt != null)
                 Stalling
             </div>
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                 role="progressbar" aria-valuenow="1"
-                 aria-valuemin="0" aria-valuemax="10" style="width: 3%">
+         role="progressbar" aria-valuenow="1"
+         aria-valuemin="0" aria-valuemax="10" style="width: 3%">
             </div>
         }
         else
@@ -88,9 +88,9 @@ else if (GameIdInt != null)
                         <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
                         <th scope="col" style="width: 40px" class="collapse @(ShowStats ? "show" : "")" colspan="2">Battles</th>
                         <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
-                        <th scope="col" style="width: 80px" class="collapse @(ShowStats ? "show" : "")" colspan="4">Kills</th>
+                        <th scope="col" style="width: 80px" class="collapse @(ShowStats ? "show" : "")" colspan="4">Kills <i>*</i></th>
                         <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
-                        <th scope="col" style="width: 80px" class="collapse @(ShowStats ? "show" : "")" colspan="4">Casualties</th>
+                        <th scope="col" style="width: 80px" class="collapse @(ShowStats ? "show" : "")" colspan="4">Casualties <i>*</i></th>
                         <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
                         <th scope="col" style="width: 60px" class="collapse @(ShowStats ? "show" : "")" colspan="3">PT</th>
                         <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
@@ -251,6 +251,10 @@ else if (GameIdInt != null)
     @if (GameVm?.GeneratedTime != null)
     {
         <p class="mb-0">Data fetched at @GameVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
+    }
+    @if (ShowStats)
+    {
+        <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
     }
 </footer>
 
