@@ -4,6 +4,7 @@ namespace TMModels;
 
 public record Results(
     [property: JsonPropertyName("players")] PlayerResult[] Players,
+    [property: JsonPropertyName("titles")] PlayerTitle[] Titles,
     [property: JsonPropertyName("generatedTime")] DateTimeOffset GeneratedTime
 );
 
@@ -41,3 +42,9 @@ public record PlayerPenalty(
     [property: JsonPropertyName("points")] double Points,
     [property: JsonPropertyName("details")] string Details
 );
+
+public record PlayerTitle(
+    [property: JsonPropertyName("title")] string Title,
+    [property: JsonPropertyName("player")] string Player,
+    [property: JsonPropertyName("details")] string Details,
+    [property: JsonPropertyName("values")] double Values);
