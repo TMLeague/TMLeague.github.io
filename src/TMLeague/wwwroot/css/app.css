@@ -479,6 +479,23 @@ a,
     color: #ff9;
 }
 
+.table th[scope="col"] {
+    position: sticky;
+    top: 0;
+}
+
+.table th[scope="col"]:first-child {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.table th[scope="row"] {
+    position: sticky;
+    left: 0;
+}
+
 h1, h2, h3 {
     color: #9f9;
 }

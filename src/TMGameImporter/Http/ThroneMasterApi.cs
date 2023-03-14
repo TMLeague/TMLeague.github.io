@@ -114,7 +114,7 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
             _logger.LogWarning(
                 $"{logName} is not reachable ({ex.StatusCode}) under address: \"{requestUri}\"");
 
-            if (ex.StatusCode == HttpStatusCode.NotFound) 
+            if (ex.StatusCode == HttpStatusCode.NotFound)
                 _cache.Set(requestUri, 0);
 
             return null;
