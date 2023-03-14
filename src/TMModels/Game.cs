@@ -3,33 +3,32 @@
 namespace TMModels;
 
 public record Game(
-    [property: JsonPropertyName("id")] int Id,
-    [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("isFinished")] bool IsFinished,
-    [property: JsonPropertyName("isStalling")] bool IsStalling,
-    [property: JsonPropertyName("turn")] int Turn,
-    [property: JsonPropertyName("map")] Map Map,
-    [property: JsonPropertyName("houses")] HouseScore[] Houses,
-    [property: JsonPropertyName("generatedTime")] DateTimeOffset GeneratedTime);
+    int Id,
+    string Name,
+    bool IsFinished,
+    bool IsStalling,
+    int Turn,
+    Map Map,
+    HouseScore[] Houses,
+    DateTimeOffset GeneratedTime);
 
 public record HouseScore(
-    [property: JsonPropertyName("name")] House House,
-    [property: JsonPropertyName("player")] string Player,
-    [property: JsonPropertyName("throne")] int Throne,
-    [property: JsonPropertyName("fiefdoms")] int Fiefdoms,
-    [property: JsonPropertyName("kingsCourt")] int KingsCourt,
-    [property: JsonPropertyName("supplies")] int Supplies,
-    [property: JsonPropertyName("powerTokens")] int PowerTokens,
-    [property: JsonPropertyName("strongholds")] int Strongholds,
-    [property: JsonPropertyName("castles")] int Castles,
-    [property: JsonPropertyName("cla")] int Cla,
-    [property: JsonPropertyName("minutesPerMove")] double MinutesPerMove,
-    [property: JsonPropertyName("moves")] int Moves,
-    [property: JsonPropertyName("battlesInTurn")] int[] BattlesInTurn,
-     HouseStats Stats) : IComparable<HouseScore>
+    House House,
+    string Player,
+    int Throne,
+    int Fiefdoms,
+    int KingsCourt,
+    int Supplies,
+    int PowerTokens,
+    int Strongholds,
+    int Castles,
+    int Cla,
+    double MinutesPerMove,
+    int Moves,
+    int[] BattlesInTurn,
+    Stats? Stats) : IComparable<HouseScore>
 {
-    [JsonPropertyName("stats")]
-    public HouseStats Stats { get; } = Stats ?? new HouseStats();
+    public Stats Stats { get; } = Stats ?? new Stats();
 
     public int CompareTo(HouseScore? otherHouse)
     {
@@ -50,43 +49,48 @@ public record HouseScore(
 }
 
 public record Map(
-    [property: JsonPropertyName("lands")] Land[] Lands,
-    [property: JsonPropertyName("seas")] Sea[] Seas,
-    [property: JsonPropertyName("ports")] Port[] Ports);
+    Land[] Lands,
+    Sea[] Seas,
+    Port[] Ports);
 
 public record Land(
-    [property: JsonPropertyName("isEnabled")] bool IsEnabled,
-    [property: JsonPropertyName("id")] int Id,
-    [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("house")] House House,
-    [property: JsonPropertyName("footmen")] int Footmen,
-    [property: JsonPropertyName("knights")] int Knights,
-    [property: JsonPropertyName("siegeEngines")] int SiegeEngines,
-    [property: JsonPropertyName("tokens")] int Tokens,
-    [property: JsonPropertyName("mobilizationPoints")] int MobilizationPoints,
-    [property: JsonPropertyName("supplies")] int Supplies,
-    [property: JsonPropertyName("crowns")] int Crowns);
+    bool IsEnabled,
+    int Id,
+    string Name,
+    House House,
+    int Footmen,
+    int Knights,
+    int SiegeEngines,
+    int Tokens,
+    int MobilizationPoints,
+    int Supplies,
+    int Crowns);
 
 public record Sea(
-    [property: JsonPropertyName("isEnabled")] bool IsEnabled,
-    [property: JsonPropertyName("id")] int Id,
-    [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("house")] House House,
-    [property: JsonPropertyName("ships")] int Ships);
+    bool IsEnabled,
+    int Id,
+    string Name,
+    House House,
+    int Ships);
 
 public record Port(
-    [property: JsonPropertyName("isEnabled")] bool IsEnabled,
-    [property: JsonPropertyName("id")] int Id,
-    [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("ships")] int Ships);
+    bool IsEnabled,
+    int Id,
+    string Name,
+    int Ships);
 
-public record HouseStats(BattleStats Battles, UnitStats Kills, UnitStats Casualties, PowerTokenStats PowerTokens, BidStats Bids)
+public record Stats(
+    BattleStats Battles,
+    UnitStats Kills,
+    UnitStats Casualties,
+    PowerTokenStats PowerTokens,
+    BidStats Bids)
 {
-    public HouseStats() :
+    public Stats() :
         this(new BattleStats(), new UnitStats(), new UnitStats(), new PowerTokenStats(), new BidStats())
     { }
 
-    public static HouseStats operator +(HouseStats stats1, HouseStats stats2) => new()
+    public static Stats operator +(Stats stats1, Stats stats2) => new()
     {
         Battles = stats1.Battles + stats2.Battles,
         Kills = stats1.Kills + stats2.Kills,
@@ -100,6 +104,7 @@ public record BattleStats
 {
     public int Won { get; set; }
     public int Lost { get; set; }
+    [JsonIgnore]
     public int Total => Won + Lost;
 
     public static BattleStats operator +(BattleStats stats1, BattleStats stats2) => new()
@@ -124,7 +129,9 @@ public record UnitStats
     public int Knights { get; set; }
     public int SiegeEngines { get; set; }
     public int Ships { get; set; }
+    [JsonIgnore]
     public int Total => Footmen + Knights + SiegeEngines + Ships;
+    [JsonIgnore]
     public int MobilizationPoints => Footmen + 2 * Knights + 2 * SiegeEngines + Ships;
 
     public static UnitStats operator +(UnitStats stats1, UnitStats stats2) => new()
@@ -143,6 +150,7 @@ public record PowerTokenStats
     public int GameOfThrones { get; set; }
     public int Wildlings { get; set; }
     public int Tywin { get; set; }
+    [JsonIgnore]
     public int Total => ConsolidatePower + Raids + GameOfThrones + Wildlings + Tywin;
 
     public static PowerTokenStats operator +(PowerTokenStats stats1, PowerTokenStats stats2) => new()
@@ -160,6 +168,7 @@ public record BidStats
     public int KingsCourt { get; set; }
     public int Wildlings { get; set; }
     public int Aeron { get; set; }
+    [JsonIgnore]
     public int Total => IronThrone + Fiefdoms + KingsCourt + Wildlings + Aeron;
 
     public static BidStats operator +(BidStats stats1, BidStats stats2) => new()

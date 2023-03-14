@@ -3,28 +3,28 @@
 namespace TMModels;
 
 public record League(
-    [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("description")] string? Description,
-    [property: JsonPropertyName("backgroundImage")] string? BackgroundImage,
-    [property: JsonPropertyName("rules")] string? Rules,
-    [property: JsonPropertyName("discord")] string? Discord,
-    [property: JsonPropertyName("judgeTitle")] string? JudgeTitle,
-    [property: JsonPropertyName("seasons")] string[] Seasons,
-    [property: JsonPropertyName("trainingSeasons")] string[] TrainingSeasons,
-    [property: JsonPropertyName("mainDivisions")] IdName[] MainDivisions,
-    [property: JsonPropertyName("scoring")] Scoring? Scoring,
-    [property: JsonPropertyName("initialMessage")] InitialMessage? InitialMessage
+    string Name,
+    string? Description,
+    string? BackgroundImage,
+    string? Rules,
+    string? Discord,
+    string? JudgeTitle,
+    string[] Seasons,
+    string[] TrainingSeasons,
+    IdName[] MainDivisions,
+    Scoring? Scoring,
+    InitialMessage? InitialMessage
 )
 {
     public IEnumerable<string> AllSeasons => TrainingSeasons.Concat(Seasons);
 }
 
 public record Scoring(
-    [property: JsonPropertyName("pointsPerStronghold")] double PointsPerStronghold,
-    [property: JsonPropertyName("pointsPerCastle")] double PointsPerCastle,
-    [property: JsonPropertyName("pointsPerWin")] double PointsPerWin,
-    [property: JsonPropertyName("requiredBattlesBefore10thTurn")] int RequiredBattlesBefore10thTurn,
-    [property: JsonPropertyName("tiebreakers")] Tiebreaker[] Tiebreakers
+    double PointsPerStronghold,
+    double PointsPerCastle,
+    double PointsPerWin,
+    int RequiredBattlesBefore10thTurn,
+    Tiebreaker[] Tiebreakers
 );
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -50,5 +50,5 @@ public static class Tiebreakers
 }
 
 public record InitialMessage(
-    [property: JsonPropertyName("subject")] string Subject,
-    [property: JsonPropertyName("body")] string[] Body);
+    string Subject,
+    string[] Body);

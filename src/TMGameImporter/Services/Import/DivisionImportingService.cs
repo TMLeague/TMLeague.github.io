@@ -61,8 +61,7 @@ internal class DivisionImportingService
             .ToArray();
         Array.Sort(playerResults, (p1, p2) => -Compare(p1, p2, scoring.Tiebreakers));
 
-        var titles = GetTitles(games);
-        var results = new Results(playerResults, titles, games.Max(game => game.GeneratedTime));
+        var results = new Results(playerResults, games.Max(game => game.GeneratedTime));
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
 
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} imported.",
@@ -143,29 +142,6 @@ internal class DivisionImportingService
             .Select(houseResult => new PlayerPenalty(houseResult.Game, houseResult.BattlePenalty, "for not enough battles before 10th round"));
         return (divisionPenalties?.Concat(battlePenalties) ?? battlePenalties).ToArray();
     }
-
-    private PlayerTitle[] GetTitles(Game[] games)
-    {
-        if (games.Any(game => !game.IsFinished))
-            return Array.Empty<PlayerTitle>();
-
-        var playerScoresGroupings = games
-            .SelectMany(game => game.Houses)
-            .GroupBy(score => score.Player)
-            .ToArray();
-
-        return new PlayerTitle[]
-        {
-            //GetKiller(playerScoresGroupings, scores => scores.Sum(score => score.Stats.Kills.MobilizationPoints))
-        };
-    }
-
-    //private static PlayerTitle GetKiller(IEnumerable<IGrouping<string, HouseScore>> groupings, Func<IEnumerable<HouseScore>, double> selector)
-    //{
-    //    var playerScores = groupings.Select(scores => (scores.Key, selector(scores)));
-    //    var playerScore = playerScores.MaxBy((player, score) => score);
-    //    return new PlayerTitle("Gregor Clegane", playerScores.Key, $"", new[] { playerScores. });
-    //}
 
     private static int Compare(PlayerResult p1, PlayerResult p2, IEnumerable<Tiebreaker> tiebreakers)
     {

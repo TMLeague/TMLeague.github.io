@@ -101,7 +101,7 @@ internal class GameConverter
 
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
-            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, new HouseStats());
+            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, new Stats());
     }
 
     private static bool IsPlayerBattleLogItem(House house, LogItem item) =>

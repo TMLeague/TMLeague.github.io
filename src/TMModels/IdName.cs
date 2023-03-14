@@ -3,5 +3,5 @@
 namespace TMModels;
 
 public record IdName(
-    [property: JsonPropertyName("id")] string Id,
-    [property: JsonPropertyName("name")] string Name);
+    string Id,
+    string Name);
