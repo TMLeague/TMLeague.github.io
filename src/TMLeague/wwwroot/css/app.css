@@ -498,6 +498,16 @@ a,
     z-index: 1;
 }
 
+.sticky-start {
+    position: sticky;
+    left: 0;
+}
+
+.sticky-end {
+    position: sticky;
+    right: 0;
+}
+
 h1, h2, h3 {
     color: #9f9;
 }
