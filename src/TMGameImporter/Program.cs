@@ -53,8 +53,8 @@ logger.LogInformation(
     "Importing program started with following arguments: {arguments}", 
     string.Join("", GetArgumentsString()));
 
-var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
-await mainImportingService.Import();
+//var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
+//await mainImportingService.Import();
 
 var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
 await summaryCalculatingService.Calculate();

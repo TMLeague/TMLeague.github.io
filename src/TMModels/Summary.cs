@@ -135,12 +135,10 @@ public record SummaryScore(
     SummaryHouseScore[] Houses,
     double PenaltiesPoints,
     int? Position,
-    Stats Stats)
+    Stats? Stats)
 {
-    public Stats Stats { get; } = Stats ?? new Stats();
-
     public SummaryScore() :
-        this(0, 0, 0, 0, 0, null, 0, Array.Empty<SummaryHouseScore>(), 0, null, new Stats())
+        this(0, 0, 0, 0, 0, null, 0, Array.Empty<SummaryHouseScore>(), 0, null, null)
     { }
 
     public static SummaryScore Max(SummaryScore score1, SummaryScore score2) => new(
@@ -164,7 +162,9 @@ public record SummaryScore(
         score1.Position != null && score2.Position != null ?
             Math.Min(score1.Position.Value, score2.Position.Value) :
             score1.Position ?? score2.Position,
-        Stats.Max(score1.Stats, score2.Stats));
+        score1.Stats != null && score2.Stats != null ?
+            Stats.Max(score1.Stats, score2.Stats) :
+            score1.Stats ?? score2.Stats);
 
     public static SummaryScore operator +(SummaryScore score1, SummaryScore score2) => new(
         score1.TotalPoints + score2.TotalPoints,
@@ -187,7 +187,9 @@ public record SummaryScore(
         score1.Position != null && score2.Position != null ?
             score1.Position + score2.Position :
             score1.Position ?? score2.Position,
-        score1.Stats + score2.Stats);
+        score1.Stats != null && score2.Stats != null ?
+            score1.Stats + score2.Stats :
+            score1.Stats ?? score2.Stats);
 }
 
 public record SummaryHouseScore(
