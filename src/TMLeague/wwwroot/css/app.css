@@ -233,6 +233,67 @@ a,
         -webkit-overflow-scrolling: touch;
     }
 
+/* Tables */
+
+.table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+    .table thead th[scope="col"]:first-child {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 3;
+    }
+
+.table th[scope="row"] {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    border-right: 10px solid #212529;
+}
+
+.sticky-start {
+    position: sticky;
+    left: 0;
+}
+
+.sticky-end {
+    position: sticky;
+    right: 0;
+}
+
+.table-draft {
+    border: 0;
+}
+
+    .table-draft tr {
+        border: 0;
+    }
+
+        .table-draft tr th,
+        .table-draft tr td {
+            border: 1px solid #212529;
+            border-radius: 5px !important;
+            padding: 5px;
+        }
+
+        .table-draft tr th {
+            background-color: #292C2F;
+        }
+
+        .table-draft tr td {
+            background-color: #25292C;
+        }
+
+.table-winner tbody tr:first-child th,
+.table-winner tbody tr:first-child td,
+.winner {
+    color: #ff9;
+}
+
 /* Cover */
 
 .bd-placeholder-img {
@@ -448,64 +509,6 @@ a,
 
 .valid.modified:not([type=checkbox]) {
     outline: 0;
-}
-
-.table-draft {
-    border: 0;
-}
-
-    .table-draft tr {
-        border: 0;
-    }
-
-        .table-draft tr th,
-        .table-draft tr td {
-            border: 1px solid #212529;
-            border-radius: 5px !important;
-            padding: 5px;
-        }
-
-        .table-draft tr th {
-            background-color: #292C2F;
-        }
-
-        .table-draft tr td {
-            background-color: #25292C;
-        }
-
-.table-winner tbody tr:first-child th,
-.table-winner tbody tr:first-child td,
-.winner {
-    color: #ff9;
-}
-
-.table thead {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-
-    .table thead th[scope="col"]:first-child {
-        position: sticky;
-        top: 0;
-        left: 0;
-        z-index: 3;
-    }
-
-.table th[scope="row"] {
-    position: sticky;
-    left: 0;
-    z-index: 1;
-}
-
-.sticky-start {
-    position: sticky;
-    left: 0;
-}
-
-.sticky-end {
-    position: sticky;
-    right: 0;
 }
 
 h1, h2, h3 {

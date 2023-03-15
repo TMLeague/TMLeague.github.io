@@ -41,19 +41,19 @@ else
                     {
                         <th scope="col" style="width: 100px">Penalties</th>
                     }
-                    <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Baratheon</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Lannister</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Stark</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Tyrell</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Greyjoy</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Martell</th>
-                    <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Battles</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Kills</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">Casualties</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">PT+</th>
-                    <th scope="col" style="width: 100px" class="collapse @(ShowStats ? "show" : "")">PT-</th>
+                    <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
+                    <th scope="col" style="width: 100px" class="">Baratheon</th>
+                    <th scope="col" style="width: 100px" class="">Lannister</th>
+                    <th scope="col" style="width: 100px" class="">Stark</th>
+                    <th scope="col" style="width: 100px" class="">Tyrell</th>
+                    <th scope="col" style="width: 100px" class="">Greyjoy</th>
+                    <th scope="col" style="width: 100px" class="">Martell</th>
+                    <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
+                    <th scope="col" style="width: 100px" class="">Battles</th>
+                    <th scope="col" style="width: 100px" class="">Kills</th>
+                    <th scope="col" style="width: 100px" class="">Casualties</th>
+                    <th scope="col" style="width: 100px" class="">PT+</th>
+                    <th scope="col" style="width: 100px" class="">PT-</th>
                 </tr>
             </thead>
             <tbody>
@@ -96,57 +96,45 @@ else
                                 <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
                             </td>
                         }
-                        <td class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></td>
-                        <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                        <td class="p-1 invisible border-0"></td>
+                        <td class="tt" ontouchstart="">
                             <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"></HouseCell>
                         </td>
-                        <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)"></HouseCell>
                         </td>
-                        <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)"></HouseCell>
                         </td>
-                        <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)"></HouseCell>
                         </td>
-                        <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)"></HouseCell>
                         </td>
-                        <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)"></HouseCell>
                         </td>
-                        <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
-                        <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                        <td class="p-1 invisible border-0"></td>
+                        <td class="tt" ontouchstart="">
                             <BattleStats Stats="@playerVm.Stats.Battles"></BattleStats>
                         </td>
-                        <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <UnitStats Stats="@playerVm.Stats.Kills"></UnitStats>
                         </td>
-                        <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <UnitStats Stats="@playerVm.Stats.Casualties"></UnitStats>
                         </td>
-                        <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <PowerTokenStats Stats="@playerVm.Stats.PowerTokens"></PowerTokenStats>
                         </td>
-                        <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
+                        <td class="tt" ontouchstart="">
                             <BidStats Stats="@playerVm.Stats.Bids"></BidStats>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-    <div class="row sticky-start">
-        <button class="btn btn-primary" @onclick="ChangeVisibility">
-            @if (ShowHouses && ShowStats)
-            {
-                <i class="bi bi-chevron-compact-left display-6"></i>
-            }
-            else
-            {
-                <i class="bi bi-chevron-compact-right display-6"></i>
-            }
-        </button>
     </div>
 
     <div class="row my-2">
@@ -177,21 +165,6 @@ else
     public string? DivisionId { get; set; }
 
     private DivisionViewModel? DivisionVm { get; set; }
-
-    private bool ShowHouses { get; set; }
-    private bool ShowStats { get; set; }
-    private void ChangeVisibility()
-    {
-        if (ShowHouses && ShowStats)
-        {
-            ShowHouses = false;
-            ShowStats = false;
-        }
-        else if (ShowHouses && !ShowStats)
-            ShowStats = true;
-        else if (!ShowHouses)
-            ShowHouses = true;
-    }
 
     private int TableWidth => DivisionVm == null ?
         0 :
