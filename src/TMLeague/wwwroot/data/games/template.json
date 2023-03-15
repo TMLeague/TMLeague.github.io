@@ -11,7 +11,7 @@
   },
   "houses": [
     {
-      "name": 6,
+      "house": 6,
       "player": "Shade89",
       "throne": 4,
       "fiefdoms": 1,
@@ -27,7 +27,7 @@
       "stats": {}
     },
     {
-      "name": 3,
+      "house": 3,
       "player": "Zesty18",
       "throne": 1,
       "fiefdoms": 2,
@@ -43,7 +43,7 @@
       "stats": {}
     },
     {
-      "name": 5,
+      "house": 5,
       "player": "ThyLear",
       "throne": 3,
       "fiefdoms": 6,
@@ -59,7 +59,7 @@
       "stats": {}
     },
     {
-      "name": 2,
+      "house": 2,
       "player": "Strongest_Gallic",
       "throne": 2,
       "fiefdoms": 5,
@@ -75,7 +75,7 @@
       "stats": {}
     },
     {
-      "name": 1,
+      "house": 1,
       "player": "JohnnyCee",
       "throne": 5,
       "fiefdoms": 4,
@@ -91,7 +91,7 @@
       "stats": {}
     },
     {
-      "name": 4,
+      "house": 4,
       "player": "The Achaialander",
       "throne": 6,
       "fiefdoms": 3,
