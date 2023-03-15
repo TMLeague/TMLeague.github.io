@@ -479,21 +479,23 @@ a,
     color: #ff9;
 }
 
-.table th[scope="col"] {
+.table thead {
     position: sticky;
     top: 0;
+    z-index: 2;
 }
 
-.table th[scope="col"]:first-child {
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
+    .table thead th[scope="col"]:first-child {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 3;
+    }
 
 .table th[scope="row"] {
     position: sticky;
     left: 0;
+    z-index: 1;
 }
 
 h1, h2, h3 {
