@@ -1,5 +1,8 @@
-﻿namespace TMModels;
+﻿using System.Text.Json.Serialization;
 
+namespace TMModels;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum House
 {
     Unknown,

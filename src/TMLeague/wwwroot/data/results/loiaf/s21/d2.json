@@ -1,1025 +1,3266 @@
 {
-  "players": [
+  "Players": [
     {
-      "player": "texas55",
-      "totalPoints": 28,
-      "wins": 1,
-      "cla": 36,
-      "supplies": 22,
-      "powerTokens": 48,
-      "minutesPerMove": 278.46069651741294,
-      "moves": 402,
-      "houses": [
+      "Player": "texas55",
+      "TotalPoints": 28,
+      "Wins": 1,
+      "Cla": 36,
+      "Supplies": 22,
+      "PowerTokens": 48,
+      "MinutesPerMove": 278.46069651741294,
+      "Moves": 402,
+      "Houses": [
         {
-          "game": 284783,
-          "house": 5,
-          "isWinner": false,
-          "points": 5,
-          "battlePenalty": 0,
-          "strongholds": 4,
-          "castles": 1,
-          "cla": 6,
-          "supplies": 6,
-          "powerTokens": 14,
-          "minutesPerMove": 211.5,
-          "moves": 54
+          "Game": 284783,
+          "House": "Greyjoy",
+          "IsWinner": false,
+          "Points": 5,
+          "BattlePenalty": 0,
+          "Strongholds": 4,
+          "Castles": 1,
+          "Cla": 6,
+          "Supplies": 6,
+          "PowerTokens": 14,
+          "MinutesPerMove": 211.5,
+          "Moves": 54,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284789,
-          "house": 6,
-          "isWinner": true,
-          "points": 8,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 3,
-          "cla": 6,
-          "supplies": 2,
-          "powerTokens": 9,
-          "minutesPerMove": 307.1,
-          "moves": 77
+          "Game": 284789,
+          "House": "Martell",
+          "IsWinner": true,
+          "Points": 8,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 3,
+          "Cla": 6,
+          "Supplies": 2,
+          "PowerTokens": 9,
+          "MinutesPerMove": 307.1,
+          "Moves": 77,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284785,
-          "house": 3,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 2,
-          "cla": 7,
-          "supplies": 3,
-          "powerTokens": 0,
-          "minutesPerMove": 326.9,
-          "moves": 72
+          "Game": 284785,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 2,
+          "Cla": 7,
+          "Supplies": 3,
+          "PowerTokens": 0,
+          "MinutesPerMove": 326.9,
+          "Moves": 72,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284791,
-          "house": 2,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 1,
-          "cla": 6,
-          "supplies": 5,
-          "powerTokens": 18,
-          "minutesPerMove": 149.4,
-          "moves": 58
+          "Game": 284791,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 1,
+          "Cla": 6,
+          "Supplies": 5,
+          "PowerTokens": 18,
+          "MinutesPerMove": 149.4,
+          "Moves": 58,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284793,
-          "house": 4,
-          "isWinner": false,
-          "points": 5,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 2,
-          "cla": 6,
-          "supplies": 3,
-          "powerTokens": 5,
-          "minutesPerMove": 296.4,
-          "moves": 78
+          "Game": 284793,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 5,
+          "BattlePenalty": 0,
+          "Strongholds": 3,
+          "Castles": 2,
+          "Cla": 6,
+          "Supplies": 3,
+          "PowerTokens": 5,
+          "MinutesPerMove": 296.4,
+          "Moves": 78,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284788,
-          "house": 1,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 5,
-          "supplies": 3,
-          "powerTokens": 2,
-          "minutesPerMove": 342.1,
-          "moves": 63
+          "Game": 284788,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 5,
+          "Supplies": 3,
+          "PowerTokens": 2,
+          "MinutesPerMove": 342.1,
+          "Moves": 63,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 0,
-      "penaltiesDetails": []
+      "PenaltiesPoints": 0,
+      "PenaltiesDetails": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "heyjakel",
-      "totalPoints": 27,
-      "wins": 1,
-      "cla": 38,
-      "supplies": 19,
-      "powerTokens": 47,
-      "minutesPerMove": 221.28839050131924,
-      "moves": 379,
-      "houses": [
+      "Player": "heyjakel",
+      "TotalPoints": 27,
+      "Wins": 1,
+      "Cla": 38,
+      "Supplies": 19,
+      "PowerTokens": 47,
+      "MinutesPerMove": 221.28839050131924,
+      "Moves": 379,
+      "Houses": [
         {
-          "game": 284783,
-          "house": 6,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 12,
-          "minutesPerMove": 204.1,
-          "moves": 53
+          "Game": 284783,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 3,
+          "Cla": 8,
+          "Supplies": 4,
+          "PowerTokens": 12,
+          "MinutesPerMove": 204.1,
+          "Moves": 53,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284784,
-          "house": 5,
-          "isWinner": true,
-          "points": 10,
-          "battlePenalty": 0,
-          "strongholds": 5,
-          "castles": 2,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 7,
-          "minutesPerMove": 220.9,
-          "moves": 80
+          "Game": 284784,
+          "House": "Greyjoy",
+          "IsWinner": true,
+          "Points": 10,
+          "BattlePenalty": 0,
+          "Strongholds": 5,
+          "Castles": 2,
+          "Cla": 8,
+          "Supplies": 4,
+          "PowerTokens": 7,
+          "MinutesPerMove": 220.9,
+          "Moves": 80,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284785,
-          "house": 2,
-          "isWinner": false,
-          "points": 1,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 0,
-          "cla": 2,
-          "supplies": 0,
-          "powerTokens": 1,
-          "minutesPerMove": 212.3,
-          "moves": 63
+          "Game": 284785,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 1,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 0,
+          "Cla": 2,
+          "Supplies": 0,
+          "PowerTokens": 1,
+          "MinutesPerMove": 212.3,
+          "Moves": 63,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284786,
-          "house": 1,
-          "isWinner": false,
-          "points": 5,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 2,
-          "cla": 6,
-          "supplies": 3,
-          "powerTokens": 11,
-          "minutesPerMove": 237.7,
-          "moves": 53
+          "Game": 284786,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 5,
+          "BattlePenalty": 0,
+          "Strongholds": 3,
+          "Castles": 2,
+          "Cla": 6,
+          "Supplies": 3,
+          "PowerTokens": 11,
+          "MinutesPerMove": 237.7,
+          "Moves": 53,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284787,
-          "house": 4,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 1,
-          "cla": 7,
-          "supplies": 4,
-          "powerTokens": 15,
-          "minutesPerMove": 247.2,
-          "moves": 60
+          "Game": 284787,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 1,
+          "Cla": 7,
+          "Supplies": 4,
+          "PowerTokens": 15,
+          "MinutesPerMove": 247.2,
+          "Moves": 60,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284788,
-          "house": 3,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 7,
-          "supplies": 4,
-          "powerTokens": 1,
-          "minutesPerMove": 208.2,
-          "moves": 70
+          "Game": 284788,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 3,
+          "Cla": 7,
+          "Supplies": 4,
+          "PowerTokens": 1,
+          "MinutesPerMove": 208.2,
+          "Moves": 70,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 0,
-      "penaltiesDetails": []
+      "PenaltiesPoints": 0,
+      "PenaltiesDetails": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "Kamil_J",
-      "totalPoints": 26.5,
-      "wins": 2,
-      "cla": 37,
-      "supplies": 20,
-      "powerTokens": 26,
-      "minutesPerMove": 304.138219895288,
-      "moves": 382,
-      "houses": [
+      "Player": "Kamil_J",
+      "TotalPoints": 26.5,
+      "Wins": 2,
+      "Cla": 37,
+      "Supplies": 20,
+      "PowerTokens": 26,
+      "MinutesPerMove": 304.138219895288,
+      "Moves": 382,
+      "Houses": [
         {
-          "game": 284784,
-          "house": 6,
-          "isWinner": false,
-          "points": 5,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 3,
-          "cla": 9,
-          "supplies": 5,
-          "powerTokens": 13,
-          "minutesPerMove": 222,
-          "moves": 69
+          "Game": 284784,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 5,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 3,
+          "Cla": 9,
+          "Supplies": 5,
+          "PowerTokens": 13,
+          "MinutesPerMove": 222,
+          "Moves": 69,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284789,
-          "house": 1,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 1,
-          "cla": 2,
-          "supplies": 1,
-          "powerTokens": 1,
-          "minutesPerMove": 311.4,
-          "moves": 90
+          "Game": 284789,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 2,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 1,
+          "Cla": 2,
+          "Supplies": 1,
+          "PowerTokens": 1,
+          "MinutesPerMove": 311.4,
+          "Moves": 90,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284790,
-          "house": 4,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 0,
-          "cla": 2,
-          "supplies": 2,
-          "powerTokens": 1,
-          "minutesPerMove": 345.1,
-          "moves": 52
+          "Game": 284790,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 2,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 0,
+          "Cla": 2,
+          "Supplies": 2,
+          "PowerTokens": 1,
+          "MinutesPerMove": 345.1,
+          "Moves": 52,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284785,
-          "house": 5,
-          "isWinner": true,
-          "points": 8,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 2,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 2,
-          "minutesPerMove": 322.6,
-          "moves": 66
+          "Game": 284785,
+          "House": "Greyjoy",
+          "IsWinner": true,
+          "Points": 8,
+          "BattlePenalty": 0,
+          "Strongholds": 3,
+          "Castles": 2,
+          "Cla": 8,
+          "Supplies": 4,
+          "PowerTokens": 2,
+          "MinutesPerMove": 322.6,
+          "Moves": 66,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284786,
-          "house": 2,
-          "isWinner": true,
-          "points": 10,
-          "battlePenalty": 0,
-          "strongholds": 4,
-          "castles": 3,
-          "cla": 9,
-          "supplies": 6,
-          "powerTokens": 5,
-          "minutesPerMove": 332.8,
-          "moves": 41
+          "Game": 284786,
+          "House": "Lannister",
+          "IsWinner": true,
+          "Points": 10,
+          "BattlePenalty": 0,
+          "Strongholds": 4,
+          "Castles": 3,
+          "Cla": 9,
+          "Supplies": 6,
+          "PowerTokens": 5,
+          "MinutesPerMove": 332.8,
+          "Moves": 41,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284787,
-          "house": 3,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 3,
-          "cla": 7,
-          "supplies": 2,
-          "powerTokens": 4,
-          "minutesPerMove": 311.8,
-          "moves": 64
+          "Game": 284787,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 3,
+          "Cla": 7,
+          "Supplies": 2,
+          "PowerTokens": 4,
+          "MinutesPerMove": 311.8,
+          "Moves": 64,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 3.5,
-      "penaltiesDetails": [
+      "PenaltiesPoints": 3.5,
+      "PenaltiesDetails": [
         {
-          "game": 284789,
-          "points": 0.5,
-          "details": "speed"
+          "Game": 284789,
+          "Points": 0.5,
+          "Details": "speed"
         },
         {
-          "game": 284784,
-          "points": 3,
-          "details": "minor KM"
+          "Game": 284784,
+          "Points": 3,
+          "Details": "minor KM"
         }
-      ]
+      ],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "SerOberynMartell",
-      "totalPoints": 23,
-      "wins": 1,
-      "cla": 34,
-      "supplies": 21,
-      "powerTokens": 46,
-      "minutesPerMove": 150.7164705882353,
-      "moves": 340,
-      "houses": [
+      "Player": "SerOberynMartell",
+      "TotalPoints": 23,
+      "Wins": 1,
+      "Cla": 34,
+      "Supplies": 21,
+      "PowerTokens": 46,
+      "MinutesPerMove": 150.7164705882353,
+      "Moves": 340,
+      "Houses": [
         {
-          "game": 284783,
-          "house": 1,
-          "isWinner": true,
-          "points": 10,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 5,
-          "cla": 8,
-          "supplies": 3,
-          "powerTokens": 17,
-          "minutesPerMove": 196,
-          "moves": 60
+          "Game": 284783,
+          "House": "Baratheon",
+          "IsWinner": true,
+          "Points": 10,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 5,
+          "Cla": 8,
+          "Supplies": 3,
+          "PowerTokens": 17,
+          "MinutesPerMove": 196,
+          "Moves": 60,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284789,
-          "house": 2,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 6,
-          "supplies": 5,
-          "powerTokens": 3,
-          "minutesPerMove": 150.3,
-          "moves": 74
+          "Game": 284789,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 6,
+          "Supplies": 5,
+          "PowerTokens": 3,
+          "MinutesPerMove": 150.3,
+          "Moves": 74,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284790,
-          "house": 3,
-          "isWinner": false,
-          "points": 0,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 0,
-          "cla": 4,
-          "supplies": 1,
-          "powerTokens": 10,
-          "minutesPerMove": 119.8,
-          "moves": 55
+          "Game": 284790,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 0,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 0,
+          "Cla": 4,
+          "Supplies": 1,
+          "PowerTokens": 10,
+          "MinutesPerMove": 119.8,
+          "Moves": 55,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284785,
-          "house": 6,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 2,
-          "cla": 6,
-          "supplies": 4,
-          "powerTokens": 0,
-          "minutesPerMove": 133.6,
-          "moves": 58
+          "Game": 284785,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 2,
+          "Cla": 6,
+          "Supplies": 4,
+          "PowerTokens": 0,
+          "MinutesPerMove": 133.6,
+          "Moves": 58,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284791,
-          "house": 5,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 0,
-          "cla": 3,
-          "supplies": 4,
-          "powerTokens": 14,
-          "minutesPerMove": 115.9,
-          "moves": 56
+          "Game": 284791,
+          "House": "Greyjoy",
+          "IsWinner": false,
+          "Points": 2,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 0,
+          "Cla": 3,
+          "Supplies": 4,
+          "PowerTokens": 14,
+          "MinutesPerMove": 115.9,
+          "Moves": 56,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284786,
-          "house": 4,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 7,
-          "supplies": 4,
-          "powerTokens": 2,
-          "minutesPerMove": 203.6,
-          "moves": 37
+          "Game": 284786,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 7,
+          "Supplies": 4,
+          "PowerTokens": 2,
+          "MinutesPerMove": 203.6,
+          "Moves": 37,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 0,
-      "penaltiesDetails": []
+      "PenaltiesPoints": 0,
+      "PenaltiesDetails": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "TheMoth",
-      "totalPoints": 22,
-      "wins": 1,
-      "cla": 38,
-      "supplies": 22,
-      "powerTokens": 49,
-      "minutesPerMove": 122.85124653739611,
-      "moves": 361,
-      "houses": [
+      "Player": "TheMoth",
+      "TotalPoints": 22,
+      "Wins": 1,
+      "Cla": 38,
+      "Supplies": 22,
+      "PowerTokens": 49,
+      "MinutesPerMove": 122.85124653739611,
+      "Moves": 361,
+      "Houses": [
         {
-          "game": 284784,
-          "house": 2,
-          "isWinner": false,
-          "points": 1,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 1,
-          "cla": 2,
-          "supplies": 3,
-          "powerTokens": 2,
-          "minutesPerMove": 118.9,
-          "moves": 61
+          "Game": 284784,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 1,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 1,
+          "Cla": 2,
+          "Supplies": 3,
+          "PowerTokens": 2,
+          "MinutesPerMove": 118.9,
+          "Moves": 61,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284789,
-          "house": 4,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 0,
-          "cla": 8,
-          "supplies": 6,
-          "powerTokens": 9,
-          "minutesPerMove": 118.3,
-          "moves": 56
+          "Game": 284789,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 2,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 0,
+          "Cla": 8,
+          "Supplies": 6,
+          "PowerTokens": 9,
+          "MinutesPerMove": 118.3,
+          "Moves": 56,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284791,
-          "house": 6,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 18,
-          "minutesPerMove": 152.2,
-          "moves": 54
+          "Game": 284791,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 3,
+          "Cla": 8,
+          "Supplies": 4,
+          "PowerTokens": 18,
+          "MinutesPerMove": 152.2,
+          "Moves": 54,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284786,
-          "house": 3,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 2,
-          "cla": 5,
-          "supplies": 1,
-          "powerTokens": 5,
-          "minutesPerMove": 101.2,
-          "moves": 45
+          "Game": 284786,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 2,
+          "Cla": 5,
+          "Supplies": 1,
+          "PowerTokens": 5,
+          "MinutesPerMove": 101.2,
+          "Moves": 45,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284787,
-          "house": 5,
-          "isWinner": true,
-          "points": 7,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 1,
-          "cla": 7,
-          "supplies": 5,
-          "powerTokens": 9,
-          "minutesPerMove": 134.1,
-          "moves": 76
+          "Game": 284787,
+          "House": "Greyjoy",
+          "IsWinner": true,
+          "Points": 7,
+          "BattlePenalty": 0,
+          "Strongholds": 3,
+          "Castles": 1,
+          "Cla": 7,
+          "Supplies": 5,
+          "PowerTokens": 9,
+          "MinutesPerMove": 134.1,
+          "Moves": 76,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284793,
-          "house": 1,
-          "isWinner": false,
-          "points": 5,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 3,
-          "cla": 8,
-          "supplies": 3,
-          "powerTokens": 6,
-          "minutesPerMove": 108.8,
-          "moves": 69
+          "Game": 284793,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 5,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 3,
+          "Cla": 8,
+          "Supplies": 3,
+          "PowerTokens": 6,
+          "MinutesPerMove": 108.8,
+          "Moves": 69,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 0,
-      "penaltiesDetails": []
+      "PenaltiesPoints": 0,
+      "PenaltiesDetails": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "diogobensabat",
-      "totalPoints": 22,
-      "wins": 2,
-      "cla": 28,
-      "supplies": 15,
-      "powerTokens": 16,
-      "minutesPerMove": 154.95029585798815,
-      "moves": 338,
-      "houses": [
+      "Player": "diogobensabat",
+      "TotalPoints": 22,
+      "Wins": 2,
+      "Cla": 28,
+      "Supplies": 15,
+      "PowerTokens": 16,
+      "MinutesPerMove": 154.95029585798815,
+      "Moves": 338,
+      "Houses": [
         {
-          "game": 284783,
-          "house": 2,
-          "isWinner": false,
-          "points": 1,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 0,
-          "cla": 3,
-          "supplies": 2,
-          "powerTokens": 4,
-          "minutesPerMove": 148.7,
-          "moves": 43
+          "Game": 284783,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 1,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 0,
+          "Cla": 3,
+          "Supplies": 2,
+          "PowerTokens": 4,
+          "MinutesPerMove": 148.7,
+          "Moves": 43,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284784,
-          "house": 1,
-          "isWinner": false,
-          "points": 1,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 0,
-          "cla": 1,
-          "supplies": 1,
-          "powerTokens": 1,
-          "minutesPerMove": 123.9,
-          "moves": 71
+          "Game": 284784,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 1,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 0,
+          "Cla": 1,
+          "Supplies": 1,
+          "PowerTokens": 1,
+          "MinutesPerMove": 123.9,
+          "Moves": 71,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284790,
-          "house": 5,
-          "isWinner": true,
-          "points": 10,
-          "battlePenalty": 0,
-          "strongholds": 4,
-          "castles": 3,
-          "cla": 9,
-          "supplies": 4,
-          "powerTokens": 6,
-          "minutesPerMove": 151.3,
-          "moves": 46
+          "Game": 284790,
+          "House": "Greyjoy",
+          "IsWinner": true,
+          "Points": 10,
+          "BattlePenalty": 0,
+          "Strongholds": 4,
+          "Castles": 3,
+          "Cla": 9,
+          "Supplies": 4,
+          "PowerTokens": 6,
+          "MinutesPerMove": 151.3,
+          "Moves": 46,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284786,
-          "house": 6,
-          "isWinner": false,
-          "points": 1,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 1,
-          "cla": 2,
-          "supplies": 1,
-          "powerTokens": 0,
-          "minutesPerMove": 268.1,
-          "moves": 48
+          "Game": 284786,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 1,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 1,
+          "Cla": 2,
+          "Supplies": 1,
+          "PowerTokens": 0,
+          "MinutesPerMove": 268.1,
+          "Moves": 48,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284793,
-          "house": 3,
-          "isWinner": false,
-          "points": 1,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 1,
-          "cla": 3,
-          "supplies": 1,
-          "powerTokens": 1,
-          "minutesPerMove": 117.1,
-          "moves": 63
+          "Game": 284793,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 1,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 1,
+          "Cla": 3,
+          "Supplies": 1,
+          "PowerTokens": 1,
+          "MinutesPerMove": 117.1,
+          "Moves": 63,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284788,
-          "house": 4,
-          "isWinner": true,
-          "points": 8,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 2,
-          "cla": 10,
-          "supplies": 6,
-          "powerTokens": 4,
-          "minutesPerMove": 148.9,
-          "moves": 67
+          "Game": 284788,
+          "House": "Tyrell",
+          "IsWinner": true,
+          "Points": 8,
+          "BattlePenalty": 0,
+          "Strongholds": 3,
+          "Castles": 2,
+          "Cla": 10,
+          "Supplies": 6,
+          "PowerTokens": 4,
+          "MinutesPerMove": 148.9,
+          "Moves": 67,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 0,
-      "penaltiesDetails": []
+      "PenaltiesPoints": 0,
+      "PenaltiesDetails": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "Lance",
-      "totalPoints": 20,
-      "wins": 2,
-      "cla": 37,
-      "supplies": 23,
-      "powerTokens": 55,
-      "minutesPerMove": 213.97930232558141,
-      "moves": 430,
-      "houses": [
+      "Player": "Lance",
+      "TotalPoints": 20,
+      "Wins": 2,
+      "Cla": 37,
+      "Supplies": 23,
+      "PowerTokens": 55,
+      "MinutesPerMove": 213.97930232558141,
+      "Moves": 430,
+      "Houses": [
         {
-          "game": 284784,
-          "house": 4,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 1,
-          "cla": 7,
-          "supplies": 6,
-          "powerTokens": 14,
-          "minutesPerMove": 218.8,
-          "moves": 81
+          "Game": 284784,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 1,
+          "Cla": 7,
+          "Supplies": 6,
+          "PowerTokens": 14,
+          "MinutesPerMove": 218.8,
+          "Moves": 81,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284785,
-          "house": 1,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 5,
-          "supplies": 4,
-          "powerTokens": 1,
-          "minutesPerMove": 226.8,
-          "moves": 77
+          "Game": 284785,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 5,
+          "Supplies": 4,
+          "PowerTokens": 1,
+          "MinutesPerMove": 226.8,
+          "Moves": 77,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284791,
-          "house": 3,
-          "isWinner": true,
-          "points": 7,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 9,
-          "supplies": 2,
-          "powerTokens": 17,
-          "minutesPerMove": 187.7,
-          "moves": 61
+          "Game": 284791,
+          "House": "Stark",
+          "IsWinner": true,
+          "Points": 7,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 3,
+          "Cla": 9,
+          "Supplies": 2,
+          "PowerTokens": 17,
+          "MinutesPerMove": 187.7,
+          "Moves": 61,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284787,
-          "house": 6,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 7,
-          "supplies": 4,
-          "powerTokens": 17,
-          "minutesPerMove": 219.6,
-          "moves": 65
+          "Game": 284787,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 3,
+          "Cla": 7,
+          "Supplies": 4,
+          "PowerTokens": 17,
+          "MinutesPerMove": 219.6,
+          "Moves": 65,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284793,
-          "house": 5,
-          "isWinner": true,
-          "points": 8,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 2,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 3,
-          "minutesPerMove": 228.7,
-          "moves": 87
+          "Game": 284793,
+          "House": "Greyjoy",
+          "IsWinner": true,
+          "Points": 8,
+          "BattlePenalty": 0,
+          "Strongholds": 3,
+          "Castles": 2,
+          "Cla": 8,
+          "Supplies": 4,
+          "PowerTokens": 3,
+          "MinutesPerMove": 228.7,
+          "Moves": 87,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284788,
-          "house": 2,
-          "isWinner": false,
-          "points": 0,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 0,
-          "cla": 1,
-          "supplies": 3,
-          "powerTokens": 3,
-          "minutesPerMove": 189.9,
-          "moves": 59
+          "Game": 284788,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 0,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 0,
+          "Cla": 1,
+          "Supplies": 3,
+          "PowerTokens": 3,
+          "MinutesPerMove": 189.9,
+          "Moves": 59,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 6,
-      "penaltiesDetails": [
+      "PenaltiesPoints": 6,
+      "PenaltiesDetails": [
         {
-          "game": 284784,
-          "points": 6,
-          "details": "major KM"
+          "Game": 284784,
+          "Points": 6,
+          "Details": "major KM"
         }
-      ]
+      ],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "La1985",
-      "totalPoints": 16.5,
-      "wins": 0,
-      "cla": 36,
-      "supplies": 23,
-      "powerTokens": 62,
-      "minutesPerMove": 202.56604278074866,
-      "moves": 374,
-      "houses": [
+      "Player": "La1985",
+      "TotalPoints": 16.5,
+      "Wins": 0,
+      "Cla": 36,
+      "Supplies": 23,
+      "PowerTokens": 62,
+      "MinutesPerMove": 202.56604278074866,
+      "Moves": 374,
+      "Houses": [
         {
-          "game": 284783,
-          "house": 4,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 1,
-          "cla": 7,
-          "supplies": 4,
-          "powerTokens": 1,
-          "minutesPerMove": 196.3,
-          "moves": 52
+          "Game": 284783,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 1,
+          "Cla": 7,
+          "Supplies": 4,
+          "PowerTokens": 1,
+          "MinutesPerMove": 196.3,
+          "Moves": 52,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284784,
-          "house": 3,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 2,
-          "cla": 6,
-          "supplies": 3,
-          "powerTokens": 7,
-          "minutesPerMove": 149.5,
-          "moves": 68
+          "Game": 284784,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 2,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 2,
+          "Cla": 6,
+          "Supplies": 3,
+          "PowerTokens": 7,
+          "MinutesPerMove": 149.5,
+          "Moves": 68,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284789,
-          "house": 5,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 1,
-          "cla": 6,
-          "supplies": 4,
-          "powerTokens": 7,
-          "minutesPerMove": 465.4,
-          "moves": 69
+          "Game": 284789,
+          "House": "Greyjoy",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 1,
+          "Cla": 6,
+          "Supplies": 4,
+          "PowerTokens": 7,
+          "MinutesPerMove": 465.4,
+          "Moves": 69,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284790,
-          "house": 6,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 2,
-          "cla": 7,
-          "supplies": 4,
-          "powerTokens": 13,
-          "minutesPerMove": 146.7,
-          "moves": 65
+          "Game": 284790,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 2,
+          "Cla": 7,
+          "Supplies": 4,
+          "PowerTokens": 13,
+          "MinutesPerMove": 146.7,
+          "Moves": 65,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284791,
-          "house": 1,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 1,
-          "cla": 4,
-          "supplies": 3,
-          "powerTokens": 18,
-          "minutesPerMove": 62.6,
-          "moves": 65
+          "Game": 284791,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 1,
+          "Cla": 4,
+          "Supplies": 3,
+          "PowerTokens": 18,
+          "MinutesPerMove": 62.6,
+          "Moves": 65,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284787,
-          "house": 2,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 6,
-          "supplies": 5,
-          "powerTokens": 16,
-          "minutesPerMove": 175.8,
-          "moves": 55
+          "Game": 284787,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 6,
+          "Supplies": 5,
+          "PowerTokens": 16,
+          "MinutesPerMove": 175.8,
+          "Moves": 55,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 1.5,
-      "penaltiesDetails": [
+      "PenaltiesPoints": 1.5,
+      "PenaltiesDetails": [
         {
-          "game": 284789,
-          "points": 1.5,
-          "details": "speed"
+          "Game": 284789,
+          "Points": 1.5,
+          "Details": "speed"
         }
-      ]
+      ],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "TONY-BENZEMA",
-      "totalPoints": 15,
-      "wins": 0,
-      "cla": 41,
-      "supplies": 28,
-      "powerTokens": 30,
-      "minutesPerMove": 367.1901041666667,
-      "moves": 384,
-      "houses": [
+      "Player": "TONY-BENZEMA",
+      "TotalPoints": 15,
+      "Wins": 0,
+      "Cla": 41,
+      "Supplies": 28,
+      "PowerTokens": 30,
+      "MinutesPerMove": 367.1901041666667,
+      "Moves": 384,
+      "Houses": [
         {
-          "game": 284789,
-          "house": 3,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 3,
-          "cla": 9,
-          "supplies": 5,
-          "powerTokens": 4,
-          "minutesPerMove": 386.8,
-          "moves": 74
+          "Game": 284789,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 3,
+          "Cla": 9,
+          "Supplies": 5,
+          "PowerTokens": 4,
+          "MinutesPerMove": 386.8,
+          "Moves": 74,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284790,
-          "house": 1,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 7,
-          "supplies": 4,
-          "powerTokens": 16,
-          "minutesPerMove": 373,
-          "moves": 58
+          "Game": 284790,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 7,
+          "Supplies": 4,
+          "PowerTokens": 16,
+          "MinutesPerMove": 373,
+          "Moves": 58,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284785,
-          "house": 4,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 9,
-          "supplies": 6,
-          "powerTokens": 3,
-          "minutesPerMove": 357.3,
-          "moves": 64
+          "Game": 284785,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 9,
+          "Supplies": 6,
+          "PowerTokens": 3,
+          "MinutesPerMove": 357.3,
+          "Moves": 64,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284786,
-          "house": 5,
-          "isWinner": false,
-          "points": 0,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 0,
-          "cla": 3,
-          "supplies": 3,
-          "powerTokens": 3,
-          "minutesPerMove": 347.8,
-          "moves": 52
+          "Game": 284786,
+          "House": "Greyjoy",
+          "IsWinner": false,
+          "Points": 0,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 0,
+          "Cla": 3,
+          "Supplies": 3,
+          "PowerTokens": 3,
+          "MinutesPerMove": 347.8,
+          "Moves": 52,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284793,
-          "house": 2,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 7,
-          "supplies": 6,
-          "powerTokens": 2,
-          "minutesPerMove": 396.7,
-          "moves": 74
+          "Game": 284793,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 7,
+          "Supplies": 6,
+          "PowerTokens": 2,
+          "MinutesPerMove": 396.7,
+          "Moves": 74,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284788,
-          "house": 6,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 2,
-          "cla": 6,
-          "supplies": 4,
-          "powerTokens": 2,
-          "minutesPerMove": 329.6,
-          "moves": 62
+          "Game": 284788,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 2,
+          "Cla": 6,
+          "Supplies": 4,
+          "PowerTokens": 2,
+          "MinutesPerMove": 329.6,
+          "Moves": 62,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 4,
-      "penaltiesDetails": [
+      "PenaltiesPoints": 4,
+      "PenaltiesDetails": [
         {
-          "game": 284789,
-          "points": 1,
-          "details": "speed"
+          "Game": 284789,
+          "Points": 1,
+          "Details": "speed"
         },
         {
-          "game": null,
-          "points": 3,
-          "details": null
+          "Game": null,
+          "Points": 3,
+          "Details": null
         }
-      ]
+      ],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     },
     {
-      "player": "b00yashaka",
-      "totalPoints": 10,
-      "wins": 0,
-      "cla": 38,
-      "supplies": 24,
-      "powerTokens": 63,
-      "minutesPerMove": 305.1603878116344,
-      "moves": 361,
-      "houses": [
+      "Player": "b00yashaka",
+      "TotalPoints": 10,
+      "Wins": 0,
+      "Cla": 38,
+      "Supplies": 24,
+      "PowerTokens": 63,
+      "MinutesPerMove": 305.1603878116344,
+      "Moves": 361,
+      "Houses": [
         {
-          "game": 284783,
-          "house": 3,
-          "isWinner": false,
-          "points": 0,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 0,
-          "cla": 5,
-          "supplies": 3,
-          "powerTokens": 12,
-          "minutesPerMove": 339,
-          "moves": 66
+          "Game": 284783,
+          "House": "Stark",
+          "IsWinner": false,
+          "Points": 0,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 0,
+          "Cla": 5,
+          "Supplies": 3,
+          "PowerTokens": 12,
+          "MinutesPerMove": 339,
+          "Moves": 66,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284790,
-          "house": 2,
-          "isWinner": false,
-          "points": 3,
-          "battlePenalty": 0,
-          "strongholds": 1,
-          "castles": 2,
-          "cla": 8,
-          "supplies": 6,
-          "powerTokens": 14,
-          "minutesPerMove": 233.2,
-          "moves": 45
+          "Game": 284790,
+          "House": "Lannister",
+          "IsWinner": false,
+          "Points": 3,
+          "BattlePenalty": 0,
+          "Strongholds": 1,
+          "Castles": 2,
+          "Cla": 8,
+          "Supplies": 6,
+          "PowerTokens": 14,
+          "MinutesPerMove": 233.2,
+          "Moves": 45,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284791,
-          "house": 4,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 2,
-          "cla": 8,
-          "supplies": 4,
-          "powerTokens": 17,
-          "minutesPerMove": 287.5,
-          "moves": 42
+          "Game": 284791,
+          "House": "Tyrell",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 2,
+          "Cla": 8,
+          "Supplies": 4,
+          "PowerTokens": 17,
+          "MinutesPerMove": 287.5,
+          "Moves": 42,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284787,
-          "house": 1,
-          "isWinner": false,
-          "points": 2,
-          "battlePenalty": 0,
-          "strongholds": 2,
-          "castles": 0,
-          "cla": 3,
-          "supplies": 3,
-          "powerTokens": 12,
-          "minutesPerMove": 362.3,
-          "moves": 64
+          "Game": 284787,
+          "House": "Baratheon",
+          "IsWinner": false,
+          "Points": 2,
+          "BattlePenalty": 0,
+          "Strongholds": 2,
+          "Castles": 0,
+          "Cla": 3,
+          "Supplies": 3,
+          "PowerTokens": 12,
+          "MinutesPerMove": 362.3,
+          "Moves": 64,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284793,
-          "house": 6,
-          "isWinner": false,
-          "points": 0,
-          "battlePenalty": 0,
-          "strongholds": 0,
-          "castles": 0,
-          "cla": 5,
-          "supplies": 4,
-          "powerTokens": 4,
-          "minutesPerMove": 236.9,
-          "moves": 81
+          "Game": 284793,
+          "House": "Martell",
+          "IsWinner": false,
+          "Points": 0,
+          "BattlePenalty": 0,
+          "Strongholds": 0,
+          "Castles": 0,
+          "Cla": 5,
+          "Supplies": 4,
+          "PowerTokens": 4,
+          "MinutesPerMove": 236.9,
+          "Moves": 81,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         },
         {
-          "game": 284788,
-          "house": 5,
-          "isWinner": false,
-          "points": 4,
-          "battlePenalty": 0,
-          "strongholds": 3,
-          "castles": 1,
-          "cla": 9,
-          "supplies": 4,
-          "powerTokens": 4,
-          "minutesPerMove": 362.6,
-          "moves": 63
+          "Game": 284788,
+          "House": "Greyjoy",
+          "IsWinner": false,
+          "Points": 4,
+          "BattlePenalty": 0,
+          "Strongholds": 3,
+          "Castles": 1,
+          "Cla": 9,
+          "Supplies": 4,
+          "PowerTokens": 4,
+          "MinutesPerMove": 362.6,
+          "Moves": 63,
+          "Stats": {
+            "Battles": {
+              "Won": 0,
+              "Lost": 0
+            },
+            "Kills": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "Casualties": {
+              "Footmen": 0,
+              "Knights": 0,
+              "SiegeEngines": 0,
+              "Ships": 0
+            },
+            "PowerTokens": {
+              "ConsolidatePower": 0,
+              "Raids": 0,
+              "GameOfThrones": 0,
+              "Wildlings": 0,
+              "Tywin": 0
+            },
+            "Bids": {
+              "IronThrone": 0,
+              "Fiefdoms": 0,
+              "KingsCourt": 0,
+              "Wildlings": 0,
+              "Aeron": 0
+            }
+          }
         }
       ],
-      "penaltiesPoints": 3,
-      "penaltiesDetails": [
+      "PenaltiesPoints": 3,
+      "PenaltiesDetails": [
         {
-          "game": 284790,
-          "points": 3,
-          "details": "spoiling"
+          "Game": 284790,
+          "Points": 3,
+          "Details": "spoiling"
         }
-      ]
+      ],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
     }
   ],
-  "generatedTime": "2023-03-08T11:32:12.2288481+00:00"
+  "GeneratedTime": "2023-03-08T11:32:12.2288481+00:00",
+  "IsCreatedManually": true
 }
