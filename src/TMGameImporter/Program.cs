@@ -55,10 +55,9 @@ logger.LogInformation(
     "Importing program started with following arguments: {arguments}", 
     string.Join("", GetArgumentsString()));
 
-var fixingService = host.Services.GetRequiredService<GameFixingService>();
-await fixingService.FixHouseName();
-
-return;
+//var fixingService = host.Services.GetRequiredService<GameFixingService>();
+//await fixingService.FixHouseName();
+//return;
 
 var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
 await mainImportingService.Import();
