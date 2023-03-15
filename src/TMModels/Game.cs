@@ -14,7 +14,7 @@ public record Game(
     bool IsCreatedManually = false);
 
 public record HouseScore(
-    [property: JsonPropertyName("name")] House House,
+    House House,
     string Player,
     int Throne,
     int Fiefdoms,

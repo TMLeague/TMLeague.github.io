@@ -34,7 +34,7 @@ public class GameConverterTests
         var logHtml = File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-log.html"));
 
         // act
-        var game = _gameConverter.Convert(gameId, gameData, chat, logHtml);
+        var game = _gameConverter.Convert(gameId, gameData!, chat!, logHtml);
 
         // assert
         game.Should().NotBeNull();

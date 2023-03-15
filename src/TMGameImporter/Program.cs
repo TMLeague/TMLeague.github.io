@@ -8,6 +8,7 @@ using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
 using TMGameImporter.Http.Converters;
+using TMGameImporter.Services.Games;
 using TMGameImporter.Services.Import;
 using TMGameImporter.Services.Summaries;
 
@@ -28,6 +29,7 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net"), Timeout = TimeSpan.FromSeconds(5) })
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
+            .AddScoped<GameFixingService>()
             .AddScoped<PlayerConverter>()
             .AddScoped<StateConverter>()
             .AddScoped<GameConverter>()
@@ -52,6 +54,11 @@ var options = host.Services.GetRequiredService<IOptions<ImporterOptions>>();
 logger.LogInformation(
     "Importing program started with following arguments: {arguments}", 
     string.Join("", GetArgumentsString()));
+
+var fixingService = host.Services.GetRequiredService<GameFixingService>();
+await fixingService.FixHouseName();
+
+return;
 
 var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
 await mainImportingService.Import();
