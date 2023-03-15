@@ -4,6 +4,7 @@
 @using TMApplication.ViewModels
 @using TMInfrastructure.Http
 @using TMLeague.Components
+@using TMLeague.Components.Stats
 @using TMLeague.Components.TmLinks
 @using TMModels
 @inject GameService GameService
@@ -144,68 +145,19 @@ else if (GameIdInt != null)
                             <td>@Math.Round(houseScore.MinutesPerMove)</td>
                             <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
                             <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @houseScore.Stats.Battles.Total
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Won: @houseScore.Stats.Battles.Won</li>
-                                        <li class="list-group-item text-bg-dark">Lost: @houseScore.Stats.Battles.Lost</li>
-                                    </ul>
-                                </div>
+                                <BattleStats Stats="@houseScore.Stats.Battles"></BattleStats>
                             </td>
                             <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"{houseScore.Stats.Kills.Total} ({houseScore.Stats.Kills.MobilizationPoints}MP)")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Kills.Footmen</li>
-                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Kills.Knights</li>
-                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Kills.SiegeEngines</li>
-                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Kills.Ships</li>
-                                    </ul>
-                                </div>
+                                <UnitStats Stats="@houseScore.Stats.Kills"></UnitStats>
                             </td>
                             <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"{houseScore.Stats.Casualties.Total} ({houseScore.Stats.Casualties.MobilizationPoints}MP)")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Casualties.Footmen</li>
-                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Casualties.Knights</li>
-                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Casualties.SiegeEngines</li>
-                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Casualties.Ships</li>
-                                    </ul>
-                                </div>
+                                <UnitStats Stats="@houseScore.Stats.Casualties"></UnitStats>
                             </td>
                             <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @houseScore.Stats.PowerTokens.Total
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Game of Thrones: @houseScore.Stats.PowerTokens.GameOfThrones</li>
-                                        <li class="list-group-item text-bg-dark">Consolidate Power: @houseScore.Stats.PowerTokens.ConsolidatePower</li>
-                                        <li class="list-group-item text-bg-dark">Raids: @houseScore.Stats.PowerTokens.Raids</li>
-                                        @if (houseScore.Stats.PowerTokens.Wildlings > 0)
-                                        {
-                                            <li class="list-group-item text-bg-dark">Skinchanger Scout: @houseScore.Stats.PowerTokens.Wildlings</li>
-                                        }
-                                        @if (houseScore.House == House.Lannister)
-                                        {
-                                            <li class="list-group-item text-bg-dark">Tywin: @houseScore.Stats.PowerTokens.Tywin</li>
-                                        }
-                                    </ul>
-                                </div>
+                                <PowerTokenStats Stats="@houseScore.Stats.PowerTokens"></PowerTokenStats>
                             </td>
                             <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @houseScore.Stats.Bids.Total
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Wildlings: @houseScore.Stats.Bids.Wildlings</li>
-                                        <li class="list-group-item text-bg-dark">Iron Throne: @houseScore.Stats.Bids.IronThrone</li>
-                                        <li class="list-group-item text-bg-dark">Fiefdoms: @houseScore.Stats.Bids.Fiefdoms</li>
-                                        <li class="list-group-item text-bg-dark">King's Court: @houseScore.Stats.Bids.KingsCourt</li>
-                                        @if (houseScore.House == House.Greyjoy)
-                                        {
-                                            <li class="list-group-item text-bg-dark">Aeron: @houseScore.Stats.Bids.Aeron</li>
-                                        }
-                                    </ul>
-                                </div>
+                                <BidStats Stats="@houseScore.Stats.Bids"></BidStats>
                             </td>
                         </tr>
                     }

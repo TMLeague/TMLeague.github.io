@@ -115,7 +115,8 @@ public class DivisionService
         playerResult.Moves,
         playerResult.Houses.Select(GetPlayerHouseVm).ToArray(),
         playerResult.PenaltiesPoints,
-        playerResult.PenaltiesDetails.Select(GetPlayerPenaltyVm).ToArray());
+        playerResult.PenaltiesDetails.Select(GetPlayerPenaltyVm).ToArray(),
+        playerResult.Stats);
 
     private static PlayerHouseViewModel GetPlayerHouseVm(HouseResult houseResult) => new(
         houseResult.Game,
@@ -129,7 +130,8 @@ public class DivisionService
         houseResult.Supplies,
         houseResult.PowerTokens,
         houseResult.MinutesPerMove,
-        houseResult.Moves);
+        houseResult.Moves,
+        houseResult.Stats);
 
     private static PlayerPenaltyViewModel GetPlayerPenaltyVm(PlayerPenalty playerPenalty) => new(
         playerPenalty.Game,

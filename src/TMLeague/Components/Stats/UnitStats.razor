@@ -1,0 +1,32 @@
+﻿@if (Stats != null)
+{
+    @((MarkupString)$"{Stats.Total}&nbsp;({Stats.MobilizationPoints}MP)")
+    @if (Stats.Total > 0)
+    {
+        <div class="tt-inner">
+            <ul class="list-group list-group-flush text-bg-dark">
+                @if (Stats.Footmen > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Footmen: @Stats.Footmen</li>
+                }
+                @if (Stats.Knights > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Knights: @Stats.Knights</li>
+                }
+                @if (Stats.SiegeEngines > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Siege Engines: @Stats.SiegeEngines</li>
+                }
+                @if (Stats.Ships > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Ships: @Stats.Ships</li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public TMModels.UnitStats? Stats { get; set; }
+}

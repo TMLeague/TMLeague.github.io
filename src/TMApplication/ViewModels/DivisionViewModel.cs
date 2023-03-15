@@ -17,17 +17,24 @@ public record DivisionViewModel(
 
 public record DivisionPlayerViewModel(
     string Name,
-    double TotalPoints = 0,
-    int Wins = 0,
-    int Cla = 0,
-    int Supplies = 0,
-    int PowerTokens = 0,
-    double MinutesPerMove = 0,
-    int Moves = 0,
-    PlayerHouseViewModel[]? Houses = null,
-    double TotalPenaltyPoints = 0,
-    PlayerPenaltyViewModel[]? Penalties = null)
+    double TotalPoints,
+    int Wins,
+    int Cla,
+    int Supplies,
+    int PowerTokens,
+    double MinutesPerMove,
+    int Moves,
+    PlayerHouseViewModel[] Houses,
+    double TotalPenaltyPoints,
+    PlayerPenaltyViewModel[] Penalties,
+    Stats Stats)
 {
+    public DivisionPlayerViewModel(string name) :
+        this(name, 0, 0, 0, 0, 0, 0, 0,
+            Array.Empty<PlayerHouseViewModel>(), 0, 
+            Array.Empty<PlayerPenaltyViewModel>(), new Stats())
+    { }
+
     public PlayerHouseViewModel GetHouse(House house) =>
         Houses?.FirstOrDefault(h => h.House == house) ??
         new PlayerHouseViewModel(null, house);
@@ -36,16 +43,22 @@ public record DivisionPlayerViewModel(
 public record PlayerHouseViewModel(
     int? Game,
     House House,
-    bool IsWinner = false,
-    double Points = 0,
-    int BattlePenalty = 0,
-    int Strongholds = 0,
-    int Castles = 0,
-    int Cla = 0,
-    int Supplies = 0,
-    int PowerTokens = 0,
-    double MinutesPerMove = 0,
-    int Moves = 0);
+    bool IsWinner,
+    double Points,
+    int BattlePenalty,
+    int Strongholds,
+    int Castles,
+    int Cla,
+    int Supplies,
+    int PowerTokens,
+    double MinutesPerMove,
+    int Moves,
+    Stats Stats)
+{
+    public PlayerHouseViewModel(int? game, House house) : 
+        this(game, house, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, new Stats())
+    { }
+}
 
 public record PlayerPenaltyViewModel(
     int? Game,

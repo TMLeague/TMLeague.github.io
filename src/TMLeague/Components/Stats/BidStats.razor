@@ -1,0 +1,36 @@
+﻿@if (Stats != null)
+{
+    @Stats.Total
+    @if (Stats.Total > 0)
+    {
+        <div class="tt-inner">
+            <ul class="list-group list-group-flush text-bg-dark">
+                @if (Stats.Wildlings > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Wildlings: @Stats.Wildlings</li>
+                }
+                @if (Stats.IronThrone > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Iron Throne: @Stats.IronThrone</li>
+                }
+                @if (Stats.Fiefdoms > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Fiefdoms: @Stats.Fiefdoms</li>
+                }
+                @if (Stats.KingsCourt > 0)
+                {
+                    <li class="list-group-item text-bg-dark">King's Court: @Stats.KingsCourt</li>
+                }
+                @if (Stats.Aeron > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Aeron: @Stats.Aeron</li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public TMModels.BidStats? Stats { get; set; }
+}
