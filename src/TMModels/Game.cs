@@ -91,14 +91,19 @@ public record Stats(
         this(new BattleStats(), new UnitStats(), new UnitStats(), new PowerTokenStats(), new BidStats())
     { }
 
-    public static Stats operator +(Stats stats1, Stats stats2) => new()
-    {
-        Battles = stats1.Battles + stats2.Battles,
-        Kills = stats1.Kills + stats2.Kills,
-        Casualties = stats1.Casualties + stats2.Casualties,
-        PowerTokens = stats1.PowerTokens + stats2.PowerTokens,
-        Bids = stats1.Bids + stats2.Bids
-    };
+    public static Stats Max(Stats stats1, Stats stats2) => new(
+        BattleStats.Max(stats1.Battles, stats2.Battles),
+        UnitStats.Max(stats1.Kills, stats2.Kills),
+        UnitStats.Min(stats1.Casualties, stats2.Casualties),
+        PowerTokenStats.Max(stats1.PowerTokens, stats2.PowerTokens),
+        BidStats.Max(stats1.Bids, stats2.Bids));
+
+    public static Stats operator +(Stats stats1, Stats stats2) => new(
+         stats1.Battles + stats2.Battles,
+         stats1.Kills + stats2.Kills,
+         stats1.Casualties + stats2.Casualties,
+         stats1.PowerTokens + stats2.PowerTokens,
+         stats1.Bids + stats2.Bids);
 }
 
 public record BattleStats
@@ -108,11 +113,20 @@ public record BattleStats
     [JsonIgnore]
     public int Total => Won + Lost;
 
-    public static BattleStats operator +(BattleStats stats1, BattleStats stats2) => new()
+    public BattleStats() { }
+    public BattleStats(int won, int lost)
     {
-        Won = stats1.Won + stats2.Won,
-        Lost = stats1.Lost + stats2.Lost
-    };
+        Won = won;
+        Lost = lost;
+    }
+
+    public static BattleStats Max(BattleStats stats1, BattleStats stats2) => new(
+        Math.Max(stats1.Won, stats2.Won),
+        Math.Min(stats1.Lost, stats2.Lost));
+
+    public static BattleStats operator +(BattleStats stats1, BattleStats stats2) => new(
+        stats1.Won + stats2.Won,
+        stats1.Lost + stats2.Lost);
 }
 
 public record UnitStats
@@ -135,13 +149,23 @@ public record UnitStats
     [JsonIgnore]
     public int MobilizationPoints => Footmen + 2 * Knights + 2 * SiegeEngines + Ships;
 
-    public static UnitStats operator +(UnitStats stats1, UnitStats stats2) => new()
-    {
-        Footmen = stats1.Footmen + stats2.Footmen,
-        Knights = stats1.Knights + stats2.Knights,
-        SiegeEngines = stats1.SiegeEngines + stats2.SiegeEngines,
-        Ships = stats1.Ships + stats2.Ships
-    };
+    public static UnitStats Max(UnitStats stats1, UnitStats stats2) => new(
+        Math.Max(stats1.Footmen, stats2.Footmen),
+        Math.Max(stats1.Knights, stats2.Knights),
+        Math.Max(stats1.SiegeEngines, stats2.SiegeEngines),
+        Math.Max(stats1.Ships, stats2.Ships));
+
+    public static UnitStats Min(UnitStats stats1, UnitStats stats2) => new(
+        Math.Min(stats1.Footmen, stats2.Footmen),
+        Math.Min(stats1.Knights, stats2.Knights),
+        Math.Min(stats1.SiegeEngines, stats2.SiegeEngines),
+        Math.Min(stats1.Ships, stats2.Ships));
+
+    public static UnitStats operator +(UnitStats stats1, UnitStats stats2) => new(
+        stats1.Footmen + stats2.Footmen,
+        stats1.Knights + stats2.Knights,
+        stats1.SiegeEngines + stats2.SiegeEngines,
+        stats1.Ships + stats2.Ships);
 }
 
 public record PowerTokenStats
@@ -154,12 +178,29 @@ public record PowerTokenStats
     [JsonIgnore]
     public int Total => ConsolidatePower + Raids + GameOfThrones + Wildlings + Tywin;
 
-    public static PowerTokenStats operator +(PowerTokenStats stats1, PowerTokenStats stats2) => new()
+    public PowerTokenStats() { }
+    public PowerTokenStats(int consolidatePower, int raids, int gameOfThrones, int wildlings, int tywin)
     {
-        ConsolidatePower = stats1.ConsolidatePower + stats2.ConsolidatePower,
-        Raids = stats1.Raids + stats2.Raids,
-        GameOfThrones = stats1.GameOfThrones + stats2.GameOfThrones
-    };
+        ConsolidatePower = consolidatePower;
+        Raids = raids;
+        GameOfThrones = gameOfThrones;
+        Wildlings = wildlings;
+        Tywin = tywin;
+    }
+
+    public static PowerTokenStats Max(PowerTokenStats stats1, PowerTokenStats stats2) => new(
+        Math.Max(stats1.ConsolidatePower, stats2.ConsolidatePower),
+        Math.Max(stats1.Raids, stats2.Raids),
+        Math.Max(stats1.GameOfThrones, stats2.GameOfThrones),
+        Math.Max(stats1.Wildlings, stats2.Wildlings),
+        Math.Max(stats1.Tywin, stats2.Tywin));
+
+    public static PowerTokenStats operator +(PowerTokenStats stats1, PowerTokenStats stats2) => new(
+        stats1.ConsolidatePower + stats2.ConsolidatePower,
+        stats1.Raids + stats2.Raids,
+        stats1.GameOfThrones + stats2.GameOfThrones,
+        stats1.Wildlings + stats2.Wildlings,
+        stats1.Tywin + stats2.Tywin);
 }
 
 public record BidStats
@@ -172,11 +213,27 @@ public record BidStats
     [JsonIgnore]
     public int Total => IronThrone + Fiefdoms + KingsCourt + Wildlings + Aeron;
 
-    public static BidStats operator +(BidStats stats1, BidStats stats2) => new()
+    public BidStats() { }
+    public BidStats(int ironThrone, int fiefdoms, int kingsCourt, int wildlings, int aeron)
     {
-        IronThrone = stats1.IronThrone + stats2.IronThrone,
-        Fiefdoms = stats1.Fiefdoms + stats2.Fiefdoms,
-        KingsCourt = stats1.KingsCourt + stats2.KingsCourt,
-        Wildlings = stats1.Wildlings + stats2.Wildlings
-    };
+        IronThrone = ironThrone;
+        Fiefdoms = fiefdoms;
+        KingsCourt = kingsCourt;
+        Wildlings = wildlings;
+        Aeron = aeron;
+    }
+
+    public static BidStats Max(BidStats stats1, BidStats stats2) => new(
+        Math.Max(stats1.IronThrone, stats2.IronThrone),
+        Math.Max(stats1.Fiefdoms, stats2.Fiefdoms),
+        Math.Max(stats1.KingsCourt, stats2.KingsCourt),
+        Math.Max(stats1.Wildlings, stats2.Wildlings),
+        Math.Max(stats1.Aeron, stats2.Aeron));
+
+    public static BidStats operator +(BidStats stats1, BidStats stats2) => new(
+        stats1.IronThrone + stats2.IronThrone,
+        stats1.Fiefdoms + stats2.Fiefdoms,
+        stats1.KingsCourt + stats2.KingsCourt,
+        stats1.Wildlings + stats2.Wildlings,
+        stats1.Aeron + stats2.Aeron);
 }
