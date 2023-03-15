@@ -1,25 +1,25 @@
 ﻿@if (Stats != null)
 {
-    @((MarkupString)$"{Stats.Total}&nbsp;({Stats.MobilizationPoints}MP)")
+    @((MarkupString)$"{Math.Round(Stats.Total, 1)}&nbsp;({Math.Round(Stats.MobilizationPoints, 1)}MP)")
     @if (Stats.Total > 0)
     {
         <div class="tt-inner">
             <ul class="list-group list-group-flush text-bg-dark">
                 @if (Stats.Footmen > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Footmen: @Stats.Footmen</li>
+                    <li class="list-group-item text-bg-dark">Footmen: @Math.Round(Stats.Footmen, 1)</li>
                 }
                 @if (Stats.Knights > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Knights: @Stats.Knights</li>
+                    <li class="list-group-item text-bg-dark">Knights: @Math.Round(Stats.Knights, 1)</li>
                 }
                 @if (Stats.SiegeEngines > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Siege Engines: @Stats.SiegeEngines</li>
+                    <li class="list-group-item text-bg-dark">Siege Engines: @Math.Round(Stats.SiegeEngines, 1)</li>
                 }
                 @if (Stats.Ships > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Ships: @Stats.Ships</li>
+                    <li class="list-group-item text-bg-dark">Ships: @Math.Round(Stats.Ships, 1)</li>
                 }
             </ul>
         </div>

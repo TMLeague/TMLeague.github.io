@@ -135,7 +135,7 @@ public record SummaryScore(
     SummaryHouseScore[] Houses,
     double PenaltiesPoints,
     int? Position,
-    Stats? Stats)
+    Stats Stats)
 {
     public Stats Stats { get; } = Stats ?? new Stats();
 

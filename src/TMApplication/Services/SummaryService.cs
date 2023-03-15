@@ -54,9 +54,9 @@ public class SummaryService
         );
     }
 
-    private static ScoreViewModel GetScore(SummaryScore score) => GetScoreAverage(score, 1);
+    private static ScoreViewModel GetScore(SummaryScore score) => GetScoreAverage(score);
 
-    private static ScoreViewModel GetScoreAverage(SummaryScore score, int seasons) => new(
+    private static ScoreViewModel GetScoreAverage(SummaryScore score, int seasons = 1) => new(
         score.TotalPoints / seasons,
         (double)score.Wins / seasons,
         (double)score.Cla / seasons,
@@ -66,7 +66,8 @@ public class SummaryService
         (double)score.Moves / seasons,
         GetHousesAverage(score.Houses, seasons),
         score.PenaltiesPoints / seasons,
-        (double?)score.Position / seasons);
+        (double?)score.Position / seasons,
+        score.Stats / seasons);
 
     private static Dictionary<House, double> GetHousesAverage(IEnumerable<SummaryHouseScore> houses, int seasons) =>
         houses.ToDictionary(score => score.House, score => score.Points / seasons);

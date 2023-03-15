@@ -1,29 +1,29 @@
 ﻿@if (Stats != null)
 {
-    @Stats.Total
+    @Math.Round(Stats.Total, 1)
     @if (Stats.Total > 0)
     {
         <div class="tt-inner">
             <ul class="list-group list-group-flush text-bg-dark">
                 @if (Stats.GameOfThrones > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Game of Thrones: @Stats.GameOfThrones</li>
+                    <li class="list-group-item text-bg-dark">Game of Thrones: @Math.Round(Stats.GameOfThrones, 1)</li>
                 }
                 @if (Stats.ConsolidatePower > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Consolidate Power: @Stats.ConsolidatePower</li>
+                    <li class="list-group-item text-bg-dark">Consolidate Power: @Math.Round(Stats.ConsolidatePower, 1)</li>
                 }
                 @if (Stats.Raids > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Raids: @Stats.Raids</li>
+                    <li class="list-group-item text-bg-dark">Raids: @Math.Round(Stats.Raids, 1)</li>
                 }
                 @if (Stats.Wildlings > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Skinchanger Scout: @Stats.Wildlings</li>
+                    <li class="list-group-item text-bg-dark">Skinchanger Scout: @Math.Round(Stats.Wildlings, 1)</li>
                 }
                 @if (@Stats.Tywin > 0)
                 {
-                    <li class="list-group-item text-bg-dark">Tywin: @Stats.Tywin</li>
+                    <li class="list-group-item text-bg-dark">Tywin: @Math.Round(Stats.Tywin, 1)</li>
                 }
             </ul>
         </div>

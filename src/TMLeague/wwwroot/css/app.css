@@ -252,7 +252,6 @@ a,
     position: sticky;
     left: 0;
     z-index: 1;
-    border-right: 10px solid #212529;
 }
 
 .sticky-start {

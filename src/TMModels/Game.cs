@@ -104,17 +104,24 @@ public record Stats(
          stats1.Casualties + stats2.Casualties,
          stats1.PowerTokens + stats2.PowerTokens,
          stats1.Bids + stats2.Bids);
+
+    public static Stats operator /(Stats stats, double divisor) => new(
+         stats.Battles / divisor,
+         stats.Kills / divisor,
+         stats.Casualties / divisor,
+         stats.PowerTokens / divisor,
+         stats.Bids / divisor);
 }
 
 public record BattleStats
 {
-    public int Won { get; set; }
-    public int Lost { get; set; }
+    public double Won { get; set; }
+    public double Lost { get; set; }
     [JsonIgnore]
-    public int Total => Won + Lost;
+    public double Total => Won + Lost;
 
     public BattleStats() { }
-    public BattleStats(int won, int lost)
+    public BattleStats(double won, double lost)
     {
         Won = won;
         Lost = lost;
@@ -127,12 +134,16 @@ public record BattleStats
     public static BattleStats operator +(BattleStats stats1, BattleStats stats2) => new(
         stats1.Won + stats2.Won,
         stats1.Lost + stats2.Lost);
+
+    public static BattleStats operator /(BattleStats stats, double divisor) => new(
+        stats.Won / divisor,
+        stats.Lost / divisor);
 }
 
 public record UnitStats
 {
     public UnitStats() { }
-    public UnitStats(int footmen, int knights, int siegeEngines, int ships)
+    public UnitStats(double footmen, double knights, double siegeEngines, double ships)
     {
         Footmen = footmen;
         Knights = knights;
@@ -140,14 +151,14 @@ public record UnitStats
         Ships = ships;
     }
 
-    public int Footmen { get; set; }
-    public int Knights { get; set; }
-    public int SiegeEngines { get; set; }
-    public int Ships { get; set; }
+    public double Footmen { get; set; }
+    public double Knights { get; set; }
+    public double SiegeEngines { get; set; }
+    public double Ships { get; set; }
     [JsonIgnore]
-    public int Total => Footmen + Knights + SiegeEngines + Ships;
+    public double Total => Footmen + Knights + SiegeEngines + Ships;
     [JsonIgnore]
-    public int MobilizationPoints => Footmen + 2 * Knights + 2 * SiegeEngines + Ships;
+    public double MobilizationPoints => Footmen + 2 * Knights + 2 * SiegeEngines + Ships;
 
     public static UnitStats Max(UnitStats stats1, UnitStats stats2) => new(
         Math.Max(stats1.Footmen, stats2.Footmen),
@@ -166,20 +177,26 @@ public record UnitStats
         stats1.Knights + stats2.Knights,
         stats1.SiegeEngines + stats2.SiegeEngines,
         stats1.Ships + stats2.Ships);
+
+    public static UnitStats operator /(UnitStats stats, double divisor) => new(
+        stats.Footmen / divisor,
+        stats.Knights / divisor,
+        stats.SiegeEngines / divisor,
+        stats.Ships / divisor);
 }
 
 public record PowerTokenStats
 {
-    public int ConsolidatePower { get; set; }
-    public int Raids { get; set; }
-    public int GameOfThrones { get; set; }
-    public int Wildlings { get; set; }
-    public int Tywin { get; set; }
+    public double ConsolidatePower { get; set; }
+    public double Raids { get; set; }
+    public double GameOfThrones { get; set; }
+    public double Wildlings { get; set; }
+    public double Tywin { get; set; }
     [JsonIgnore]
-    public int Total => ConsolidatePower + Raids + GameOfThrones + Wildlings + Tywin;
+    public double Total => ConsolidatePower + Raids + GameOfThrones + Wildlings + Tywin;
 
     public PowerTokenStats() { }
-    public PowerTokenStats(int consolidatePower, int raids, int gameOfThrones, int wildlings, int tywin)
+    public PowerTokenStats(double consolidatePower, double raids, double gameOfThrones, double wildlings, double tywin)
     {
         ConsolidatePower = consolidatePower;
         Raids = raids;
@@ -201,20 +218,27 @@ public record PowerTokenStats
         stats1.GameOfThrones + stats2.GameOfThrones,
         stats1.Wildlings + stats2.Wildlings,
         stats1.Tywin + stats2.Tywin);
+
+    public static PowerTokenStats operator /(PowerTokenStats stats, double divisor) => new(
+        stats.ConsolidatePower / divisor,
+        stats.Raids / divisor,
+        stats.GameOfThrones / divisor,
+        stats.Wildlings / divisor,
+        stats.Tywin / divisor);
 }
 
 public record BidStats
 {
-    public int IronThrone { get; set; }
-    public int Fiefdoms { get; set; }
-    public int KingsCourt { get; set; }
-    public int Wildlings { get; set; }
-    public int Aeron { get; set; }
+    public double IronThrone { get; set; }
+    public double Fiefdoms { get; set; }
+    public double KingsCourt { get; set; }
+    public double Wildlings { get; set; }
+    public double Aeron { get; set; }
     [JsonIgnore]
-    public int Total => IronThrone + Fiefdoms + KingsCourt + Wildlings + Aeron;
+    public double Total => IronThrone + Fiefdoms + KingsCourt + Wildlings + Aeron;
 
     public BidStats() { }
-    public BidStats(int ironThrone, int fiefdoms, int kingsCourt, int wildlings, int aeron)
+    public BidStats(double ironThrone, double fiefdoms, double kingsCourt, double wildlings, double aeron)
     {
         IronThrone = ironThrone;
         Fiefdoms = fiefdoms;
@@ -236,4 +260,11 @@ public record BidStats
         stats1.KingsCourt + stats2.KingsCourt,
         stats1.Wildlings + stats2.Wildlings,
         stats1.Aeron + stats2.Aeron);
+
+    public static BidStats operator /(BidStats stats, double divisor) => new(
+        stats.IronThrone / divisor,
+        stats.Fiefdoms / divisor,
+        stats.KingsCourt / divisor,
+        stats.Wildlings / divisor,
+        stats.Aeron / divisor);
 }
