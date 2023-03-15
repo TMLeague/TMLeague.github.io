@@ -4,6 +4,7 @@
 @using TMApplication.ViewModels
 @using TMInfrastructure.Http
 @using TMLeague.Components
+@using TMLeague.Components.Stats
 @using TMLeague.Components.TmLinks
 @using TMModels
 @inject GameService GameService
@@ -74,7 +75,7 @@ else if (GameIdInt != null)
     }
     else
     {
-        <div class="col-lg-11">
+        <div class="row">
             <table class="table table-striped table-dark pb-0" width="800px">
                 <thead>
                     <tr class="align-middle">
@@ -84,11 +85,11 @@ else if (GameIdInt != null)
                         <th scope="col" style="width: 50px" rowspan="2">Supply</th>
                         <th scope="col" style="width: 60px" colspan="3">Tracks</th>
                         <th scope="col" style="width: 50px" rowspan="2">MPM</th>
-                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")" rowspan="2"></th>
-                        <th scope="col" style="width: 50px" class="collapse @(ShowStats ? "show" : "")" rowspan="2">Battles</th>
-                        <th scope="col" style="width: 50px" class="collapse @(ShowStats ? "show" : "")" rowspan="2">Kills<i>*</i></th>
-                        <th scope="col" style="width: 50px" class="collapse @(ShowStats ? "show" : "")" rowspan="2">Casualties<i>*</i></th>
-                        <th scope="col" style="width: 50px" class="collapse @(ShowStats ? "show" : "") tt" colspan="2">
+                        <th scope="col" style="width: 0" class="p-1 invisible border-0" rowspan="2"></th>
+                        <th scope="col" style="width: 50px" rowspan="2">Battles</th>
+                        <th scope="col" style="width: 50px" rowspan="2">Kills<i>*</i></th>
+                        <th scope="col" style="width: 50px" rowspan="2">Casualties<i>*</i></th>
+                        <th scope="col" style="width: 50px" class="tt" colspan="2">
                             PT
                             <div class="px-3 tt-inner">Power Tokens</div>
                         </th>
@@ -106,11 +107,11 @@ else if (GameIdInt != null)
                             KC
                             <div class="px-3 tt-inner">King's court track position</div>
                         </th>
-                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                        <th scope="col" style="width: 20px" class="tt">
                             +
                             <div class="px-3 tt-inner">Gathered</div>
                         </th>
-                        <th scope="col" style="width: 20px" class="collapse @(ShowStats ? "show" : "") tt">
+                        <th scope="col" style="width: 20px" class="tt">
                             -
                             <div class="px-3 tt-inner">Spent</div>
                         </th>
@@ -142,86 +143,27 @@ else if (GameIdInt != null)
                             <td>@houseScore.Fiefdoms</td>
                             <td>@houseScore.KingsCourt</td>
                             <td>@Math.Round(houseScore.MinutesPerMove)</td>
-                            <td class="p-1 invisible border-0 collapse @(ShowStats ? "show" : "")"></td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @houseScore.Stats.Battles.Total
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Won: @houseScore.Stats.Battles.Won</li>
-                                        <li class="list-group-item text-bg-dark">Lost: @houseScore.Stats.Battles.Lost</li>
-                                    </ul>
-                                </div>
+                            <td class="p-1 invisible border-0"></td>
+                            <td class="tt" ontouchstart="">
+                                <BattleStats Stats="@houseScore.Stats.Battles"></BattleStats>
                             </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"{houseScore.Stats.Kills.Total} ({houseScore.Stats.Kills.MobilizationPoints}MP)")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Kills.Footmen</li>
-                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Kills.Knights</li>
-                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Kills.SiegeEngines</li>
-                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Kills.Ships</li>
-                                    </ul>
-                                </div>
+                            <td class="tt" ontouchstart="">
+                                <UnitStats Stats="@houseScore.Stats.Kills"></UnitStats>
                             </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @($"{houseScore.Stats.Casualties.Total} ({houseScore.Stats.Casualties.MobilizationPoints}MP)")
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Footmen: @houseScore.Stats.Casualties.Footmen</li>
-                                        <li class="list-group-item text-bg-dark">Knights: @houseScore.Stats.Casualties.Knights</li>
-                                        <li class="list-group-item text-bg-dark">Siege Engines: @houseScore.Stats.Casualties.SiegeEngines</li>
-                                        <li class="list-group-item text-bg-dark">Ships: @houseScore.Stats.Casualties.Ships</li>
-                                    </ul>
-                                </div>
+                            <td class="tt" ontouchstart="">
+                                <UnitStats Stats="@houseScore.Stats.Casualties"></UnitStats>
                             </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @houseScore.Stats.PowerTokens.Total
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Game of Thrones: @houseScore.Stats.PowerTokens.GameOfThrones</li>
-                                        <li class="list-group-item text-bg-dark">Consolidate Power: @houseScore.Stats.PowerTokens.ConsolidatePower</li>
-                                        <li class="list-group-item text-bg-dark">Raids: @houseScore.Stats.PowerTokens.Raids</li>
-                                        @if (houseScore.Stats.PowerTokens.Wildlings > 0)
-                                        {
-                                            <li class="list-group-item text-bg-dark">Skinchanger Scout: @houseScore.Stats.PowerTokens.Wildlings</li>
-                                        }
-                                        @if (houseScore.House == House.Lannister)
-                                        {
-                                            <li class="list-group-item text-bg-dark">Tywin: @houseScore.Stats.PowerTokens.Tywin</li>
-                                        }
-                                    </ul>
-                                </div>
+                            <td class="tt" ontouchstart="">
+                                <PowerTokenStats Stats="@houseScore.Stats.PowerTokens"></PowerTokenStats>
                             </td>
-                            <td class="collapse @(ShowStats ? "show" : "") tt" ontouchstart="">
-                                @houseScore.Stats.Bids.Total
-                                <div class="tt-inner">
-                                    <ul class="list-group list-group-flush text-bg-dark">
-                                        <li class="list-group-item text-bg-dark">Wildlings: @houseScore.Stats.Bids.Wildlings</li>
-                                        <li class="list-group-item text-bg-dark">Iron Throne: @houseScore.Stats.Bids.IronThrone</li>
-                                        <li class="list-group-item text-bg-dark">Fiefdoms: @houseScore.Stats.Bids.Fiefdoms</li>
-                                        <li class="list-group-item text-bg-dark">King's Court: @houseScore.Stats.Bids.KingsCourt</li>
-                                        @if (houseScore.House == House.Greyjoy)
-                                        {
-                                            <li class="list-group-item text-bg-dark">Aeron: @houseScore.Stats.Bids.Aeron</li>
-                                        }
-                                    </ul>
-                                </div>
+                            <td class="tt" ontouchstart="">
+                                <BidStats Stats="@houseScore.Stats.Bids"></BidStats>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-        <button class="col-lg-1 btn btn-primary" @onclick="ChangeVisibility">
-            @if (ShowStats)
-            {
-                <i class="bi bi-chevron-compact-left display-6"></i>
-            }
-            else
-            {
-                <i class="bi bi-chevron-compact-right display-6"></i>
-            }
-        </button>
     }
 </div>
 
@@ -230,10 +172,7 @@ else if (GameIdInt != null)
     {
         <p class="mb-0">Data fetched at @GameVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
     }
-    @if (ShowStats)
-    {
-        <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
-    }
+    <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
 </footer>
 
 @code {
@@ -249,9 +188,6 @@ else if (GameIdInt != null)
             null;
 
     private GameViewModel? GameVm { get; set; }
-
-    private bool ShowStats { get; set; }
-    private void ChangeVisibility() => ShowStats = !ShowStats;
 
     private bool _isInitialized;
 

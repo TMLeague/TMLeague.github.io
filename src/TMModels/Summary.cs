@@ -3,9 +3,9 @@
 namespace TMModels;
 
 public record Summary(
-    [property: JsonPropertyName("leagueId")] string LeagueId,
-    [property: JsonPropertyName("leagueName")] string LeagueName,
-    [property: JsonPropertyName("divisions")] SummaryDivision[] Divisions)
+    string LeagueId,
+    string LeagueName,
+    SummaryDivision[] Divisions)
 {
     public static Summary operator +(Summary summary1, Summary summary2)
     {
@@ -28,9 +28,9 @@ public record Summary(
 }
 
 public record SummaryDivision(
-    [property: JsonPropertyName("divisionId")] string DivisionId,
-    [property: JsonPropertyName("divisionName")] string DivisionName,
-    [property: JsonPropertyName("players")] SummaryPlayerScore[] Players)
+    string DivisionId,
+    string DivisionName,
+    SummaryPlayerScore[] Players)
 {
     [JsonConstructor]
     public SummaryDivision(string divisionId, string divisionName) :
@@ -56,10 +56,10 @@ public record SummaryDivision(
 }
 
 public record SummaryPlayerScore(
-    [property: JsonPropertyName("player")] string Player,
-    [property: JsonPropertyName("best")] SummaryScore Best,
-    [property: JsonPropertyName("total")] SummaryScore Total,
-    [property: JsonPropertyName("seasons")] int Seasons = 1)
+    string Player,
+    SummaryScore Best,
+    SummaryScore Total,
+    int Seasons = 1)
 {
     [JsonConstructor]
     public SummaryPlayerScore(string player) :
@@ -125,19 +125,20 @@ public record SummaryPlayerScore(
 }
 
 public record SummaryScore(
-    [property: JsonPropertyName("totalPoints")] double TotalPoints,
-    [property: JsonPropertyName("wins")] int Wins,
-    [property: JsonPropertyName("cla")] int Cla,
-    [property: JsonPropertyName("supplies")] int Supplies,
-    [property: JsonPropertyName("powerTokens")] int PowerTokens,
-    [property: JsonPropertyName("minutesPerMove")] double? MinutesPerMove,
-    [property: JsonPropertyName("moves")] int Moves,
-    [property: JsonPropertyName("houses")] SummaryHouseScore[] Houses,
-    [property: JsonPropertyName("penaltiesPoints")] double PenaltiesPoints,
-    [property: JsonPropertyName("position")] int? Position)
+    double TotalPoints,
+    int Wins,
+    int Cla,
+    int Supplies,
+    int PowerTokens,
+    double? MinutesPerMove,
+    int Moves,
+    SummaryHouseScore[] Houses,
+    double PenaltiesPoints,
+    int? Position,
+    Stats? Stats)
 {
     public SummaryScore() :
-        this(0, 0, 0, 0, 0, null, 0, Array.Empty<SummaryHouseScore>(), 0, null)
+        this(0, 0, 0, 0, 0, null, 0, Array.Empty<SummaryHouseScore>(), 0, null, null)
     { }
 
     public static SummaryScore Max(SummaryScore score1, SummaryScore score2) => new(
@@ -160,7 +161,10 @@ public record SummaryScore(
         Math.Max(score1.PenaltiesPoints, score2.PenaltiesPoints),
         score1.Position != null && score2.Position != null ?
             Math.Min(score1.Position.Value, score2.Position.Value) :
-            score1.Position ?? score2.Position);
+            score1.Position ?? score2.Position,
+        score1.Stats != null && score2.Stats != null ?
+            Stats.Max(score1.Stats, score2.Stats) :
+            score1.Stats ?? score2.Stats);
 
     public static SummaryScore operator +(SummaryScore score1, SummaryScore score2) => new(
         score1.TotalPoints + score2.TotalPoints,
@@ -182,13 +186,15 @@ public record SummaryScore(
         score1.PenaltiesPoints + score2.PenaltiesPoints,
         score1.Position != null && score2.Position != null ?
             score1.Position + score2.Position :
-            score1.Position ?? score2.Position
-    );
+            score1.Position ?? score2.Position,
+        score1.Stats != null && score2.Stats != null ?
+            score1.Stats + score2.Stats :
+            score1.Stats ?? score2.Stats);
 }
 
 public record SummaryHouseScore(
-    [property: JsonPropertyName("house")] House House,
-    [property: JsonPropertyName("points")] double Points = 0)
+    House House,
+    double Points = 0)
 {
     public static SummaryHouseScore Max(SummaryHouseScore score1, SummaryHouseScore score2) =>
         score1 with { Points = Math.Max(score1.Points, score2.Points) };

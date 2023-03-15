@@ -19,13 +19,8 @@ internal class GameConverter
         _logger = logger;
     }
 
-    public Game? Convert(int gameId, string dataString, string chatString, string logHtmlString)
+    public Game? Convert(int gameId, StateRaw stateRaw, StateRaw chatRaw, string logHtmlString)
     {
-        var stateRaw = JsonSerializer.Deserialize<StateRaw>(dataString);
-        var chatRaw = JsonSerializer.Deserialize<StateRaw>(chatString);
-        if (stateRaw == null)
-            return null;
-
         var state = _stateConverter.Convert(stateRaw, chatRaw);
         if (state?.GameId != gameId)
         {
@@ -55,7 +50,7 @@ internal class GameConverter
         Array.Sort(houses);
         Array.Reverse(houses);
 
-        if (log == null) 
+        if (log == null)
             return houses;
 
         try
@@ -101,7 +96,7 @@ internal class GameConverter
 
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
-            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, new HouseStats());
+            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, new Stats());
     }
 
     private static bool IsPlayerBattleLogItem(House house, LogItem item) =>

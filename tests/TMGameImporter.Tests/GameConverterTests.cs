@@ -1,8 +1,10 @@
+using System.Text.Json;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using TMGameImporter.Http.Converters;
 using TMModels;
+using TMModels.ThroneMaster;
 
 namespace TMGameImporter.Tests;
 
@@ -23,8 +25,12 @@ public class GameConverterTests
         // arrange
         const string dataDirectory = "data";
         const int gameId = 278340;
-        var gameData = File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-gameData.json"));
-        var chat = File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-chat.json"));
+        var gameData = JsonSerializer.Deserialize<StateRaw>(
+            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-gameData.json")),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var chat = JsonSerializer.Deserialize<StateRaw>(
+            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-chat.json")), 
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         var logHtml = File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-log.html"));
 
         // act

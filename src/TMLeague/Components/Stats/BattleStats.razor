@@ -1,0 +1,25 @@
+﻿@if (Stats != null)
+{
+    @Math.Round(Stats.Total, 1)
+    ;
+    @if (Stats.Total > 0)
+    {
+        <div class="tt-inner">
+            <ul class="list-group list-group-flush text-bg-dark">
+                @if (Stats.Won > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Won: @Math.Round(Stats.Won, 1)</li>
+                }
+                @if (Stats.Lost > 0)
+                {
+                    <li class="list-group-item text-bg-dark">Lost: @Math.Round(Stats.Lost, 1)</li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public TMModels.BattleStats? Stats { get; set; }
+}

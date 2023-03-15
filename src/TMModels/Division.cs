@@ -1,24 +1,22 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TMModels;
+﻿namespace TMModels;
 
 public record Division(
-    [property: JsonPropertyName("name")] string Name,
-    [property: JsonPropertyName("judge")] string Judge,
-    [property: JsonPropertyName("players")] string[] Players,
-    [property: JsonPropertyName("games")] int[] Games,
-    [property: JsonPropertyName("penalties")] Penalty[]? Penalties,
-    [property: JsonPropertyName("replacements")] Replacement[]? Replacements,
-    [property: JsonPropertyName("isFinished")] bool IsFinished,
-    [property: JsonPropertyName("winnerTitle")] string? WinnerTitle);
+    string Name,
+    string Judge,
+    string[] Players,
+    int[] Games,
+    Penalty[]? Penalties,
+    Replacement[]? Replacements,
+    bool IsFinished,
+    string? WinnerTitle);
 
 public record Penalty(
-    [property: JsonPropertyName("player")] string Player,
-    [property: JsonPropertyName("game")] int? Game,
-    [property: JsonPropertyName("points")] double Points,
-    [property: JsonPropertyName("details")] string Details);
+    string Player,
+    int? Game,
+    double Points,
+    string Details);
 
 public record Replacement(
-    [property: JsonPropertyName("from")] string From,
-    [property: JsonPropertyName("to")] string To,
-    [property: JsonPropertyName("game")] int Game);
+    string From,
+    string To,
+    int Game);

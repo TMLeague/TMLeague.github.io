@@ -1,7 +1,5 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TMModels;
+﻿namespace TMModels;
 
 public record Home(
-    [property: JsonPropertyName("leagues")] string[] Leagues
+    string[] Leagues
 );

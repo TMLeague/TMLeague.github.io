@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using TMModels;
+﻿using TMModels;
 
 namespace TMApplication.ViewModels;
 
@@ -30,6 +29,11 @@ public record PlayerScoreViewModel(
     public double Greyjoy(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Greyjoy, out var score) ? score : 0, doubles);
     public double Martell(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Martell, out var score) ? score : 0, doubles);
     public double Arryn(ScoreType type, int doubles = 1) => Math.Round(Scores[type].Houses.TryGetValue(House.Arryn, out var score) ? score : 0, doubles);
+    public BattleStats Battles(ScoreType type, int doubles = 1) => Scores[type].Stats.Battles;
+    public UnitStats Kills(ScoreType type, int doubles = 1) => Scores[type].Stats.Kills;
+    public UnitStats Casualties(ScoreType type, int doubles = 1) => Scores[type].Stats.Casualties;
+    public PowerTokenStats PowerTokensGathered(ScoreType type, int doubles = 1) => Scores[type].Stats.PowerTokens;
+    public BidStats PowerTokensSpent(ScoreType type, int doubles = 1) => Scores[type].Stats.Bids;
 }
 
 public enum ScoreType
@@ -52,11 +56,36 @@ public record ScoreViewModel(
     double Moves,
     Dictionary<House, double> Houses,
     double PenaltiesPoints,
-    double? Position);
+    double? Position,
+    Stats? Stats)
+{
+    public Stats Stats { get; } = Stats ?? new Stats();
+}
 
 public enum SummaryColumn
 {
-    Default, Player, Points, Wins, Penalties, Cla, Supply, PT, Baratheon, Lannister, Stark, Tyrell, Greyjoy, Martell, Position, MPM, AllSeasons
+    Default,
+    Player,
+    Points,
+    Wins,
+    Penalties,
+    Cla,
+    Supply,
+    PT,
+    Baratheon,
+    Lannister,
+    Stark,
+    Tyrell,
+    Greyjoy,
+    Martell,
+    Position,
+    MPM,
+    Battles,
+    Kills,
+    Casualties,
+    PowerTokensGathered,
+    PowerTokensSpent,
+    AllSeasons
 }
 
 public static class SummaryColumns
@@ -79,6 +108,11 @@ public static class SummaryColumns
             SummaryColumn.Martell => players.OrderBy(player => player.Martell(scoreType)).SortWithDirection(sortAscending),
             SummaryColumn.Position => players.OrderBy(player => player.Position(scoreType)).SortWithDirection(sortAscending),
             SummaryColumn.MPM => players.OrderBy(player => player.MinutesPerMove(scoreType)).SortWithDirection(sortAscending),
+            SummaryColumn.Battles => players.OrderBy(player => player.Battles(scoreType).Total).SortWithDirection(sortAscending),
+            SummaryColumn.Kills => players.OrderBy(player => player.Kills(scoreType).Total).SortWithDirection(sortAscending),
+            SummaryColumn.Casualties => players.OrderBy(player => player.Casualties(scoreType).Total).SortWithDirection(sortAscending),
+            SummaryColumn.PowerTokensGathered => players.OrderBy(player => player.PowerTokensGathered(scoreType).Total).SortWithDirection(sortAscending),
+            SummaryColumn.PowerTokensSpent => players.OrderBy(player => player.PowerTokensSpent(scoreType).Total).SortWithDirection(sortAscending),
             SummaryColumn.AllSeasons => players.OrderBy(player => player.Seasons).SortWithDirection(sortAscending),
             _ => players
         };
@@ -103,6 +137,11 @@ public static class SummaryColumns
         SummaryColumn.Martell => false,
         SummaryColumn.Position => true,
         SummaryColumn.MPM => true,
+        SummaryColumn.Battles => false,
+        SummaryColumn.Kills => false,
+        SummaryColumn.Casualties => true,
+        SummaryColumn.PowerTokensGathered => false,
+        SummaryColumn.PowerTokensSpent => false,
         SummaryColumn.AllSeasons => false,
         _ => false
     };

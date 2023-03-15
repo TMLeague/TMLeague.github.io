@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 using TMApplication.Providers;
 using TMInfrastructure.Http.Configuration;
 using TMModels;
@@ -99,7 +100,7 @@ public class LocalApi : IDataProvider
 
         try
         {
-            var result = await _httpClient.GetFromJsonAsync<T>(requestUri, cancellationToken);
+            var result = await _httpClient.GetFromJsonAsync<T>(requestUri, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }, cancellationToken);
             if (result != null)
                 _cache.Set(requestUri, result, _options.Value.Cache.DefaultExpirationTime);
             return result;

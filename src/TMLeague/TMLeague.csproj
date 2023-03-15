@@ -26,6 +26,8 @@
     <_ContentIncludedByDefault Remove="Components\HallOfFame.razor" />
     <_ContentIncludedByDefault Remove="Components\League\HallOfFameDivision.razor" />
     <_ContentIncludedByDefault Remove="Components\League\HallOfFameSlide.razor" />
+    <_ContentIncludedByDefault Remove="Components\Stats\BidStats.razor" />
+    <_ContentIncludedByDefault Remove="Components\Stats\UnitStats.razor" />
     <_ContentIncludedByDefault Remove="Pages\Game.razor" />
     <_ContentIncludedByDefault Remove="Pages\Season.razor" />
   </ItemGroup>
@@ -66,9 +68,13 @@
     <UpToDateCheckInput Remove="Components\Division\HouseCell.razor" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties />
+		</VisualStudio>
+	</ProjectExtensions>
 
-  <ItemGroup>
+	<ItemGroup>
     <UpToDateCheckInput Remove="Components\League\HallOfFameSlide.razor" />
   </ItemGroup>
 
@@ -78,6 +84,14 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Game.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Stats\BidStats.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Stats\UnitStats.razor" />
   </ItemGroup>
 
 </Project>

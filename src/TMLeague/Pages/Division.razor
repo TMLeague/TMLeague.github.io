@@ -3,6 +3,7 @@
 @using TMApplication.Services
 @using TMLeague.Components
 @using TMLeague.Components.Division
+@using TMLeague.Components.Stats
 @using TMLeague.Components.TmLinks
 @using TMModels
 @inject DivisionService DivisionService
@@ -27,103 +28,113 @@
 else
 {
     <div class="row">
-        <div class="col-lg-11">
-            <table class="table table-striped table-dark pb-0" width="@(TableWidth)px">
-                <thead>
+        <table class="table table-striped table-dark pb-0" width="@(TableWidth)px">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 200px">Player</th>
+                    <th scope="col" style="width: 100px">Points</th>
+                    @foreach (var tiebreaker in DivisionVm.Tiebreakers)
+                    {
+                        <th scope="col" style="width: 100px">@tiebreaker.Name()</th>
+                    }
+                    @if (!DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties))
+                    {
+                        <th scope="col" style="width: 100px">Penalties</th>
+                    }
+                    <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
+                    <th scope="col" style="width: 100px" class="">Baratheon</th>
+                    <th scope="col" style="width: 100px" class="">Lannister</th>
+                    <th scope="col" style="width: 100px" class="">Stark</th>
+                    <th scope="col" style="width: 100px" class="">Tyrell</th>
+                    <th scope="col" style="width: 100px" class="">Greyjoy</th>
+                    <th scope="col" style="width: 100px" class="">Martell</th>
+                    <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
+                    <th scope="col" style="width: 100px" class="">Battles</th>
+                    <th scope="col" style="width: 100px" class="">Kills<i>*</i></th>
+                    <th scope="col" style="width: 100px" class="">Casualties<i>*</i></th>
+                    <th scope="col" style="width: 100px" class="">PT+</th>
+                    <th scope="col" style="width: 100px" class="">PT-</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var playerVm in DivisionVm.Players)
+                {
                     <tr>
-                        <th scope="col" style="width: 200px">Player</th>
-                        <th scope="col" style="width: 100px">Points</th>
+                        <th scope="row"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
+                        <td class="text-warning">@playerVm.TotalPoints</td>
                         @foreach (var tiebreaker in DivisionVm.Tiebreakers)
                         {
-                            <th scope="col" style="width: 100px">@tiebreaker.Name()</th>
+                            switch (tiebreaker)
+                            {
+                                case Tiebreaker.Wins:
+                                    <td>@playerVm.Wins</td>
+                                    break;
+                                case Tiebreaker.Penalties:
+                                    <td class="tt" ontouchstart="">
+                                        <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                                    </td>
+                                    break;
+                                case Tiebreaker.Cla:
+                                    <td>@playerVm.Cla</td>
+                                    break;
+                                case Tiebreaker.Supplies:
+                                    <td>@playerVm.Supplies</td>
+                                    break;
+                                case Tiebreaker.PowerTokens:
+                                    <td>@playerVm.PowerTokens</td>
+                                    break;
+                                case Tiebreaker.MinutesPerMove:
+                                    <td>@Math.Round(playerVm.MinutesPerMove)</td>
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
                         }
                         @if (!DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties))
                         {
-                            <th scope="col" style="width: 100px">Penalties</th>
+                            <td class="tt" ontouchstart="">
+                                <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                            </td>
                         }
-                        <th scope="col" style="width: 0" class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Baratheon</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Lannister</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Stark</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Tyrell</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Greyjoy</th>
-                        <th scope="col" style="width: 100px" class="collapse @(ShowHouses ? "show" : "")">Martell</th>
+                        <td class="p-1 invisible border-0"></td>
+                        <td class="tt" ontouchstart="">
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"></HouseCell>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)"></HouseCell>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)"></HouseCell>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)"></HouseCell>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)"></HouseCell>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)"></HouseCell>
+                        </td>
+                        <td class="p-1 invisible border-0"></td>
+                        <td class="tt" ontouchstart="">
+                            <BattleStats Stats="@playerVm.Stats.Battles"></BattleStats>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <UnitStats Stats="@playerVm.Stats.Kills"></UnitStats>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <UnitStats Stats="@playerVm.Stats.Casualties"></UnitStats>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <PowerTokenStats Stats="@playerVm.Stats.PowerTokens"></PowerTokenStats>
+                        </td>
+                        <td class="tt" ontouchstart="">
+                            <BidStats Stats="@playerVm.Stats.Bids"></BidStats>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var playerVm in DivisionVm.Players)
-                    {
-                        <tr>
-                            <th scope="row"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
-                            <td class="text-warning">@playerVm.TotalPoints</td>
-                            @foreach (var tiebreaker in DivisionVm.Tiebreakers)
-                            {
-                                switch (tiebreaker)
-                                {
-                                    case Tiebreaker.Wins:
-                                        <td>@playerVm.Wins</td>
-                                        break;
-                                    case Tiebreaker.Penalties:
-                                        <td class="tt" ontouchstart="">
-                                            <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
-                                        </td>
-                                        break;
-                                    case Tiebreaker.Cla:
-                                        <td>@playerVm.Cla</td>
-                                        break;
-                                    case Tiebreaker.Supplies:
-                                        <td>@playerVm.Supplies</td>
-                                        break;
-                                    case Tiebreaker.PowerTokens:
-                                        <td>@playerVm.PowerTokens</td>
-                                        break;
-                                    case Tiebreaker.MinutesPerMove:
-                                        <td>@Math.Round(playerVm.MinutesPerMove)</td>
-                                        break;
-                                    default:
-                                        throw new ArgumentOutOfRangeException();
-                                }
-                            }
-                            @if (!DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties))
-                            {
-                                <td class="tt" ontouchstart="">
-                                    <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
-                                </td>
-                            }
-                            <td class="p-1 invisible border-0 collapse @(ShowHouses ? "show" : "")"></td>
-                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"></HouseCell>
-                            </td>
-                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)"></HouseCell>
-                            </td>
-                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)"></HouseCell>
-                            </td>
-                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)"></HouseCell>
-                            </td>
-                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)"></HouseCell>
-                            </td>
-                            <td class="collapse @(ShowHouses ? "show" : "") tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)"></HouseCell>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <button class="col-lg-1 btn btn-primary" @onclick="ChangeVisibility">
-            @if (ShowHouses)
-            {
-                <i class="bi bi-chevron-compact-left display-6"></i>
-            }
-            else
-            {
-                <i class="bi bi-chevron-compact-right display-6"></i>
-            }
-        </button>
+                }
+            </tbody>
+        </table>
     </div>
 
     <div class="row my-2">
@@ -143,6 +154,7 @@ else
     {
         <p class="mb-0">Data fetched at @DivisionVm.GeneratedTime.Value.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
     }
+    <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
 </footer>
 
 @code {
@@ -154,9 +166,6 @@ else
     public string? DivisionId { get; set; }
 
     private DivisionViewModel? DivisionVm { get; set; }
-
-    private bool ShowHouses { get; set; }
-    private void ChangeVisibility() => ShowHouses = !ShowHouses;
 
     private int TableWidth => DivisionVm == null ?
         0 :

@@ -48,6 +48,14 @@ internal class DivisionImportingService
             return;
         }
 
+        var oldResults = await _fileLoader.LoadResults(leagueId, seasonId, divisionId, cancellationToken);
+        if (oldResults?.IsCreatedManually ?? false)
+        {
+            _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} is created manually and can't be overriden.",
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+            return;
+        }
+
         //foreach (var playerName in division.Enemies)
         //    await _playerImportingService.Import(playerName, cancellationToken);
         var games = division.Games
@@ -60,7 +68,8 @@ internal class DivisionImportingService
             .Select(playerName => GetPlayerResults(playerName, games, scoring, division))
             .ToArray();
         Array.Sort(playerResults, (p1, p2) => -Compare(p1, p2, scoring.Tiebreakers));
-        var results = new Results(playerResults, DateTimeOffset.UtcNow);
+
+        var results = new Results(playerResults, games.Max(game => game.GeneratedTime));
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
 
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} imported.",
@@ -85,7 +94,8 @@ internal class DivisionImportingService
             moves,
             houseResults,
             penaltiesPoints,
-            penalties);
+            penalties,
+            houseResults.Aggregate(new Stats(), (sum, results) => sum + results.Stats));
     }
 
     private static HouseResult[] GetHouses(string playerName, Replacement[] divisionReplacements, IEnumerable<Game> games, Scoring scoring) =>
@@ -114,7 +124,8 @@ internal class DivisionImportingService
             houseScore.Supplies,
             houseScore.PowerTokens,
             houseScore.MinutesPerMove,
-            houseScore.Moves);
+            houseScore.Moves,
+            houseScore.Stats);
     }
 
     private static double GetPointsForGame(HouseScore houseScore, bool isWinner, Scoring scoring) =>
