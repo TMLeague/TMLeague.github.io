@@ -20,13 +20,12 @@ namespace TMGameImporter.Services.Games
 
         public async Task FixHouseName()
         {
-            var games = Directory.GetFiles(_options.Value.BaseLocation);
+            var games = Directory.GetFiles(Path.Combine(_options.Value.BaseLocation, "games"));
             foreach (var gamePath in games)
             {
                 var gameInfo = new FileInfo(gamePath);
                 var gameId = gameInfo.Name.Split('.')[0];
-                var gameStream = File.OpenRead(gamePath);
-                var gameV1 = await JsonSerializer.DeserializeAsync<GameV1>(gameStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                var gameV1 = await GetGameV1(gamePath);
                 if (gameV1 == null)
                 {
                     _logger.LogWarning("Game {gameId} was not loaded correctly.", gameId);
@@ -57,15 +56,25 @@ namespace TMGameImporter.Services.Games
                         v1.Stats)).ToArray(),
                     gameV1.GeneratedTime,
                     gameV1.IsCreatedManually);
+
                 var content = JsonSerializer.Serialize(game,
                     new JsonSerializerOptions
                     {
                         NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
                         PropertyNameCaseInsensitive = true
                     });
+
                 await File.WriteAllTextAsync(gamePath, content, CancellationToken.None);
                 _logger.LogInformation("Game {gameId} saved.", gameId);
             }
+        }
+
+        private static async Task<GameV1?> GetGameV1(string gamePath)
+        {
+            await using var gameStream = File.OpenRead(gamePath);
+            var gameV1 = await JsonSerializer.DeserializeAsync<GameV1>(gameStream,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return gameV1;
         }
 
         private record GameV1(
