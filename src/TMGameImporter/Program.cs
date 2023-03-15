@@ -29,7 +29,7 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net"), Timeout = TimeSpan.FromSeconds(5) })
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
-            .AddScoped<GameFixingService>()
+            //.AddScoped<FixingService>()
             .AddScoped<PlayerConverter>()
             .AddScoped<StateConverter>()
             .AddScoped<GameConverter>()
@@ -55,8 +55,8 @@ logger.LogInformation(
     "Importing program started with following arguments: {arguments}", 
     string.Join("", GetArgumentsString()));
 
-//var fixingService = host.Services.GetRequiredService<GameFixingService>();
-//await fixingService.FixHouseName();
+//var fixingService = host.Services.GetRequiredService<FixingService>();
+//await fixingService.FixHouses();
 //return;
 
 var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
