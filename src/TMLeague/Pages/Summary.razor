@@ -144,12 +144,12 @@
                         </th>
                         <th scope="col" style="width: 100px">
                             <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Kills)">
-                                Kills <SortedColumnCaret Column="@SummaryColumn.Kills" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                Kills<i>*</i> <SortedColumnCaret Column="@SummaryColumn.Kills" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
                             </button>
                         </th>
                         <th scope="col" style="width: 100px">
                             <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(SummaryColumn.Casualties)">
-                                Casualties <SortedColumnCaret Column="@SummaryColumn.Casualties" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                Casualties<i>*</i> <SortedColumnCaret Column="@SummaryColumn.Casualties" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
                             </button>
                         </th>
                         <th scope="col" style="width: 100px">
@@ -204,6 +204,10 @@
         }
     </div>
 </div>
+
+<footer class="text-white-50 d-block">
+    <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
+</footer>
 
 @code {
     [Parameter]

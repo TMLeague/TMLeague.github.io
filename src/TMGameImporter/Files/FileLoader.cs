@@ -53,6 +53,13 @@ internal class FileLoader
         }
 
         await using var stream = File.OpenRead(path);
-        return await JsonSerializer.DeserializeAsync<T>(stream, Options, cancellationToken: cancellationToken);
+        try
+        {
+            return await JsonSerializer.DeserializeAsync<T>(stream, Options, cancellationToken: cancellationToken);
+        }
+        catch (JsonException)
+        {
+            return default;
+        }
     }
 }

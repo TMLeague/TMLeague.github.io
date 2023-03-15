@@ -67,7 +67,7 @@ public class SummaryService
         GetHousesAverage(score.Houses, seasons),
         score.PenaltiesPoints / seasons,
         (double?)score.Position / seasons,
-        score.Stats / seasons);
+        score.Stats == null ? new Stats() : score.Stats / seasons);
 
     private static Dictionary<House, double> GetHousesAverage(IEnumerable<SummaryHouseScore> houses, int seasons) =>
         houses.ToDictionary(score => score.House, score => score.Points / seasons);

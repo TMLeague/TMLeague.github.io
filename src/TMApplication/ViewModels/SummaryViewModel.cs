@@ -57,7 +57,10 @@ public record ScoreViewModel(
     Dictionary<House, double> Houses,
     double PenaltiesPoints,
     double? Position,
-    Stats Stats);
+    Stats? Stats)
+{
+    public Stats Stats { get; } = Stats ?? new Stats();
+}
 
 public enum SummaryColumn
 {

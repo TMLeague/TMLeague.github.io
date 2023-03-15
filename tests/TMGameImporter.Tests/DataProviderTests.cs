@@ -18,6 +18,7 @@ public class DataProviderTests
 
         // assert
         summary.Should().NotBeNull();
-        summary!.Divisions[0].Players[0].Total.Stats.Battles.Won.Should().BeGreaterThan(0);
+        summary!.Divisions[0].Players[0].Total.Stats.Should().NotBeNull();
+        summary!.Divisions[0].Players[0].Total.Stats!.Battles.Won.Should().BeGreaterThan(0);
     }
 }

@@ -23,7 +23,7 @@ var host = Host.CreateDefaultBuilder()
     })
     .ConfigureServices((context, services) =>
         services
-            .AddLogging()
+            .AddLogging(builder => builder.AddSimpleConsole(options => options.SingleLine = true))
             .Configure<ImporterOptions>(context.Configuration)
             .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net"), Timeout = TimeSpan.FromSeconds(5) })
             .AddScoped<IMemoryCache, MemoryCache>()
@@ -53,8 +53,8 @@ logger.LogInformation(
     "Importing program started with following arguments: {arguments}", 
     string.Join("", GetArgumentsString()));
 
-//var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
-//await mainImportingService.Import();
+var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
+await mainImportingService.Import();
 
 var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
 await summaryCalculatingService.Calculate();
