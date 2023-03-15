@@ -68,13 +68,9 @@
     <UpToDateCheckInput Remove="Components\Division\HouseCell.razor" />
   </ItemGroup>
 
-	<ProjectExtensions>
-		<VisualStudio>
-			<UserProperties />
-		</VisualStudio>
-	</ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
-	<ItemGroup>
+  <ItemGroup>
     <UpToDateCheckInput Remove="Components\League\HallOfFameSlide.razor" />
   </ItemGroup>
 

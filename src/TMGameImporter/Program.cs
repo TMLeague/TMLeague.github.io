@@ -50,7 +50,7 @@ var host = Host.CreateDefaultBuilder()
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
 var options = host.Services.GetRequiredService<IOptions<ImporterOptions>>();
 logger.LogInformation(
-    "Importing program started with following arguments: {arguments}",
+    "Importing program started with following arguments: {arguments}", 
     string.Join("", GetArgumentsString()));
 
 var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
@@ -70,5 +70,5 @@ string[] GetArgumentsString() =>
         GetArgumentLine(nameof(options.Value.Division), options.Value.Division)
     };
 
-string GetArgumentLine(string name, object? value) =>
+string GetArgumentLine(string name, object? value) => 
     $"{Environment.NewLine} - {name}: {value}";

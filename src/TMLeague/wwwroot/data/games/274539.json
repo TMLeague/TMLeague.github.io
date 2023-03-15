@@ -1,1 +1,345 @@
-{"Id":274539,"Name":"PBEM - League of Ice \u0026 Fire S18 D3/G5","IsFinished":true,"IsStalling":false,"Turn":10,"Map":{"Lands":[],"Seas":[],"Ports":[]},"Houses":[{"House":0,"Player":"scorpi0","Throne":3,"Fiefdoms":6,"KingsCourt":2,"Supplies":5,"PowerTokens":13,"Strongholds":2,"Castles":2,"Cla":7,"MinutesPerMove":164.7,"Moves":62,"BattlesInTurn":[0,0,1,1,3,2,1,1,3,1],"Stats":{"Battles":{"Won":6,"Lost":7},"Kills":{"Footmen":3,"Knights":0,"SiegeEngines":0,"Ships":0},"Casualties":{"Footmen":2,"Knights":1,"SiegeEngines":0,"Ships":0},"PowerTokens":{"ConsolidatePower":19,"Raids":0,"GameOfThrones":6,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":1,"KingsCourt":7,"Wildlings":5,"Aeron":0}}},{"House":0,"Player":"PrinceToberyn","Throne":1,"Fiefdoms":2,"KingsCourt":3,"Supplies":3,"PowerTokens":4,"Strongholds":3,"Castles":1,"Cla":7,"MinutesPerMove":937.2,"Moves":64,"BattlesInTurn":[1,1,1,1,4,2,4,3,4,3],"Stats":{"Battles":{"Won":15,"Lost":9},"Kills":{"Footmen":2,"Knights":1,"SiegeEngines":2,"Ships":2},"Casualties":{"Footmen":4,"Knights":1,"SiegeEngines":1,"Ships":0},"PowerTokens":{"ConsolidatePower":14,"Raids":0,"GameOfThrones":16,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":2,"Fiefdoms":6,"KingsCourt":4,"Wildlings":4,"Aeron":0}}},{"House":0,"Player":"Jold","Throne":5,"Fiefdoms":4,"KingsCourt":1,"Supplies":4,"PowerTokens":1,"Strongholds":2,"Castles":2,"Cla":7,"MinutesPerMove":536.1,"Moves":60,"BattlesInTurn":[1,1,0,0,1,0,0,0,3,2],"Stats":{"Battles":{"Won":6,"Lost":2},"Kills":{"Footmen":1,"Knights":1,"SiegeEngines":1,"Ships":0},"Casualties":{"Footmen":0,"Knights":0,"SiegeEngines":1,"Ships":0},"PowerTokens":{"ConsolidatePower":11,"Raids":0,"GameOfThrones":14,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":3,"KingsCourt":15,"Wildlings":4,"Aeron":0}}},{"House":0,"Player":"b00yashaka","Throne":2,"Fiefdoms":5,"KingsCourt":6,"Supplies":4,"PowerTokens":13,"Strongholds":3,"Castles":1,"Cla":6,"MinutesPerMove":185.1,"Moves":72,"BattlesInTurn":[0,0,0,0,4,2,2,2,4,2],"Stats":{"Battles":{"Won":8,"Lost":8},"Kills":{"Footmen":2,"Knights":1,"SiegeEngines":1,"Ships":2},"Casualties":{"Footmen":1,"Knights":1,"SiegeEngines":2,"Ships":0},"PowerTokens":{"ConsolidatePower":13,"Raids":0,"GameOfThrones":14,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":3,"KingsCourt":6,"Wildlings":3,"Aeron":0}}},{"House":0,"Player":"krusty891","Throne":4,"Fiefdoms":3,"KingsCourt":4,"Supplies":5,"PowerTokens":10,"Strongholds":0,"Castles":3,"Cla":7,"MinutesPerMove":171,"Moves":76,"BattlesInTurn":[0,0,0,1,4,2,4,3,3,5],"Stats":{"Battles":{"Won":9,"Lost":13},"Kills":{"Footmen":4,"Knights":1,"SiegeEngines":2,"Ships":0},"Casualties":{"Footmen":2,"Knights":1,"SiegeEngines":3,"Ships":2},"PowerTokens":{"ConsolidatePower":16,"Raids":1,"GameOfThrones":9,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":6,"KingsCourt":1,"Wildlings":4,"Aeron":0}}},{"House":0,"Player":"Guga","Throne":6,"Fiefdoms":1,"KingsCourt":5,"Supplies":2,"PowerTokens":3,"Strongholds":0,"Castles":1,"Cla":1,"MinutesPerMove":318.9,"Moves":52,"BattlesInTurn":[0,0,0,1,4,2,3,3,1,1],"Stats":{"Battles":{"Won":5,"Lost":10},"Kills":{"Footmen":2,"Knights":1,"SiegeEngines":1,"Ships":0},"Casualties":{"Footmen":5,"Knights":1,"SiegeEngines":0,"Ships":2},"PowerTokens":{"ConsolidatePower":5,"Raids":0,"GameOfThrones":7,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":11,"KingsCourt":0,"Wildlings":1,"Aeron":0}}}],"GeneratedTime":"2023-03-09T06:19:23.6493989+00:00","IsCreatedManually":false}
+{
+  "id": 274539,
+  "name": "PBEM - League of Ice & Fire S18 D3/G5",
+  "isFinished": true,
+  "isStalling": false,
+  "turn": 10,
+  "map": {
+    "lands": [],
+    "seas": [],
+    "ports": []
+  },
+  "houses": [
+    {
+      "name": 4,
+      "player": "scorpi0",
+      "throne": 3,
+      "fiefdoms": 6,
+      "kingsCourt": 2,
+      "supplies": 5,
+      "powerTokens": 13,
+      "strongholds": 2,
+      "castles": 2,
+      "cla": 7,
+      "minutesPerMove": 164.7,
+      "moves": 62,
+      "battlesInTurn": [
+        0,
+        0,
+        1,
+        1,
+        3,
+        2,
+        1,
+        1,
+        3,
+        1
+      ],
+      "stats": {
+        "Battles": {
+          "Won": 6,
+          "Lost": 7
+        },
+        "Kills": {
+          "Footmen": 3,
+          "Knights": 0,
+          "Ships": 0,
+          "SiegeEngines": 0
+        },
+        "Casualties": {
+          "Footmen": 2,
+          "Knights": 1,
+          "Ships": 0,
+          "SiegeEngines": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 19,
+          "Raids": 0,
+          "GameOfThrones": 6
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 1,
+          "KingsCourt": 7,
+          "Wildlings": 5
+        }
+      }
+    },
+    {
+      "name": 5,
+      "player": "PrinceToberyn",
+      "throne": 1,
+      "fiefdoms": 2,
+      "kingsCourt": 3,
+      "supplies": 3,
+      "powerTokens": 4,
+      "strongholds": 3,
+      "castles": 1,
+      "cla": 7,
+      "minutesPerMove": 937.2,
+      "moves": 64,
+      "battlesInTurn": [
+        1,
+        1,
+        1,
+        1,
+        4,
+        2,
+        4,
+        3,
+        4,
+        3
+      ],
+      "stats": {
+        "Battles": {
+          "Won": 15,
+          "Lost": 9
+        },
+        "Kills": {
+          "Footmen": 2,
+          "Knights": 1,
+          "Ships": 2,
+          "SiegeEngines": 2
+        },
+        "Casualties": {
+          "Footmen": 4,
+          "Knights": 1,
+          "Ships": 0,
+          "SiegeEngines": 1
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 14,
+          "Raids": 0,
+          "GameOfThrones": 16
+        },
+        "Bids": {
+          "IronThrone": 2,
+          "Fiefdoms": 6,
+          "KingsCourt": 4,
+          "Wildlings": 4
+        }
+      }
+    },
+    {
+      "name": 2,
+      "player": "Jold",
+      "throne": 5,
+      "fiefdoms": 4,
+      "kingsCourt": 1,
+      "supplies": 4,
+      "powerTokens": 1,
+      "strongholds": 2,
+      "castles": 2,
+      "cla": 7,
+      "minutesPerMove": 536.1,
+      "moves": 60,
+      "battlesInTurn": [
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        3,
+        2
+      ],
+      "stats": {
+        "Battles": {
+          "Won": 6,
+          "Lost": 2
+        },
+        "Kills": {
+          "Footmen": 1,
+          "Knights": 1,
+          "Ships": 0,
+          "SiegeEngines": 1
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "Ships": 0,
+          "SiegeEngines": 1
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 11,
+          "Raids": 0,
+          "GameOfThrones": 14
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 3,
+          "KingsCourt": 15,
+          "Wildlings": 4
+        }
+      }
+    },
+    {
+      "name": 1,
+      "player": "b00yashaka",
+      "throne": 2,
+      "fiefdoms": 5,
+      "kingsCourt": 6,
+      "supplies": 4,
+      "powerTokens": 13,
+      "strongholds": 3,
+      "castles": 1,
+      "cla": 6,
+      "minutesPerMove": 185.1,
+      "moves": 72,
+      "battlesInTurn": [
+        0,
+        0,
+        0,
+        0,
+        4,
+        2,
+        2,
+        2,
+        4,
+        2
+      ],
+      "stats": {
+        "Battles": {
+          "Won": 8,
+          "Lost": 8
+        },
+        "Kills": {
+          "Footmen": 2,
+          "Knights": 1,
+          "Ships": 2,
+          "SiegeEngines": 1
+        },
+        "Casualties": {
+          "Footmen": 1,
+          "Knights": 1,
+          "Ships": 0,
+          "SiegeEngines": 2
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 13,
+          "Raids": 0,
+          "GameOfThrones": 14
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 3,
+          "KingsCourt": 6,
+          "Wildlings": 3
+        }
+      }
+    },
+    {
+      "name": 3,
+      "player": "krusty891",
+      "throne": 4,
+      "fiefdoms": 3,
+      "kingsCourt": 4,
+      "supplies": 5,
+      "powerTokens": 10,
+      "strongholds": 0,
+      "castles": 3,
+      "cla": 7,
+      "minutesPerMove": 171,
+      "moves": 76,
+      "battlesInTurn": [
+        0,
+        0,
+        0,
+        1,
+        4,
+        2,
+        4,
+        3,
+        3,
+        5
+      ],
+      "stats": {
+        "Battles": {
+          "Won": 9,
+          "Lost": 13
+        },
+        "Kills": {
+          "Footmen": 4,
+          "Knights": 1,
+          "Ships": 0,
+          "SiegeEngines": 2
+        },
+        "Casualties": {
+          "Footmen": 2,
+          "Knights": 1,
+          "Ships": 2,
+          "SiegeEngines": 3
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 16,
+          "Raids": 1,
+          "GameOfThrones": 9
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 6,
+          "KingsCourt": 1,
+          "Wildlings": 4
+        }
+      }
+    },
+    {
+      "name": 6,
+      "player": "Guga",
+      "throne": 6,
+      "fiefdoms": 1,
+      "kingsCourt": 5,
+      "supplies": 2,
+      "powerTokens": 3,
+      "strongholds": 0,
+      "castles": 1,
+      "cla": 1,
+      "minutesPerMove": 318.9,
+      "moves": 52,
+      "battlesInTurn": [
+        0,
+        0,
+        0,
+        1,
+        4,
+        2,
+        3,
+        3,
+        1,
+        1
+      ],
+      "stats": {
+        "Battles": {
+          "Won": 5,
+          "Lost": 10
+        },
+        "Kills": {
+          "Footmen": 2,
+          "Knights": 1,
+          "Ships": 0,
+          "SiegeEngines": 1
+        },
+        "Casualties": {
+          "Footmen": 5,
+          "Knights": 1,
+          "Ships": 2,
+          "SiegeEngines": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 5,
+          "Raids": 0,
+          "GameOfThrones": 7
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 11,
+          "KingsCourt": 0,
+          "Wildlings": 1
+        }
+      }
+    }
+  ],
+  "generatedTime": "2023-03-09T06:19:23.6493989+00:00"
+}
