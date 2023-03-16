@@ -62,14 +62,24 @@ internal class DivisionImportingService
             .Select(gameId => _gameImportingService.Import(gameId, cancellationToken))
             .Select(task => task.Result)
             .OfType<Game>()
-            .ToArray();
+            .ToList();
+
+        foreach (var gameId in division.Games)
+        {
+            if (games.All(game => game.Id != gameId))
+            {
+                var oldGame = await _fileLoader.LoadGame(gameId, cancellationToken);
+                if (oldGame != null)
+                    games.Add(oldGame);
+            }
+        }
 
         var playerResults = division.Players
             .Select(playerName => GetPlayerResults(playerName, games, scoring, division))
             .ToArray();
         Array.Sort(playerResults, (p1, p2) => -Compare(p1, p2, scoring.Tiebreakers));
 
-        var results = new Results(playerResults, games.Max(game => game.GeneratedTime));
+        var results = new Results(playerResults, games.Any() ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow);
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
 
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} imported.",
