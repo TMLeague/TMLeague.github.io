@@ -23,10 +23,28 @@ jobs:
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data
 
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Create Pull Request
+      id: create-pr
+      uses: peter-evans/create-pull-request@v4
       with:
-        commit_message: Games imported automatically
+        commit-message: Games imported automatically
+        title: Games imported automatically
+        branch: feature/games-import
+        delete-branch: true
+
+    - name: Approve Pull Request
+      uses: juliangruber/approve-pull-request-action@v2.0.0
+      with:
+        github-token: ${{ secrets.APPROVER_TOKEN }}
+        number: ${{ steps.create-pr.outputs.pull-request-number }}
+        repo: juliangruber/approve-pull-request-action # optional
+
+    - name: Merge Pull Request
+      uses: juliangruber/merge-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        number: ${{ steps.create-pr.outputs.pull-request-number }}
+        method: squash
 
     # publishes Blazor project to the release-folder
     - name: Publish TMLeague
