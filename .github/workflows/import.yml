@@ -15,15 +15,15 @@ on:
         required: false
         default: false
       league:
-        description: league ID
+        description: league id
         required: false
         default: ''
       season:
-        description: season ID
+        description: season id
         required: false
         default: ''
       division:
-        description: division ID
+        description: division id
         required: false
         default: ''
   schedule:
