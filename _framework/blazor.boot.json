@@ -113,9 +113,9 @@
       "System.Xml.Linq.dll": "sha256-2rhhmkyuW9IQ8MccA07zCEpUfBaPCc84cNytS2BEVFA=",
       "System.Xml.ReaderWriter.dll": "sha256-GF82rgWKnmtaIVAiJ\/0RUXWfSGRhYuMZZYgUzE0cWIA=",
       "System.Xml.XDocument.dll": "sha256-oqC1TXU082uPsXTqKCzdu0CoGDiI9en8zz3ZBoN5u9o=",
-      "TMApplication.dll": "sha256-dT6d+55+LM1JVn1IrN\/2Hr4AnXVP\/rGjhMsF9FmtbWI=",
-      "TMInfrastructure.dll": "sha256-OJCb0uFSzKuIWgoD3OSqSPw\/zcTp4V1JKNKcg4OFCy8=",
-      "TMLeague.dll": "sha256-7CddDZ5hkAAtnSl\/EMTSwhzm\/d7iOMkISFSBL0RB35I=",
+      "TMApplication.dll": "sha256-H0qWl3eTU\/56aKRlkT7GcKO40HqZteQdL5F2HjyDli0=",
+      "TMInfrastructure.dll": "sha256-RusnOImMGYA0vrMJ\/QTbMKiYTMSyWZ52LMT0Pd\/ovkI=",
+      "TMLeague.dll": "sha256-TTM5n6OV8uUGU83TIHaQxSLd3kycsef5fM01vDmfj3s=",
       "TMModels.dll": "sha256-uRbHJ1O9b\/0j7PvNF6KCKJXdjJ1nfGPUiFJfodzUh3Q="
     },
     "extensions": null,
