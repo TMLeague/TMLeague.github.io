@@ -41,9 +41,13 @@ jobs:
         dotnet-version: 6.0
     
     - name: Run TMGameImporter
-      run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data
-           --FetchFinishedDivisions ${{ github.event.inputs.fetch-finished-divisions }} --FetchFinishedGames ${{ github.event.inputs.fetch-finished-games }}
-           --League "${{ github.event.inputs.league }}" --Season "${{ github.event.inputs.season }}" --Division "${{ github.event.inputs.division }}"
+      run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release
+           --BaseLocation src/TMLeague/wwwroot/data
+           --FetchFinishedDivisions ${{ github.event.inputs.fetch-finished-divisions }}
+           --FetchFinishedGames ${{ github.event.inputs.fetch-finished-games }}
+           --League "${{ github.event.inputs.league }}"
+           --Season "${{ github.event.inputs.season }}"
+           --Division "${{ github.event.inputs.division }}"
 
     - name: Create Pull Request
       id: create-pr
