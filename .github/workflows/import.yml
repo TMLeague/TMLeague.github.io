@@ -27,7 +27,7 @@ on:
         required: false
         default: ''
   schedule:
-    - cron: '04 5,8,11,14,17,20 * * *'
+    - cron: '51 5,8,11,14,17,20 * * *'
 
 jobs:
   import-and-deploy:
@@ -58,12 +58,12 @@ jobs:
         branch: feature/games-import
         delete-branch: true
 
-    - name: Approve Pull Request
-      uses: juliangruber/approve-pull-request-action@v2.0.0
-      with:
-        github-token: ${{ secrets.APPROVER_TOKEN }}
-        number: ${{ steps.create-pr.outputs.pull-request-number }}
-        repo: juliangruber/approve-pull-request-action # optional
+    #- name: Approve Pull Request
+    #  uses: juliangruber/approve-pull-request-action@v2.0.0
+    #  with:
+    #    github-token: ${{ secrets.APPROVER_TOKEN }}
+    #    number: ${{ steps.create-pr.outputs.pull-request-number }}
+    #    repo: juliangruber/approve-pull-request-action # optional
 
     - name: Merge Pull Request
       uses: juliangruber/merge-pull-request-action@v1
