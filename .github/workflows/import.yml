@@ -4,30 +4,29 @@ description: This workflow will import games, commit them and deploy the project
 
 on:
   workflow_dispatch:
+    inputs:
+      fetch finished divisions:
+        description: Should be set to true when already fetched division results needs to be recalculated
+        required: false
+        default: false
+      fetch finished games:
+        description: Should be set to true when already fetched and finished games need to be reimported
+        required: false
+        default: false
+      league:
+        description: The name of the league to be imported
+        required: false
+        default: ''
+      season:
+        description: The name of the season to be imported
+        required: false
+        default: ''
+      division:
+        description: The name of the division to be imported
+        required: false
+        default: ''
   schedule:
     - cron: '51 5,8,11,14,17,20 * * *'
-
-inputs:
-  fetch finished divisions:
-    description: Should be set to true when already fetched division results needs to be recalculated
-    required: false
-    default: false
-  fetch finished games:
-    description: Should be set to true when already fetched and finished games need to be reimported
-    required: false
-    default: false
-  league:
-    description: The name of the league to be imported
-    required: false
-    default: ''
-  season:
-    description: The name of the season to be imported
-    required: false
-    default: ''
-  division:
-    description: The name of the division to be imported
-    required: false
-    default: ''
 
 jobs:
   import-and-deploy:
