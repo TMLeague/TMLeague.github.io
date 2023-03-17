@@ -1,7 +1,7 @@
-# This workflow import games, commit them and deploy the project to GitHub Pages branch
+# This workflow import and commit games
 # author: Imrihil
 
-name: Import games and deploy to GitHub Pages branch
+name: Import and commit games
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ on:
     - cron: '51 5,8,11,14,17,20 * * *'
 
 jobs:
-  import-and-deploy:
+  import-and-commit:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -71,22 +71,3 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         number: ${{ steps.create-pr.outputs.pull-request-number }}
         method: squash
-
-    # publishes Blazor project to the release-folder
-    - name: Publish TMLeague
-      run: dotnet publish src/TMLeague/TMLeague.csproj -c Release -o release --nologo
-
-    # copy index.html to 404.html to serve the same file when a file is not found
-    - name: copy index.html to 404.html
-      run: cp release/wwwroot/index.html release/wwwroot/404.html
-
-    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
-    - name: Add .nojekyll file
-      run: touch release/wwwroot/.nojekyll
-
-    - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: release/wwwroot
