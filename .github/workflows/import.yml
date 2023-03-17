@@ -6,24 +6,24 @@ name: Import games and deploy to GitHub Pages branch
 on:
   workflow_dispatch:
     inputs:
-      fetch finished divisions:
-        description: Should be set to true when already fetched division results needs to be recalculated
+      fetch-finished-divisions:
+        description: fetch finished divisions
         required: false
         default: false
-      fetch finished games:
-        description: Should be set to true when already fetched and finished games need to be reimported
+      fetch-finished-games:
+        description: fetch finished games
         required: false
         default: false
       league:
-        description: The name of the league to be imported
+        description: league ID
         required: false
         default: ''
       season:
-        description: The name of the season to be imported
+        description: season ID
         required: false
         default: ''
       division:
-        description: The name of the division to be imported
+        description: division ID
         required: false
         default: ''
   schedule:
@@ -42,8 +42,8 @@ jobs:
     
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data
-           --FetchFinishedDivisions ${{ INPUT_FETCH_FINISHED_DIVISIONS }} --FetchFinishedGames ${{ INPUT_FETCH_FINISHED_GAMES }}
-           --League "${{ INPUT_LEAGUE }}" --Season "${{ INPUT_SEASON }}" --Division "${{ INPUT_DIVISION }}"
+           --FetchFinishedDivisions ${{ github.event.inputs.fetch-finished-divisions }} --FetchFinishedGames ${{ github.event.inputs.fetch-finished-games }}
+           --League "${{ github.event.inputs.league }}" --Season "${{ github.event.inputs.season }}" --Division "${{ github.event.inputs.division }}"
 
     - name: Create Pull Request
       id: create-pr
