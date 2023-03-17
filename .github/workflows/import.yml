@@ -1,13 +1,33 @@
-# This workflow will deploy the project to GitHub Pages branch
-# For more information see: https://swimburger.net/blog/dotnet/how-to-deploy-aspnet-blazor-webassembly-to-github-pages
-
 name: Import games and deploy to GitHub Pages branch
+author: Imrihil
+description: This workflow will import games, commit them and deploy the project to GitHub Pages branch
 
-# Run workflow on every push to the master branch
 on:
   workflow_dispatch:
   schedule:
     - cron: '51 5,8,11,14,17,20 * * *'
+
+inputs:
+  fetch finished divisions:
+    description: Should be set to true when already fetched division results needs to be recalculated
+    required: false
+    default: false
+  fetch finished games:
+    description: Should be set to true when already fetched and finished games need to be reimported
+    required: false
+    default: false
+  league:
+    description: The name of the league to be imported
+    required: false
+    default: ''
+  season:
+    description: The name of the season to be imported
+    required: false
+    default: ''
+  division:
+    description: The name of the division to be imported
+    required: false
+    default: ''
 
 jobs:
   import-and-deploy:
@@ -22,6 +42,8 @@ jobs:
     
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release --BaseLocation src/TMLeague/wwwroot/data
+           --FetchFinishedDivisions ${{ INPUT_FETCH_FINISHED_DIVISIONS }} --FetchFinishedGames ${{ INPUT_FETCH_FINISHED_GAMES }}
+           --League "${{ INPUT_LEAGUE }}" --Season "${{ INPUT_SEASON }}" --Division "${{ INPUT_DIVISION }}"
 
     - name: Create Pull Request
       id: create-pr
