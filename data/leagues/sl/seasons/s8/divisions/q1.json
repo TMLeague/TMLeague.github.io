@@ -35,8 +35,14 @@
     {
       "player": "gauntlet",
       "game": 290188,
-      "points": 15,
-      "details": "talking in the open chat, KM"
+      "points": 5,
+      "details": "talking in the open chat"
+    },
+    {
+      "player": "gauntlet",
+      "game": 290188,
+      "points": 10,
+      "details": "KM"
     },
     {
       "player": "gauntlet",
@@ -46,7 +52,7 @@
     },
     {
       "player": "Shade89",
-      "game": 290240,
+      "game": 290189,
       "points": 5,
       "details": "minor KM"
     },
