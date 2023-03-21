@@ -53,6 +53,6 @@ internal class PlayerConverter
         else
             avatarUri = avatarNode.GetAttributeValue("src", null);
 
-        return Task.FromResult((new Player(playerName, rankPoints, country, location, speed), avatarUri));
+        return Task.FromResult((new Player(playerName, Array.Empty<PlayerSeason>(), Array.Empty<PlayerHouse>()), avatarUri));
     }
 }
