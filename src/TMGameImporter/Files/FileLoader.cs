@@ -20,10 +20,10 @@ internal class FileLoader
         await DeserializeFile<League>(_pathProvider.GetConfigFilePath(leagueId), true, cancellationToken);
 
     public async Task<Season?> LoadSeason(string leagueId, string seasonId, CancellationToken cancellationToken) =>
-        await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId, seasonId), true, cancellationToken);
+        await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId, seasonId), false, cancellationToken);
 
     public async Task<Division?> LoadDivision(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken) =>
-        await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId, seasonId, divisionId), true, cancellationToken);
+        await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId, seasonId, divisionId), false, cancellationToken);
 
     public async Task<Game?> LoadGame(int gameId, CancellationToken cancellationToken) =>
         await DeserializeFile<Game>(_pathProvider.GetGamePath(gameId), false, cancellationToken);

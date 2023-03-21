@@ -52,7 +52,7 @@ var logger = host.Services.GetRequiredService<ILogger<Program>>();
 var options = host.Services.GetRequiredService<IOptions<ImporterOptions>>();
 logger.LogInformation(
     "Importing program started with following arguments: {arguments}", 
-    string.Join("", GetArgumentsString()));
+    string.Join("", ArgumentsString()));
 
 //var fixingService = host.Services.GetRequiredService<FixingService>();
 //await fixingService.FixHouses();
@@ -64,16 +64,16 @@ logger.LogInformation(
 var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
 await summaryCalculatingService.Calculate();
 
-string[] GetArgumentsString() =>
+string[] ArgumentsString() =>
     new[]
     {
-        GetArgumentLine(nameof(options.Value.BaseLocation), options.Value.BaseLocation),
-        GetArgumentLine(nameof(options.Value.FetchFinishedDivisions), options.Value.FetchFinishedDivisions),
-        GetArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames),
-        GetArgumentLine(nameof(options.Value.League), options.Value.League),
-        GetArgumentLine(nameof(options.Value.Season), options.Value.Season),
-        GetArgumentLine(nameof(options.Value.Division), options.Value.Division)
+        ArgumentLine(nameof(options.Value.BaseLocation), options.Value.BaseLocation),
+        ArgumentLine(nameof(options.Value.FetchFinishedDivisions), options.Value.FetchFinishedDivisions),
+        ArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames),
+        ArgumentLine(nameof(options.Value.League), options.Value.League),
+        ArgumentLine(nameof(options.Value.Season), options.Value.Season),
+        ArgumentLine(nameof(options.Value.Division), options.Value.Division)
     };
 
-string GetArgumentLine(string name, object? value) => 
+string ArgumentLine(string name, object? value) => 
     $"{Environment.NewLine} - {name}: {value}";

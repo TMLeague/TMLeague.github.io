@@ -1,9 +1,8 @@
-# This workflow will deploy the project to GitHub Pages branch
+# This workflow deploy the project to GitHub Pages branch
 # For more information see: https://swimburger.net/blog/dotnet/how-to-deploy-aspnet-blazor-webassembly-to-github-pages
 
 name: Deploy to GitHub Pages branch
 
-# Run workflow on every push to the master branch
 on:
   workflow_dispatch:
   push:

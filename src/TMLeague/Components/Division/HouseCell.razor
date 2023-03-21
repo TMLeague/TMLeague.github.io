@@ -6,12 +6,12 @@
 {
     @if (HouseVm.Game == null)
     {
-        <span class="@(HouseVm.IsWinner ? "text-warning" : "")">@HouseVm.Points</span>
+        <span class="@(HouseVm.IsWinner && IsWinnerHighlighted ? "text-warning" : "")">@HouseVm.Points</span>
     }
     else
     {
         <a href="@RouteProvider.GetGameRoute(LeagueId, HouseVm.Game.Value)" class="text-inherit">
-            <span class="@(HouseVm.IsWinner ? "text-warning" : "")">@HouseVm.Points</span>
+            <span class="@(HouseVm.IsWinner && IsWinnerHighlighted ? "text-warning" : "")">@HouseVm.Points</span>
         </a>
     }
     @if (HouseVm.Game != null)
@@ -55,6 +55,9 @@
 
     [Parameter]
     public string? DivisionId { get; set; }
+
+    [Parameter]
+    public bool IsWinnerHighlighted { get; set; } = true;
 
     [Parameter]
     public PlayerHouseViewModel? HouseVm { get; set; }
