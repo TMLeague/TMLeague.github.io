@@ -32,7 +32,7 @@ public class HallOfFameService
     }
 
     private static HallOfFameSectionViewModel GetHallOfFameSectionVm(
-        Summary summary, string title, Func<SummaryScore, double> getValue)
+        Summary summary, string title, Func<SummaryPlayerScoreDetails, double> getValue)
     {
         var divisions = summary.Divisions
             .Select(division => GetHallOfFameDivisionVm(summary.LeagueId, division, getValue))
@@ -42,7 +42,7 @@ public class HallOfFameService
     }
 
     private static HallOfFameDivisionViewModel GetHallOfFameDivisionVm(
-        string leagueId, SummaryDivision division, Func<SummaryScore, double> getValue) => new(
+        string leagueId, SummaryDivision division, Func<SummaryPlayerScoreDetails, double> getValue) => new(
         leagueId,
         division.DivisionId,
         division.DivisionName,
