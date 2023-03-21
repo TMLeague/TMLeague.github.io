@@ -182,7 +182,7 @@ public record SummaryHouseScore(
     House House,
     SummaryHouseScoreDetails Best,
     SummaryHouseScoreDetails Total,
-    int Seasons = 1)
+    int Games = 1)
 {
     private Score BestScore => new(Best.Points, Best.Wins, 0,
         Best.Cla, Best.Supplies, Best.PowerTokens, null);
@@ -200,7 +200,7 @@ public record SummaryHouseScore(
         {
             Best = SummaryHouseScoreDetails.Max(house1.Best, house2.Best),
             Total = house1.Total + house2.Total,
-            Seasons = house1.Seasons + house2.Seasons
+            Games = house1.Games + house2.Games
         };
 }
 

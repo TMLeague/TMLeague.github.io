@@ -1,6 +1,6 @@
 ﻿@page "/league/{leagueId}/summary"
-@page "/league/{leagueId}/summary/{type}"
-@page "/league/{leagueId}/summary/{type}/{divisionId}"
+@page "/league/{leagueId}/summary/{tableTypeId}/{scoreTypeId}"
+@page "/league/{leagueId}/summary/{tableTypeId}/{scoreTypeId}/{divisionId}"
 @using TMApplication.Providers
 @using TMApplication.Services
 @using TMApplication.ViewModels
@@ -17,14 +17,14 @@
     {
         <div class="d-flex flex-row my-1">
             <div class="btn-group">
-                <a class="btn btn-primary @(DivisionId == null ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, null, ScoreType)" disabled=@(DivisionId == null)>
+                <a class="btn btn-primary @(DivisionId == null ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, null, TableType, ScoreType)" disabled=@(DivisionId == null)>
                     Total
                 </a>
                 @if (SummaryVm != null)
                 {
                     @foreach (var division in SummaryVm.AvailableDivisions)
                     {
-                        <a class="btn btn-primary @(DivisionId == division.Id ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, @division.Id, ScoreType)" disabled=@(DivisionId == division.Id)>
+                        <a class="btn btn-primary @(DivisionId == division.Id ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, @division.Id, TableType, ScoreType)" disabled=@(DivisionId == division.Id)>
                             @division.Name
                         </a>
                     }
@@ -33,9 +33,19 @@
         </div>
         <div class="d-flex flex-row my-1">
             <div class="btn-group">
-                @foreach (var type in ScoreTypes.All)
+                @foreach (var type in ScoreTypes.All(TableType))
                 {
-                    <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, DivisionId, type)" disabled=@(ScoreType == type)>
+                    <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, DivisionId, TableType, type)" disabled=@(ScoreType == type)>
+                        @type
+                    </a>
+                }
+            </div>
+        </div>
+        <div class="d-flex flex-row my-1">
+            <div class="btn-group">
+                @foreach (var type in TableTypes.All)
+                {
+                    <a class="btn btn-primary @(TableType == type ? "active" : "")" href="@RouteProvider.GetLeagueSummaryRoute(LeagueId, DivisionId, type, ScoreType)" disabled=@(TableType == type)>
                         @type
                     </a>
                 }
@@ -59,26 +69,43 @@
             <table class="table table-striped table-dark pb-0" width="1700px">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 200px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Player)">
-                                Player <SortedColumnCaret Column="@ViewColumn.Player" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
+                        @if (TableType == TableType.Players)
+                        {
+                            <th scope="col" style="width: 200px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Player)">
+                                    Player <SortedColumnCaret Column="@ViewColumn.Player" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                        }
+                        else if (TableType == TableType.Houses)
+                        {
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.House)">
+                                    House <SortedColumnCaret Column="@ViewColumn.House" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                        }
                         <th scope="col" style="width: 100px">
                             <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Points)">
                                 Points <SortedColumnCaret Column="@ViewColumn.Points" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
                             </button>
                         </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Wins)">
-                                Wins <SortedColumnCaret Column="@ViewColumn.Wins" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Penalties)">
-                                Penalties <SortedColumnCaret Column="@ViewColumn.Penalties" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
+                        @if (TableType == TableType.Players || TableType == TableType.Houses && ScoreType == ScoreType.Average)
+                        {
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Wins)">
+                                    Wins <SortedColumnCaret Column="@ViewColumn.Wins" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                        }
+                        @if (TableType == TableType.Players)
+                        {
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Penalties)">
+                                    Penalties <SortedColumnCaret Column="@ViewColumn.Penalties" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                        }
                         <th scope="col" style="width: 100px">
                             <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Cla)">
                                 Cla <SortedColumnCaret Column="@ViewColumn.Cla" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
@@ -94,46 +121,57 @@
                                 PT <SortedColumnCaret Column="@ViewColumn.PT" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
                             </button>
                         </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Baratheon)">
-                                Baratheon <SortedColumnCaret Column="@ViewColumn.Baratheon" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Lannister)">
-                                Lannister <SortedColumnCaret Column="@ViewColumn.Lannister" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Stark)">
-                                Stark <SortedColumnCaret Column="@ViewColumn.Stark" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Tyrell)">
-                                Tyrell <SortedColumnCaret Column="@ViewColumn.Tyrell" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Greyjoy)">
-                                Greyjoy <SortedColumnCaret Column="@ViewColumn.Greyjoy" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Martell)">
-                                Martell <SortedColumnCaret Column="@ViewColumn.Martell" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
-                        @if (ScoreType != ScoreType.Total)
+                        @if (TableType == TableType.Players)
                         {
                             <th scope="col" style="width: 100px">
-                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Position)">
-                                    Position <SortedColumnCaret Column="@ViewColumn.Position" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Baratheon)">
+                                    Baratheon <SortedColumnCaret Column="@ViewColumn.Baratheon" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
                                 </button>
                             </th>
                             <th scope="col" style="width: 100px">
-                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.MPM)">
-                                    MPM <SortedColumnCaret Column="@ViewColumn.MPM" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Lannister)">
+                                    Lannister <SortedColumnCaret Column="@ViewColumn.Lannister" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Stark)">
+                                    Stark <SortedColumnCaret Column="@ViewColumn.Stark" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Tyrell)">
+                                    Tyrell <SortedColumnCaret Column="@ViewColumn.Tyrell" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Greyjoy)">
+                                    Greyjoy <SortedColumnCaret Column="@ViewColumn.Greyjoy" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Martell)">
+                                    Martell <SortedColumnCaret Column="@ViewColumn.Martell" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                            @if (ScoreType != ScoreType.Total)
+                            {
+                                <th scope="col" style="width: 100px">
+                                    <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Position)">
+                                        Position <SortedColumnCaret Column="@ViewColumn.Position" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                    </button>
+                                </th>
+                                <th scope="col" style="width: 100px">
+                                    <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.MPM)">
+                                        MPM <SortedColumnCaret Column="@ViewColumn.MPM" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                    </button>
+                                </th>
+                            }
+                        }
+                        else if (TableType == TableType.Houses)
+                        {
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.Moves)">
+                                    Moves <SortedColumnCaret Column="@ViewColumn.Moves" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
                                 </button>
                             </th>
                         }
@@ -162,42 +200,71 @@
                                 PT- <SortedColumnCaret Column="@ViewColumn.PowerTokensSpent" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
                             </button>
                         </th>
-                        <th scope="col" style="width: 100px">
-                            <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.AllSeasons)">
-                                All seasons <SortedColumnCaret Column="@ViewColumn.AllSeasons" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
-                            </button>
-                        </th>
+                        @if (TableType == TableType.Players)
+                        {
+                            <th scope="col" style="width: 100px">
+                                <button class="btn-link w-100 h-100" @onclick="() => SortByColumn(ViewColumn.AllSeasons)">
+                                    All seasons <SortedColumnCaret Column="@ViewColumn.AllSeasons" SortedColumn="@_sortColumn" IsAscending="@_sortAscending"></SortedColumnCaret>
+                                </button>
+                            </th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var player in SummaryVm.Players.Sort(_sortColumn, _sortAscending, ScoreType))
+                    @if (TableType == TableType.Players)
                     {
-                        <tr>
-                            <th scope="row"><PlayerLink PlayerName="@player.Player"></PlayerLink></th>
-                            <td class="text-warning">@player.TotalPoints(ScoreType)</td>
-                            <td>@player.Wins(ScoreType)</td>
-                            <td>@player.PenaltiesPoints(ScoreType)</td>
-                            <td>@player.Cla(ScoreType)</td>
-                            <td>@player.Supplies(ScoreType)</td>
-                            <td>@player.PowerTokens(ScoreType)</td>
-                            <td>@player.Baratheon(ScoreType)</td>
-                            <td>@player.Lannister(ScoreType)</td>
-                            <td>@player.Stark(ScoreType)</td>
-                            <td>@player.Tyrell(ScoreType)</td>
-                            <td>@player.Greyjoy(ScoreType)</td>
-                            <td>@player.Martell(ScoreType)</td>
-                            @if (ScoreType != ScoreType.Total)
-                            {
-                                <td>@player.Position(ScoreType)</td>
-                                <td>@player.MinutesPerMove(ScoreType)</td>
-                            }
-                            <td class="tt" ontouchstart=""><BattleStats Stats="@player.Battles(ScoreType)"></BattleStats></td>
-                            <td class="tt" ontouchstart=""><UnitStats Stats="@player.Kills(ScoreType)"></UnitStats></td>
-                            <td class="tt" ontouchstart=""><UnitStats Stats="@player.Casualties(ScoreType)"></UnitStats></td>
-                            <td class="tt" ontouchstart=""><PowerTokenStats Stats="@player.PowerTokensGathered(ScoreType)"></PowerTokenStats></td>
-                            <td class="tt" ontouchstart=""><BidStats Stats="@player.PowerTokensSpent(ScoreType)"></BidStats></td>
-                            <td>@player.Seasons</td>
-                        </tr>
+                        @foreach (var player in SummaryVm.Players.Sort(_sortColumn, _sortAscending, ScoreType))
+                        {
+                            <tr>
+                                <th scope="row"><PlayerLink PlayerName="@player.Player"></PlayerLink></th>
+                                <td class="text-warning">@player.TotalPoints(ScoreType)</td>
+                                <td>@player.Wins(ScoreType)</td>
+                                <td>@player.PenaltiesPoints(ScoreType)</td>
+                                <td>@player.Cla(ScoreType)</td>
+                                <td>@player.Supplies(ScoreType)</td>
+                                <td>@player.PowerTokens(ScoreType)</td>
+                                <td>@player.Baratheon(ScoreType)</td>
+                                <td>@player.Lannister(ScoreType)</td>
+                                <td>@player.Stark(ScoreType)</td>
+                                <td>@player.Tyrell(ScoreType)</td>
+                                <td>@player.Greyjoy(ScoreType)</td>
+                                <td>@player.Martell(ScoreType)</td>
+                                @if (ScoreType != ScoreType.Total)
+                                {
+                                    <td>@player.Position(ScoreType)</td>
+                                    <td>@player.MinutesPerMove(ScoreType)</td>
+                                }
+                                <td class="tt" ontouchstart=""><BattleStats Stats="@player.Battles(ScoreType)"></BattleStats></td>
+                                <td class="tt" ontouchstart=""><UnitStats Stats="@player.Kills(ScoreType)"></UnitStats></td>
+                                <td class="tt" ontouchstart=""><UnitStats Stats="@player.Casualties(ScoreType)"></UnitStats></td>
+                                <td class="tt" ontouchstart=""><PowerTokenStats Stats="@player.PowerTokensGathered(ScoreType)"></PowerTokenStats></td>
+                                <td class="tt" ontouchstart=""><BidStats Stats="@player.PowerTokensSpent(ScoreType)"></BidStats></td>
+                                <td>@player.Seasons</td>
+                            </tr>
+                        }
+                    }
+                    else if (TableType == TableType.Houses)
+                    {
+                        @foreach (var house in SummaryVm.Houses.Sort(_sortColumn, _sortAscending, ScoreType))
+                        {
+                            <tr>
+                                <th scope="row">@house.House</th>
+                                <td class="text-warning">@house.TotalPoints(ScoreType)</td>
+                                @if (ScoreType == ScoreType.Average)
+                                {
+                                    <td>@($"{Math.Round(100 * house.Wins(ScoreType, 3))}%")</td>
+                                }
+                                <td>@house.Cla(ScoreType)</td>
+                                <td>@house.Supplies(ScoreType)</td>
+                                <td>@house.PowerTokens(ScoreType)</td>
+                                <td>@house.Moves(ScoreType)</td>
+                                <td class="tt" ontouchstart=""><BattleStats Stats="@house.Battles(ScoreType)"></BattleStats></td>
+                                <td class="tt" ontouchstart=""><UnitStats Stats="@house.Kills(ScoreType)"></UnitStats></td>
+                                <td class="tt" ontouchstart=""><UnitStats Stats="@house.Casualties(ScoreType)"></UnitStats></td>
+                                <td class="tt" ontouchstart=""><PowerTokenStats Stats="@house.PowerTokensGathered(ScoreType)"></PowerTokenStats></td>
+                                <td class="tt" ontouchstart=""><BidStats Stats="@house.PowerTokensSpent(ScoreType)"></BidStats></td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -217,9 +284,12 @@
     public string? DivisionId { get; set; }
 
     [Parameter]
-    public string? Type { get; set; }
+    public string? TableTypeId { get; set; }
+    private TableType TableType => Enum.TryParse<TableType>(TableTypeId ?? "", out var tableType) ? tableType : TableType.Players;
 
-    private ScoreType ScoreType => Enum.TryParse<ScoreType>(Type ?? "", out var scoreType) ? scoreType : ScoreType.Best;
+    [Parameter]
+    public string? ScoreTypeId { get; set; }
+    private ScoreType ScoreType => Enum.TryParse<ScoreType>(ScoreTypeId ?? "", out var scoreType) ? scoreType : ScoreType.Best;
 
     private SummaryViewModel? SummaryVm { get; set; }
 
