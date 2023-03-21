@@ -111,8 +111,8 @@ internal static class StatsConverter
 
         if (battle.Looser.Card?.Name == HouseCard.Mace)
         {
-            if (battle.Looser == battle.Defender && battle.AttackerUnits.Footmen > 0 ||
-                battle.Looser == battle.Attacker && battle.AttackerUnits.Footmen == 0)
+            if (battle.Looser.Casualties.Footmen > 0 && (battle.Looser == battle.Defender && battle.AttackerUnits.Footmen > 0 ||
+                                                         battle.Looser == battle.Attacker && battle.AttackerUnits.Footmen == 0))
             {
                 looserScore.Stats.Casualties.Footmen--;
                 looserScore.Stats.Kills.Footmen++;
