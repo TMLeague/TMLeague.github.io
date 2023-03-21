@@ -35,16 +35,17 @@ public class SummaryService
             summary.LeagueName,
             division.DivisionName,
             division.Players.Select(GetPlayer).ToArray(),
+            division.Houses.Select(GetHouse).ToArray(),
             league?.MainDivisions ?? Array.Empty<IdName>());
     }
 
     private static PlayerScoreViewModel GetPlayer(SummaryPlayerScore playerScore)
     {
-        var scores = new Dictionary<ScoreType, ScoreViewModel>
+        var scores = new Dictionary<ScoreType, PlayerScoreDetailsViewModel>
         {
-            [ScoreType.Best] = GetScore(playerScore.Best),
-            [ScoreType.Average] = GetScoreAverage(playerScore.Total, playerScore.Seasons),
-            [ScoreType.Total] = GetScore(playerScore.Total)
+            [ScoreType.Best] = GetPlayerScore(playerScore.Best),
+            [ScoreType.Average] = GetPlayerScoreAverage(playerScore.Total, playerScore.Seasons),
+            [ScoreType.Total] = GetPlayerScore(playerScore.Total)
         };
 
         return new PlayerScoreViewModel(
@@ -54,9 +55,25 @@ public class SummaryService
         );
     }
 
-    private static ScoreViewModel GetScore(SummaryScore score) => GetScoreAverage(score);
+    private static HouseScoreViewModel GetHouse(SummaryHouseScore houseScore)
+    {
+        var scores = new Dictionary<ScoreType, HouseScoreDetailsViewModel>
+        {
+            [ScoreType.Best] = GetHouseScore(houseScore.Best),
+            [ScoreType.Average] = GetHouseScoreAverage(houseScore.Total, houseScore.Games),
+            [ScoreType.Total] = GetHouseScore(houseScore.Total)
+        };
 
-    private static ScoreViewModel GetScoreAverage(SummaryScore score, int seasons = 1) => new(
+        return new HouseScoreViewModel(
+            houseScore.House,
+            scores,
+            houseScore.Games
+        );
+    }
+
+    private static PlayerScoreDetailsViewModel GetPlayerScore(SummaryPlayerScoreDetails score) => GetPlayerScoreAverage(score);
+
+    private static PlayerScoreDetailsViewModel GetPlayerScoreAverage(SummaryPlayerScoreDetails score, int seasons = 1) => new(
         score.TotalPoints / seasons,
         (double)score.Wins / seasons,
         (double)score.Cla / seasons,
@@ -69,6 +86,17 @@ public class SummaryService
         (double?)score.Position / seasons,
         score.Stats == null ? new Stats() : score.Stats / seasons);
 
-    private static Dictionary<House, double> GetHousesAverage(IEnumerable<SummaryHouseScore> houses, int seasons) =>
+    private static Dictionary<House, double> GetHousesAverage(IEnumerable<HousePoints> houses, int seasons) =>
         houses.ToDictionary(score => score.House, score => score.Points / seasons);
+
+    private static HouseScoreDetailsViewModel GetHouseScore(SummaryHouseScoreDetails score) => GetHouseScoreAverage(score);
+
+    private static HouseScoreDetailsViewModel GetHouseScoreAverage(SummaryHouseScoreDetails score, int games = 1) => new(
+        score.Points / games,
+        (double)score.Wins / games,
+        (double)score.Cla / games,
+        (double)score.Supplies / games,
+        (double)score.PowerTokens / games,
+        (double)score.Moves / games,
+        score.Stats == null ? new Stats() : score.Stats / games);
 }

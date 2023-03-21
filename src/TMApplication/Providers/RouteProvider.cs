@@ -26,14 +26,14 @@ public class RouteProvider
     public static string GetLeagueIndexRoute(string leagueId) =>
         $"{League}/{leagueId}/index";
 
-    public static string GetLeagueSummaryRoute(string leagueId, string? divisionId = null, ScoreType? scoreType = null) =>
+    public static string GetLeagueSummaryRoute(string leagueId, string? divisionId = null, TableType? tableType = null, ScoreType? scoreType = null) =>
         scoreType == null ?
             (string.IsNullOrEmpty(divisionId) ?
                 $"{League}/{leagueId}/summary" :
-                $"{League}/{leagueId}/summary/{ScoreType.Best}/{divisionId}") :
+                $"{League}/{leagueId}/summary/{TableType.Players}/{ScoreType.Best}/{divisionId}") :
         string.IsNullOrEmpty(divisionId)
-            ? $"{League}/{leagueId}/summary/{scoreType}"
-            : $"{League}/{leagueId}/summary/{scoreType}/{divisionId}";
+            ? $"{League}/{leagueId}/summary/{tableType}/{ScoreTypes.Get(tableType, scoreType)}"
+            : $"{League}/{leagueId}/summary/{tableType}/{ScoreTypes.Get(tableType, scoreType)}/{divisionId}";
 
     public static string GetLeaguePlayersRoute(string leagueId) =>
         $"{League}/{leagueId}/players";
