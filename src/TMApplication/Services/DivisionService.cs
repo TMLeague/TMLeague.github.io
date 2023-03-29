@@ -32,7 +32,8 @@ public class DivisionService
             progress += game.Progress;
         }
 
-        progress /= games.Count;
+        if (games.Count > 0)
+            progress /= games.Count;
 
         var winnerPlayerName = await GetWinner(leagueId, seasonId, divisionId, division, cancellationToken);
 
@@ -95,11 +96,11 @@ public class DivisionService
             {
                 if (houseScore.MinutesPerMove >= 500)
                     messages.Add(new NotificationMessage(
-                        NotificationLevel.Critical, 
+                        NotificationLevel.Critical,
                         $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
                 else if (houseScore.MinutesPerMove >= 300)
                     messages.Add(new NotificationMessage(
-                        NotificationLevel.Warning, 
+                        NotificationLevel.Warning,
                         $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
             }
         }
