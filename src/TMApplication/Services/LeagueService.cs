@@ -34,7 +34,7 @@ public class LeagueService
     private async Task<LeagueSeasonButtonViewModel?> GetSeasonButtonViewModel(string leagueId, League league, CancellationToken cancellationToken)
     {
         var seasonId = league.AllSeasons.LastOrDefault();
-        if (seasonId == null) 
+        if (seasonId == null)
             return null;
 
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
@@ -48,7 +48,12 @@ public class LeagueService
             if (result != null)
                 results.Add(result);
         }
-        return new LeagueSeasonButtonViewModel(seasonId, season.Name, results.Max(result => result.GeneratedTime));
+
+        var generatedTime = results.Count > 0 ?
+            results.Max(result => result.GeneratedTime) :
+            DateTimeOffset.UtcNow;
+
+        return new LeagueSeasonButtonViewModel(seasonId, season.Name, generatedTime);
     }
 
     public async Task<LeagueSeasonChampionViewModel?> GetLeagueChampionVm(string leagueId, CancellationToken cancellationToken = default)

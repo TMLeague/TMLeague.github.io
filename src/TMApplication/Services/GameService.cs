@@ -12,9 +12,11 @@ public class GameService
         _dataProvider = dataProvider;
     }
 
-    public async Task<LeagueGameSummaryViewModel> GetGameSummaryVm(int gameId, CancellationToken cancellationToken = default)
+    public async Task<LeagueGameSummaryViewModel> GetGameSummaryVm(int? gameId, CancellationToken cancellationToken = default)
     {
-        var game = await _dataProvider.GetGame(gameId, cancellationToken);
+        var game = gameId == null ?
+            null : 
+            await _dataProvider.GetGame(gameId.Value, cancellationToken);
         if (game == null)
             return new LeagueGameSummaryViewModel(gameId, null, 0, 0, false, false, null, null);
 

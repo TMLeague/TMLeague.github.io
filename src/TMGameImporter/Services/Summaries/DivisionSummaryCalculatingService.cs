@@ -26,7 +26,7 @@ internal class DivisionSummaryCalculatingService
         {
             _logger.LogError(
                 "   Division {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
-                leagueId, seasonId, divisionId);
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return null;
         }
 
@@ -34,7 +34,7 @@ internal class DivisionSummaryCalculatingService
         {
             _logger.LogWarning(
                 "   Division {leagueId}/{seasonId}/{divisionId} is not finished.",
-                leagueId, seasonId, divisionId);
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return null;
         }
 
@@ -43,7 +43,7 @@ internal class DivisionSummaryCalculatingService
         {
             _logger.LogError(
                 "   Division results {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
-                leagueId, seasonId, divisionId);
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return null;
         }
 
