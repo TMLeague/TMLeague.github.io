@@ -86,7 +86,9 @@ public class DivisionService
 
         foreach (var (gameId, gameIdx) in division.Games.Select((g, i) => (g, i)))
         {
-            var game = await _dataProvider.GetGame(gameId, cancellationToken);
+            var game = gameId == null ?
+                null : 
+                await _dataProvider.GetGame(gameId.Value, cancellationToken);
             if (game == null || game.IsStalling || game.IsFinished)
                 continue;
             foreach (var houseScore in game.Houses)
