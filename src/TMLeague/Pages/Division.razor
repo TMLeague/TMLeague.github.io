@@ -146,7 +146,14 @@ else
                     @foreach (var (gameId, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
                     {
                         <th scope="col" style="width: 200px">
-                            <a href="@RouteProvider.GetGameRoute(LeagueId, gameId)" class="text-inherit">@($"G{i + 1}")</a>
+                            @if (gameId == null)
+                            {
+                                <span>@($"G{i + 1}")</span>
+                            }
+                            else
+                            {
+                                <a href="@RouteProvider.GetGameRoute(LeagueId, gameId.Value)" class="text-inherit">@($"G{i + 1}")</a>
+                            }
                         </th>
                     }
                 </tr>

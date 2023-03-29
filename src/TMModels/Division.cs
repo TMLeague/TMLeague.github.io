@@ -4,7 +4,7 @@ public record Division(
     string Name,
     string Judge,
     string[] Players,
-    int[] Games,
+    int?[] Games,
     Penalty[]? Penalties,
     Replacement[]? Replacements,
     bool IsFinished,

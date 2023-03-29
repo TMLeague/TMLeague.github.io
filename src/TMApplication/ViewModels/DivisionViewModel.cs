@@ -11,7 +11,7 @@ public record DivisionViewModel(
     bool IsFinished,
     string? WinnerTitle,
     DivisionPlayerViewModel[] Players,
-    int[] Games,
+    int?[] Games,
     Tiebreaker[] Tiebreakers,
     NotificationMessage[] Messages,
     DateTimeOffset? GeneratedTime);

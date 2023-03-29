@@ -59,6 +59,7 @@ internal class DivisionImportingService
         //foreach (var playerName in division.Enemies)
         //    await _playerImportingService.Import(playerName, cancellationToken);
         var games = division.Games
+            .OfType<int>()
             .Select(gameId => _gameImportingService.Import(gameId, cancellationToken))
             .Select(task => task.Result)
             .OfType<Game>()
@@ -66,12 +67,12 @@ internal class DivisionImportingService
 
         foreach (var gameId in division.Games)
         {
-            if (games.All(game => game.Id != gameId))
-            {
-                var oldGame = await _fileLoader.LoadGame(gameId, cancellationToken);
-                if (oldGame != null)
-                    games.Add(oldGame);
-            }
+            if (gameId == null || games.Any(game => game.Id == gameId)) 
+                continue;
+
+            var oldGame = await _fileLoader.LoadGame(gameId.Value, cancellationToken);
+            if (oldGame != null)
+                games.Add(oldGame);
         }
 
         var playerResults = division.Players
