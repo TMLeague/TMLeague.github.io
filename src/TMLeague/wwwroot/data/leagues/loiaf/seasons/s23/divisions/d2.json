@@ -13,7 +13,18 @@
     "BarteqZw",
     "Lance"
   ],
-  "games": [],
+  "games": [
+    null,
+    null,
+    null,
+    292824,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
   "penalties": [],
   "isFinished": false
 }
