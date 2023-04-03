@@ -7,7 +7,7 @@
     "BarteqZw",
     "rasmus842",
     "Figueira",
-    "MIkeBike",
+    "MikeBike",
     "Lyn"
   ],
   "games": [
@@ -39,7 +39,7 @@
       "details": "no delay before choosing a card (final battle)"
     },
       {
-      "player": "MIkeBike",
+      "player": "MikeBike",
       "game": 290191,
       "points": 1,
       "details": "no delay while retreating (final battle)"
