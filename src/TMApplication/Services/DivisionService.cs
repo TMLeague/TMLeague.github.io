@@ -62,6 +62,12 @@ public class DivisionService
             return null;
 
         var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null && season.Divisions.Length > 0)
+        {
+            divisionId = season.Divisions.Last();
+            division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        }
+
         if (division == null)
             return null;
 
@@ -74,7 +80,8 @@ public class DivisionService
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
             division.Games,
             league.Scoring?.Tiebreakers ?? Tiebreakers.Default, messages,
-            results?.GeneratedTime);
+            results?.GeneratedTime,
+            league.GetSeasonNavigation(seasonId), season.GetDivisionNavigation(divisionId));
     }
 
     private async Task<NotificationMessage[]> GetMessages(string leagueId, string seasonId, string divisionId,
@@ -88,7 +95,7 @@ public class DivisionService
         foreach (var (gameId, gameIdx) in division.Games.Select((g, i) => (g, i)))
         {
             var game = gameId == null ?
-                null : 
+                null :
                 await _dataProvider.GetGame(gameId.Value, cancellationToken);
             if (game == null || game.IsStalling || game.IsFinished)
                 continue;
@@ -120,7 +127,9 @@ public class DivisionService
         playerResult.Houses.Select(GetPlayerHouseVm).ToArray(),
         playerResult.PenaltiesPoints,
         playerResult.PenaltiesDetails.Select(GetPlayerPenaltyVm).ToArray(),
-        playerResult.Stats);
+        playerResult.Stats,
+        playerResult.IsPromoted,
+        playerResult.IsRelegated);
 
     private static PlayerHouseViewModel GetPlayerHouseVm(HouseResult houseResult) => new(
         houseResult.Game,
