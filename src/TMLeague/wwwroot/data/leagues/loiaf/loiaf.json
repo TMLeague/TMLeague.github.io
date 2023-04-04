@@ -9,15 +9,20 @@
   "mainDivisions": [
     {
       "id": "d1",
-      "name": "Division 1"
+      "name": "Division 1",
+      "relegations": 2
     },
     {
       "id": "d2",
-      "name": "Division 2"
+      "name": "Division 2",
+      "promotions": 2,
+      "relegations": 3
     },
     {
       "id": "d3",
-      "name": "Division 3"
+      "name": "Division 3",
+      "promotions": 3,
+      "relegations": 4
     }
   ],
   "scoring": {
