@@ -20,36 +20,37 @@
     290231
   ],
   "penalties": [
-      {
+    {
       "player": "BarteqZw",
       "game": 290215,
       "points": 1,
       "details": "no delay before choosing a card (final battle)"
     },
-      {
+    {
       "player": "Figueira",
       "game": 290215,
       "points": 1,
       "details": "no delay while retreating (final battle)"
     },
-      {
+    {
       "player": "BarteqZw",
       "game": 290191,
       "points": 1,
       "details": "no delay before choosing a card (final battle)"
     },
-      {
+    {
       "player": "MikeBike",
       "game": 290191,
       "points": 1,
       "details": "no delay while retreating (final battle)"
     },
-      {
+    {
       "player": "JulianSnow",
       "game": 290249,
       "points": 1,
       "details": "no delay while retreating (final battle)"
     }
   ],
-  "isFinished": false
+  "isFinished": false,
+  "promotions": 2
 }
