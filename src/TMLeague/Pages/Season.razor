@@ -7,8 +7,41 @@
 @inject ILogger<Season> Logger
 
 <h3>League @LeagueId</h3>
-<h4>@(SeasonVm?.Name ?? "Season")</h4>
-
+<h4>
+    @if (SeasonVm?.SeasonNavigation.Previous == null)
+    {
+        <i class="bi bi-chevron-compact-left invisible"></i>
+    }
+    @if (LeagueId != null && SeasonVm?.SeasonNavigation.First != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.First)"><i class="bi bi-chevron-double-left"></i></a>
+    }
+    else
+    {
+        <i class="bi bi-chevron-double-left invisible"></i>
+    }
+    @if (LeagueId != null && SeasonVm?.SeasonNavigation.Previous != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Previous)"><i class="bi bi-chevron-compact-left"></i></a>
+    }
+    <span>@(SeasonVm?.Name ?? "Season")</span>
+    @if (LeagueId != null && SeasonVm?.SeasonNavigation.Next != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Next)"><i class="bi bi-chevron-compact-right"></i></a>
+    }
+    @if (LeagueId != null && SeasonVm?.SeasonNavigation.Last != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Last)"><i class="bi bi-chevron-double-right"></i></a>
+    }
+    else
+    {
+        <i class="bi bi-chevron-double-right invisible"></i>
+    }
+    @if (SeasonVm?.SeasonNavigation.Next == null)
+    {
+        <i class="bi bi-chevron-compact-right invisible"></i>
+    }
+</h4>
 
 @if (SeasonVm == null)
 {
@@ -40,10 +73,10 @@ else
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var playerVm in division.Players)
+                        @foreach (var (playerVm, i) in division.Players.Select((playerVm, i) => (playerVm, i)))
                         {
                             <tr>
-                                <th scope="row">@playerVm.Name</th>
+                                <th scope="row" class="@GetPlayerClass(playerVm, i)">@playerVm.Name</th>
                                 <td class="text-warning">@playerVm.Points</td>
                             </tr>
                         }
@@ -64,6 +97,16 @@ else
 
     private bool _isInitialized;
 
+    protected override async Task OnParametersSetAsync()
+    {
+        if (LeagueId != null && SeasonId != null)
+            SeasonVm = await SeasonService.GetSeasonVm(LeagueId, SeasonId);
+        else
+            Logger.LogError($"Parameters {nameof(LeagueId)} and {nameof(SeasonId)} are required!");
+
+        await base.OnParametersSetAsync();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         if (LeagueId != null && SeasonId != null)
@@ -72,5 +115,14 @@ else
             Logger.LogError($"Parameters {nameof(LeagueId)} and {nameof(SeasonId)} are required!");
 
         _isInitialized = true;
+    }
+
+    private string GetPlayerClass(SeasonPlayerViewModel playerVm, int i)
+    {
+        if (playerVm.IsPromoted) return "promoted";
+        if (playerVm.IsRelegated) return "relegated";
+        if (i == 0) return "winner";
+
+        return string.Empty;
     }
 }

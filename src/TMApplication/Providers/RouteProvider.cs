@@ -41,6 +41,12 @@ public class RouteProvider
     public static string GetLeagueSeasonsRoute(string leagueId) =>
         $"{League}/{leagueId}/seasons";
 
+    public static string GetLeagueSeasonRoute(string leagueId, string seasonId) =>
+        $"{League}/{leagueId}/season/{seasonId}";
+
+    public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId) =>
+        $"{League}/{leagueId}/season/{seasonId}/division/{divisionId}";
+
     public static string GetLeagueJudgeRoute(string leagueId) =>
         $"{League}/{leagueId}/judge";
 

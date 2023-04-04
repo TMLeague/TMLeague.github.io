@@ -1,5 +1,6 @@
 ﻿using TMApplication.Providers;
 using TMApplication.ViewModels;
+using TMModels;
 
 namespace TMApplication.Services;
 
@@ -90,6 +91,8 @@ public class SeasonService
     public async Task<SeasonViewModel?> GetSeasonVm(
         string leagueId, string seasonId, CancellationToken cancellationToken = default)
     {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
         if (season == null)
             return null;
@@ -106,11 +109,11 @@ public class SeasonService
                 continue;
 
             var players = results.Players.Select(playerResult =>
-                new SeasonPlayerViewModel(playerResult.Player, playerResult.TotalPoints)).ToList();
+                new SeasonPlayerViewModel(playerResult.Player, playerResult.TotalPoints, playerResult.IsPromoted, playerResult.IsRelegated)).ToList();
             var divisionVm = new SeasonDivisionViewModel(divisionId, division.Name, players);
             divisions.Add(divisionVm);
         }
 
-        return new SeasonViewModel(season.Name, divisions);
+        return new SeasonViewModel(season.Name, divisions, league?.GetSeasonNavigation(seasonId) ?? new Navigation());
     }
 }

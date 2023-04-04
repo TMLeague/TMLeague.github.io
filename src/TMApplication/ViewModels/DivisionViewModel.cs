@@ -14,7 +14,9 @@ public record DivisionViewModel(
     int?[] Games,
     Tiebreaker[] Tiebreakers,
     NotificationMessage[] Messages,
-    DateTimeOffset? GeneratedTime);
+    DateTimeOffset? GeneratedTime,
+    Navigation SeasonNavigation,
+    Navigation DivisionNavigation);
 
 public record DivisionPlayerViewModel(
     string Name,

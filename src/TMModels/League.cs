@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using TMModels.Extensions;
 
 namespace TMModels;
 
@@ -17,6 +18,16 @@ public record League(
 )
 {
     public IEnumerable<string> AllSeasons => TrainingSeasons.Concat(Seasons);
+
+    public Navigation GetSeasonNavigation(string seasonId)
+    {
+        var idx = Seasons.GetIdx(seasonId);
+        var first = idx > 0 ? Seasons.First() : null;
+        var previous = idx > 1 ? Seasons[idx - 1] : null;
+        var next = idx < Seasons.Length - 2 ? Seasons[idx + 1] : null;
+        var last = idx < Seasons.Length - 1 ? Seasons.Last() : null;
+        return new Navigation(first, previous, next, last);
+    }
 }
 
 public record LeagueDivision(
