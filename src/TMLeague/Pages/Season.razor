@@ -10,7 +10,7 @@
 <h4>
     @if (SeasonVm?.SeasonNavigation.Previous == null)
     {
-        <i class="bi bi-chevron-compact-left invisible"></i>
+        <i class="bi bi-chevron-left invisible"></i>
     }
     @if (LeagueId != null && SeasonVm?.SeasonNavigation.First != null)
     {
@@ -22,12 +22,12 @@
     }
     @if (LeagueId != null && SeasonVm?.SeasonNavigation.Previous != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Previous)"><i class="bi bi-chevron-compact-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Previous)"><i class="bi bi-chevron-left"></i></a>
     }
     <span>@(SeasonVm?.Name ?? "Season")</span>
     @if (LeagueId != null && SeasonVm?.SeasonNavigation.Next != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Next)"><i class="bi bi-chevron-compact-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Next)"><i class="bi bi-chevron-right"></i></a>
     }
     @if (LeagueId != null && SeasonVm?.SeasonNavigation.Last != null)
     {
@@ -39,7 +39,7 @@
     }
     @if (SeasonVm?.SeasonNavigation.Next == null)
     {
-        <i class="bi bi-chevron-compact-right invisible"></i>
+        <i class="bi bi-chevron-right invisible"></i>
     }
 </h4>
 
