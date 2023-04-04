@@ -11,13 +11,19 @@ public record League(
     string? JudgeTitle,
     string[] Seasons,
     string[] TrainingSeasons,
-    IdName[] MainDivisions,
+    LeagueDivision[] MainDivisions,
     Scoring? Scoring,
     InitialMessage? InitialMessage
 )
 {
     public IEnumerable<string> AllSeasons => TrainingSeasons.Concat(Seasons);
 }
+
+public record LeagueDivision(
+    string Id,
+    string Name,
+    int? Promotions,
+    int? Relegations);
 
 public record Scoring(
     double PointsPerStronghold,

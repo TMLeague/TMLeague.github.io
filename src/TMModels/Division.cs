@@ -8,7 +8,9 @@ public record Division(
     Penalty[]? Penalties,
     Replacement[]? Replacements,
     bool IsFinished,
-    string? WinnerTitle);
+    string? WinnerTitle,
+    int? Promotions,
+    int? Relegations);
 
 public record Penalty(
     string Player,

@@ -120,7 +120,9 @@ public class DivisionService
         playerResult.Houses.Select(GetPlayerHouseVm).ToArray(),
         playerResult.PenaltiesPoints,
         playerResult.PenaltiesDetails.Select(GetPlayerPenaltyVm).ToArray(),
-        playerResult.Stats);
+        playerResult.Stats,
+        playerResult.IsPromoted,
+        playerResult.IsRelegated);
 
     private static PlayerHouseViewModel GetPlayerHouseVm(HouseResult houseResult) => new(
         houseResult.Game,

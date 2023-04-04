@@ -22,7 +22,7 @@ internal class SeasonImportingService
         _logger = logger;
     }
 
-    public async Task Import(string leagueId, string seasonId, Scoring scoring, CancellationToken cancellationToken)
+    public async Task Import(string leagueId, string seasonId, Scoring scoring, LeagueDivision[] leagueDivisions, CancellationToken cancellationToken)
     {
         _logger.LogInformation("  Season {leagueId}/{seasonId} import started...",
             leagueId.ToUpper(), seasonId.ToUpper());
@@ -38,11 +38,17 @@ internal class SeasonImportingService
         if (string.IsNullOrEmpty(_options.Value.Division))
         {
             foreach (var divisionId in season.Divisions)
-                await _divisionImportingService.Import(leagueId, seasonId, divisionId, scoring, cancellationToken);
+            {
+                var leagueDivision = leagueDivisions.FirstOrDefault(division => division.Id == divisionId);
+                await _divisionImportingService.Import(leagueId, seasonId, divisionId, scoring,
+                    leagueDivision?.Promotions, leagueDivision?.Relegations, cancellationToken);
+            }
         }
         else
         {
-            await _divisionImportingService.Import(leagueId, seasonId, _options.Value.Division, scoring, cancellationToken);
+            var leagueDivision = leagueDivisions.FirstOrDefault(division => division.Id == _options.Value.Division);
+            await _divisionImportingService.Import(leagueId, seasonId, _options.Value.Division, scoring,
+                leagueDivision?.Promotions, leagueDivision?.Relegations, cancellationToken);
         }
 
         _logger.LogInformation("  Season {leagueId}/{seasonId} imported.",

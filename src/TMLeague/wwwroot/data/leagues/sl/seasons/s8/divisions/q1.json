@@ -75,5 +75,6 @@
       "details": "no delaying"
     }
   ],
-  "isFinished": true
+  "isFinished": true,
+  "promotions": 2
 }

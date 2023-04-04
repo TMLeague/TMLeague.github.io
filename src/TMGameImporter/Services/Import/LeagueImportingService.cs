@@ -38,11 +38,11 @@ internal class LeagueImportingService
         if (string.IsNullOrEmpty(_options.Value.Season))
         {
             foreach (var seasonId in league.Seasons)
-                await _seasonImportingService.Import(leagueId, seasonId, leagueScoring, cancellationToken);
+                await _seasonImportingService.Import(leagueId, seasonId, leagueScoring, league.MainDivisions, cancellationToken);
         }
         else
         {
-            await _seasonImportingService.Import(leagueId, _options.Value.Season, leagueScoring, cancellationToken);
+            await _seasonImportingService.Import(leagueId, _options.Value.Season, leagueScoring, league.MainDivisions, cancellationToken);
         }
 
         _logger.LogInformation(" League {leagueId} imported.", leagueId.ToUpper());

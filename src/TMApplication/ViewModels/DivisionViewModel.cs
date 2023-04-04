@@ -28,12 +28,15 @@ public record DivisionPlayerViewModel(
     PlayerHouseViewModel[] Houses,
     double TotalPenaltyPoints,
     PlayerPenaltyViewModel[] Penalties,
-    Stats Stats)
+    Stats Stats,
+    bool IsPromoted,
+    bool IsRelegated)
 {
     public DivisionPlayerViewModel(string name) :
         this(name, 0, 0, 0, 0, 0, 0, 0,
-            Array.Empty<PlayerHouseViewModel>(), 0, 
-            Array.Empty<PlayerPenaltyViewModel>(), new Stats())
+            Array.Empty<PlayerHouseViewModel>(), 0,
+            Array.Empty<PlayerPenaltyViewModel>(),
+            new Stats(), false, false)
     { }
 
     public PlayerHouseViewModel GetHouse(House house) =>
@@ -56,7 +59,7 @@ public record PlayerHouseViewModel(
     int Moves,
     Stats Stats)
 {
-    public PlayerHouseViewModel(int? game, House house) : 
+    public PlayerHouseViewModel(int? game, House house) :
         this(game, house, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, new Stats())
     { }
 }

@@ -290,7 +290,15 @@ a,
 .table-winner tbody tr:first-child th,
 .table-winner tbody tr:first-child td,
 .winner {
-    color: #ff9;
+    color: #ff9 !important;
+}
+
+.promoted {
+    color: #9f9 !important;
+}
+
+.relegated {
+    color: #f99 !important;
 }
 
 /* Cover */
