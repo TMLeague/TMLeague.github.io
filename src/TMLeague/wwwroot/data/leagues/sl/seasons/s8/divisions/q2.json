@@ -57,6 +57,6 @@
       "details": "no delay while retreating (final battle)"
     }
   ],
-  "isFinished": false,
+  "isFinished": true,
   "promotions": 2
 }
