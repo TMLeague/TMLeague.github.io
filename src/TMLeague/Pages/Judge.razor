@@ -248,16 +248,55 @@ else
                 </div>
                 <InputTextArea id="messageBody" style="height: 400px;" @bind-Value="DivisionForm.MessageBody" placeholder="..." class="form-control" aria-describedby="messageBodyHelp" />
             </div>
-            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+        </div>
+        <div class="col-12 row">
+            <div class="col-md-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
                 <label for="usePredefinedDraft" class="form-label text-start">Use random draft</label>
                 <div class="d-flex align-items-center">
-                    <InputCheckbox id="usePredefinedDraft" @bind-Value="DivisionForm.UseRandomDraft" class="form-check-input me-2" aria-describedby="usePredefinedDraftHelp" />
+                    <InputCheckbox id="usePredefinedDraft" @bind-Value="DivisionForm.RandomOptions.UseRandomDraft" class="form-check-input me-2" aria-describedby="usePredefinedDraftHelp" />
                     <div id="usePredefinedDraftHelp" class="form-text m-0">
                         Use random draft even if predefined exists
                     </div>
                 </div>
             </div>
+            @if (DivisionForm.RandomOptions.UseRandomDraft)
+            {
+                <div class="col-md-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="timeout" class="form-label text-start">Timeout</label>
+                    <div id="timeoutHelp" class="form-text">The time of generating best draft in format "HH:MM:SS".</div>
+                    <InputText id="timeout" @bind-Value="DivisionForm.RandomOptions.TimeoutRaw" class="form-control" aria-describedby="timeoutHelp" />
+                </div>
+            }
         </div>
+        @if (DivisionForm.RandomOptions.UseRandomDraft)
+        {
+            <div class="col-12 row">
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="neighborMin" class="form-label text-start">Min neighbor weight</label>
+                    <InputNumber id="neighborMin" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMin" class="form-control" aria-describedby="neighborMinHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="neighborMax" class="form-label text-start">Max neighbor weight</label>
+                    <InputNumber id="neighborMax" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMax" class="form-control" aria-describedby="neighborMaxHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="neighborStd" class="form-label text-start">Std neighbor weight</label>
+                    <InputNumber id="neighborStd" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborStd" class="form-control" aria-describedby="neighborStdHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="enemyMin" class="form-label text-start">Min enemy weight</label>
+                    <InputNumber id="enemyMin" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMin" class="form-control" aria-describedby="enemyMinHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="enemyMax" class="form-label text-start">Max enemy weight</label>
+                    <InputNumber id="enemyMax" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMax" class="form-control" aria-describedby="enemyMaxHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="enemyStd" class="form-label text-start">Std enemy weight</label>
+                    <InputNumber id="enemyStd" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyStd" class="form-control" aria-describedby="enemyStdHelp" />
+                </div>
+            </div>
+        }
 
         <div class="col-12 my-4">
             <button type="submit" class="btn btn-primary w-100 @(DivisionDraft == null ? "" : "d-none")">Generate draft</button>
@@ -349,14 +388,14 @@ else
 
     private async Task HandleSubmit()
     {
+        _areMessagesVisible = false;
+
         if (DivisionForm != null)
         {
             _isDraftLoading = true;
-            DivisionDraft = await LeagueService.GetDraft(DivisionForm);
+            DivisionDraft = await LeagueService.GetBestDraft(DivisionForm);
             _isDraftLoading = false;
         }
-
-        _areMessagesVisible = false;
 
         await JsRuntime.InvokeVoidAsync("scrollToTop");
     }

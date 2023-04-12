@@ -25,7 +25,32 @@ public class DivisionForm
     public string[] Players => new[] { Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8, Player9, Player10 }
         .Where(p => !string.IsNullOrWhiteSpace(p))
         .Select(s => s!).ToArray();
+
+    public DivisionFormRandomOptions RandomOptions { get; set; } = new();
+}
+
+public class DivisionFormRandomOptions
+{
     public bool UseRandomDraft { get; set; }
+
+    public TimeSpan Timeout { get; set; } = TimeSpan.Zero;
+    public string TimeoutRaw
+    {
+        get => Timeout.ToString();
+        set => Timeout = TimeSpan.TryParse(value, out var timeSpan) ? timeSpan : TimeSpan.Zero;
+    }
+
+    public DivisionFormRandomOptionsWeights Weights { get; set; } = new();
+}
+
+public class DivisionFormRandomOptionsWeights
+{
+    public double NeighborMin { get; set; } = 1;
+    public double NeighborMax { get; set; } = -1;
+    public double NeighborStd { get; set; } = -1;
+    public double EnemyMin { get; set; } = 1;
+    public double EnemyMax { get; set; } = -1;
+    public double EnemyStd { get; set; } = -1;
 }
 
 public record DivisionDraft(List<PlayerDraft> Draft)
@@ -43,6 +68,14 @@ public record DivisionDraft(List<PlayerDraft> Draft)
     public int EnemyMin => AllStats.Select(stat => stat.Enemy).Min();
     public int EnemyMax => AllStats.Select(stat => stat.Enemy).Max();
     public double EnemyStd => AllStats.Select(stat => stat.Enemy).ToArray().Std();
+
+    public double GetScore(DivisionFormRandomOptionsWeights weights) =>
+        NeighborMin * weights.NeighborMin +
+        NeighborMax * weights.NeighborMax +
+        NeighborStd * weights.NeighborStd +
+        EnemyMin * weights.EnemyMin +
+        EnemyMax * weights.EnemyMax +
+        EnemyStd * weights.EnemyStd;
 }
 
 public record PlayerDraft(
