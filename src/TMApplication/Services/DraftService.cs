@@ -54,18 +54,18 @@ public class DraftService
         var table = Enumerable.Range(0, playersCount).Select(_ => new House?[playersCount]).ToArray();
 
         foreach (var draft in Generate(table, players, games, houses, 0))
-            yield return new Draft("Random",
-                draft.Select(hs =>
-                    hs.Select(h => h?.ToString() ?? "X")
-                        .ToArray()).ToArray());
+            yield return draft;
     }
 
-    private static IEnumerable<IReadOnlyList<House?[]>> Generate(IReadOnlyList<House?[]> table, IReadOnlyList<int[]> players, IReadOnlyList<int[]> games, House[] houses, int idx)
+    private static IEnumerable<Draft> Generate(IReadOnlyList<House?[]> table, IReadOnlyList<int[]> players, IReadOnlyList<int[]> games, House[] houses, int idx)
     {
         var gameIdx = idx % games.Count;
         var playerIdx = idx / games.Count;
         if (playerIdx >= players.Count)
-            yield return table.Select(tableHouses => tableHouses.ToArray()).ToList();
+            yield return new Draft("Random",
+                table.Select(hs =>
+                hs.Select(h => h?.ToString() ?? "X")
+                    .ToArray()).ToArray());
 
         var playerRemaining = players[playerIdx];
         var gameRemaining = games[gameIdx];
@@ -78,9 +78,7 @@ public class DraftService
             gameRemaining[Array.IndexOf(houses, option)]--;
 
             foreach (var result in Generate(table, players, games, houses, idx + 1))
-            {
                 yield return result;
-            }
 
             playerRemaining[Array.IndexOf(houses, option)]++;
             gameRemaining[Array.IndexOf(houses, option)]++;
