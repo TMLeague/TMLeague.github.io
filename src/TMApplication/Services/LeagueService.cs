@@ -1,7 +1,6 @@
 ﻿using TMApplication.Extensions;
 using TMApplication.Providers;
 using TMApplication.ViewModels;
-using TMLeague.Models.Judge;
 using TMModels;
 
 namespace TMApplication.Services;
@@ -109,7 +108,9 @@ public class LeagueService
             return null;
 
         var playersLength = divisionForm.Players.Length;
-        var drafts = await _dataProvider.GetDrafts(playersLength, cancellationToken);
+        var drafts = divisionForm.UseRandomDraft ?
+            Array.Empty<Draft>() :
+            await _dataProvider.GetDrafts(playersLength, cancellationToken);
 
         Draft? draft;
         if (drafts.Length > 0)

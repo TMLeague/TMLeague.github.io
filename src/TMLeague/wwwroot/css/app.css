@@ -458,7 +458,7 @@ a,
     font-style: italic;
 }
 
-.form-control {
+.form-control:not([type=checkbox]) {
     color: #ddd;
     background: none;
     border: 0;

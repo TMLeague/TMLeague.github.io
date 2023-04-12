@@ -1,8 +1,8 @@
 ﻿@page "/league/{leagueId}/judge"
-@using TMLeague.Models.Judge
+@using TMApplication.Services
 @using TMLeague.Components
 @using TMLeague.Components.Judge
-@using TMApplication.Services
+@using TMModels
 @using System.Text.RegularExpressions
 @using System.Web
 @inject LeagueService LeagueService
@@ -37,8 +37,12 @@
                     }
                     @if (_areStatsVisible)
                     {
-                        <th scope="col" style="width: 100px" class="tt">Neighbor<div class="tt-inner px-3">Max number of games with the same player as a neighbor</div></th>
-                        <th scope="col" style="width: 100px" class="tt">Player<div class="tt-inner px-3">Max number of games against the same player</div></th>
+                        @foreach (var player in DivisionDraft.Draft)
+                        {
+                            <td>@player.Name</td>
+                        }
+                        <th scope="col" style="width: 100px" class="tt">Neighbor<div class="tt-inner px-3">Number of games with the same player as a neighbor</div></th>
+                        <th scope="col" style="width: 100px" class="tt">Player<div class="tt-inner px-3">Number of games against the same player</div></th>
                     }
                 </tr>
             </thead>
@@ -51,7 +55,7 @@
                         </td>
                         <td class="bg-transparent p-0">
                             <a href="@($"https://www.thronemaster.net/?goto=account&sub=private_messages&type=new&to={player.Name}")" target="blank"
-                   class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
+                               class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
                         </td>
                         <th scope="row">@player.Name</th>
                         @foreach (var house in player.Games)
@@ -60,18 +64,35 @@
                         }
                         @if (_areStatsVisible)
                         {
-                            <td>@player.Stats?.CommonNeighbor.Games</td>
-                            <td>@player.Stats?.CommonEnemy.Games</td>
+                            @foreach (var stat in player.Stats)
+                            {
+                                @if (stat == null)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@($"{stat.Neighbor}/{stat.Enemy}")</td>
+                                }
+                            }
+                            <td>@($"{player.Stats.NeighborMin}-{player.Stats.NeighborMax}")</td>
+                            <td>@($"{player.Stats.EnemyMin}-{player.Stats.EnemyMax}")</td>
                         }
                     </tr>
                 }
             </tbody>
         </table>
 
+        @if (_areStatsVisible)
+        {
+            <p class="m-0">Neighbor range: <span class="fw-bold">@($"{DivisionDraft.NeighborMin}-{DivisionDraft.NeighborMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.NeighborStd, 2)</span></p>
+            <p class="m-0">Enemy range: <span class="fw-bold">@($"{DivisionDraft.EnemyMin}-{DivisionDraft.EnemyMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.EnemyStd, 2)</span></p>
+        }
+
         @if (_areMessagesVisible)
         {
             <h4>Welcome messages</h4>
-            <p>Subject: <b>@(DivisionDraft.Draft.FirstOrDefault()?.MessageSubject ?? $"{LeagueName} draft")</b></p>
+            <p>Subject: <b>@Subject</b></p>
             <dl>
                 @foreach (var player in DivisionDraft.Draft)
                 {
@@ -86,10 +107,13 @@
         }
 
         <div class="row mt-4">
-            <div class="col-6 pe-2">
+            <div class="col-4 pe-2">
+                <button class="btn btn-primary w-100" @onclick="() => CopyTextToClipboard(Subject)">Copy subject</button>
+            </div>
+            <div class="col-4 pe-2">
                 <button class="btn btn-primary w-100" @onclick="SwitchMessagesVisible">@(_areMessagesVisible ? "Hide messages" : "Show messages")</button>
             </div>
-            <div class="col-6 ps-2">
+            <div class="col-4 ps-2">
                 <button class="btn btn-primary w-100" @onclick="SwitchStatsVisible">@(_areStatsVisible ? "Hide stats" : "Show stats")</button>
             </div>
         </div>
@@ -224,6 +248,15 @@ else
                 </div>
                 <InputTextArea id="messageBody" style="height: 400px;" @bind-Value="DivisionForm.MessageBody" placeholder="..." class="form-control" aria-describedby="messageBodyHelp" />
             </div>
+            <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="usePredefinedDraft" class="form-label text-start">Use random draft</label>
+                <div class="d-flex align-items-center">
+                    <InputCheckbox id="usePredefinedDraft" @bind-Value="DivisionForm.UseRandomDraft" class="form-check-input me-2" aria-describedby="usePredefinedDraftHelp" />
+                    <div id="usePredefinedDraftHelp" class="form-text m-0">
+                        Use random draft even if predefined exists
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-12 my-4">
@@ -269,6 +302,8 @@ else
     private DivisionForm? DivisionForm { get; set; }
 
     private DivisionDraft? DivisionDraft { get; set; }
+
+    private string Subject => DivisionDraft?.Draft.FirstOrDefault()?.MessageSubject ?? $"{LeagueName} draft";
 
     private int TableWidth => 300 + (DivisionDraft?.Games ?? 0) * 100 + (_areStatsVisible ? 200 : 0);
 

@@ -1,5 +1,4 @@
-﻿using TMLeague.Models.Judge;
-using TMModels;
+﻿using TMModels;
 
 namespace TMApplication.Services;
 
@@ -54,30 +53,28 @@ public class PlayerStatsService
     {
         var houses = draftTable.First().Distinct().OrderBy(house => house).ToArray();
         var housesCount = houses.Length - (houses.Contains(House.Unknown) ? 1 : 0);
-        var enemies = GetPlayersDraftStats(draftTable, players,
-            IsEnemy);
-        var neighbors = GetPlayersDraftStats(draftTable, players,
-            (playerHouse, enemyHouse) => IsNeighbor(playerHouse, enemyHouse, housesCount));
-        return enemies.Zip(neighbors)
-            .Select(tuple => new PlayerDraftStats(
-                tuple.First.ToList(),
-                tuple.Second.ToList()));
+        return players.Select((p1, p1Idx) => 
+            new PlayerDraftStats(players.Select((p2, p2Idx) => 
+                GetPlayerDraftStat(draftTable, p1, p1Idx, p2, p2Idx, housesCount))));
     }
 
-    private static IEnumerable<IEnumerable<PlayerDraftStat>> GetPlayersDraftStats(House[][] draftTable, IReadOnlyList<string> players, Func<House, House, bool> isRelated) =>
-        draftTable
-            .Select(playerGames => SelectAllRelated(playerGames, draftTable, isRelated)
-                .GroupBy(enemyIdx => enemyIdx)
-                .Select(enemyIdxGrouping =>
-                    new PlayerDraftStat(players[enemyIdxGrouping.Key],
-                        enemyIdxGrouping.Count())));
+    private static PlayerDraftStat? GetPlayerDraftStat(House[][] draftTable, string p1, int p1Idx, string p2, int p2Idx,
+        int housesCount)
+    {
+        if (p1 == p2) return null;
+        var p1Row = draftTable[p1Idx];
+        var p2Row = draftTable[p2Idx];
+        return new PlayerDraftStat(p2,
+            p1Row
+                .Zip(p2Row)
+                .Sum(tuple =>
+                    IsNeighbor(tuple.First, tuple.Second, housesCount) ? 1 : 0),
+            p1Row
+                .Zip(p2Row)
+                .Sum(tuple =>
+                    IsEnemy(tuple.First, tuple.Second) ? 1 : 0));
+    }
 
-    private static IEnumerable<int> SelectAllRelated(IEnumerable<House> playerGames, House[][] draftTable, Func<House, House, bool> isRelated) =>
-        playerGames
-            .SelectMany((playerHouse, gameIdx) => draftTable
-                .Select((enemyGames, enemyIdx) => (enemyGames, enemyIdx))
-                .Where(kv => isRelated(playerHouse, kv.enemyGames[gameIdx]))
-                .Select(kv => kv.enemyIdx));
 
     private static bool IsEnemy(House playerHouse, House enemyHouse) =>
         playerHouse != House.Unknown && enemyHouse != House.Unknown && enemyHouse != playerHouse;
