@@ -6,7 +6,6 @@ using Microsoft.Extensions.Options;
 using TMApplication.Services;
 using TMDraftsGenerator;
 using TMModels;
-using TMModels.Extensions;
 
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
@@ -42,45 +41,33 @@ logger.LogInformation("Results directory files are removed.");
 
 var resultsPath = Path.Combine(options.Value.ResultsPath, "results.draft.txt");
 await using var resultsFile = File.CreateText(resultsPath);
+await resultsFile.WriteAsync($"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd{Environment.NewLine}");
 
 var players = Enumerable.Range(1, options.Value.Players).Select(i => i.ToString()).ToArray();
 
-int bestIdx = 0;
-double bestScore = int.MinValue;
-
-logger.LogDebug("test");
+var bestScores = new HashSet<DraftScore>();
 
 foreach (var (draft, i) in draftService.GetDrafts(options.Value.Players, options.Value.Houses).Select((d, i) => (d, i)))
 {
-    var path = Path.Combine(options.Value.ResultsPath, $"{i}.draft.txt");
-    _ = File.WriteAllTextAsync(path, draft.Serialize())
-        .ContinueWith(_ => logger.LogTrace($"Draft {i} saved."));
-
     var draftTable = draft.Table.Select(housesTemplate =>
         housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
     var allStats = playerStatsService.GetStats(draftTable, players)
         .SelectMany(s => s).OfType<PlayerDraftStat>().ToArray();
-    var neighborMin = allStats.Select(stat => stat.Neighbor).Min();
-    var neighborMax = allStats.Select(stat => stat.Neighbor).Max();
-    var neighborStd = allStats.Select(stat => stat.Neighbor).ToArray().Std();
-    var enemyMin = allStats.Select(stat => stat.Enemy).Min();
-    var enemyMax = allStats.Select(stat => stat.Enemy).Max();
-    var enemyStd = allStats.Select(stat => stat.Enemy).ToArray().Std();
-    var score = neighborMin * options.Value.NeighborMin +
-                neighborMax * options.Value.NeighborMax +
-                neighborStd * options.Value.NeighborStd +
-                enemyMin * options.Value.EnemyMin +
-                enemyMax * options.Value.EnemyMax +
-                enemyStd * options.Value.EnemyStd;
-    if (score > bestScore)
-    {
-        bestIdx = i;
-        bestScore = score;
-    }
+    var score = new DraftScore(i.ToString(), allStats);
 
-    await resultsFile.WriteAsync($"{i}|{neighborMin}|{neighborMax}|{neighborStd}|{enemyMin}|{enemyMax}|{enemyStd}|{score}{Environment.NewLine}");
-    logger.LogDebug(
-        $"Draft[{i}] calculated. Neighbors: {neighborMin}-{neighborMax} ({neighborStd:0.00}). Enemies: {enemyMin}-{enemyMax} ({enemyStd:0.00}). Score: {score:0.00} (best[{bestIdx}]: {bestScore:0.00}).");
+    if (bestScores.All(draftScore => !draftScore.IsDominating(score)))
+    {
+        bestScores.RemoveWhere(draftScore => score.IsDominating(draftScore));
+        bestScores.Add(score);
+
+        var path = Path.Combine(options.Value.ResultsPath, $"{i}.draft.txt");
+        _ = File.WriteAllTextAsync(path, draft.Serialize())
+            .ContinueWith(_ => logger.LogTrace($"Draft {i} saved."));
+
+        await resultsFile.WriteAsync(
+            $"{i}\t{score.NeighborMin}\t{score.NeighborMax}\t{score.NeighborStd}\t{score.EnemyMin}\t{score.EnemyMax}\t{score.EnemyStd}{Environment.NewLine}");
+        logger.LogInformation($"Best scores ({bestScores.Count}) : {string.Join(", ", bestScores.Select(draftScore => draftScore.Name).OrderBy(s => s))}");
+    }
 }
 
 string[] ArgumentsString() =>
