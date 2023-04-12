@@ -1,10 +1,18 @@
-﻿using TMApplication.Extensions;
+﻿using Microsoft.Extensions.Logging;
+using TMApplication.Extensions;
 using TMModels;
 
 namespace TMApplication.Services;
 
 public class DraftService
 {
+    private ILogger<DraftService> _logger;
+
+    public DraftService(ILogger<DraftService> logger)
+    {
+        _logger = logger;
+    }
+
     public Draft GetDraft(Draft draft)
     {
         var playersCount = draft.Table.Length;
@@ -57,31 +65,37 @@ public class DraftService
             yield return draft;
     }
 
-    private static IEnumerable<Draft> Generate(IReadOnlyList<House?[]> table, IReadOnlyList<int[]> players, IReadOnlyList<int[]> games, House[] houses, int idx)
+    private IEnumerable<Draft> Generate(IReadOnlyList<House?[]> table, IReadOnlyList<int[]> players, IReadOnlyList<int[]> games, House[] houses, int idx)
     {
         var gameIdx = idx % games.Count;
         var playerIdx = idx / games.Count;
         if (playerIdx >= players.Count)
+        {
             yield return new Draft("Random",
                 table.Select(hs =>
-                hs.Select(h => h?.ToString() ?? "X")
-                    .ToArray()).ToArray());
-
-        var playerRemaining = players[playerIdx];
-        var gameRemaining = games[gameIdx];
-
-        var options = GetRandomOptions(playerRemaining, gameRemaining, houses);
-        foreach (var option in options)
+                    hs.Select(h => h?.ToString() ?? "X")
+                        .ToArray()).ToArray());
+        }
+        else
         {
-            table[playerIdx][gameIdx] = option;
-            playerRemaining[Array.IndexOf(houses, option)]--;
-            gameRemaining[Array.IndexOf(houses, option)]--;
+            var playerRemaining = players[playerIdx];
+            var gameRemaining = games[gameIdx];
 
-            foreach (var result in Generate(table, players, games, houses, idx + 1))
-                yield return result;
+            var options = GetRandomOptions(playerRemaining, gameRemaining, houses);
+            foreach (var (option, i) in options.Select((o, i) => (o, i)))
+            {
+                table[playerIdx][gameIdx] = option;
+                playerRemaining[Array.IndexOf(houses, option)]--;
+                gameRemaining[Array.IndexOf(houses, option)]--;
 
-            playerRemaining[Array.IndexOf(houses, option)]++;
-            gameRemaining[Array.IndexOf(houses, option)]++;
+                foreach (var result in Generate(table, players, games, houses, idx + 1))
+                    yield return result;
+
+                playerRemaining[Array.IndexOf(houses, option)]++;
+                gameRemaining[Array.IndexOf(houses, option)]++;
+
+                _logger.LogTrace($"Option[{i}] for idx={idx} calculated.");
+            }
         }
     }
 

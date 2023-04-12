@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMGameImporter.Tests", "tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMModels.Tests", "tests\TMModels.Tests\TMModels.Tests.csproj", "{0D868DC6-6A71-4AAB-96FA-045CB8AEC919}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMApplication.Tests", "tests\TMApplication.Tests\TMApplication.Tests.csproj", "{93810ADD-FE72-4694-95C3-472ABC4E7ACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMApplication.Tests", "tests\TMApplication.Tests\TMApplication.Tests.csproj", "{93810ADD-FE72-4694-95C3-472ABC4E7ACC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDraftsGenerator", "src\TMDraftsGenerator\TMDraftsGenerator.csproj", "{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{93810ADD-FE72-4694-95C3-472ABC4E7ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93810ADD-FE72-4694-95C3-472ABC4E7ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93810ADD-FE72-4694-95C3-472ABC4E7ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

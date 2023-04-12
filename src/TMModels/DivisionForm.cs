@@ -40,10 +40,10 @@ public class DivisionFormRandomOptions
         set => Timeout = TimeSpan.TryParse(value, out var timeSpan) ? timeSpan : TimeSpan.Zero;
     }
 
-    public DivisionFormRandomOptionsWeights Weights { get; set; } = new();
+    public DraftScoreWeights Weights { get; set; } = new();
 }
 
-public class DivisionFormRandomOptionsWeights
+public class DraftScoreWeights
 {
     public double NeighborMin { get; set; } = 1;
     public double NeighborMax { get; set; } = -1;
@@ -69,7 +69,7 @@ public record DivisionDraft(List<PlayerDraft> Draft)
     public int EnemyMax => AllStats.Select(stat => stat.Enemy).Max();
     public double EnemyStd => AllStats.Select(stat => stat.Enemy).ToArray().Std();
 
-    public double GetScore(DivisionFormRandomOptionsWeights weights) =>
+    public double GetScore(DraftScoreWeights weights) =>
         NeighborMin * weights.NeighborMin +
         NeighborMax * weights.NeighborMax +
         NeighborStd * weights.NeighborStd +
