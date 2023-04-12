@@ -5,11 +5,11 @@ namespace TMApplication.Services;
 
 public class DraftService
 {
-    public Task<Draft> GetDraft(Draft draft)
+    public Draft GetDraft(Draft draft)
     {
         var playersCount = draft.Table.Length;
         if (playersCount == 0)
-            return Task.FromResult(draft);
+            return draft;
 
         var gamesCount = draft.Table[0].Length;
 
@@ -26,10 +26,13 @@ public class DraftService
             table[playerIdx] = games;
         }
 
-        return Task.FromResult(new Draft($"{draft.Name}*", table));
+        return new Draft($"{draft.Name}*", table);
     }
 
-    public Task<Draft?> GetDraft(int playersCount, int housesCount)
+    public Draft? GetDraft(int playersCount, int housesCount) =>
+        GetDrafts(playersCount, housesCount).FirstOrDefault();
+
+    public IEnumerable<Draft> GetDrafts(int playersCount, int housesCount)
     {
         if (playersCount < 3) playersCount = 3;
         if (housesCount < 3) housesCount = 3;
@@ -50,22 +53,19 @@ public class DraftService
         var games = Enumerable.Range(0, playersCount).Select(_ => remainingHouses.ToArray()).ToArray();
         var table = Enumerable.Range(0, playersCount).Select(_ => new House?[playersCount]).ToArray();
 
-        var isSuccess = Generate(table, players, games, houses, 0);
-        if (!isSuccess)
-            return Task.FromResult((Draft?)null);
-
-        return Task.FromResult((Draft?)new Draft("Random",
-            table.Select(hs =>
-                hs.Select(h => h?.ToString() ?? "X")
-                    .ToArray()).ToArray()));
+        foreach (var draft in Generate(table, players, games, houses, 0))
+            yield return new Draft("Random",
+                draft.Select(hs =>
+                    hs.Select(h => h?.ToString() ?? "X")
+                        .ToArray()).ToArray());
     }
 
-    private static bool Generate(IReadOnlyList<House?[]> table, IReadOnlyList<int[]> players, IReadOnlyList<int[]> games, House[] houses, int idx)
+    private static IEnumerable<IReadOnlyList<House?[]>> Generate(IReadOnlyList<House?[]> table, IReadOnlyList<int[]> players, IReadOnlyList<int[]> games, House[] houses, int idx)
     {
         var gameIdx = idx % games.Count;
         var playerIdx = idx / games.Count;
         if (playerIdx >= players.Count)
-            return true;
+            yield return table.Select(tableHouses => tableHouses.ToArray()).ToList();
 
         var playerRemaining = players[playerIdx];
         var gameRemaining = games[gameIdx];
@@ -77,14 +77,14 @@ public class DraftService
             playerRemaining[Array.IndexOf(houses, option)]--;
             gameRemaining[Array.IndexOf(houses, option)]--;
 
-            if (Generate(table, players, games, houses, idx + 1))
-                return true;
+            foreach (var result in Generate(table, players, games, houses, idx + 1))
+            {
+                yield return result;
+            }
 
             playerRemaining[Array.IndexOf(houses, option)]++;
             gameRemaining[Array.IndexOf(houses, option)]++;
         }
-
-        return false;
     }
 
     private static IEnumerable<House> GetRandomOptions(IReadOnlyList<int> playerRemaining, IReadOnlyList<int> gameRemaining, IEnumerable<House> houses)

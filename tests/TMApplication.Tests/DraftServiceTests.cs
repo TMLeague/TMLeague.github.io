@@ -13,9 +13,9 @@ public class DraftServiceTests
     }
 
     [Fact]
-    public async Task GetDraft_Should_GenerateDraft()
+    public void GetDraft_Should_GenerateDraft()
     {
-        var draft = await _sut.GetDraft(3, 3);
+        var draft = _sut.GetDraft(3, 3);
         draft.Should().NotBeNull();
     }
 }
