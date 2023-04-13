@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using FakeItEasy;
+using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using TMApplication.Services;
 
 namespace TMApplication.Tests;
@@ -9,13 +11,13 @@ public class DraftServiceTests
 
     public DraftServiceTests()
     {
-        _sut = new DraftService();
+        _sut = new DraftService(A.Fake<ILogger<DraftService>>());
     }
 
     [Fact]
-    public async Task GetDraft_Should_GenerateDraft()
+    public void GetDraft_Should_GenerateDraft()
     {
-        var draft = await _sut.GetDraft(3, 3);
+        var draft = _sut.GetDraft(3, 3);
         draft.Should().NotBeNull();
     }
 }

@@ -32,10 +32,13 @@ public class PlayerStatsServiceTests
 
         var players = Enumerable.Range(0, 10).Select(i => $"P{i}").ToArray();
 
-        var stats = _sut.GetStats(draftTable, players).ToArray();
+        var allStats = _sut.GetStats(draftTable, players).ToArray();
 
-        foreach (var stat in stats) 
-            stat.CommonEnemy.Games.Should().Be(4);
+        foreach (var playerStats in allStats)
+        {
+            playerStats.EnemyMax.Should().Be(4);
+            playerStats.Count(stat => stat == null).Should().Be(1);
+        }
     }
 
     [Theory]

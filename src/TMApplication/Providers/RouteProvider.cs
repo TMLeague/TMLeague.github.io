@@ -2,7 +2,7 @@
 
 namespace TMApplication.Providers;
 
-public class RouteProvider
+public static class RouteProvider
 {
     private const string League = "league";
     private const string Season = "season";

@@ -1,6 +1,6 @@
 using FluentAssertions;
 using TMApplication.Extensions;
-using TMLeague.Models.Judge;
+using TMModels;
 
 namespace TMApplication.Tests;
 
