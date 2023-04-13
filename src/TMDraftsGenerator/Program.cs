@@ -7,6 +7,14 @@ using TMApplication.Services;
 using TMDraftsGenerator;
 using TMModels;
 
+var cts = new CancellationTokenSource();
+Console.CancelKeyPress += (s, e) =>
+{
+    Console.WriteLine("Canceling...");
+    cts.Cancel();
+    e.Cancel = true;
+};
+
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 var host = Host.CreateDefaultBuilder()
@@ -29,26 +37,33 @@ var logger = host.Services.GetRequiredService<ILogger<Program>>();
 var draftService = host.Services.GetRequiredService<DraftService>();
 var playerStatsService = host.Services.GetRequiredService<PlayerStatsService>();
 var options = host.Services.GetRequiredService<IOptions<DraftOptions>>();
+
 logger.LogInformation(
     "Generating drafts started with following arguments: {arguments}",
     string.Join("", ArgumentsString()));
 
 var directory = Directory.CreateDirectory(options.Value.ResultsPath);
+
+var resultsPath = Path.Combine(options.Value.ResultsPath, "results.txt");
+await using var resultsFile = File.CreateText(resultsPath);
+await resultsFile.WriteAsync($"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd{Environment.NewLine}");
+
 foreach (var file in directory.GetFiles("*.draft.txt"))
     file.Delete();
 
 logger.LogInformation("Results directory files are removed.");
 
-var resultsPath = Path.Combine(options.Value.ResultsPath, "results.draft.txt");
-await using var resultsFile = File.CreateText(resultsPath);
-await resultsFile.WriteAsync($"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd{Environment.NewLine}");
-
 var players = Enumerable.Range(1, options.Value.Players).Select(i => i.ToString()).ToArray();
 
 var bestScores = new HashSet<DraftScore>();
+var i = 0;
 
-foreach (var (draft, i) in draftService.GetDrafts(options.Value.Players, options.Value.Houses).Select((d, i) => (d, i)))
+while (!cts.Token.IsCancellationRequested)
 {
+    var draft = draftService.GetDraft(options.Value.Players, options.Value.Houses);
+    if (draft == null)
+        break;
+
     var draftTable = draft.Table.Select(housesTemplate =>
         housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
     var allStats = playerStatsService.GetStats(draftTable, players)
@@ -66,8 +81,11 @@ foreach (var (draft, i) in draftService.GetDrafts(options.Value.Players, options
 
         await resultsFile.WriteAsync(
             $"{i}\t{score.NeighborMin}\t{score.NeighborMax}\t{score.NeighborStd}\t{score.EnemyMin}\t{score.EnemyMax}\t{score.EnemyStd}{Environment.NewLine}");
-        logger.LogInformation($"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}) : {string.Join(", ", bestScores.Select(draftScore => draftScore.Name).OrderBy(s => s))}");
+        await resultsFile.FlushAsync();
+        logger.LogInformation($"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}): {string.Join(", ", bestScores.Select(draftScore => draftScore.Name).OrderBy(s => s))}");
     }
+
+    ++i;
 }
 
 string[] ArgumentsString() =>
