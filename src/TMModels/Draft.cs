@@ -7,15 +7,15 @@ public record Draft(
     string[][] Table)
 {
     public string Serialize() =>
-        string.Join(Environment.NewLine, Table.Select(row => string.Join(" ", row)));
+        string.Join(Environment.NewLine, Table.Select(row => string.Join("\t", row)));
 }
 
-public record DraftScore(string Name,
+public record DraftScore(string Id,
     int NeighborMin, int NeighborMax, double NeighborStd,
     int EnemyMin, int EnemyMax, double EnemyStd)
 {
-    public DraftScore(string Name, PlayerDraftStat[] allStats) : this(
-        Name,
+    public DraftScore(string id, PlayerDraftStat[] allStats) : this(
+        id,
         allStats.Select(stat => stat.Neighbor).Min(),
         allStats.Select(stat => stat.Neighbor).Max(),
         allStats.Select(stat => stat.Neighbor).ToArray().Std(),

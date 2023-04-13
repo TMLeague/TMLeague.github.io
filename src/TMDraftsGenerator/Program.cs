@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Threading.Channels;
 using TMApplication.Services;
 using TMDraftsGenerator;
 using TMModels;
@@ -39,14 +40,46 @@ var playerStatsService = host.Services.GetRequiredService<PlayerStatsService>();
 var options = host.Services.GetRequiredService<IOptions<DraftOptions>>();
 
 logger.LogInformation(
-    "Generating drafts started with following arguments: {arguments}",
-    string.Join("", ArgumentsString()));
+    "Generating drafts started with following arguments:\r\n{arguments}",
+    string.Join(Environment.NewLine, ArgumentsString()));
 
 var directory = Directory.CreateDirectory(options.Value.ResultsPath);
+var bestScores = new DraftScoresBag();
 
-var resultsPath = Path.Combine(options.Value.ResultsPath, "results.txt");
-await using var resultsFile = File.CreateText(resultsPath);
-await resultsFile.WriteAsync($"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd{Environment.NewLine}");
+var channel = Channel.CreateBounded<DraftScore>(100);
+_ = Task.Run(async () =>
+{
+    try
+    {
+        var resultsPath = Path.Combine(options.Value.ResultsPath, "results.txt");
+        await using var resultsFile = File.CreateText(resultsPath);
+        await resultsFile.WriteAsync(
+            $"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd{Environment.NewLine}");
+        while (!cts.Token.IsCancellationRequested)
+        {
+            var score = await channel.Reader.ReadAsync(cts.Token);
+            await resultsFile.WriteAsync(
+                $"{score.Id}\t{score.NeighborMin}\t{score.NeighborMax}\t{score.NeighborStd}\t{score.EnemyMin}\t{score.EnemyMax}\t{score.EnemyStd}{Environment.NewLine}");
+            await resultsFile.FlushAsync();
+            logger.LogInformation(
+                $"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}): {string.Join(", ", bestScores.Values.OrderBy(s => s.NeighborStd).Select(draftScore => $"{draftScore.Id} ({Math.Round(draftScore.NeighborStd, 2)}, {Math.Round(draftScore.EnemyStd, 2)})"))}");
+        }
+
+        logger.LogInformation("Results writing task finished.");
+    }
+    catch (OperationCanceledException)
+    {
+        logger.LogWarning($"Results writing task cancelled.");
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Results writing task failed.");
+    }
+    finally
+    {
+        cts.Cancel();
+    }
+});
 
 foreach (var file in directory.GetFiles("*.draft.txt"))
     file.Delete();
@@ -55,51 +88,68 @@ logger.LogInformation("Results directory files are removed.");
 
 var players = Enumerable.Range(1, options.Value.Players).Select(i => i.ToString()).ToArray();
 
-var bestScores = new HashSet<DraftScore>();
-var i = 0;
-
-while (!cts.Token.IsCancellationRequested)
+Enumerable.Range(0, options.Value.Threads).AsParallel().ForAll(async taskId =>
 {
-    var draft = draftService.GetDraft(options.Value.Players, options.Value.Houses);
-    if (draft == null)
-        break;
-
-    var draftTable = draft.Table.Select(housesTemplate =>
-        housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
-    var allStats = playerStatsService.GetStats(draftTable, players)
-        .SelectMany(s => s).OfType<PlayerDraftStat>().ToArray();
-    var score = new DraftScore(i.ToString(), allStats);
-
-    if (bestScores.All(draftScore => !draftScore.IsDominating(score)))
+    logger.LogInformation($"Task {taskId} started.");
+    try
     {
-        bestScores.RemoveWhere(draftScore => score.IsDominating(draftScore));
-        bestScores.Add(score);
+        var i = 0;
+        while (!cts.Token.IsCancellationRequested)
+        {
+            var draft = draftService.GetDraft(options.Value.Players, options.Value.Houses);
+            if (draft == null)
+                break;
 
-        var path = Path.Combine(options.Value.ResultsPath, $"{i}.draft.txt");
-        _ = File.WriteAllTextAsync(path, draft.Serialize())
-            .ContinueWith(_ => logger.LogTrace($"Draft {i} saved."));
+            var draftTable = draft.Table.Select(housesTemplate =>
+                housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
+            var allStats = playerStatsService.GetStats(draftTable, players)
+                .SelectMany(s => s).OfType<PlayerDraftStat>().ToArray();
+            var score = new DraftScore($"{taskId}-{i}", allStats);
 
-        await resultsFile.WriteAsync(
-            $"{i}\t{score.NeighborMin}\t{score.NeighborMax}\t{score.NeighborStd}\t{score.EnemyMin}\t{score.EnemyMax}\t{score.EnemyStd}{Environment.NewLine}");
-        await resultsFile.FlushAsync();
-        logger.LogInformation($"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}): {string.Join(", ", bestScores.Select(draftScore => draftScore.Name).OrderBy(s => s))}");
+            if (!bestScores.IsDominated(score))
+            {
+                await bestScores.Add(score, cts.Token);
+
+                var path = Path.Combine(options.Value.ResultsPath, $"{taskId}-{i}.draft.txt");
+                _ = File.WriteAllTextAsync(path, draft.Serialize())
+                    .ContinueWith(_ => logger.LogTrace($"Draft {taskId}-{i} saved."));
+
+                await channel.Writer.WriteAsync(score, cts.Token);
+            }
+
+            ++i;
+        }
+
+        logger.LogInformation($"Task {taskId} finished.");
     }
+    catch (OperationCanceledException)
+    {
+        logger.LogWarning($"Task {taskId} cancelled.");
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, $"Task {taskId} failed.");
+    }
+});
 
-    ++i;
+try
+{
+    await Task.Delay(TimeSpan.FromDays(14), cts.Token);
 }
+catch (TaskCanceledException)
+{
+    // Ignore
+}
+
+logger.LogInformation("Program finished.");
 
 string[] ArgumentsString() =>
     new[]
     {
         ArgumentLine(nameof(options.Value.Players), options.Value.Players),
         ArgumentLine(nameof(options.Value.Houses), options.Value.Houses),
-        ArgumentLine(nameof(options.Value.ResultsPath), options.Value.ResultsPath),
-        ArgumentLine(nameof(options.Value.NeighborMin), options.Value.NeighborMin),
-        ArgumentLine(nameof(options.Value.NeighborMax), options.Value.NeighborMax),
-        ArgumentLine(nameof(options.Value.NeighborStd), options.Value.NeighborStd),
-        ArgumentLine(nameof(options.Value.EnemyMin), options.Value.EnemyMin),
-        ArgumentLine(nameof(options.Value.EnemyMax), options.Value.EnemyMax),
-        ArgumentLine(nameof(options.Value.EnemyStd), options.Value.EnemyStd)
+        ArgumentLine(nameof(options.Value.Threads), options.Value.Threads),
+        ArgumentLine(nameof(options.Value.ResultsPath), options.Value.ResultsPath)
     };
 
 string ArgumentLine(string name, object? value) =>

@@ -1,11 +1,11 @@
 ﻿using TMModels;
 
-namespace TMDraftsGenerator
+namespace TMDraftsGenerator;
+
+internal class DraftOptions
 {
-    internal class DraftOptions : DraftScoreWeights
-    {
-        public int Players { get; set; } = 3;
-        public int Houses { get; set; } = 6;
-        public string ResultsPath { get; set; } = "results";
-    }
+    public int Players { get; set; } = 3;
+    public int Houses { get; set; } = 6;
+    public int Threads { get; set; } = 1;
+    public string ResultsPath { get; set; } = "results";
 }
