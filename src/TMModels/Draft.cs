@@ -27,8 +27,15 @@ public record DraftScore(string Name,
     public bool IsDominating(DraftScore other) =>
         NeighborMin >= other.NeighborMin &&
         NeighborMax <= other.NeighborMax &&
-        NeighborStd >= other.NeighborStd &&
+        NeighborStd <= other.NeighborStd &&
         EnemyMin >= other.EnemyMin &&
         EnemyMax <= other.EnemyMax &&
-        EnemyStd >= other.EnemyStd;
+        EnemyStd <= other.EnemyStd &&
+        (
+            NeighborMin != other.NeighborMin ||
+            NeighborMax != other.NeighborMax ||
+            Math.Abs(NeighborStd - other.NeighborStd) > 0.001 ||
+            EnemyMin != other.EnemyMin ||
+            EnemyMax != other.EnemyMax ||
+            Math.Abs(EnemyStd - other.EnemyStd) > 0.001);
 }

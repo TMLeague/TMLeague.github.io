@@ -66,7 +66,7 @@ foreach (var (draft, i) in draftService.GetDrafts(options.Value.Players, options
 
         await resultsFile.WriteAsync(
             $"{i}\t{score.NeighborMin}\t{score.NeighborMax}\t{score.NeighborStd}\t{score.EnemyMin}\t{score.EnemyMax}\t{score.EnemyStd}{Environment.NewLine}");
-        logger.LogInformation($"Best scores ({bestScores.Count}) : {string.Join(", ", bestScores.Select(draftScore => draftScore.Name).OrderBy(s => s))}");
+        logger.LogInformation($"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}) : {string.Join(", ", bestScores.Select(draftScore => draftScore.Name).OrderBy(s => s))}");
     }
 }
 
