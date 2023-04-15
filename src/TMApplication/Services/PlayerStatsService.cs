@@ -53,8 +53,8 @@ public class PlayerStatsService
     {
         var houses = draftTable.First().Distinct().OrderBy(house => house).ToArray();
         var housesCount = houses.Length - (houses.Contains(House.Unknown) ? 1 : 0);
-        return players.Select((p1, p1Idx) => 
-            new PlayerDraftStats(players.Select((p2, p2Idx) => 
+        return players.Select((p1, p1Idx) =>
+            new PlayerDraftStats(players.Select((p2, p2Idx) =>
                 GetPlayerDraftStat(draftTable, p1, p1Idx, p2, p2Idx, housesCount))));
     }
 
