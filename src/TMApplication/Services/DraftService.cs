@@ -6,7 +6,7 @@ namespace TMApplication.Services;
 
 public class DraftService
 {
-    private ILogger<DraftService> _logger;
+    private readonly ILogger<DraftService> _logger;
 
     public DraftService(ILogger<DraftService> logger)
     {
