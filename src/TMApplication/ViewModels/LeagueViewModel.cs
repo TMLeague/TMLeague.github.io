@@ -10,7 +10,8 @@ public record LeagueViewModel(
 {
     public LeagueViewModel(string id) :
         this(id, null, null,
-            null, null, null) { }
+            null, null, null)
+    { }
 };
 
 public record LeagueSeasonButtonViewModel(
@@ -36,12 +37,14 @@ public record LeagueDivisionSummaryViewModel(
     IReadOnlyCollection<LeagueGameSummaryViewModel> Games,
     string? WinnerPlayerName)
 {
-    public DateTimeOffset? GeneratedTime => Games
-        .Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
+    public DateTimeOffset? GeneratedTime =>
+        Games.Count == 0 ?
+            DateTimeOffset.UtcNow :
+            Games.Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
 }
 
 public record LeagueGameSummaryViewModel(
-    int Id,
+    int? Id,
     string? Name,
     double Progress,
     int Turn,

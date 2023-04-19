@@ -1,7 +1,7 @@
-﻿using TMApplication.Extensions;
+﻿using System.Diagnostics;
+using TMApplication.Extensions;
 using TMApplication.Providers;
 using TMApplication.ViewModels;
-using TMLeague.Models.Judge;
 using TMModels;
 
 namespace TMApplication.Services;
@@ -34,7 +34,7 @@ public class LeagueService
     private async Task<LeagueSeasonButtonViewModel?> GetSeasonButtonViewModel(string leagueId, League league, CancellationToken cancellationToken)
     {
         var seasonId = league.AllSeasons.LastOrDefault();
-        if (seasonId == null) 
+        if (seasonId == null)
             return null;
 
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
@@ -48,7 +48,12 @@ public class LeagueService
             if (result != null)
                 results.Add(result);
         }
-        return new LeagueSeasonButtonViewModel(seasonId, season.Name, results.Max(result => result.GeneratedTime));
+
+        var generatedTime = results.Count > 0 ?
+            results.Max(result => result.GeneratedTime) :
+            DateTimeOffset.UtcNow;
+
+        return new LeagueSeasonButtonViewModel(seasonId, season.Name, generatedTime);
     }
 
     public async Task<LeagueSeasonChampionViewModel?> GetLeagueChampionVm(string leagueId, CancellationToken cancellationToken = default)
@@ -94,6 +99,33 @@ public class LeagueService
             nextMainSeason);
     }
 
+    public async Task<DivisionDraft?> GetBestDraft(DivisionForm divisionForm, CancellationToken cancellationToken = default)
+    {
+        var sw = Stopwatch.StartNew();
+        DivisionDraft? best;
+        do
+        {
+            best = await GetDraft(divisionForm, cancellationToken);
+        } while (best == null && sw.Elapsed < divisionForm.RandomOptions.Timeout);
+
+        if (best == null)
+            return null;
+
+        var bestScore = best.GetScore(divisionForm.RandomOptions.Weights);
+        while (divisionForm.RandomOptions.UseRandomDraft && sw.Elapsed < divisionForm.RandomOptions.Timeout)
+        {
+            var draft = await GetDraft(divisionForm, cancellationToken);
+            var draftScore = draft?.GetScore(divisionForm.RandomOptions.Weights) ?? int.MinValue;
+            if (draft == null || draftScore < bestScore)
+                continue;
+
+            best = draft;
+            bestScore = draftScore;
+        }
+
+        return best;
+    }
+
     public async Task<DivisionDraft?> GetDraft(DivisionForm divisionForm, CancellationToken cancellationToken = default)
     {
         if (divisionForm.League == null)
@@ -104,13 +136,15 @@ public class LeagueService
             return null;
 
         var playersLength = divisionForm.Players.Length;
-        var drafts = await _dataProvider.GetDrafts(playersLength, cancellationToken);
+        if (playersLength < 3)
+            return null;
+        var drafts = divisionForm.RandomOptions.UseRandomDraft ?
+            Array.Empty<Draft>() :
+            await _dataProvider.GetDrafts(playersLength, cancellationToken);
 
-        Draft? draft;
-        if (drafts.Length > 0)
-            draft = await _draftService.GetDraft(drafts[Random.Shared.Next(drafts.Length)]).ConfigureAwait(false);
-        else
-            draft = await _draftService.GetDraft(playersLength, 6).ConfigureAwait(false);
+        var draft = drafts.Length > 0 ?
+            _draftService.GetDraft(drafts[Random.Shared.Next(drafts.Length)]) :
+            _draftService.GetDraft(playersLength, 6);
         if (draft == null)
             return null;
 

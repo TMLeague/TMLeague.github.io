@@ -1,8 +1,11 @@
-﻿namespace TMApplication.ViewModels;
+﻿using TMModels;
+
+namespace TMApplication.ViewModels;
 
 public record SeasonViewModel(
     string Name,
-    IReadOnlyList<SeasonDivisionViewModel> Divisions);
+    IReadOnlyList<SeasonDivisionViewModel> Divisions,
+    Navigation SeasonNavigation);
 
 public record SeasonDivisionViewModel(
     string Id,
@@ -11,4 +14,6 @@ public record SeasonDivisionViewModel(
 
 public record SeasonPlayerViewModel(
     string Name,
-    double Points);
+    double Points,
+    bool IsPromoted,
+    bool IsRelegated);

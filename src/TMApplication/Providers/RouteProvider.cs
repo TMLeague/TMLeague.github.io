@@ -2,7 +2,7 @@
 
 namespace TMApplication.Providers;
 
-public class RouteProvider
+public static class RouteProvider
 {
     private const string League = "league";
     private const string Season = "season";
@@ -26,20 +26,26 @@ public class RouteProvider
     public static string GetLeagueIndexRoute(string leagueId) =>
         $"{League}/{leagueId}/index";
 
-    public static string GetLeagueSummaryRoute(string leagueId, string? divisionId = null, ScoreType? scoreType = null) =>
+    public static string GetLeagueSummaryRoute(string leagueId, string? divisionId = null, TableType? tableType = null, ScoreType? scoreType = null) =>
         scoreType == null ?
             (string.IsNullOrEmpty(divisionId) ?
                 $"{League}/{leagueId}/summary" :
-                $"{League}/{leagueId}/summary/{ScoreType.Best}/{divisionId}") :
+                $"{League}/{leagueId}/summary/{TableType.Players}/{ScoreType.Best}/{divisionId}") :
         string.IsNullOrEmpty(divisionId)
-            ? $"{League}/{leagueId}/summary/{scoreType}"
-            : $"{League}/{leagueId}/summary/{scoreType}/{divisionId}";
+            ? $"{League}/{leagueId}/summary/{tableType}/{ScoreTypes.Get(tableType, scoreType)}"
+            : $"{League}/{leagueId}/summary/{tableType}/{ScoreTypes.Get(tableType, scoreType)}/{divisionId}";
 
     public static string GetLeaguePlayersRoute(string leagueId) =>
         $"{League}/{leagueId}/players";
 
     public static string GetLeagueSeasonsRoute(string leagueId) =>
         $"{League}/{leagueId}/seasons";
+
+    public static string GetLeagueSeasonRoute(string leagueId, string seasonId) =>
+        $"{League}/{leagueId}/season/{seasonId}";
+
+    public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId) =>
+        $"{League}/{leagueId}/season/{seasonId}/division/{divisionId}";
 
     public static string GetLeagueJudgeRoute(string leagueId) =>
         $"{League}/{leagueId}/judge";

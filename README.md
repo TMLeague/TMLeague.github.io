@@ -62,7 +62,7 @@ To add a new season to the league, its index must be added to `seasons` or `trai
 | judgeTitle | A judge special title fot the league if any. |
 | seasons * | An array of ids of the league seasons in the application. |
 | trainingSeasons * | An additional array of ids of the training league seasons in the application that are skipped in all summaries, hall of fame etc. |
-| mainDivisions * | An array of objects containing ids and names of league main divisions. E.g.: `{"id": "d1", "name": "Division 1"}` |
+| mainDivisions * | An array of objects containing ids, names, number of promotions and relegations of league main divisions. E.g.: `{ "id": "d1", "name": "Division 1", "promotions": 3, "relegations": 3 }`. `Promotions` and `relegations` can be `null`. |
 | scoring | A league scoring rules. Described below in details. |
 | scoring:pointsPerStronghold | Number of points per each stronghold owned at the end of a game. |
 | scoring:pointsPerCastle | Number of points per each castle at the end of a game. |
@@ -111,6 +111,8 @@ Division configuration file contains following properties.
 | replacements[*]:game | A Thronemaster's game id. |
 | isFinished * | If `true`, then every time when results are fetched from the Thronemasters, all games from that division will be updated (few times a day). Set to `false`, when the division is correctly fetched at least once and no more recalculation is needed. |
 | winnerTitle | A winner title. |
+| promotions | Number of players promoted to higher division. If `null`, value is taken from the league configuration. |
+| relegations | Number of players relegated to lower division. If `null`, value is taken from the league configuration. |
 
 # Importing games locally
 To import games locally, it is needed to have installed [.NET6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). Then it is possible to execute following command from the root folder:

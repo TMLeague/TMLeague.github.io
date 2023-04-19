@@ -26,7 +26,7 @@ internal class DivisionSummaryCalculatingService
         {
             _logger.LogError(
                 "   Division {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
-                leagueId, seasonId, divisionId);
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return null;
         }
 
@@ -34,7 +34,7 @@ internal class DivisionSummaryCalculatingService
         {
             _logger.LogWarning(
                 "   Division {leagueId}/{seasonId}/{divisionId} is not finished.",
-                leagueId, seasonId, divisionId);
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return null;
         }
 
@@ -43,24 +43,37 @@ internal class DivisionSummaryCalculatingService
         {
             _logger.LogError(
                 "   Division results {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
-                leagueId, seasonId, divisionId);
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
             return null;
         }
 
         var players = results.Players.Select((playerResult, idx) => new SummaryPlayerScore(
-            playerResult.Player,
-            GetPlayerSummaryScore(playerResult, idx),
-            GetPlayerSummaryScore(playerResult, idx)))
+                playerResult.Player,
+                GetPlayerSummaryScore(playerResult, idx),
+                GetPlayerSummaryScore(playerResult, idx)))
+            .ToArray();
+
+        var houses = results.Players
+            .SelectMany(playerResult => playerResult.Houses)
+            .Select(houseResult => new SummaryHouseScore(
+                houseResult.House,
+                GetHouseSummaryScore(houseResult),
+                GetHouseSummaryScore(houseResult)))
+            .GroupBy(score => score.House)
+            .Select(scores =>
+                scores.Aggregate(
+                    new SummaryHouseScore(scores.Key),
+                    (score1, score2) => score1 + score2))
             .ToArray();
 
         _logger.LogInformation(
             "   Division {leagueId}/{seasonId}/{divisionId} summary calculated.",
             leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
 
-        return new SummaryDivision(divisionId, division.Name, players);
+        return new SummaryDivision(divisionId, division.Name, players, houses);
     }
 
-    private static SummaryScore GetPlayerSummaryScore(PlayerResult playerResult, int position) => new(
+    private static SummaryPlayerScoreDetails GetPlayerSummaryScore(PlayerResult playerResult, int position) => new(
         playerResult.TotalPoints,
         playerResult.Wins,
         playerResult.Cla,
@@ -73,8 +86,17 @@ internal class DivisionSummaryCalculatingService
         position + 1,
         playerResult.Stats);
 
-    private static SummaryHouseScore[] GetSummaryHouseScore(IEnumerable<HouseResult> houses) =>
-        houses.Select(houseResult => new SummaryHouseScore(
+    private static SummaryHouseScoreDetails GetHouseSummaryScore(HouseResult houseResult) => new(
+        houseResult.Points,
+        houseResult.IsWinner ? 1 : 0,
+        houseResult.Cla,
+        houseResult.Supplies,
+        houseResult.PowerTokens,
+        houseResult.Moves,
+        houseResult.Stats);
+
+    private static HousePoints[] GetSummaryHouseScore(IEnumerable<HouseResult> houses) =>
+        houses.Select(houseResult => new HousePoints(
                 houseResult.House,
                 houseResult.Points))
             .ToArray();

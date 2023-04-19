@@ -4,11 +4,13 @@ public record Division(
     string Name,
     string Judge,
     string[] Players,
-    int[] Games,
+    int?[] Games,
     Penalty[]? Penalties,
     Replacement[]? Replacements,
     bool IsFinished,
-    string? WinnerTitle);
+    string? WinnerTitle,
+    int? Promotions,
+    int? Relegations);
 
 public record Penalty(
     string Player,

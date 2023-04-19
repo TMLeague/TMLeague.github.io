@@ -28,7 +28,7 @@ internal class DivisionImportingService
     }
 
     public async Task Import(string leagueId, string seasonId, string divisionId,
-        Scoring scoring, CancellationToken cancellationToken)
+        Scoring scoring, int? leaguePromotions, int? leagueRelegations, CancellationToken cancellationToken)
     {
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} import started...",
             leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
@@ -59,6 +59,7 @@ internal class DivisionImportingService
         //foreach (var playerName in division.Enemies)
         //    await _playerImportingService.Import(playerName, cancellationToken);
         var games = division.Games
+            .OfType<int>()
             .Select(gameId => _gameImportingService.Import(gameId, cancellationToken))
             .Select(task => task.Result)
             .OfType<Game>()
@@ -66,18 +67,20 @@ internal class DivisionImportingService
 
         foreach (var gameId in division.Games)
         {
-            if (games.All(game => game.Id != gameId))
-            {
-                var oldGame = await _fileLoader.LoadGame(gameId, cancellationToken);
-                if (oldGame != null)
-                    games.Add(oldGame);
-            }
+            if (gameId == null || games.Any(game => game.Id == gameId))
+                continue;
+
+            var oldGame = await _fileLoader.LoadGame(gameId.Value, cancellationToken);
+            if (oldGame != null)
+                games.Add(oldGame);
         }
 
         var playerResults = division.Players
             .Select(playerName => GetPlayerResults(playerName, games, scoring, division))
             .ToArray();
         Array.Sort(playerResults, (p1, p2) => -Compare(p1, p2, scoring.Tiebreakers));
+        UpdatePromotedPlayers(playerResults, division.Promotions ?? leaguePromotions ?? 0);
+        UpdateRelegatedPlayers(playerResults, division.Relegations ?? leagueRelegations ?? 0);
 
         var results = new Results(playerResults, games.Any() ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow);
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
@@ -161,6 +164,20 @@ internal class DivisionImportingService
             .Where(houseResult => houseResult.BattlePenalty > 0)
             .Select(houseResult => new PlayerPenalty(houseResult.Game, houseResult.BattlePenalty, "for not enough battles before 10th round"));
         return (divisionPenalties?.Concat(battlePenalties) ?? battlePenalties).ToArray();
+    }
+
+    private static void UpdatePromotedPlayers(PlayerResult[] playerResults, int promotions)
+    {
+        if (promotions <= 0) return;
+        foreach (var playerResult in playerResults[..promotions])
+            playerResult.IsPromoted = true;
+    }
+
+    private static void UpdateRelegatedPlayers(PlayerResult[] playerResults, int relegations)
+    {
+        if (relegations <= 0) return;
+        foreach (var playerResult in playerResults[^relegations..])
+            playerResult.IsRelegated = true;
     }
 
     private static int Compare(PlayerResult p1, PlayerResult p2, IEnumerable<Tiebreaker> tiebreakers)

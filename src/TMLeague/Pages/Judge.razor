@@ -1,8 +1,8 @@
 ﻿@page "/league/{leagueId}/judge"
-@using TMLeague.Models.Judge
+@using TMApplication.Services
 @using TMLeague.Components
 @using TMLeague.Components.Judge
-@using TMApplication.Services
+@using TMModels
 @using System.Text.RegularExpressions
 @using System.Web
 @inject LeagueService LeagueService
@@ -37,8 +37,12 @@
                     }
                     @if (_areStatsVisible)
                     {
-                        <th scope="col" style="width: 100px" class="tt">Neighbor<div class="tt-inner px-3">Max number of games with the same player as a neighbor</div></th>
-                        <th scope="col" style="width: 100px" class="tt">Player<div class="tt-inner px-3">Max number of games against the same player</div></th>
+                        @foreach (var player in DivisionDraft.Draft)
+                        {
+                            <td>@player.Name</td>
+                        }
+                        <th scope="col" style="width: 100px" class="tt">Neighbor<div class="tt-inner px-3">Number of games with the same player as a neighbor</div></th>
+                        <th scope="col" style="width: 100px" class="tt">Player<div class="tt-inner px-3">Number of games against the same player</div></th>
                     }
                 </tr>
             </thead>
@@ -51,7 +55,7 @@
                         </td>
                         <td class="bg-transparent p-0">
                             <a href="@($"https://www.thronemaster.net/?goto=account&sub=private_messages&type=new&to={player.Name}")" target="blank"
-                   class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
+                               class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
                         </td>
                         <th scope="row">@player.Name</th>
                         @foreach (var house in player.Games)
@@ -60,18 +64,35 @@
                         }
                         @if (_areStatsVisible)
                         {
-                            <td>@player.Stats?.CommonNeighbor.Games</td>
-                            <td>@player.Stats?.CommonEnemy.Games</td>
+                            @foreach (var stat in player.Stats)
+                            {
+                                @if (stat == null)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td>@($"{stat.Neighbor}/{stat.Enemy}")</td>
+                                }
+                            }
+                            <td>@($"{player.Stats.NeighborMin}-{player.Stats.NeighborMax}")</td>
+                            <td>@($"{player.Stats.EnemyMin}-{player.Stats.EnemyMax}")</td>
                         }
                     </tr>
                 }
             </tbody>
         </table>
 
+        @if (_areStatsVisible)
+        {
+            <p class="m-0">Neighbor range: <span class="fw-bold">@($"{DivisionDraft.NeighborMin}-{DivisionDraft.NeighborMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.NeighborStd, 2)</span></p>
+            <p class="m-0">Enemy range: <span class="fw-bold">@($"{DivisionDraft.EnemyMin}-{DivisionDraft.EnemyMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.EnemyStd, 2)</span></p>
+        }
+
         @if (_areMessagesVisible)
         {
             <h4>Welcome messages</h4>
-            <p>Subject: <b>@(DivisionDraft.Draft.FirstOrDefault()?.MessageSubject ?? $"{LeagueName} draft")</b></p>
+            <p>Subject: <b>@Subject</b></p>
             <dl>
                 @foreach (var player in DivisionDraft.Draft)
                 {
@@ -86,10 +107,13 @@
         }
 
         <div class="row mt-4">
-            <div class="col-6 pe-2">
+            <div class="col-4 pe-2">
+                <button class="btn btn-primary w-100" @onclick="() => CopyTextToClipboard(Subject)">Copy subject</button>
+            </div>
+            <div class="col-4 pe-2">
                 <button class="btn btn-primary w-100" @onclick="SwitchMessagesVisible">@(_areMessagesVisible ? "Hide messages" : "Show messages")</button>
             </div>
-            <div class="col-6 ps-2">
+            <div class="col-4 ps-2">
                 <button class="btn btn-primary w-100" @onclick="SwitchStatsVisible">@(_areStatsVisible ? "Hide stats" : "Show stats")</button>
             </div>
         </div>
@@ -225,6 +249,54 @@ else
                 <InputTextArea id="messageBody" style="height: 400px;" @bind-Value="DivisionForm.MessageBody" placeholder="..." class="form-control" aria-describedby="messageBodyHelp" />
             </div>
         </div>
+        <div class="col-12 row">
+            <div class="col-md-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                <label for="usePredefinedDraft" class="form-label text-start">Use random draft</label>
+                <div class="d-flex align-items-center">
+                    <InputCheckbox id="usePredefinedDraft" @bind-Value="DivisionForm.RandomOptions.UseRandomDraft" class="form-check-input me-2" aria-describedby="usePredefinedDraftHelp" />
+                    <div id="usePredefinedDraftHelp" class="form-text m-0">
+                        Use random draft even if predefined exists
+                    </div>
+                </div>
+            </div>
+            @if (DivisionForm.RandomOptions.UseRandomDraft)
+            {
+                <div class="col-md-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="timeout" class="form-label text-start">Timeout</label>
+                    <div id="timeoutHelp" class="form-text">The time of generating best draft in format "HH:MM:SS".</div>
+                    <InputText id="timeout" @bind-Value="DivisionForm.RandomOptions.TimeoutRaw" class="form-control" aria-describedby="timeoutHelp" />
+                </div>
+            }
+        </div>
+        @if (DivisionForm.RandomOptions.UseRandomDraft)
+        {
+            <div class="col-12 row">
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="neighborMin" class="form-label text-start">Min neighbor weight</label>
+                    <InputNumber id="neighborMin" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMin" class="form-control" aria-describedby="neighborMinHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="neighborMax" class="form-label text-start">Max neighbor weight</label>
+                    <InputNumber id="neighborMax" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMax" class="form-control" aria-describedby="neighborMaxHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="neighborStd" class="form-label text-start">Std neighbor weight</label>
+                    <InputNumber id="neighborStd" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborStd" class="form-control" aria-describedby="neighborStdHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="enemyMin" class="form-label text-start">Min enemy weight</label>
+                    <InputNumber id="enemyMin" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMin" class="form-control" aria-describedby="enemyMinHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="enemyMax" class="form-label text-start">Max enemy weight</label>
+                    <InputNumber id="enemyMax" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMax" class="form-control" aria-describedby="enemyMaxHelp" />
+                </div>
+                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+                    <label for="enemyStd" class="form-label text-start">Std enemy weight</label>
+                    <InputNumber id="enemyStd" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyStd" class="form-control" aria-describedby="enemyStdHelp" />
+                </div>
+            </div>
+        }
 
         <div class="col-12 my-4">
             <button type="submit" class="btn btn-primary w-100 @(DivisionDraft == null ? "" : "d-none")">Generate draft</button>
@@ -270,6 +342,8 @@ else
 
     private DivisionDraft? DivisionDraft { get; set; }
 
+    private string Subject => DivisionDraft?.Draft.FirstOrDefault()?.MessageSubject ?? $"{LeagueName} draft";
+
     private int TableWidth => 300 + (DivisionDraft?.Games ?? 0) * 100 + (_areStatsVisible ? 200 : 0);
 
     private bool _areMessagesVisible;
@@ -314,14 +388,14 @@ else
 
     private async Task HandleSubmit()
     {
+        _areMessagesVisible = false;
+
         if (DivisionForm != null)
         {
             _isDraftLoading = true;
-            DivisionDraft = await LeagueService.GetDraft(DivisionForm);
+            DivisionDraft = await LeagueService.GetBestDraft(DivisionForm);
             _isDraftLoading = false;
         }
-
-        _areMessagesVisible = false;
 
         await JsRuntime.InvokeVoidAsync("scrollToTop");
     }

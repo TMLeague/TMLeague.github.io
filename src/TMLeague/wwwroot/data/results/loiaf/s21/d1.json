@@ -2349,7 +2349,9 @@
           "Points": 3,
           "Details": "minor KM"
         }
-      ]
+      ],
+      "IsPromoted": false,
+      "IsRelegated": true
     },
     {
       "Player": "El Grande",
@@ -2447,7 +2449,9 @@
         }
       ],
       "PenaltiesPoints": 0,
-      "PenaltiesDetails": []
+      "PenaltiesDetails": [],
+      "IsPromoted": false,
+      "IsRelegated": true
     }
   ],
   "GeneratedTime": "2023-03-07T06:31:11.1045807+00:00",

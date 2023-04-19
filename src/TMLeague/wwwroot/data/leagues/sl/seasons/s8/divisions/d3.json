@@ -25,6 +25,24 @@
     290239,
     290317
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "Kaisers landing",
+      "points": 3,
+      "details": "Finishing the game too early"
+    },
+    {
+      "player": "Min4o_Praznikov",
+      "points": 3,
+      "details": "Finishing the game too early"
+    },
+    {
+      "player": "spartan109",
+      "game": 290204,
+      "points": 9,
+      "details": "623 MPM"
+    }
+  ],
+  "isFinished": true,
+  "relegations": 4
 }

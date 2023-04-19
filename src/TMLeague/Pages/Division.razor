@@ -10,8 +10,83 @@
 @inject DivisionService DivisionService
 
 <h3>@(DivisionVm?.LeagueName ?? $"League {LeagueId}")</h3>
-<h4>@(DivisionVm?.SeasonName ?? $"Season {SeasonId}")</h4>
-<h5>@(DivisionVm?.DivisionName ?? $"Division {DivisionId}")</h5>
+<h4>
+    @if (DivisionVm?.SeasonNavigation.Previous == null)
+    {
+        <i class="bi bi-chevron-left invisible"></i>
+    }
+    @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.First != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.First, DivisionId)"><i class="bi bi-chevron-double-left"></i></a>
+    }
+    else
+    {
+        <i class="bi bi-chevron-double-left invisible"></i>
+    }
+    @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Previous != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Previous, DivisionId)"><i class="bi bi-chevron-left"></i></a>
+    }
+    @if (LeagueId != null && SeasonId != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonId)">@(DivisionVm?.SeasonName ?? $"Season {SeasonId}")</a>
+    }
+    else
+    {
+        <span>@(DivisionVm?.SeasonName ?? $"Season {SeasonId}")</span>
+    }
+    @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Next != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Next, DivisionId)"><i class="bi bi-chevron-right"></i></a>
+    }
+    @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Last != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Last, DivisionId)"><i class="bi bi-chevron-double-right"></i></a>
+    }
+    else
+    {
+        <i class="bi bi-chevron-double-right invisible"></i>
+    }
+    @if (DivisionVm?.SeasonNavigation.Next == null)
+    {
+        <i class="bi bi-chevron-right invisible"></i>
+    }
+</h4>
+<h5>
+    @if (DivisionVm?.DivisionNavigation.Previous == null)
+    {
+        <i class="bi bi-chevron-left invisible"></i>
+    }
+    @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.First != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.First)"><i class="bi bi-chevron-double-left"></i></a>
+    }
+    else
+    {
+        <i class="bi bi-chevron-double-left invisible"></i>
+    }
+    @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Previous != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Previous)"><i class="bi bi-chevron-left"></i></a>
+    }
+    <span>@(DivisionVm?.DivisionName ?? $"Division {DivisionId}")</span>
+    @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Next != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Next)"><i class="bi bi-chevron-right"></i></a>
+    }
+    @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Last != null)
+    {
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Last)"><i class="bi bi-chevron-double-right"></i></a>
+    }
+    else
+    {
+        <i class="bi bi-chevron-double-right invisible"></i>
+    }
+    @if (DivisionVm?.DivisionNavigation.Next == null)
+    {
+        <i class="bi bi-chevron-right invisible"></i>
+    }
+</h5>
 
 @if (DivisionVm == null)
 {
@@ -58,10 +133,10 @@ else
                 </tr>
             </thead>
             <tbody>
-                @foreach (var playerVm in DivisionVm.Players)
+                @foreach (var (playerVm, i) in DivisionVm.Players.Select((player, i) => (player, i)))
                 {
                     <tr>
-                        <th scope="row"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
+                        <th scope="row" class="@GetPlayerClass(playerVm, i)"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
                         <td class="text-warning">@playerVm.TotalPoints</td>
                         @foreach (var tiebreaker in DivisionVm.Tiebreakers)
                         {
@@ -146,7 +221,14 @@ else
                     @foreach (var (gameId, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
                     {
                         <th scope="col" style="width: 200px">
-                            <a href="@RouteProvider.GetGameRoute(LeagueId, gameId)" class="text-inherit">@($"G{i + 1}")</a>
+                            @if (gameId == null)
+                            {
+                                <span>@($"G{i + 1}")</span>
+                            }
+                            else
+                            {
+                                <a href="@RouteProvider.GetGameRoute(LeagueId, gameId.Value)" class="text-inherit">@($"G{i + 1}")</a>
+                            }
                         </th>
                     }
                 </tr>
@@ -231,6 +313,16 @@ else
     private bool _showGameDetails;
     private void ChangeVisibility() => _showGameDetails = !_showGameDetails;
 
+    protected override async Task OnParametersSetAsync()
+    {
+        if (LeagueId == null || SeasonId == null || DivisionId == null)
+            return;
+
+        DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
+
+        await base.OnParametersSetAsync();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         if (LeagueId == null || SeasonId == null || DivisionId == null)
@@ -248,4 +340,13 @@ else
         NotificationLevel.Critical => "alert-danger",
         _ => "alert-light"
     };
+
+    private string GetPlayerClass(DivisionPlayerViewModel playerVm, int i)
+    {
+        if (playerVm.IsPromoted) return "promoted";
+        if (playerVm.IsRelegated) return "relegated";
+        if (i == 0) return "winner";
+
+        return string.Empty;
+    }
 }

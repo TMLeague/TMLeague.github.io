@@ -32,7 +32,8 @@ public class DivisionService
             progress += game.Progress;
         }
 
-        progress /= games.Count;
+        if (games.Count > 0)
+            progress /= games.Count;
 
         var winnerPlayerName = await GetWinner(leagueId, seasonId, divisionId, division, cancellationToken);
 
@@ -61,6 +62,12 @@ public class DivisionService
             return null;
 
         var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null && season.Divisions.Length > 0)
+        {
+            divisionId = season.Divisions.Last();
+            division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        }
+
         if (division == null)
             return null;
 
@@ -73,7 +80,8 @@ public class DivisionService
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
             division.Games,
             league.Scoring?.Tiebreakers ?? Tiebreakers.Default, messages,
-            results?.GeneratedTime);
+            results?.GeneratedTime,
+            league.GetSeasonNavigation(seasonId), season.GetDivisionNavigation(divisionId));
     }
 
     private async Task<NotificationMessage[]> GetMessages(string leagueId, string seasonId, string divisionId,
@@ -86,18 +94,20 @@ public class DivisionService
 
         foreach (var (gameId, gameIdx) in division.Games.Select((g, i) => (g, i)))
         {
-            var game = await _dataProvider.GetGame(gameId, cancellationToken);
+            var game = gameId == null ?
+                null :
+                await _dataProvider.GetGame(gameId.Value, cancellationToken);
             if (game == null || game.IsStalling || game.IsFinished)
                 continue;
             foreach (var houseScore in game.Houses)
             {
                 if (houseScore.MinutesPerMove >= 500)
                     messages.Add(new NotificationMessage(
-                        NotificationLevel.Critical, 
+                        NotificationLevel.Critical,
                         $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
                 else if (houseScore.MinutesPerMove >= 300)
                     messages.Add(new NotificationMessage(
-                        NotificationLevel.Warning, 
+                        NotificationLevel.Warning,
                         $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
             }
         }
@@ -117,7 +127,9 @@ public class DivisionService
         playerResult.Houses.Select(GetPlayerHouseVm).ToArray(),
         playerResult.PenaltiesPoints,
         playerResult.PenaltiesDetails.Select(GetPlayerPenaltyVm).ToArray(),
-        playerResult.Stats);
+        playerResult.Stats,
+        playerResult.IsPromoted,
+        playerResult.IsRelegated);
 
     private static PlayerHouseViewModel GetPlayerHouseVm(HouseResult houseResult) => new(
         houseResult.Game,
