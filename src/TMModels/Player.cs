@@ -2,19 +2,27 @@
 
 public record Player(
     string Name,
-    PlayerSeason[] Seasons,
-    PlayerHouse[] Houses);
+    Dictionary<string, PlayerLeague> Leagues);
 
-public record PlayerSeason(
-    string SeasonId,
-    string DivisionId,
-    PlayerGame[] Games);
+public record PlayerLeague(
+    Dictionary<House, HouseGames> Houses)
+{
+    public void AddGame(string seasonId, string divisionId, HouseResult playerResultHouse)
+    {
+        if (!Houses.TryGetValue(playerResultHouse.House, out var playerLeagueHouse))
+        {
+            playerLeagueHouse = new HouseGames();
+            Houses.Add(playerResultHouse.House, playerLeagueHouse);
+        }
+
+        var game = new PlayerGame(seasonId, divisionId, playerResultHouse.Game);
+        playerLeagueHouse.Add(game);
+    }
+}
+
+public class HouseGames : List<PlayerGame> { }
 
 public record PlayerGame(
-    string GameId,
-    string House);
-
-public record PlayerHouse(
     string SeasonId,
     string DivisionId,
-    string House);
+    int GameId);

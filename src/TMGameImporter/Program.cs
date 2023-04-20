@@ -29,7 +29,6 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
             //.AddScoped<FixingService>()
-            .AddScoped<PlayerConverter>()
             .AddScoped<StateConverter>()
             .AddScoped<GameConverter>()
             .AddScoped<LogConverter>()
@@ -37,7 +36,6 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<FileLoader>()
             .AddScoped<FileSaver>()
             .AddScoped<GameImportingService>()
-            .AddScoped<PlayerImportingService>()
             .AddScoped<DivisionImportingService>()
             .AddScoped<SeasonImportingService>()
             .AddScoped<LeagueImportingService>()
@@ -45,7 +43,8 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<DivisionSummaryCalculatingService>()
             .AddScoped<SeasonSummaryCalculatingService>()
             .AddScoped<LeagueSummaryCalculatingService>()
-            .AddScoped<SummaryCalculatingService>())
+            .AddScoped<SummaryCalculatingService>()
+            .AddScoped<PlayerCalculatingService>())
     .Build();
 
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
@@ -58,11 +57,14 @@ logger.LogInformation(
 //await fixingService.FixHouses();
 //return;
 
-var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
-await mainImportingService.Import();
+//var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
+//await mainImportingService.Import();
 
-var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
-await summaryCalculatingService.Calculate();
+//var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
+//await summaryCalculatingService.Calculate();
+
+var playerCalculatingService = host.Services.GetRequiredService<PlayerCalculatingService>();
+await playerCalculatingService.Calculate();
 
 string[] ArgumentsString() =>
     new[]
