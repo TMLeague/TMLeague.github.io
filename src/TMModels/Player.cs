@@ -15,7 +15,7 @@ public record PlayerLeague(
             Houses.Add(playerResultHouse.House, playerLeagueHouse);
         }
 
-        var game = new PlayerGame(seasonId, divisionId, playerResultHouse.Game);
+        var game = new PlayerGame(seasonId, divisionId, playerResultHouse);
         playerLeagueHouse.Add(game);
     }
 }
@@ -25,4 +25,4 @@ public class HouseGames : List<PlayerGame> { }
 public record PlayerGame(
     string SeasonId,
     string DivisionId,
-    int GameId);
+    HouseResult Result);

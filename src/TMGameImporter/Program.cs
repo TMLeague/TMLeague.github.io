@@ -57,11 +57,11 @@ logger.LogInformation(
 //await fixingService.FixHouses();
 //return;
 
-//var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
-//await mainImportingService.Import();
+var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
+await mainImportingService.Import();
 
-//var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
-//await summaryCalculatingService.Calculate();
+var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
+await summaryCalculatingService.Calculate();
 
 var playerCalculatingService = host.Services.GetRequiredService<PlayerCalculatingService>();
 await playerCalculatingService.Calculate();
