@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
-using TMGameImporter.Services.Summaries;
 using TMModels;
 
 namespace TMGameImporter.Services.Import;
@@ -10,18 +9,15 @@ namespace TMGameImporter.Services.Import;
 internal class DivisionImportingService
 {
     private readonly GameImportingService _gameImportingService;
-    private readonly PlayerCalculatingService _playerCalculatingService;
     private readonly FileLoader _fileLoader;
     private readonly FileSaver _fileSaver;
     private readonly IOptions<ImporterOptions> _options;
     private readonly ILogger<DivisionImportingService> _logger;
 
-    public DivisionImportingService(GameImportingService gameImportingService,
-        PlayerCalculatingService playerCalculatingService, FileLoader fileLoader,
+    public DivisionImportingService(GameImportingService gameImportingService, FileLoader fileLoader,
         FileSaver fileSaver, IOptions<ImporterOptions> options, ILogger<DivisionImportingService> logger)
     {
         _gameImportingService = gameImportingService;
-        _playerCalculatingService = playerCalculatingService;
         _fileLoader = fileLoader;
         _fileSaver = fileSaver;
         _options = options;
