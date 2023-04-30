@@ -1,12 +1,6 @@
 ﻿@page "/league/{leagueId}/game/{gameId}"
 @page "/game/{gameId}"
-@using TMApplication.Services
-@using TMApplication.ViewModels
-@using TMInfrastructure.Http
-@using TMLeague.Components
 @using TMLeague.Components.Stats
-@using TMLeague.Components.TmLinks
-@using TMModels
 @inject GameService GameService
 @if (GameVm == null)
 {

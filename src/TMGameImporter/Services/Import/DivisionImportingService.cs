@@ -9,18 +9,15 @@ namespace TMGameImporter.Services.Import;
 internal class DivisionImportingService
 {
     private readonly GameImportingService _gameImportingService;
-    private readonly PlayerImportingService _playerImportingService;
     private readonly FileLoader _fileLoader;
     private readonly FileSaver _fileSaver;
     private readonly IOptions<ImporterOptions> _options;
     private readonly ILogger<DivisionImportingService> _logger;
 
-    public DivisionImportingService(GameImportingService gameImportingService,
-        PlayerImportingService playerImportingService, FileLoader fileLoader,
+    public DivisionImportingService(GameImportingService gameImportingService, FileLoader fileLoader,
         FileSaver fileSaver, IOptions<ImporterOptions> options, ILogger<DivisionImportingService> logger)
     {
         _gameImportingService = gameImportingService;
-        _playerImportingService = playerImportingService;
         _fileLoader = fileLoader;
         _fileSaver = fileSaver;
         _options = options;
@@ -57,7 +54,7 @@ internal class DivisionImportingService
         }
 
         //foreach (var playerName in division.Enemies)
-        //    await _playerImportingService.Import(playerName, cancellationToken);
+        //    await _playerCalculatingService.Import(playerName, cancellationToken);
         var games = division.Games
             .OfType<int>()
             .Select(gameId => _gameImportingService.Import(gameId, cancellationToken))

@@ -1,12 +1,6 @@
 ﻿@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}"
-@using TMApplication.Providers
-@using TMApplication.Services
-@using TMApplication.ViewModels
-@using TMLeague.Components
 @using TMLeague.Components.Division
 @using TMLeague.Components.Stats
-@using TMLeague.Components.TmLinks
-@using TMModels
 @inject DivisionService DivisionService
 
 <h3>@(DivisionVm?.LeagueName ?? $"League {LeagueId}")</h3>

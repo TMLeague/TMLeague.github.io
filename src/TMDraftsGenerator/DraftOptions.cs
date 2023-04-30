@@ -1,6 +1,4 @@
-﻿using TMModels;
-
-namespace TMDraftsGenerator;
+﻿namespace TMDraftsGenerator;
 
 internal class DraftOptions
 {

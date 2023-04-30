@@ -28,14 +28,6 @@ internal class FileSaver
         await SaveFile(player, path, cancellationToken);
     }
 
-    public async Task SavePlayerAvatar(Stream stream, string playerName, CancellationToken cancellationToken)
-    {
-        var path = _pathProvider.GetPlayerAvatarPath(playerName);
-        await using var fileStream = File.Create(path);
-        stream.Seek(0, SeekOrigin.Begin);
-        await stream.CopyToAsync(fileStream, cancellationToken);
-    }
-
     public async Task SaveResults(Results results, string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken)
     {
         var path = _pathProvider.GetResultsFilePath(leagueId, seasonId, divisionId);

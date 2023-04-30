@@ -1,0 +1,66 @@
+﻿@page "/league/{leagueId}/player/{playerName}"
+@inject PlayerService PlayerService
+@if (PlayerVm == null)
+{
+    <h3>@PlayerName</h3>
+}
+else
+{
+    <h3>
+        <PlayerLink PlayerName="@PlayerName"></PlayerLink>
+    </h3>
+}
+
+<div class="row">
+    @if (PlayerVm == null)
+    {
+        @if (_isInitialized)
+        {
+            @if (string.IsNullOrEmpty(PlayerName))
+            {
+                <div class="lead">Player name @PlayerName is not valid.</div>
+            }
+            else
+            {
+                <div class="lead">Player @PlayerName not exists for league @LeagueId.</div>
+            }
+        }
+        else
+        {
+            <Loading></Loading>
+        }
+    }
+    else
+    {
+        <div class="row">
+        </div>
+    }
+</div>
+
+<footer class="text-white-50 d-block">
+    @if (PlayerVm?.GeneratedTime != null)
+    {
+        <p class="mb-0">Data fetched at @PlayerVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
+    }
+    <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
+</footer>
+
+@code {
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    [Parameter]
+    public string? PlayerName { get; set; }
+
+    private PlayerViewModel? PlayerVm { get; set; }
+
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(PlayerName))
+            PlayerVm = await PlayerService.GetPlayerVm(PlayerName);
+
+        _isInitialized = true;
+    }
+}
