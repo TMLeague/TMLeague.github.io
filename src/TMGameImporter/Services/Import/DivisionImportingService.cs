@@ -122,11 +122,11 @@ internal class DivisionImportingService
 
     private static HouseResult GetHouseResult(Game game, HouseScore houseScore, Scoring scoring)
     {
-        var isWinner = game.Houses.First().House == houseScore.House;
+        var position = Array.IndexOf(game.Houses, houseScore) + 1;
         return new HouseResult(game.Id,
             houseScore.House,
-            isWinner,
-            GetPointsForGame(houseScore, isWinner, scoring),
+            position == 1,
+            GetPointsForGame(game, houseScore, position, scoring),
             GetBattlePenalty(game, houseScore, scoring),
             houseScore.Strongholds,
             houseScore.Castles,
@@ -138,10 +138,16 @@ internal class DivisionImportingService
             houseScore.Stats);
     }
 
-    private static double GetPointsForGame(HouseScore houseScore, bool isWinner, Scoring scoring) =>
+    private static double GetPointsForGame(Game game, HouseScore houseScore, int position, Scoring scoring) =>
         scoring.PointsPerStronghold * houseScore.Strongholds +
         scoring.PointsPerCastle * houseScore.Castles +
-        (isWinner ? scoring.PointsPerWin : 0);
+        (position == 1 ? scoring.PointsPerWin : 0) +
+        (IsCleanWin(game, houseScore, position == 1) ? scoring.PointsPerClearWin : 0) +
+        (position == 2 ? scoring.PointsPer2ndPlace : 0) +
+        (position == 3 ? scoring.PointsPer3rdPlace : 0);
+
+    private static bool IsCleanWin(Game game, HouseScore houseScore, bool isWinner) =>
+        isWinner && game.Houses.Count(score => score.Castles + score.Strongholds == houseScore.Castles + houseScore.Strongholds) == 1;
 
     private static int GetBattlePenalty(Game game, HouseScore houseScore, Scoring scoring)
     {

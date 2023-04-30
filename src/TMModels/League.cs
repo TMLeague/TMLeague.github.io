@@ -40,9 +40,11 @@ public record Scoring(
     double PointsPerStronghold,
     double PointsPerCastle,
     double PointsPerWin,
+    double PointsPerClearWin,
+    double PointsPer2ndPlace,
+    double PointsPer3rdPlace,
     int RequiredBattlesBefore10thTurn,
-    Tiebreaker[] Tiebreakers
-);
+    Tiebreaker[] Tiebreakers);
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Tiebreaker
