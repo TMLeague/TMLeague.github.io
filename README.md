@@ -67,6 +67,9 @@ To add a new season to the league, its index must be added to `seasons` or `trai
 | scoring:pointsPerStronghold | Number of points per each stronghold owned at the end of a game. |
 | scoring:pointsPerCastle | Number of points per each castle at the end of a game. |
 | scoring:pointsPerWin | Number of points per each won game. |
+| scoring:pointsPerCleanWin | Number of extra points per each won game with more castles than opponents. |
+| scoring:pointsPer2ndPlace | Number of points per games finished on 2nd place. |
+| scoring:pointsPer3rdPlace | Number of points per games finished on 3rd place. |
 | scoring:requiredBattlesBefore10thTurn | Number of battles required before 10th turn (can be 0 to skip that scoring). |
 | scoring:tiebreakers | An ordered array of tiebreakers. Allowed values are: `wins`, `penalties`, `cla`, `supplies`, `powerTokens`, `minutesPerMove` |
 | initialMessage | An object of initial message used for draft generation. Details are described below. |
