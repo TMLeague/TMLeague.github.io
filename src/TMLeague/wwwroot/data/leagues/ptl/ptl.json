@@ -1,7 +1,7 @@
 {
   "Name": "Portuguese League",
   "Description": "This league was inspired by the \"World Cup\", with the idea of gathering more portuguese players and bring a competitive team to the World Cup in upcoming years.",
-  "BackgroundImage": "data/leagues/pl/pl.jpg",
+  "BackgroundImage": "data/leagues/ptl/ptl.jpg",
   "Rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=76410",
   "Discord": null,
   "Seasons": [ "s8" ],
@@ -17,7 +17,7 @@
     "PointsPerStronghold": 2,
     "PointsPerCastle": 2,
     "PointsPerWin": 3,
-    "PointsPerClearWin": 2, // That is only a bonus to PointsPerWin
+    "PointsPerClearWin": 2,
     "PointsPer2ndPlace": 1,
     "PointsPer3rdPlace": 0.5,
     "RequiredBattlesBefore10thTurn": 0,
