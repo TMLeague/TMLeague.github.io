@@ -1,15 +1,23 @@
 {
-  "name": "Qualifier 1",
+  "name": "Division 1",
   "judge": null,
   "players": [
     "0djoe",
     "Joao Gomes",
     "jpacmelo",
-    "Julian Snow",
+    "JulianSnow",
     "shallatoon",
     "Jimmymarshal",
     "MikeBike",
-    "King Fredrick Baratheon"
+    "King Fredrick Baratheon",
+    "spartan109",
+    "smssf",
+    "sicre",
+    "diogobensabat",
+    "Ser Santos",
+    "TurtleHermit",
+    "rogerpt",
+    "ZecasNando"
   ],
   "games": [
 	250119,
@@ -19,7 +27,15 @@
 	250111,
 	250311,
 	250114,
-	250120
+	250120,
+	250264,
+	250103,
+	250085,
+	250086,
+	250267,
+	250088,
+	250104,
+	250089
   ],
   "penalties": [
 	{
@@ -41,6 +57,21 @@
 	  "player": "MikeBike",
 	  "points": 6,
 	  "details": "-6 KM"
+	},
+	{
+	  "player": "spartan109",
+	  "points": 10,
+	  "details": "-10 KM"
+	},
+	{
+	  "player": "TurtleHermit",
+	  "points": 2,
+	  "details": "-2 KM"
+	},
+	{
+	  "player": "smssf",
+	  "points": 25,
+	  "details": "-19 absence; -6 KM"
 	}
   ],
   "isFinished": true,

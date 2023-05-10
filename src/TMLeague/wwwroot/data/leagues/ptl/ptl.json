@@ -11,16 +11,6 @@
       "Id": "d1",
       "Name": "Division 1",
       "Relegations": 0
-    },
-	{
-      "Id": "q1",
-      "Name": "Qualifier 1",
-      "promotions": 3
-    },
-	{
-      "Id": "q2",
-      "Name": "Qualifier 2",
-      "promotions": 3
     }
   ],
   "Scoring": {
