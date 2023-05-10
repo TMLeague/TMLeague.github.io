@@ -1,0 +1,48 @@
+{
+  "name": "Qualifier 1",
+  "judge": null,
+  "players": [
+    "0djoe",
+    "Joao Gomes",
+    "jpacmelo",
+    "Julian Snow",
+    "shallatoon",
+    "Jimmymarshal",
+    "MikeBike",
+    "King Fredrick Baratheon"
+  ],
+  "games": [
+	250119,
+	250108,
+	250107,
+	250310,
+	250111,
+	250311,
+	250114,
+	250120
+  ],
+  "penalties": [
+	{
+	  "player": "shallatoon",
+	  "points": 10,
+	  "details": "-3 Absence ; -7 MPM"
+	},
+	{
+	  "player": "0djoe",
+	  "points": 1.5,
+	  "details": "-1.5 MPM"
+	},
+	{
+	  "player": "King Fredrick Baratheon",
+	  "points": 8,
+	  "details": "-2 Absence ; -6 MPM"
+	},
+	{
+	  "player": "MikeBike",
+	  "points": 6,
+	  "details": "-6 KM"
+	}
+  ],
+  "isFinished": true,
+  "winnerTitle": null
+}
