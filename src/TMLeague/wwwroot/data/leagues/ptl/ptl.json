@@ -14,8 +14,8 @@
     }
   ],
   "Scoring": {
-    "PointsPerStronghold": 2,
-    "PointsPerCastle": 2,
+    "PointsPerStronghold": 1,
+    "PointsPerCastle": 1,
     "PointsPerWin": 3,
     "PointsPerClearWin": 2,
     "PointsPer2ndPlace": 1,
