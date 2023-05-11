@@ -72,12 +72,19 @@
 	  "player": "smssf",
 	  "points": 25,
 	  "details": "-19 absence; -6 KM"
-	},
-	{
-	  "player": "JulianSnow",
-	  "points": 13,
-	  "details": "-13 points for games replacing smssf"
 	}
+  ],
+  "replacements": [
+    {
+      "from": "smssf",
+      "to": "JulianSnow",
+      "game": 250103
+    },
+    {
+      "from": "smssf",
+      "to": "JulianSnow",
+      "game": 250267
+    }
   ],
   "isFinished": true,
   "winnerTitle": null

@@ -17,6 +17,38 @@
 	275486,
 	275487
   ],
+  "replacements": [
+    {
+      "from": "spartan109",
+      "to": "ricardofvallejo",
+      "game": 275525
+    },
+    {
+      "from": "spartan109",
+      "to": "ricardofvallejo",
+      "game": 275484
+    },
+    {
+      "from": "spartan109",
+      "to": "ricardofvallejo",
+      "game": 275482
+    },
+    {
+      "from": "spartan109",
+      "to": "ricardofvallejo",
+      "game": 275485
+    },
+    {
+      "from": "spartan109",
+      "to": "ricardofvallejo",
+      "game": 275486
+    },
+    {
+      "from": "spartan109",
+      "to": "ricardofvallejo",
+      "game": 275487
+    }
+  ],
   "penalties": [],
   "isFinished": true,
   "winnerTitle": null
