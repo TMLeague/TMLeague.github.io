@@ -1,103 +1,298 @@
 {
-	"Id":256255,
-	"Name":"PT Superliga Braga 8",
-	"IsFinished":false,
-	"IsStalling":false,
-	"Turn":8,
-	"Map":{
-		"Lands":[],
-		"Seas":[],
-		"Ports":[]},
-	"Houses":[
-	{
-		"House":"Stark",
-		"Player":"spartan109",
-		"Throne":2,
-		"Fiefdoms":2,
-		"KingsCourt":1,
-		"Supplies":3,
-		"PowerTokens":8,
-		"Strongholds":2,
-		"Castles":3,
-		"Cla":10,
-		"MinutesPerMove":0,
-		"Moves":0,
-		"BattlesInTurn":[],
-		"Stats":{"Battles":{"Won":0,"Lost":0},"Kills":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"Casualties":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"PowerTokens":{"ConsolidatePower":0,"Raids":0,"GameOfThrones":0,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":0,"KingsCourt":0,"Wildlings":0,"Aeron":0}}},
-	{
-		"House":"Martell",
-		"Player":"diogobensabat",
-		"Throne":5,
-		"Fiefdoms":1,
-		"KingsCourt":3,
-		"Supplies":4,
-		"PowerTokens":5,
-		"Strongholds":1,
-		"Castles":3,
-		"Cla":8,
-		"MinutesPerMove":0,
-		"Moves":0,
-		"BattlesInTurn":[],
-		"Stats":{"Battles":{"Won":0,"Lost":0},"Kills":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"Casualties":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"PowerTokens":{"ConsolidatePower":0,"Raids":0,"GameOfThrones":0,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":0,"KingsCourt":0,"Wildlings":0,"Aeron":0}}},
-	{
-		"House":"Baratheon",
-		"Player":"jpacmelo",
-		"Throne":4,
-		"Fiefdoms":3,
-		"KingsCourt":2,
-		"Supplies":4,
-		"PowerTokens":11,
-		"Strongholds":2,
-		"Castles":2,
-		"Cla":6,
-		"MinutesPerMove":0,
-		"Moves":0,
-		"BattlesInTurn":[],
-		"Stats":{"Battles":{"Won":0,"Lost":0},"Kills":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"Casualties":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"PowerTokens":{"ConsolidatePower":0,"Raids":0,"GameOfThrones":0,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":0,"KingsCourt":0,"Wildlings":0,"Aeron":0}}},
-	{
-		"House":"Greyjoy",
-		"Player":"TurtleHermit",
-		"Throne":6,
-		"Fiefdoms":5,
-		"KingsCourt":4,
-		"Supplies":6,
-		"PowerTokens":8,
-		"Strongholds":3,
-		"Castles":1,
-		"Cla":5,
-		"MinutesPerMove":0,
-		"Moves":0,
-		"BattlesInTurn":[],
-		"Stats":{"Battles":{"Won":0,"Lost":0},"Kills":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"Casualties":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"PowerTokens":{"ConsolidatePower":0,"Raids":0,"GameOfThrones":0,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":0,"KingsCourt":0,"Wildlings":0,"Aeron":0}}},
-	{
-		"House":"Tyrell",
-		"Player":"Jimmymarshal",
-		"Throne":1,
-		"Fiefdoms":6,
-		"KingsCourt":6,
-		"Supplies":3,
-		"PowerTokens":3,
-		"Strongholds":2,
-		"Castles":0,
-		"Cla":4,
-		"MinutesPerMove":0,
-		"Moves":0,
-		"BattlesInTurn":[],
-		"Stats":{"Battles":{"Won":0,"Lost":0},"Kills":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"Casualties":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"PowerTokens":{"ConsolidatePower":0,"Raids":0,"GameOfThrones":0,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":0,"KingsCourt":0,"Wildlings":0,"Aeron":0}}},
-	{
-		"House":"Lannister",
-		"Player":"ZecasNando",
-		"Throne":3,
-		"Fiefdoms":4,
-		"KingsCourt":5,
-		"Supplies":0,
-		"PowerTokens":0,
-		"Strongholds":0,
-		"Castles":0,
-		"Cla":0,
-		"MinutesPerMove":0,
-		"Moves":0,
-		"BattlesInTurn":[],
-		"Stats":{"Battles":{"Won":0,"Lost":0},"Kills":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"Casualties":{"Footmen":0,"Knights":0,"SiegeEngines":0,"Ships":0},"PowerTokens":{"ConsolidatePower":0,"Raids":0,"GameOfThrones":0,"Wildlings":0,"Tywin":0},"Bids":{"IronThrone":0,"Fiefdoms":0,"KingsCourt":0,"Wildlings":0,"Aeron":0}}}],
-	"GeneratedTime":"2023-05-10T00:00:00:00",
-	"IsCreatedManually":true}
+  "Id": 256255,
+  "Name": "PT Superliga Braga 8",
+  "IsFinished": true,
+  "IsStalling": false,
+  "Turn": 8,
+  "Map": {
+    "Lands": [],
+    "Seas": [],
+    "Ports": []
+  },
+  "Houses": [
+    {
+      "House": "Stark",
+      "Player": "spartan109",
+      "Throne": 2,
+      "Fiefdoms": 2,
+      "KingsCourt": 1,
+      "Supplies": 3,
+      "PowerTokens": 8,
+      "Strongholds": 2,
+      "Castles": 3,
+      "Cla": 10,
+      "MinutesPerMove": 0,
+      "Moves": 0,
+      "BattlesInTurn": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
+    },
+    {
+      "House": "Martell",
+      "Player": "diogobensabat",
+      "Throne": 5,
+      "Fiefdoms": 1,
+      "KingsCourt": 3,
+      "Supplies": 4,
+      "PowerTokens": 5,
+      "Strongholds": 1,
+      "Castles": 3,
+      "Cla": 8,
+      "MinutesPerMove": 0,
+      "Moves": 0,
+      "BattlesInTurn": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
+    },
+    {
+      "House": "Baratheon",
+      "Player": "jpacmelo",
+      "Throne": 4,
+      "Fiefdoms": 3,
+      "KingsCourt": 2,
+      "Supplies": 4,
+      "PowerTokens": 11,
+      "Strongholds": 2,
+      "Castles": 2,
+      "Cla": 6,
+      "MinutesPerMove": 0,
+      "Moves": 0,
+      "BattlesInTurn": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
+    },
+    {
+      "House": "Greyjoy",
+      "Player": "TurtleHermit",
+      "Throne": 6,
+      "Fiefdoms": 5,
+      "KingsCourt": 4,
+      "Supplies": 6,
+      "PowerTokens": 8,
+      "Strongholds": 3,
+      "Castles": 1,
+      "Cla": 5,
+      "MinutesPerMove": 0,
+      "Moves": 0,
+      "BattlesInTurn": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
+    },
+    {
+      "House": "Tyrell",
+      "Player": "Jimmymarshal",
+      "Throne": 1,
+      "Fiefdoms": 6,
+      "KingsCourt": 6,
+      "Supplies": 3,
+      "PowerTokens": 3,
+      "Strongholds": 2,
+      "Castles": 0,
+      "Cla": 4,
+      "MinutesPerMove": 0,
+      "Moves": 0,
+      "BattlesInTurn": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
+    },
+    {
+      "House": "Lannister",
+      "Player": "ZecasNando",
+      "Throne": 3,
+      "Fiefdoms": 4,
+      "KingsCourt": 5,
+      "Supplies": 0,
+      "PowerTokens": 0,
+      "Strongholds": 0,
+      "Castles": 0,
+      "Cla": 0,
+      "MinutesPerMove": 0,
+      "Moves": 0,
+      "BattlesInTurn": [],
+      "Stats": {
+        "Battles": {
+          "Won": 0,
+          "Lost": 0
+        },
+        "Kills": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "Casualties": {
+          "Footmen": 0,
+          "Knights": 0,
+          "SiegeEngines": 0,
+          "Ships": 0
+        },
+        "PowerTokens": {
+          "ConsolidatePower": 0,
+          "Raids": 0,
+          "GameOfThrones": 0,
+          "Wildlings": 0,
+          "Tywin": 0
+        },
+        "Bids": {
+          "IronThrone": 0,
+          "Fiefdoms": 0,
+          "KingsCourt": 0,
+          "Wildlings": 0,
+          "Aeron": 0
+        }
+      }
+    }
+  ],
+  "GeneratedTime": "2023-05-10T00:00:00.0000000+00:00",
+  "IsCreatedManually": true
+}
