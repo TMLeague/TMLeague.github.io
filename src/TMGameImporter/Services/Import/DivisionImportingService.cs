@@ -108,17 +108,23 @@ internal class DivisionImportingService
             houseResults.Aggregate(new Stats(), (sum, results) => sum + results.Stats));
     }
 
-    private static HouseResult[] GetHouses(string playerName, Replacement[] divisionReplacements, IEnumerable<Game> games, Scoring scoring) =>
+    private static HouseResult[] GetHouses(string playerName, Replacement[] replacements, IEnumerable<Game> games, Scoring scoring) =>
         games
-            .Select(game => GetPlayerHouse(playerName, divisionReplacements, game))
+            .Select(game => GetPlayerHouse(playerName, replacements, game))
             .Where(tuple => tuple.HouseScore != null)
             .Select(tuple => GetHouseResult(tuple.Game, tuple.HouseScore!, scoring))
             .ToArray();
 
-    private static (Game Game, HouseScore? HouseScore) GetPlayerHouse(string playerName, Replacement[] divisionReplacements, Game game) => (game,
+    private static (Game Game, HouseScore? HouseScore) GetPlayerHouse(string playerName, Replacement[] replacements, Game game) => (game,
         game.Houses
-            .FirstOrDefault(houseScore => houseScore.Player == playerName ||
-                                          divisionReplacements.Contains(new Replacement(playerName, houseScore.Player, game.Id))));
+            .FirstOrDefault(houseScore => playerName == GetHousePlayer(houseScore, replacements, game)));
+
+    private static string GetHousePlayer(HouseScore houseScore, IEnumerable<Replacement> replacements, Game game)
+    {
+        var replacement = replacements.FirstOrDefault(replacement =>
+            replacement.Game == game.Id && replacement.To == houseScore.Player);
+        return replacement == null ? houseScore.Player : replacement.From;
+    }
 
     private static HouseResult GetHouseResult(Game game, HouseScore houseScore, Scoring scoring)
     {
