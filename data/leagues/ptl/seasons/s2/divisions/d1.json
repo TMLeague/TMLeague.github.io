@@ -1,0 +1,42 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "Joao Gomes",
+    "spartan109",
+    "sicre",
+    "jpacmelo",
+    "Julian Snow",
+    "diogobensabat",
+    "Jimmymarshal",
+    "Ser Santos",
+    "TurtleHermit",
+    "ZecasNando"
+  ],
+  "games": [
+	256246,
+	256253,
+	256247,
+	256248,
+	256249,
+	256254,
+	256250,
+	256255,
+	256251,
+	256258
+  ],
+  "penalties": [
+	{
+	  "player": "ZecasNando",
+	  "points": 6,
+	  "details": "-4 Absence ; -2 MPM"
+	},
+	{
+	  "player": "spartan109",
+	  "points": 24,
+	  "details": "-36 absence; -14 KM; min 0 pts"
+	}
+  ],
+  "isFinished": true,
+  "winnerTitle": null
+}

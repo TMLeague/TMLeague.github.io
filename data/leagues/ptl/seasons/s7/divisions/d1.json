@@ -1,0 +1,40 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "Joao Gomes",
+    "spartan109",
+    "diogobensabat",
+    "TurtleHermit",
+    "MikeBike",
+	"sicre",
+	"King Fredrick Baratheon",
+	"Julian Snow",
+	"Figueira"
+  ],
+  "games": [
+	288434,
+	288435,
+	288455,
+	288436,
+	288437,
+	288438,
+	288458,
+	288441,
+	288454
+  ],
+  "penalties": [
+	{
+	  "player": "diogobensabat",
+	  "points": 5,
+	  "details": "-5 KM"
+	},
+	{
+	  "player": "King Fredrick Baratheon",
+	  "points": 2,
+	  "details": "-2 KM"
+	}
+  ],
+  "isFinished": true,
+  "winnerTitle": "O Estica"
+}

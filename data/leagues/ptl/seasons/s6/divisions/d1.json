@@ -1,0 +1,51 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "Joao Gomes",
+    "spartan109",
+    "shalatoon",
+    "diogobensabat",
+    "TurtleHermit",
+    "MikeBike",
+	"Cambeia",
+	"King Fredrick Baratheon",
+	"Figueira",
+	"Julian Snow",
+	"sicre",
+	"la_conita"
+  ],
+  "games": [
+	285728,
+	285761,
+	285702,
+	285688,
+	285679,
+	285680,
+	285681,
+	285880,
+	285718,
+	285716,
+	285707,
+	285708
+  ],
+  "penalties": [
+	{
+	  "player": "Joao Gomes",
+	  "points": 5,
+	  "details": "-5 KM"
+	},
+	{
+	  "player": "shalatoon",
+	  "points": 5,
+	  "details": "-5 KM"
+	},
+	{
+	  "player": "diogobensabat",
+	  "points": 5,
+	  "details": "-5 KM"
+	}
+  ],
+  "isFinished": true,
+  "winnerTitle": null
+}

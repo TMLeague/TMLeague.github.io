@@ -1,0 +1,79 @@
+{
+  "name": "Division 1",
+  "judge": null,
+  "players": [
+    "0djoe",
+    "Joao Gomes",
+    "jpacmelo",
+    "JulianSnow",
+    "shallatoon",
+    "Jimmymarshal",
+    "MikeBike",
+    "King Fredrick Baratheon",
+    "spartan109",
+    "smssf",
+    "sicre",
+    "diogobensabat",
+    "Ser Santos",
+    "TurtleHermit",
+    "rogerpt",
+    "ZecasNando"
+  ],
+  "games": [
+	250119,
+	250108,
+	250107,
+	250310,
+	250111,
+	250311,
+	250114,
+	250120,
+	250264,
+	250103,
+	250085,
+	250086,
+	250267,
+	250088,
+	250104,
+	250089
+  ],
+  "penalties": [
+	{
+	  "player": "shallatoon",
+	  "points": 10,
+	  "details": "-3 Absence ; -7 MPM"
+	},
+	{
+	  "player": "0djoe",
+	  "points": 1.5,
+	  "details": "-1.5 MPM"
+	},
+	{
+	  "player": "King Fredrick Baratheon",
+	  "points": 8,
+	  "details": "-2 Absence ; -6 MPM"
+	},
+	{
+	  "player": "MikeBike",
+	  "points": 6,
+	  "details": "-6 KM"
+	},
+	{
+	  "player": "spartan109",
+	  "points": 10,
+	  "details": "-10 KM"
+	},
+	{
+	  "player": "TurtleHermit",
+	  "points": 2,
+	  "details": "-2 KM"
+	},
+	{
+	  "player": "smssf",
+	  "points": 25,
+	  "details": "-19 absence; -6 KM"
+	}
+  ],
+  "isFinished": true,
+  "winnerTitle": null
+}
