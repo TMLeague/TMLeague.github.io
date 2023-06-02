@@ -28,11 +28,11 @@
   "penalties": [
     {
       "player": "Stanimir",
-      "game": 293450
+      "game": 293450,
       "points": 5,
       "details": "for KM"
     }
   ],
   "isFinished": true,
-  "winnerTitle": null
+  "winnerTitle": "Puppet Master"
 }
