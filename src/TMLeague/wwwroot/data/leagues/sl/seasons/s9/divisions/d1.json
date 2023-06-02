@@ -25,7 +25,14 @@
     293454,
     293465
   ],
-  "penalties": [],
-  "isFinished": false,
+  "penalties": [
+    {
+      "player": "Stanimir",
+      "game": 293450
+      "points": 5,
+      "details": "for KM"
+    }
+  ],
+  "isFinished": true,
   "winnerTitle": null
 }
