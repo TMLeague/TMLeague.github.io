@@ -25,7 +25,26 @@
     292899,
     292861
   ],
-  "penalties": [],
-  "isFinished": false,
+  "penalties": [
+    {
+      "player": "ThyLear",
+      "game": 292860,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "DawidW",
+      "game": 292860,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "rasmus842",
+      "game": 292899,
+      "points": 6,
+      "details": "major KM"
+    }
+  ],
+  "isFinished": true,
   "winnerTitle": null
 }

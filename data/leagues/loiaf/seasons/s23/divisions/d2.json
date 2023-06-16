@@ -25,6 +25,85 @@
     292854,
     292855
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "Lance",
+      "game": 292852,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "Figueira",
+      "game": 292852,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 292852,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "JohnnyCee",
+      "game": 292822,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 292822,
+      "points": 5.5,
+      "details": "speed"
+    },
+    {
+      "player": "Figueira",
+      "game": 292825,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 292825,
+      "points": 4,
+      "details": "speed"
+    },
+    {
+      "player": "JohnnyCee",
+      "game": 292826,
+      "points": 6,
+      "details": "major KM"
+    },
+    {
+      "player": "JohnnyCee",
+      "game": 292827,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 292827,
+      "points": 8,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 292855,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "Figueira",
+      "game": null,
+      "points": 3,
+      "details": "3+ day stall"
+    },
+    {
+      "player": "spartan109",
+      "game": null,
+      "points": 6,
+      "details": "5+ day stall"
+    }
+  ],
+  "isFinished": true
 }
