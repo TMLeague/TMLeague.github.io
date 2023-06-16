@@ -23,6 +23,19 @@
     292839,
     292840
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "Ser Joseph",
+      "game": 292840,
+      "points": 2.5,
+      "details": "speed"
+    },
+    {
+      "player": "TywinB",
+      "game": 292840,
+      "points": 1,
+      "details": "speed"
+    }
+  ],
+  "isFinished": true
 }
