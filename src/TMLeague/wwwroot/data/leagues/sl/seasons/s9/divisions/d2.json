@@ -25,6 +25,30 @@
     293463,
     293457
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "LordAlex",
+      "game": 293503,
+      "points": 4,
+      "details": "speed penalty"
+    },
+    {
+      "player": "We_do_not_sow",
+      "game": 293459,
+      "points": 3,
+      "details": "no delay penalty"
+    },
+    {
+      "player": "ThyLear",
+      "game": 293463,
+      "points": 3,
+      "details": "speed penalty"
+    },
+    {
+      "player": "TheReignOfChaos",
+      "game": 293463,
+      "points": 4,
+      "details": "speed penalty"
+    }],
+  "isFinished": true
 }
