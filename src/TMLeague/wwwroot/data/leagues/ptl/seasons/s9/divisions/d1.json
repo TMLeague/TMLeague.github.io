@@ -10,22 +10,24 @@
     "JulianSnow",
     "TurtleHermit",
     "Figueira",
-    "King Fredrick Baratheon",
-    "la_conita"
+    "Ser Imp",
+    "shallatoon",
+    "07291711"
   ],
   "games": [
-    291917,
-    291882,
-    291884,
-    291902,
-    291879,
-    291931,
-    291923,
-    291903,
-    291880,
-    291881
+    295935,
+    295928,
+    295929,
+    295936,
+    295930,
+    295950,
+    295952,
+    295931,
+    295976,
+    295933,
+    295967
   ],
   "penalties": [],
-  "isFinished": true,
-  "winnerTitle": "Harbinger of death"
+  "isFinished": false,
+  "winnerTitle": null
 }
