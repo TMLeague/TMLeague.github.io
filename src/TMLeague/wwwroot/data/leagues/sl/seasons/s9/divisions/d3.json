@@ -25,6 +25,55 @@
     293423,
     293474
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties":[
+      {
+         "player":"Saizzo",
+         "game":293433,
+         "points":5,
+         "details":"minor KM"
+      },
+      {
+         "player":"Imrihil",
+         "game":293801,
+         "points":5,
+         "details":"minor KM"
+      },
+      {
+         "player":"Negator",
+         "game":293432,
+         "points":3,
+         "details":"speed penalty"
+      },
+      {
+         "player":"DawidW",
+         "game":293810,
+         "points":5,
+         "details":"minor KM"
+      },
+      {
+         "player":"DawidW",
+         "game":293423,
+         "points":5,
+         "details":"speed penalty"
+      },      
+	    {
+         "player":"Ser Joseph",
+         "game":293432,
+         "points":9,
+         "details":"speed penalty"
+      },
+	    {
+         "player":"Ser Joseph",
+         "game":293423,
+         "points":5,
+         "details":"speed penalty"
+      },
+      {
+         "player":"rasmus842",
+         "game":293418,
+         "points":5,
+         "details":"minor KM"
+      }
+   ],
+  "isFinished": true
 }
