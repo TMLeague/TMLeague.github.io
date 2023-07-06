@@ -25,7 +25,104 @@
     293511,
     293673
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "JulianSnow",
+      "game": 293684,
+      "points": 1,
+      "details": null
+    },
+    {
+      "player": "JulianSnow",
+      "points": 3,
+      "game": 293685,
+      "details": null
+    },
+    {
+      "player": "JulianSnow",
+      "points": 5,
+      "game": 293563,
+      "details": null
+    },
+    {
+      "player": "JulianSnow",
+      "points": 7,
+      "game": 293563,
+      "details": "7 days absence"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 13,
+      "game": 293494,
+      "details": "speed penalty"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 10,
+      "game": 293494,
+      "details": "major KM"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 3,
+      "game": 293496,
+      "details": null
+    },
+    {
+      "player": "Kaisers landing",
+      "points": 2,
+      "game": 293511,
+      "details": null
+    },
+    {
+      "player": "Lyn",
+      "points": 1,
+      "game": 293759,
+      "details": null
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 6,
+      "game": 293505,
+      "details": null
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 3,
+      "game": 293685,
+      "details": null
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 3,
+      "game": 293496,
+      "details": null
+    },
+    {
+      "player": "viblz",
+      "points": 5,
+      "game": 293684,
+      "details": null
+    },
+    {
+      "player": "viblz",
+      "points": 5,
+      "game": 293511,
+      "details": null
+    },
+    {
+      "player": "ZedelaII",
+      "points": 1,
+      "game": 293759,
+      "details": null
+    },
+    {
+      "player": "ZedelaII",
+      "points": 1,
+      "game": 293494,
+      "details": null
+    }
+  ],
   "isFinished": false,
   "promotions": 3
 }
