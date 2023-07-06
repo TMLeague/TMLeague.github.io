@@ -25,7 +25,104 @@
     293511,
     293673
   ],
-  "penalties": [],
-  "isFinished": false,
+  "penalties": [
+    {
+      "player": "JulianSnow",
+      "game": 293684,
+      "points": 1,
+      "details": "speed penalty"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 3,
+      "game": 293685,
+      "details": "speed penalty"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 5,
+      "game": 293563,
+      "details": "speed penalty"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 7,
+      "game": 293563,
+      "details": "7 days absence"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 1,
+      "game": 293494,
+      "details": "speed penalty"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 10,
+      "game": 293494,
+      "details": "major KM"
+    },
+    {
+      "player": "JulianSnow",
+      "points": 3,
+      "game": 293496,
+      "details": "speed penalty"
+    },
+    {
+      "player": "Kaisers landing",
+      "points": 2,
+      "game": 293511,
+      "details": "speed penalty"
+    },
+    {
+      "player": "Lyn",
+      "points": 1,
+      "game": 293759,
+      "details": "speed penalty"
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 6,
+      "game": 293505,
+      "details": "speed penalty"
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 3,
+      "game": 293685,
+      "details": "speed penalty"
+    },
+    {
+      "player": "RodrigoLannister",
+      "points": 3,
+      "game": 293496,
+      "details": "speed penalty"
+    },
+    {
+      "player": "viblz",
+      "points": 5,
+      "game": 293684,
+      "details": "speed penalty"
+    },
+    {
+      "player": "viblz",
+      "points": 5,
+      "game": 293511,
+      "details": "speed penalty"
+    },
+    {
+      "player": "ZedelaII",
+      "points": 1,
+      "game": 293759,
+      "details": "speed penalty"
+    },
+    {
+      "player": "ZedelaII",
+      "points": 1,
+      "game": 293494,
+      "details": "speed penalty"
+    }
+  ],
+  "isFinished": true,
   "promotions": 3
 }
