@@ -12,21 +12,18 @@ public class DivisionForm
     public string? JudgeName { get; set; }
     public string? MessageSubject { get; set; }
     public string? MessageBody { get; set; }
-    public string? Player1 { get; set; }
-    public string? Player2 { get; set; }
-    public string? Player3 { get; set; }
-    public string? Player4 { get; set; }
-    public string? Player5 { get; set; }
-    public string? Player6 { get; set; }
-    public string? Player7 { get; set; }
-    public string? Player8 { get; set; }
-    public string? Player9 { get; set; }
-    public string? Player10 { get; set; }
-    public string[] Players => new[] { Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8, Player9, Player10 }
-        .Where(p => !string.IsNullOrWhiteSpace(p))
-        .Select(s => s!).ToArray();
+    public List<DivisionFormPlayer> Players { get; set; } = new() { new DivisionFormPlayer(1) };
+    public IReadOnlyList<string> PlayerNames => Players
+        .Where(player => !string.IsNullOrEmpty(player.Name))
+        .Select(player => player.Name)
+        .ToArray();
 
     public DivisionFormRandomOptions RandomOptions { get; set; } = new();
+}
+
+public record DivisionFormPlayer(int Id)
+{
+    public string Name { get; set; } = string.Empty;
 }
 
 public class DivisionFormRandomOptions
