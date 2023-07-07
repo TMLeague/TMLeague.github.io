@@ -164,69 +164,22 @@ else
         </div>
         <div class="col-md-6">
             <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                <label for="season" class="form-label text-start">Enemies</label>
+                <label for="season" class="form-label text-start">Players</label>
                 <div id="playersHelp" class="form-text">
                     Please insert the <b>Thronemaster's names of players</b> from the <b>Division</b> for which you are the judge.
                 </div>
-                <div class="row mb-3">
-                    <label class="col-1">1.</label>
-                    <div class="col-11">
-                        <InputText id="player1" @bind-Value="DivisionForm.Player1" placeholder="TM name" class="form-control" aria-describedby="playersHelp" />
+                @foreach (var formPlayer in DivisionForm.Players)
+                {
+                    var player = formPlayer;
+                    <div class="row mb-3">
+                        <label class="col-1">@($"{formPlayer.Id}.")</label>
+                        <div class="col-11">
+                            <InputText id="@($"player{player.Id}")" @bind-Value="@player.Name" placeholder="TM name" class="form-control" aria-describedby="playersHelp" />
+                        </div>
                     </div>
-                </div>
+                }
                 <div class="row mb-3">
-                    <label class="col-1">2.</label>
-                    <div class="col-11">
-                        <InputText id="player2" @bind-Value="DivisionForm.Player2" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">3.</label>
-                    <div class="col-11">
-                        <InputText id="player3" @bind-Value="DivisionForm.Player3" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">4.</label>
-                    <div class="col-11">
-                        <InputText id="player4" @bind-Value="DivisionForm.Player4" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">5.</label>
-                    <div class="col-11">
-                        <InputText id="player5" @bind-Value="DivisionForm.Player5" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">6.</label>
-                    <div class="col-11">
-                        <InputText id="player6" @bind-Value="DivisionForm.Player6" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">7.</label>
-                    <div class="col-11">
-                        <InputText id="player7" @bind-Value="DivisionForm.Player7" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">8.</label>
-                    <div class="col-11">
-                        <InputText id="player8" @bind-Value="DivisionForm.Player8" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">9.</label>
-                    <div class="col-11">
-                        <InputText id="player9" @bind-Value="DivisionForm.Player9" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-1">10.</label>
-                    <div class="col-11">
-                        <InputText id="player10" @bind-Value="DivisionForm.Player10" placeholder="TM name" class="col-11 form-control" aria-describedby="playersHelp" />
-                    </div>
+                    <button type="button" class="btn btn-primary w-100" @onclick="AddPlayer">Add player</button>
                 </div>
             </div>
         </div>
@@ -367,23 +320,24 @@ else
                     Contact = ContactQuery ?? string.Empty,
                     JudgeName = JudgeNameQuery ?? string.Empty,
                     Password = PasswordQuery ?? string.Empty,
-                    Player1 = PlayersQuery.Length >= 1 ? PlayersQuery[0] : string.Empty,
-                    Player2 = PlayersQuery.Length >= 2 ? PlayersQuery[1] : string.Empty,
-                    Player3 = PlayersQuery.Length >= 3 ? PlayersQuery[2] : string.Empty,
-                    Player4 = PlayersQuery.Length >= 4 ? PlayersQuery[3] : string.Empty,
-                    Player5 = PlayersQuery.Length >= 5 ? PlayersQuery[4] : string.Empty,
-                    Player6 = PlayersQuery.Length >= 6 ? PlayersQuery[5] : string.Empty,
-                    Player7 = PlayersQuery.Length >= 7 ? PlayersQuery[6] : string.Empty,
-                    Player8 = PlayersQuery.Length >= 8 ? PlayersQuery[7] : string.Empty,
-                    Player9 = PlayersQuery.Length >= 9 ? PlayersQuery[8] : string.Empty,
-                    Player10 = PlayersQuery.Length >= 10 ? PlayersQuery[9] : string.Empty,
+                    Players = GetPlayers(),
                     MessageSubject = divisionSetup?.InitialMessageSubject ?? string.Empty,
                     MessageBody = divisionSetup?.InitialMessageBody ?? string.Empty
                 };
         }
     }
 
-    private async Task HandleSubmit()
+    private List<DivisionFormPlayer> GetPlayers()
+    {
+        var players = PlayersQuery
+            .Select((s, i) => new DivisionFormPlayer(i + 1) { Name = s }).ToList();
+        while (players.Count < 9)
+            players.Add(new DivisionFormPlayer(players.Count + 1));
+        players.Add(new DivisionFormPlayer(players.Count + 1));
+        return players;
+    }
+
+    private async Task HandleSubmit(EditContext context)
     {
         _areMessagesVisible = false;
 
@@ -405,4 +359,7 @@ else
     private void SwitchMessagesVisible() => _areMessagesVisible = !_areMessagesVisible;
 
     private void SwitchStatsVisible() => _areStatsVisible = !_areStatsVisible;
+
+    private void AddPlayer() => DivisionForm?.Players.Add(new DivisionFormPlayer(DivisionForm.Players.Count + 1));
+
 }

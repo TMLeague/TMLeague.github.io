@@ -135,7 +135,7 @@ public class LeagueService
         if (league == null)
             return null;
 
-        var playersLength = divisionForm.Players.Length;
+        var playersLength = divisionForm.PlayerNames.Count;
         if (playersLength < 3)
             return null;
         var drafts = divisionForm.RandomOptions.UseRandomDraft ?
@@ -150,7 +150,7 @@ public class LeagueService
 
         var draftTable = draft.Table.Select(housesTemplate =>
             housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
-        var players = divisionForm.Players.OrderBy(p => p).ToArray();
+        var players = divisionForm.PlayerNames.OrderBy(p => p).ToArray();
         var stats = _playerStatsService.GetStats(draftTable, players);
 
         var messageSubject = divisionForm.MessageSubject?.FillParameters(divisionForm) ?? string.Empty;
