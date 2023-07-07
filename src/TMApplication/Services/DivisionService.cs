@@ -1,4 +1,5 @@
-﻿using TMApplication.Providers;
+﻿using System.Runtime.CompilerServices;
+using TMApplication.Providers;
 using TMApplication.ViewModels;
 using TMModels;
 
@@ -75,13 +76,32 @@ public class DivisionService
 
         var messages = await GetMessages(leagueId, seasonId, divisionId, division, cancellationToken);
 
+        var games = await GetDivisionGames(division, cancellationToken).ToArrayAsync(cancellationToken);
         return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, division.IsFinished, division.WinnerTitle,
             (results?.Players.Select(GetPlayerVm) ??
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
-            division.Games,
+            games,
             league.Scoring?.Tiebreakers ?? Tiebreakers.Default, messages,
             results?.GeneratedTime,
             league.GetSeasonNavigation(seasonId), season.GetDivisionNavigation(divisionId));
+    }
+
+    private async IAsyncEnumerable<DivisionGameViewModel?> GetDivisionGames(Division division, [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        foreach (var gameId in division.Games)
+        {
+            if (gameId == null)
+            {
+                yield return null;
+            }
+            else
+            {
+                var game = await _dataProvider.GetGame(gameId.Value, cancellationToken);
+                yield return game == null ?
+                    null :
+                    new DivisionGameViewModel(game.Id, game.Name, game.Turn, game.Progress, game.IsFinished, game.IsStalling, game.IsCreatedManually);
+            }
+        }
     }
 
     private async Task<NotificationMessage[]> GetMessages(string leagueId, string seasonId, string divisionId,

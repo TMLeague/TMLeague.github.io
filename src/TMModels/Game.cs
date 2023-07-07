@@ -11,7 +11,12 @@ public record Game(
     Map Map,
     HouseScore[] Houses,
     DateTimeOffset GeneratedTime,
-    bool IsCreatedManually = false);
+    bool IsCreatedManually = false)
+{
+    public double Progress => IsFinished ? 
+        100 : IsStalling ?
+            97 : 100 * (double)Turn / 11;
+}
 
 public record HouseScore(
     House House,

@@ -207,34 +207,69 @@ else
         </table>
     </div>
 
-    <div class="row collapse @(_showGameDetails ? "show" : "")">
+    <div class="row">
         <table class="table table-dark table-draft align-middle pb-0" width="@(TableWidth)px">
             <thead>
                 <tr>
                     <th scope="col" style="width: 200px">Player</th>
-                    @foreach (var (gameId, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
+                    @foreach (var (game, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
                     {
                         <th scope="col" style="width: 200px">
-                            @if (gameId == null)
+                            @if (game == null)
                             {
                                 <span>@($"G{i + 1}")</span>
                             }
                             else
                             {
-                                <a href="@RouteProvider.GetGameRoute(LeagueId, gameId.Value)" class="text-inherit">@($"G{i + 1}")</a>
+                                <a href="@RouteProvider.GetGameRoute(LeagueId, game.Id)" class="text-inherit">@($"G{i + 1}")</a>
                             }
                         </th>
                     }
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    @foreach (var (game, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
+                    {
+                        <td>
+                            @if (game == null)
+                            {
+                                <span></span>
+                            }
+                            else
+                            {
+                                @if (game.IsFinished)
+                                {
+                                    <div class="progress" title="@($"Game {(game.IsCreatedManually ? "simulated" : "finished")} in turn {game.Turn}")">
+                                        <div class="progress-bar bg-success @(game.IsCreatedManually ? "progress-bar-striped" : "")"
+                                             role="progressbar" aria-valuenow="100"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                            Finished
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="progress" title="@(string.IsNullOrEmpty(game.Name) ? "Game unavailable" : $"Turn {game.Turn}")">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated @(game.IsStalling ? "bg-success" : "bg-warning")"
+                                             role="progressbar" aria-valuenow="@((int)game.Progress)"
+                                             aria-valuemin="0" aria-valuemax="100" style="@($"width: {(int)game.Progress}%")">
+                                            @(game.IsStalling ? "Stalling" : $"T{game.Turn}")
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </td>
+                    }
+                </tr>
                 @foreach (var playerVm in DivisionVm.Players)
                 {
                     <tr>
                         <th scope="row"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
-                        @foreach (var (gameId, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
+                        @foreach (var (game, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
                         {
-                            var playerHouse = playerVm.Houses.FirstOrDefault(model => model.Game == gameId);
+                            var playerHouse = playerVm.Houses.FirstOrDefault(model => model.Game == game?.Id);
                             @if (playerHouse == null)
                             {
                                 <td></td>
@@ -250,20 +285,6 @@ else
                 }
             </tbody>
         </table>
-    </div>
-
-    <div class="row">
-        <button class="btn btn-primary w-100 mb-1"
-            @onclick="ChangeVisibility">
-            @if (_showGameDetails)
-            {
-                <i class="bi bi-chevron-compact-up display-6"></i>
-            }
-            else
-            {
-                <i class="bi bi-chevron-compact-down display-6"></i>
-            }
-        </button>
     </div>
 
     <div class="row my-2">
@@ -303,9 +324,6 @@ else
         (DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties) ? 0 : 100);
 
     private bool _isInitialized;
-
-    private bool _showGameDetails;
-    private void ChangeVisibility() => _showGameDetails = !_showGameDetails;
 
     protected override async Task OnParametersSetAsync()
     {
