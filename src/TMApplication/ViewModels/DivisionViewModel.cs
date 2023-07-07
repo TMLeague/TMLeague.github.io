@@ -11,7 +11,7 @@ public record DivisionViewModel(
     bool IsFinished,
     string? WinnerTitle,
     DivisionPlayerViewModel[] Players,
-    int?[] Games,
+    DivisionGameViewModel?[] Games,
     Tiebreaker[] Tiebreakers,
     NotificationMessage[] Messages,
     DateTimeOffset? GeneratedTime,
@@ -45,6 +45,15 @@ public record DivisionPlayerViewModel(
         Houses?.FirstOrDefault(h => h.House == house) ??
         new PlayerHouseViewModel(null, house);
 }
+
+public record DivisionGameViewModel(
+    int Id,
+    string? Name,
+    int Turn,
+    double Progress,
+    bool IsFinished,
+    bool IsStalling,
+    bool IsCreatedManually);
 
 public record PlayerHouseViewModel(
     int? Game,
