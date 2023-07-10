@@ -55,7 +55,7 @@ else
     <div class="container row p-2 bg-dark-container">
         @foreach (var division in SeasonVm.Divisions)
         {
-            <div class="col-4 bg-dark-container-2">
+            <div class="col-md-4 col-sm-6 bg-dark-container-2">
                 <a class="text-inherit" href="@RouteProvider.GetRoute(LeagueId, SeasonId, division.Id)">
                     <h5>
                         @division.Name
