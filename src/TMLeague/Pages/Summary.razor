@@ -1,7 +1,6 @@
 ﻿@page "/league/{leagueId}/summary"
 @page "/league/{leagueId}/summary/{tableTypeId}/{scoreTypeId}"
 @page "/league/{leagueId}/summary/{tableTypeId}/{scoreTypeId}/{divisionId}"
-@using TMLeague.Components.Stats
 @inject SummaryService SummaryService
 @inject ILogger<Summary> Logger
 <h3>@(SummaryVm?.LeagueName ?? "League")</h3>
