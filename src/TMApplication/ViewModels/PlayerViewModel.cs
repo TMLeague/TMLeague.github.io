@@ -1,15 +1,27 @@
-﻿namespace TMApplication.ViewModels;
+﻿using TMModels;
+
+namespace TMApplication.ViewModels;
 
 public record PlayerViewModel(
     string Name,
-    PlayerHouseScore[] Houses,
-    PlayerGameScore[] Games,
+    PlayerSeasonScoreViewModel[] Seasons,
     DateTimeOffset GeneratedTime);
 
-public record PlayerHouseScore
+public record PlayerSeasonScoreViewModel(
+    string SeasonId,
+    string DivisionId,
+    double TotalPoints,
+    int Wins,
+    int Cla,
+    int Supplies,
+    int PowerTokens,
+    double MinutesPerMove,
+    int Moves,
+    PlayerHouseViewModel[] Houses,
+    double PenaltiesPoints,
+    Stats? Stats)
 {
-}
-
-public record PlayerGameScore
-{
+    public PlayerHouseViewModel GetHouse(House house) =>
+        Houses?.FirstOrDefault(h => h.House == house) ??
+        new PlayerHouseViewModel(null, house);
 }

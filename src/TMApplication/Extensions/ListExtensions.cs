@@ -12,4 +12,10 @@ public static class ListExtensions
 
         return list;
     }
+
+    public static int IndexOf<T>(this IEnumerable<T> list, T item) => 
+        Array.IndexOf(list.ToArray(), item);
+
+    public static int IndexOf<T>(this T[] list, T item) => 
+        Array.IndexOf(list, item);
 }
