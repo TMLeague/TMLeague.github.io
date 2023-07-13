@@ -545,3 +545,8 @@ h4, h5, h6 {
     border-color: #701010;
     color: #ddd;
 }
+
+/* Carousel */
+.carousel-control-next, .carousel-control-prev {
+    width: 10%;
+}

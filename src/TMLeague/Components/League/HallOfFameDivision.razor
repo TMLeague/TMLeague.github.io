@@ -20,7 +20,9 @@
                 {
                     <tr>
                         <th scope="row" style="width: 50px">@player.Score</th>
-                        <td style="width: 150px" class="text-truncate"><PlayerLink PlayerName="@player.Player"></PlayerLink></td>
+                        <td style="width: 150px" class="text-truncate">
+                            <a href="@RouteProvider.GetPlayerRoute(LeagueId, player.PlayerName)" class="text-inherit">@player.PlayerName</a>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -29,6 +31,9 @@
 }
 
 @code {
+    [Parameter]
+    public string? LeagueId { get; set; }
+
     [Parameter]
     public HallOfFameDivisionViewModel? DivisionVm { get; set; }
 }

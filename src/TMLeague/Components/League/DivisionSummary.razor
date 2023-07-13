@@ -24,7 +24,7 @@ else
         <div class="container">
             <span>Winner: </span>
 
-            <PlayerLink PlayerName="@DivisionVm.WinnerPlayerName"></PlayerLink>
+            <a href="@RouteProvider.GetPlayerRoute(LeagueId, DivisionVm.WinnerPlayerName)" class="text-inherit">@DivisionVm.WinnerPlayerName</a>
         </div>
     }
     else
@@ -71,7 +71,7 @@ else
                 {
                     <div class="col-4 col-sm-9 col-md-10 col-xl-5">
                         <div title="Winner" class="overflow-hidden text-nowrap">
-                            <PlayerLink PlayerName="@game.WinnerPlayerName"></PlayerLink>
+                            <a href="@RouteProvider.GetPlayerRoute(LeagueId, game.WinnerPlayerName)" class="text-inherit">@game.WinnerPlayerName</a>
                         </div>
                     </div>
                 }

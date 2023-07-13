@@ -89,6 +89,14 @@ public class LocalApi : IDataProvider
             $"/data/results/{leagueId}/summary.json", cancellationToken);
     }
 
+    public async Task<Player?> GetPlayer(string playerName, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(playerName);
+
+        return await Get<Player>($"PlayerName \"{playerName.ToUpper()}\"",
+            $"/data/players/{playerName}.json", cancellationToken);
+    }
+
     private async Task<T?> Get<T>(string logName, string requestUri, CancellationToken cancellationToken) where T : class
     {
         if (_cache.TryGetValue(requestUri, out var cacheResult))

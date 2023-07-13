@@ -128,7 +128,9 @@ else
                 @foreach (var (playerVm, i) in DivisionVm.Players.Select((player, i) => (player, i)))
                 {
                     <tr>
-                        <th scope="row" class="@GetPlayerClass(playerVm, i)"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
+                        <th scope="row" class="@GetPlayerClass(playerVm, i)">
+                            <a href="@RouteProvider.GetPlayerRoute(LeagueId, playerVm.Name)" class="text-inherit">@playerVm.Name</a>
+                        </th>
                         <td class="text-warning">@playerVm.TotalPoints</td>
                         @foreach (var tiebreaker in DivisionVm.Tiebreakers)
                         {
@@ -264,7 +266,9 @@ else
                 @foreach (var playerVm in DivisionVm.Players)
                 {
                     <tr>
-                        <th scope="row"><PlayerLink PlayerName="@playerVm.Name"></PlayerLink></th>
+                        <th scope="row">
+                            <a href="@RouteProvider.GetPlayerRoute(LeagueId, playerVm.Name)" class="text-inherit">@playerVm.Name</a>
+                        </th>
                         @foreach (var (game, i) in DivisionVm.Games.Select((gameId, i) => (gameId, i)))
                         {
                             var playerHouse = playerVm.Houses.FirstOrDefault(model => model.Game == game?.Id);

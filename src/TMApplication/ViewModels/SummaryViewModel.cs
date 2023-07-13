@@ -10,7 +10,7 @@ public record SummaryViewModel(
     IdName[] AvailableDivisions);
 
 public record PlayerScoreViewModel(
-    string Player,
+    string PlayerName,
     IReadOnlyDictionary<ScoreType, PlayerScoreDetailsViewModel> Scores,
     int Seasons)
 {

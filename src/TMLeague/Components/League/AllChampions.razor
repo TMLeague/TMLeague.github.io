@@ -33,12 +33,16 @@
                     <span class="w-100 ms-3 fst-italic">
                         @if (string.IsNullOrEmpty(champion.Title))
                         {
-                            <span class="winner"><PlayerLink PlayerName="@champion.PlayerName"></PlayerLink></span>
+                            <span class="winner">
+                                <a href="@RouteProvider.GetPlayerRoute(LeagueId, champion.PlayerName)" class="text-inherit">@champion.PlayerName</a>
+                            </span>
                         }
                         else
                         {
                             <span>
-                                <span class="winner"><PlayerLink PlayerName="@champion.PlayerName"></PlayerLink></span>, @champion.Title
+                                <span class="winner">
+                                    <a href="@RouteProvider.GetPlayerRoute(LeagueId, champion.PlayerName)" class="text-inherit">@champion.PlayerName</a>
+                                </span>, @champion.Title
                             </span>
                         }
                     </span>

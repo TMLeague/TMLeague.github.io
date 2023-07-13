@@ -72,7 +72,9 @@ else
                         @foreach (var (playerVm, i) in division.Players.Select((playerVm, i) => (playerVm, i)))
                         {
                             <tr>
-                                <th scope="row" class="@GetPlayerClass(playerVm, i)">@playerVm.Name</th>
+                                <th scope="row" class="@GetPlayerClass(playerVm, i)">
+                                    <a href="@RouteProvider.GetPlayerRoute(LeagueId, playerVm.Name)" class="text-inherit">@playerVm.Name</a>
+                                </th>
                                 <td class="text-warning">@playerVm.Points</td>
                             </tr>
                         }

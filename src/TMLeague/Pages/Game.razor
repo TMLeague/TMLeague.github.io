@@ -117,7 +117,9 @@ else if (GameIdInt != null)
                             <th scope="row">
                                 @if (!string.IsNullOrEmpty(houseScore.Player))
                                 {
-                                    <p class="m-0"><PlayerLink PlayerName="@houseScore.Player"></PlayerLink></p>
+                                    <p class="m-0">
+                                        <a href="@RouteProvider.GetPlayerRoute(LeagueId, houseScore.Player)" class="text-inherit">@houseScore.Player</a>
+                                    </p>
                                 }
                                 <p class="m-0 fw-light fst-italic">@houseScore.House</p>
                             </th>

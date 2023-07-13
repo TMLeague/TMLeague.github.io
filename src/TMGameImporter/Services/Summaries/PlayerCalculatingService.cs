@@ -31,7 +31,7 @@ internal class PlayerCalculatingService
         foreach (var leagueId in home.Leagues)
             await AddLeague(players, leagueId, cancellationToken);
 
-        foreach (var player in players.Values) 
+        foreach (var player in players.Values)
             await _fileSaver.SavePlayer(player, player.Name, cancellationToken);
     }
 
@@ -75,25 +75,26 @@ internal class PlayerCalculatingService
             return;
         }
         foreach (var playerResult in division.Players)
-            AddPlayerResults(players, leagueId, seasonId, divisionId, playerResult);
+            AddPlayerResults(players, leagueId, seasonId, divisionId, playerResult, division.GeneratedTime);
     }
 
-    private static void AddPlayerResults(IDictionary<string, Player> players, string leagueId, string seasonId, string divisionId,
-        PlayerResult playerResult)
+    private static void AddPlayerResults(IDictionary<string, Player> players, string leagueId, string seasonId,
+        string divisionId, PlayerResult playerResult, DateTimeOffset generatedTime)
     {
         if (!players.TryGetValue(playerResult.Player, out var player))
         {
-            player = new Player(playerResult.Player, new Dictionary<string, PlayerLeague>());
+            player = new Player(playerResult.Player, generatedTime);
             players.Add(playerResult.Player, player);
         }
 
         if (!player.Leagues.TryGetValue(leagueId, out var playerLeague))
         {
-            playerLeague = new PlayerLeague(new Dictionary<House, HouseGames>());
+            playerLeague = new PlayerLeague(leagueId, new List<PlayerDivision>());
             player.Leagues.Add(leagueId, playerLeague);
+            if (generatedTime > player.GeneratedTime)
+                player.GeneratedTime = generatedTime;
         }
 
-        foreach (var playerResultHouse in playerResult.Houses)
-            playerLeague.AddGame(seasonId, divisionId, playerResultHouse);
+        playerLeague.AddDivision(seasonId, divisionId, playerResult);
     }
 }
