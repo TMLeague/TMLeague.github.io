@@ -33,8 +33,26 @@
                     @foreach (var playerSeasonVm in PlayerVm.Seasons.Reverse())
                     {
                         <tr>
-                            <th scope="row">@playerSeasonVm.SeasonId.ToUpper()</th>
-                            <td>@playerSeasonVm.DivisionId.ToUpper()</td>
+                            <th scope="row">
+                                @if (LeagueId == null)
+                                {
+                                    @playerSeasonVm.SeasonId.ToUpper()
+                                }
+                                else
+                                {
+                                    <a href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, playerSeasonVm.SeasonId)" class="text-inherit">@playerSeasonVm.SeasonId.ToUpper()</a>
+                                }
+                            </th>
+                            <td>
+                                @if (LeagueId == null)
+                                {
+                                    @playerSeasonVm.SeasonId.ToUpper()
+                                }
+                                else
+                                {
+                                    <a href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, playerSeasonVm.SeasonId, playerSeasonVm.DivisionId)" class="text-inherit">@playerSeasonVm.DivisionId.ToUpper()</a>
+                                }
+                            </td>
                             <td class="text-warning">@playerSeasonVm.TotalPoints</td>
                             <td>@playerSeasonVm.Wins</td>
                             <td>@playerSeasonVm.PenaltiesPoints</td>
