@@ -2,10 +2,15 @@
 
 namespace TMApplication.ViewModels;
 
-public record PlayerLeagueViewModel(
+public record PlayerViewModel(
     string Name,
-    PlayerSeasonScoreViewModel[] Seasons,
+    PlayerLeagueViewModel[] Leagues,
     DateTimeOffset GeneratedTime);
+
+public record PlayerLeagueViewModel(
+    string LeagueId,
+    string LeagueName,
+    PlayerSeasonScoreViewModel[] Seasons);
 
 public record PlayerSeasonScoreViewModel(
     string SeasonId,
