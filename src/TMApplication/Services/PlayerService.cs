@@ -41,8 +41,8 @@ public class PlayerService
     }
 
     private static PlayerSeasonScoreViewModel GetPlayerSeasonScoreVm(PlayerDivision division) => new(
-        division.SeasonId.ToUpper(),
-        division.DivisionId.ToUpper(),
+        division.SeasonId,
+        division.DivisionId,
         division.Result.TotalPoints,
         division.Result.Wins,
         division.Result.Cla,
