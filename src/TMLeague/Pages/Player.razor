@@ -1,15 +1,8 @@
 ﻿@page "/league/{leagueId}/player/{playerName}"
 @inject PlayerService PlayerService
-@if (PlayerVm == null)
-{
-    <h3>@PlayerName</h3>
-}
-else
-{
-    <h3>
-        <PlayerLink PlayerName="@PlayerName"></PlayerLink>
-    </h3>
-}
+<h3>
+    <PlayerLink PlayerName="@PlayerName"></PlayerLink>
+</h3>
 
 <div class="row">
     @if (PlayerVm == null)
@@ -131,7 +124,7 @@ else
     [Parameter]
     public string? PlayerName { get; set; }
 
-    private PlayerViewModel? PlayerVm { get; set; }
+    private PlayerLeagueViewModel? PlayerVm { get; set; }
 
     private bool _isInitialized;
 

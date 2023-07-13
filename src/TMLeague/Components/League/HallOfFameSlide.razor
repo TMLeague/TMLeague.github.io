@@ -7,12 +7,15 @@
     <div class="d-flex flex-row">
         @foreach (var division in SectionVm.Divisions)
         {
-            <HallOfFameDivision DivisionVm="division"></HallOfFameDivision>
+            <HallOfFameDivision LeagueId="@LeagueId" DivisionVm="@division"></HallOfFameDivision>
         }
     </div>
 }
 
 @code {
+    [Parameter]
+    public string? LeagueId { get; set; }
+
     [Parameter]
     public HallOfFameSectionViewModel? SectionVm { get; set; }
 }

@@ -33,7 +33,7 @@ public static class SummaryColumns
     public static IEnumerable<PlayerScoreViewModel> Sort(this IEnumerable<PlayerScoreViewModel> players, ViewColumn column, bool sortAscending, ScoreType scoreType) =>
         column switch
         {
-            ViewColumn.Player => players.OrderBy(player => player.Player).SortWithDirection(sortAscending),
+            ViewColumn.Player => players.OrderBy(player => player.PlayerName).SortWithDirection(sortAscending),
             ViewColumn.Points => players.OrderBy(player => player.Scores[scoreType].TotalPoints).SortWithDirection(sortAscending),
             ViewColumn.Wins => players.OrderBy(player => player.Scores[scoreType].Wins).SortWithDirection(sortAscending),
             ViewColumn.Penalties => players.OrderBy(player => player.Scores[scoreType].PenaltiesPoints).SortWithDirection(sortAscending),

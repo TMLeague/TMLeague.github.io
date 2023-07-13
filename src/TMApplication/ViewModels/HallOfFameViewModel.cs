@@ -14,5 +14,5 @@ public record HallOfFameDivisionViewModel(
     IReadOnlyCollection<HallOfFamePlayerViewModel> Players);
 
 public record HallOfFamePlayerViewModel(
-    string Player,
+    string PlayerName,
     double Score);

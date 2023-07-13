@@ -20,7 +20,7 @@
 else
 {
     <h4 class="fw-bold fst-italic winner">
-        <PlayerLink PlayerName="@ChampionVm.PlayerName"></PlayerLink>
+        <a href="@RouteProvider.GetPlayerRoute(LeagueId, ChampionVm.PlayerName)" class="text-inherit">@ChampionVm.PlayerName</a>
     </h4>
 }
 

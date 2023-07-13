@@ -93,7 +93,7 @@ public class LocalApi : IDataProvider
     {
         ArgumentNullException.ThrowIfNull(playerName);
 
-        return await Get<Player>($"Player \"{playerName.ToUpper()}\"",
+        return await Get<Player>($"PlayerName \"{playerName.ToUpper()}\"",
             $"/data/players/{playerName}.json", cancellationToken);
     }
 

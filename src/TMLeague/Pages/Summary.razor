@@ -210,7 +210,9 @@
                         @foreach (var player in SummaryVm.Players.Sort(_sortColumn, _sortAscending, ScoreType))
                         {
                             <tr>
-                                <th scope="row"><PlayerLink PlayerName="@player.Player"></PlayerLink></th>
+                                <th scope="row">
+                                    <a href="@RouteProvider.GetPlayerRoute(LeagueId, player.PlayerName)" class="text-inherit">@player.PlayerName</a>
+                                </th>
                                 <td class="text-warning">@player.TotalPoints(ScoreType)</td>
                                 <td>@player.Wins(ScoreType)</td>
                                 <td>@player.PenaltiesPoints(ScoreType)</td>

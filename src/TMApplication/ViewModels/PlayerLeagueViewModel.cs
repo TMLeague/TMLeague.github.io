@@ -2,7 +2,7 @@
 
 namespace TMApplication.ViewModels;
 
-public record PlayerViewModel(
+public record PlayerLeagueViewModel(
     string Name,
     PlayerSeasonScoreViewModel[] Seasons,
     DateTimeOffset GeneratedTime);

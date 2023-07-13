@@ -15,7 +15,7 @@ public class PlayerService
         _logger = logger;
     }
 
-    public async Task<PlayerViewModel?> GetPlayerVm(string leagueId, string playerName, CancellationToken cancellationToken = default)
+    public async Task<PlayerLeagueViewModel?> GetPlayerVm(string leagueId, string playerName, CancellationToken cancellationToken = default)
     {
         var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
         if (league == null)
@@ -62,6 +62,6 @@ public class PlayerService
             ))
             .ToArray();
 
-        return new PlayerViewModel(playerName, seasons, player.GeneratedTime);
+        return new PlayerLeagueViewModel(playerName, seasons, player.GeneratedTime);
     }
 }
