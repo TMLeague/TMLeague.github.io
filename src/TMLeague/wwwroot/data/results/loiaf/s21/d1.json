@@ -331,7 +331,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 1
     },
     {
       "Player": "Karijin",
@@ -653,7 +654,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 2
     },
     {
       "Player": "DawidW",
@@ -981,7 +983,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 3
     },
     {
       "Player": "Zesty18",
@@ -1303,7 +1306,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 4
     },
     {
       "Player": "ThyLear",
@@ -1625,7 +1629,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 5
     },
     {
       "Player": "rasmus842",
@@ -1947,7 +1952,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 6
     },
     {
       "Player": "Shade89",
@@ -2141,7 +2147,8 @@
         }
       ],
       "PenaltiesPoints": 0,
-      "PenaltiesDetails": []
+      "PenaltiesDetails": [],
+      "Position": 7
     },
     {
       "Player": "Gordalicious",
@@ -2245,7 +2252,8 @@
           "Points": 1,
           "Details": "speed"
         }
-      ]
+      ],
+      "Position": 8
     },
     {
       "Player": "TheReignOfChaos",
@@ -2351,7 +2359,8 @@
         }
       ],
       "IsPromoted": false,
-      "IsRelegated": true
+      "IsRelegated": true,
+      "Position": 9
     },
     {
       "Player": "El Grande",
@@ -2451,7 +2460,8 @@
       "PenaltiesPoints": 0,
       "PenaltiesDetails": [],
       "IsPromoted": false,
-      "IsRelegated": true
+      "IsRelegated": true,
+      "Position": 10
     }
   ],
   "GeneratedTime": "2023-03-07T06:31:11.1045807+00:00",

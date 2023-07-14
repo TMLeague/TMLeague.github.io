@@ -322,7 +322,8 @@
         }
       },
       "IsPromoted": true,
-      "IsRelegated": false
+      "IsRelegated": false,
+      "Position": 1
     },
     {
       "Player": "heyjakel",
@@ -646,7 +647,8 @@
         }
       },
       "IsPromoted": true,
-      "IsRelegated": false
+      "IsRelegated": false,
+      "Position": 2
     },
     {
       "Player": "Kamil_J",
@@ -979,7 +981,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 3
     },
     {
       "Player": "SerOberynMartell",
@@ -1301,7 +1304,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 4
     },
     {
       "Player": "TheMoth",
@@ -1623,7 +1627,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 5
     },
     {
       "Player": "diogobensabat",
@@ -1945,7 +1950,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 6
     },
     {
       "Player": "Lance",
@@ -2273,7 +2279,8 @@
           "Wildlings": 0,
           "Aeron": 0
         }
-      }
+      },
+      "Position": 7
     },
     {
       "Player": "La1985",
@@ -2603,7 +2610,8 @@
         }
       },
       "IsPromoted": false,
-      "IsRelegated": true
+      "IsRelegated": true,
+      "Position": 8
     },
     {
       "Player": "TONY-BENZEMA",
@@ -2938,7 +2946,8 @@
         }
       },
       "IsPromoted": false,
-      "IsRelegated": true
+      "IsRelegated": true,
+      "Position": 9
     },
     {
       "Player": "b00yashaka",
@@ -3268,7 +3277,8 @@
         }
       },
       "IsPromoted": false,
-      "IsRelegated": true
+      "IsRelegated": true,
+      "Position": 10
     }
   ],
   "GeneratedTime": "2023-03-08T11:32:12.2288481+00:00",
