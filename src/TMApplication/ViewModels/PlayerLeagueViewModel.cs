@@ -15,6 +15,7 @@ public record PlayerLeagueViewModel(
 public record PlayerSeasonScoreViewModel(
     string SeasonId,
     string DivisionId,
+    int Position,
     double TotalPoints,
     int Wins,
     int Cla,

@@ -7,6 +7,7 @@
                     <tr>
                         <th scope="col" style="width: 50px">Season</th>
                         <th scope="col" style="width: 50px">Division</th>
+                        <th scope="col" style="width: 50px">Position</th>
                         <th scope="col" style="width: 50px">Points</th>
                         <th scope="col" style="width: 50px">Wins</th>
                         <th scope="col" style="width: 50px">Penalties</th>
@@ -53,6 +54,7 @@
                                     <a href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, playerSeasonVm.SeasonId, playerSeasonVm.DivisionId)" class="text-inherit">@playerSeasonVm.DivisionId.ToUpper()</a>
                                 }
                             </td>
+                            <td class="text-warning">@playerSeasonVm.Position</td>
                             <td class="text-warning">@playerSeasonVm.TotalPoints</td>
                             <td>@playerSeasonVm.Wins</td>
                             <td>@playerSeasonVm.PenaltiesPoints</td>

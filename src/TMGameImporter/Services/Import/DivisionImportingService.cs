@@ -76,8 +76,7 @@ internal class DivisionImportingService
             .Select(playerName => GetPlayerResults(playerName, games, scoring, division))
             .ToArray();
         Array.Sort(playerResults, (p1, p2) => -Compare(p1, p2, scoring.Tiebreakers));
-        UpdatePromotedPlayers(playerResults, division.Promotions ?? leaguePromotions ?? 0);
-        UpdateRelegatedPlayers(playerResults, division.Relegations ?? leagueRelegations ?? 0);
+        UpdatePlayersPositions(playerResults, division.Promotions ?? leaguePromotions ?? 0, division.Relegations ?? leagueRelegations ?? 0);
 
         var results = new Results(playerResults, games.Any() ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow);
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
@@ -175,18 +174,18 @@ internal class DivisionImportingService
         return (divisionPenalties?.Concat(battlePenalties) ?? battlePenalties).ToArray();
     }
 
-    private static void UpdatePromotedPlayers(PlayerResult[] playerResults, int promotions)
+    private static void UpdatePlayersPositions(IReadOnlyList<PlayerResult> playerResults, int promotions, int relegations)
     {
-        if (promotions <= 0) return;
-        foreach (var playerResult in playerResults[..promotions])
-            playerResult.IsPromoted = true;
-    }
-
-    private static void UpdateRelegatedPlayers(PlayerResult[] playerResults, int relegations)
-    {
-        if (relegations <= 0) return;
-        foreach (var playerResult in playerResults[^relegations..])
-            playerResult.IsRelegated = true;
+        var playersCount = playerResults.Count;
+        for (var i = 0; i < playersCount; i++)
+        {
+            var playerResult = playerResults[i];
+            playerResult.Position = i + 1;
+            if (playerResult.Position <= promotions)
+                playerResult.IsPromoted = true;
+            if (playerResult.Position > playersCount - relegations)
+                playerResult.IsRelegated = true;
+        }
     }
 
     private static int Compare(PlayerResult p1, PlayerResult p2, IEnumerable<Tiebreaker> tiebreakers)

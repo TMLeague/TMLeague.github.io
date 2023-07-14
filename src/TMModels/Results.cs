@@ -22,6 +22,7 @@ public record PlayerResult(
     public Stats Stats { get; } = Stats ?? new Stats();
     public bool IsPromoted { get; set; }
     public bool IsRelegated { get; set; }
+    public int Position { get; set; }
 }
 
 public record HouseResult(
