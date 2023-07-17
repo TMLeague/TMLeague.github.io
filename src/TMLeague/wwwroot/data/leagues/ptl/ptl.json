@@ -20,7 +20,6 @@
     "PointsPerClearWin": 2,
     "PointsPer2ndPlace": 1,
     "PointsPer3rdPlace": 0.5,
-    "RequiredBattlesBefore10thTurn": 0,
     "Tiebreakers": [ "wins", "cla", "supplies", "powerTokens", "minutesPerMove" ]
   }
 }

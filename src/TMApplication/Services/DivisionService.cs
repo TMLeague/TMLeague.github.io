@@ -74,16 +74,26 @@ public class DivisionService
 
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
 
+        var players = (results?.Players.Select(GetPlayerVm) ??
+                       division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray();
         var messages = await GetMessages(leagueId, seasonId, divisionId, division, cancellationToken);
 
         var games = await GetDivisionGames(division, cancellationToken).ToArrayAsync(cancellationToken);
-        return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, division.IsFinished, division.WinnerTitle,
-            (results?.Players.Select(GetPlayerVm) ??
-             division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
+        return new DivisionViewModel(
+            league.Name,
+            season.Name,
+            division.Name,
+            league.JudgeTitle ?? "Judge",
+            division.Judge,
+            division.IsFinished,
+            division.WinnerTitle,
+            players,
             games,
-            league.Scoring?.Tiebreakers ?? Tiebreakers.Default, messages,
+            league.Scoring?.Tiebreakers ?? Tiebreakers.Default,
+            messages,
             results?.GeneratedTime,
-            league.GetSeasonNavigation(seasonId), season.GetDivisionNavigation(divisionId));
+            league.GetSeasonNavigation(seasonId),
+            season.GetDivisionNavigation(divisionId));
     }
 
     private async IAsyncEnumerable<DivisionGameViewModel?> GetDivisionGames(Division division, [EnumeratorCancellation] CancellationToken cancellationToken)

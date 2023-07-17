@@ -41,10 +41,32 @@ public record Scoring(
     double PointsPerCastle,
     double PointsPerWin,
     double PointsPerClearWin,
-    double PointsPer2ndPlace,
-    double PointsPer3rdPlace,
-    int RequiredBattlesBefore10thTurn,
+    double PointsPer2NdPlace,
+    double PointsPer3RdPlace,
+    ScoringPenalties? Penalties,
     Tiebreaker[] Tiebreakers);
+
+public record ScoringPenalties(
+    ScoringBattlePenalty? Battle,
+    ScoringSpeedPenalty? Speed,
+    ScoringAbsencePenalty? Absence);
+
+public record ScoringBattlePenalty(
+    int RequiredBattlesBefore10ThTurn);
+
+public record ScoringSpeedPenalty(
+    double PenalizedMpm,
+    double? PenaltyPointThresholdMpm,
+    double? ReplacementMpm,
+    double PenaltyPointBase,
+    double PenaltyPointThreshold);
+
+public record ScoringAbsencePenalty(
+    TimeSpan PenalizedTime,
+    TimeSpan? PenaltyPointThresholdTime,
+    TimeSpan? ReplacementTime,
+    double PenaltyPointBase,
+    double PenaltyPointThreshold);
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Tiebreaker

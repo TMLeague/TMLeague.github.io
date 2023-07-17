@@ -30,7 +30,26 @@
     "pointsPerStronghold": 2,
     "pointsPerCastle": 1,
     "pointsPerWin": 4,
-    "requiredBattlesBefore10thTurn": 7,
+    "numberOfSkippedLastMovesForMpmCalculation": 10,
+    "penalties": {
+      "battle": {
+        "requiredBattlesBefore10thTurn": 7
+      },
+      "speed": {
+        "penalizedMpm": 300,
+        "penaltyPointThresholdMpm": 30,
+        "replacementMpm": 500,
+        "penaltyPointBase": 3,
+        "penaltyPointThreshold": 1
+      },
+      "absence": {
+        "penalizedTime": "3.00:00:00",
+        "penaltyPointThresholdTime": "1.00:00:00",
+        "disqualificationTime": null,
+        "penaltyPointBase": 3,
+        "penaltyPointThreshold": 1
+      }
+    },
     "tiebreakers": [ "wins", "penalties", "cla", "supplies" ]
   },
   "initialMessage": {
