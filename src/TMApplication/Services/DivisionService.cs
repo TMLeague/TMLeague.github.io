@@ -189,4 +189,28 @@ public class DivisionService
         var gameIdx = Array.IndexOf(division.Games, id);
         return gameIdx < 0 ? null : $"G{gameIdx + 1}";
     }
+
+    public async Task<PenaltiesViewModel?> GetPenaltiesVm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
+    {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+        if (league?.Scoring?.Penalties == null)
+            return null;
+
+        var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null)
+            return null;
+
+        var divisionPenaltiesViewModel = new PenaltiesViewModel();
+
+        foreach (var (gameId, gameName) in division.Games
+                     .Select((gameId, i) => (gameId, $"G{i + 1}")))
+        {
+            if (gameId == null)
+                continue;
+
+            var gamePenalties = await _gameService.GetPenaltiesVm(gameId.Value, gameName, league.Scoring.Penalties, cancellationToken);
+        }
+
+        return divisionPenaltiesViewModel;
+    }
 }

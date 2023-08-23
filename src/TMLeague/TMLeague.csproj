@@ -26,4 +26,12 @@
 		</VisualStudio>
 	</ProjectExtensions>
 
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\Division\DivisionPenalties.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Components\Division\DivisionPenalties.razor" />
+	</ItemGroup>
+
 </Project>

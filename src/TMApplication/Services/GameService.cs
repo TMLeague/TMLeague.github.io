@@ -1,5 +1,6 @@
 ﻿using TMApplication.Providers;
 using TMApplication.ViewModels;
+using TMModels;
 
 namespace TMApplication.Services;
 
@@ -31,5 +32,14 @@ public class GameService
             return null;
 
         return new GameViewModel(game.Id, game.Name, game.IsFinished, game.IsStalling, game.Turn, game.Houses, game.GeneratedTime);
+    }
+
+    public async Task<PenaltiesViewModel?> GetPenaltiesVm(int gameId, string gameName, ScoringPenalties scoringPenalties, CancellationToken cancellationToken)
+    {
+        var game = await _dataProvider.GetGame(gameId, cancellationToken);
+        if (game == null)
+            return null;
+
+        return null; // TODO: Implement penalties logic
     }
 }

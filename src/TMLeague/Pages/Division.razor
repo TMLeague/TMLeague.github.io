@@ -295,6 +295,8 @@ else
             <div class="alert @GetAlertClass(message.Level) p-1 mb-1" role="alert">@((MarkupString)message.Message)</div>
         }
     </div>
+
+    <DivisionPenalties LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId"></DivisionPenalties>
 }
 
 <footer class="text-white-50 d-block">

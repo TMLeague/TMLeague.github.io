@@ -1,0 +1,72 @@
+﻿@inject DivisionService DivisionService
+
+@if (_showPenalties)
+{
+    @if (PenaltiesVm == null)
+    {
+        <span>Penalties for the division are not available.</span>
+    }
+    else
+    {
+        <table class="table table-striped table-dark pb-0" width="px">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 50px"></th>
+                    <th scope="col" style="width: 200px">Player</th>
+                    <th scope="col" style="width: 100px">Game</th>
+                    <th scope="col" style="width: 100px">Points</th>
+                    <th scope="col" style="width: 300px">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var (penalty, i) in PenaltiesVm.Select((penalty, i) => (penalty, i)))
+                {
+                    <tr>
+                        <th scope="row">
+                            <InputCheckbox id="@($"penalty-{i}")" @bind-Value="penalty.IsValid" class="form-check-input me-2"></InputCheckbox>
+                        </th>
+                        <td>
+                            @penalty.Player
+                        </td>
+                        <td>
+                            @penalty.GameName
+                        </td>
+                        <td>
+                            @penalty.Points
+                        </td>
+                        <td>
+                            @penalty.Details
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <button class="btn btn-primary w-100" @onclick="ShowPenalties">Generate penalties</button>
+}
+
+@code {
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    [Parameter]
+    public string? SeasonId { get; set; }
+
+    [Parameter]
+    public string? DivisionId { get; set; }
+
+    private bool _showPenalties;
+
+    private async Task ShowPenalties()
+    {
+        if (LeagueId != null && SeasonId != null && DivisionId != null)
+            PenaltiesVm = await DivisionService.GetPenaltiesVm(LeagueId, SeasonId, DivisionId);
+
+        _showPenalties = true;
+    }
+
+    private PenaltiesViewModel? PenaltiesVm { get; set; }
+}
