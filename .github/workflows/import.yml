@@ -38,7 +38,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0
+        dotnet-version: 7.0.307
     
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release
