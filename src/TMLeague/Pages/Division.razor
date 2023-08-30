@@ -292,7 +292,7 @@ else
     <div class="row my-2">
         @foreach (var message in DivisionVm.Messages)
         {
-            <div class="alert @GetAlertClass(message.Level) p-1 mb-1" role="alert">@((MarkupString)message.Message)</div>
+            <div class="alert @GetAlertClass(message) p-1 mb-1" role="alert">@((MarkupString)message.Message)</div>
         }
     </div>
 }
@@ -347,15 +347,15 @@ else
         _isInitialized = true;
     }
 
-    private static string GetAlertClass(NotificationLevel level) => level switch
+    private static string GetAlertClass(NotificationMessage message) => message.Level switch
     {
-        NotificationLevel.Info => "alert-info",
-        NotificationLevel.Warning => "alert-warning",
-        NotificationLevel.Critical => "alert-danger",
-        _ => "alert-light"
+        NotificationLevel.Info => message.IsStallingOrFinished ? "alert-info alert-info-opacity-75" : "alert-info",
+        NotificationLevel.Warning => message.IsStallingOrFinished ? "alert-warning alert-warning-opacity-75" : "alert-warning",
+        NotificationLevel.Critical => message.IsStallingOrFinished ? "alert-danger alert-danger-opacity-75" : "alert-danger",
+        _ => message.IsStallingOrFinished ? "alert-light alert-light-opacity-75" : "alert-light"
     };
 
-    private string GetPlayerClass(DivisionPlayerViewModel playerVm, int i)
+    private static string GetPlayerClass(DivisionPlayerViewModel playerVm, int i)
     {
         if (playerVm.IsPromoted) return "promoted";
         if (playerVm.IsRelegated) return "relegated";
