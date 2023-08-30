@@ -540,10 +540,18 @@ h4, h5, h6 {
     color: #ddd;
 }
 
+.alert-warning-opacity-75 {
+    background: rgba(139, 118, 42, 0.75);
+}
+
 .alert-danger {
     background: #72121b;
     border-color: #701010;
     color: #ddd;
+}
+
+.alert-danger-opacity-75 {
+    background: rgba(114, 18, 27, 0.75);
 }
 
 /* Carousel */
