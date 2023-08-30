@@ -35,6 +35,7 @@ public record HouseScore(
     Stats? Stats) : IComparable<HouseScore>
 {
     public Stats Stats { get; } = Stats ?? new Stats();
+    public string PlayerHouseName => string.IsNullOrEmpty(Player) ? House.ToString() : $"{Player} ({House})";
 
     public int CompareTo(HouseScore? otherHouse)
     {

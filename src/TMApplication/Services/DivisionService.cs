@@ -117,18 +117,21 @@ public class DivisionService
             var game = gameId == null ?
                 null :
                 await _dataProvider.GetGame(gameId.Value, cancellationToken);
-            if (game == null || game.IsStalling || game.IsFinished)
+            if (game == null)
                 continue;
+
             foreach (var houseScore in game.Houses)
             {
                 if (houseScore.MinutesPerMove >= 500)
                     messages.Add(new NotificationMessage(
                         NotificationLevel.Critical,
-                        $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
+                        $"{houseScore.PlayerHouseName} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm.",
+                        game.IsStalling || game.IsFinished));
                 else if (houseScore.MinutesPerMove >= 300)
                     messages.Add(new NotificationMessage(
                         NotificationLevel.Warning,
-                        $"{houseScore.House} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm."));
+                        $"{houseScore.PlayerHouseName} in <a href=\"{RouteProvider.GetGameRoute(leagueId, game.Id)}\" class=\"text-inherit\">G{gameIdx + 1}</a> has {Math.Round(houseScore.MinutesPerMove)} mpm.",
+                        game.IsStalling || game.IsFinished));
             }
         }
 

@@ -82,7 +82,8 @@ public record PlayerPenaltyViewModel(
 
 public record NotificationMessage(
     NotificationLevel Level,
-    string Message);
+    string Message,
+    bool IsStallingOrFinished);
 
 public enum NotificationLevel
 {
