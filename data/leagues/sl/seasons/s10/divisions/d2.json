@@ -25,6 +25,31 @@
     296306,
     296291
   ],
-  "penalties": [],
+  "penalties": [
+   {
+      "player": "Karijin",
+      "game": 296288,
+      "points": 2,
+      "details": "no delay penalty"
+    },
+   {
+      "player": "We_do_not_sow",
+      "game": 296288,
+      "points": 5,
+      "details": "no delay penalty"
+    },    
+   {
+      "player": "rasmus842",
+      "game": 296285,
+      "points": 10,
+      "details": "KM penalty"
+    },        
+   {
+      "player": "rasmus842",
+      "game": 296301,
+      "points": 10,
+      "details": "no delay penalty"
+    }      
+  ],
   "isFinished": false
 }
