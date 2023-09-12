@@ -25,7 +25,66 @@
     295908,
     295902
   ],
-  "penalties": [],
-  "isFinished": false,
+  "penalties": [
+    {
+      "player": "Zesty18",
+      "points": 2
+    },
+    {
+      "player": "Kamil_J",
+      "game": 295893,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "Kamil_J",
+      "game": 295900,
+      "points": 1.5,
+      "details": "speed"
+    },
+    {
+      "player": "Kamil_J",
+      "game": 295902,
+      "points": 3,
+      "details": "speed"
+    },
+    {
+      "player": "Lance",
+      "game": 295894,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Gordalicious",
+      "game": 295894,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "msold87",
+      "game": 295902,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Shade89",
+      "game": 295902,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "DawidW",
+      "game": 295894,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "DawidW",
+      "game": 295902,
+      "points": 4,
+      "details": "speed"
+    }
+  ],
+  "isFinished": true,
   "winnerTitle": null
 }

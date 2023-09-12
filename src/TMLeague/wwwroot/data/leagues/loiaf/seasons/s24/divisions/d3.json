@@ -25,6 +25,25 @@
     295868,
     295869
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "RodrigoLannister",
+      "game": 295897,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "JulianSnow",
+      "game": 295920,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "JulianSnow",
+      "game": 295868,
+      "points": 1,
+      "details": "speed"
+    }
+  ],
+  "isFinished": true
 }

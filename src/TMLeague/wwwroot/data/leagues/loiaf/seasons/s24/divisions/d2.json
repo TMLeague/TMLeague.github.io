@@ -25,6 +25,55 @@
     295906,
     295907
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "benbuck14",
+      "game": 295876,
+      "points": 6,
+      "details": "major KM"
+    },
+    {
+      "player": "LamieJannister",
+      "game": 295876,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "diogobensabat",
+      "game": 295915,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "Figueira",
+      "game": 295915,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "mokka1994",
+      "game": 295880,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Figueira",
+      "game": 295880,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "mokka1994",
+      "game": 295905,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "mokka1994",
+      "game": 295907,
+      "points": 1,
+      "details": "speed"
+    }
+  ],
+  "isFinished": true
 }
