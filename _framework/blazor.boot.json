@@ -54,10 +54,10 @@
       "System.Text.RegularExpressions.dll": "sha256-ORk3pHqBfrDEuBHpVwfXkPWO5OYy2+vhzbevE4U7JDA=",
       "System.Threading.dll": "sha256-+\/ApVzucbH7WtSumMmQOentOYGVk4oTivAqcwQ0yvC0=",
       "System.Web.HttpUtility.dll": "sha256-D3\/qTWngRedVsKl4KJTaZH0D5uvXw+imQBcDXYZA0WY=",
-      "TMApplication.dll": "sha256-oGat1A+R1xAp4uc10yi6wbsyafS6cBerzhhVw3Btj+c=",
-      "TMInfrastructure.dll": "sha256-ahwUuB6lHRR5uaryMd5OIIglA\/x9rr14qW1NwBIuEa4=",
-      "TMLeague.dll": "sha256-JTdBzR9szmFt4TgprKUum\/ccjxN3LJGTb7Ugt+FFieU=",
-      "TMModels.dll": "sha256-jNWuEg0Kv9J0nmwvS8pPaMbUt9Pv0Pck07yQ2YwMKBA="
+      "TMApplication.dll": "sha256-EPvQjQj5bT8j1vtDHzIctiVoowI6quu2FAUJa59M8Ew=",
+      "TMInfrastructure.dll": "sha256-ZVerWJJILlqGY0pGQ44\/deSimzZRm3ZD+Vk5fgj4sYo=",
+      "TMLeague.dll": "sha256-SUcLmnvQ2lMdDpGdZ4xr0LQTiVX4rhliBUTXHUWSeuw=",
+      "TMModels.dll": "sha256-N3Rz9QCy5PulSyosQjNQHp9dICO6\/vaa52EqJVxjhPY="
     },
     "extensions": null,
     "lazyAssembly": null,
