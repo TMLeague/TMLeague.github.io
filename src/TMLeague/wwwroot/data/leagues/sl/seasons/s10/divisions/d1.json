@@ -25,7 +25,20 @@
     296305,
     296295
   ],
-  "penalties": [],
-  "isFinished": false,
+  "penalties": [
+    {
+      "player": "RedWombat",
+      "game": 296315,
+      "points": 5,
+      "details": "KM by raiding vital support"
+    },
+    {
+      "player": "RedWombat",
+      "game": 296305,
+      "points": 5,
+      "details": "KM by gambling with orders"
+    }
+  ],
+  "isFinished": true,
   "winnerTitle": null
 }
