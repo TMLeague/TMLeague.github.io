@@ -37,9 +37,8 @@
       "game": 296305,
       "points": 5,
       "details": "KM by gambling with orders"
-    },
-    
+    }
   ],
-  "isFinished": false,
+  "isFinished": true,
   "winnerTitle": null
 }
