@@ -25,6 +25,73 @@
     296343,
     296352
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+	{
+      "player": "PawcioF",
+      "game": 296296,
+      "points": 5,
+      "details": "KM penalty"
+    },
+	{
+      "player": "ZedelaII",
+      "game": 296354,
+      "points": 1,
+      "details": "G1 aborted"
+    },
+	{
+      "player": "Negator",
+      "game": 296354,
+      "points": 1,
+      "details": "G1 aborted"
+    },
+	{
+      "player": "PawcioF",
+      "game": 296428,
+      "points": 1,
+      "details": "G2 aborted"
+    },
+	{
+      "player": "LordAlex",
+      "game": 296428,
+      "points": 1,
+      "details": "G2 aborted"
+    },
+	{
+      "player": "Joao Gomes",
+      "game": 296474,
+      "points": 1,
+      "details": "G4 aborted"
+    },
+	{
+      "player": "ThyLear",
+      "game": 296474,
+      "points": 1,
+      "details": "G4 aborted"
+    },
+	{
+      "player": "Negator",
+      "game": 296473,
+      "points": 1,
+      "details": "G5 aborted"
+    },
+	{
+      "player": "Negator",
+      "game": 296463,
+      "points": 2,
+      "details": "G7 aborted twice"
+    },
+	{
+      "player": "ThyLear",
+      "game": 296352,
+      "points": 1,
+      "details": "G10 aborted"
+    },
+	{
+      "player": "PawcioF",
+      "game": 296352,
+      "points": 1,
+      "details": "G10 aborted"
+    }	
+  ],
+  "isFinished": true
 }
