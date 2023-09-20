@@ -39,6 +39,6 @@
       "details": "KM by gambling with orders"
     }
   ],
-  "isFinished": false,
-  "winnerTitle": null
+  "isFinished": true,
+  "winnerTitle": "Puppet Master"
 }
