@@ -38,19 +38,22 @@ internal class DivisionImportingService
             return;
         }
 
-        if (division.IsFinished && _fileLoader.ExistsResults(leagueId, seasonId, divisionId) && !_options.Value.FetchFinishedDivisions)
-        {
-            _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} is already fetched and is finished.",
-                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
-            return;
-        }
-
         var oldResults = await _fileLoader.LoadResults(leagueId, seasonId, divisionId, cancellationToken);
-        if (oldResults?.IsCreatedManually ?? false)
+        if (oldResults != null)
         {
-            _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} is created manually and can't be overriden.",
-                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
-            return;
+            if (oldResults.IsCreatedManually)
+            {
+                _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} is created manually and can't be overriden.",
+                    leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+                return;
+            }
+
+            if (oldResults.IsFinished && !_options.Value.FetchFinishedDivisions)
+            {
+                _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} is already fetched and is finished.",
+                    leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+                return;
+            }
         }
 
         //foreach (var playerName in division.Enemies)
@@ -78,7 +81,7 @@ internal class DivisionImportingService
         Array.Sort(playerResults, (p1, p2) => -Compare(p1, p2, scoring.Tiebreakers));
         UpdatePlayersPositions(playerResults, division.Promotions ?? leaguePromotions ?? 0, division.Relegations ?? leagueRelegations ?? 0);
 
-        var results = new Results(playerResults, games.Any() ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow);
+        var results = new Results(playerResults, games.Any() ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow, division.IsFinished);
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
 
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} imported.",
