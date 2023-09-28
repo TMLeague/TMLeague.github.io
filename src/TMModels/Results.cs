@@ -3,6 +3,7 @@
 public record Results(
     PlayerResult[] Players,
     DateTimeOffset GeneratedTime,
+    bool IsFinished,
     bool IsCreatedManually = false);
 
 public record PlayerResult(
