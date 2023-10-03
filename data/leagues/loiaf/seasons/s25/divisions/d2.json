@@ -14,17 +14,24 @@
     "SerOberynMartell"
   ],
   "games": [
-    298693,
+    298890,
     298694,
-    null,
+    298738,
     298695,
-    null,
-    null,
+    298739,
+    298853,
     298696,
     298740,
-    298697,
-    298698
+    298848,
+    298849
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "lothes",
+      "game": null,
+      "points": 6,
+      "details": "5 day absence"
+    }
+  ],
   "isFinished": false
 }
