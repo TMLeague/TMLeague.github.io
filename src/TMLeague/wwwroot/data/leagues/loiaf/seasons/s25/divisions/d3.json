@@ -11,14 +11,21 @@
     "Ser Joseph"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    298723,
+    298730,
+    298725,
+    298726,
+    298727,
+    298728,
+    298729
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "BarteqZw",
+      "game": null,
+      "points": 3,
+      "details": "3 day absence"
+    }
+  ],
   "isFinished": false
 }
