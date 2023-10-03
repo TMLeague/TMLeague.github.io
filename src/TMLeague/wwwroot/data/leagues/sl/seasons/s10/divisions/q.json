@@ -25,65 +25,65 @@
   ],
   "penalties": [
     {
-    "player": "Mandy Storm",
-    "points": 3,
-    "game": 296391,
-    "details": "stalling penalty",
+      "player": "Mandy Storm",
+      "points": 3,
+      "game": 296391,
+      "details": "stalling penalty"
     },
     {
-    "player": "Mandy Storm",
-    "points": 3,
-    "game": 296357,
-    "details": "stalling penalty", 
+      "player": "Mandy Storm",
+      "points": 3,
+      "game": 296357,
+      "details": "stalling penalty"
     },
     {
-    "player": "Mandy Storm",
-    "points": 3,
-    "game": 296362,
-    "details": "stalling penalty",
+      "player": "Mandy Storm",
+      "points": 3,
+      "game": 296362,
+      "details": "stalling penalty"
     },
-     {
-    "player": "RodrigoLannister",
-    "points": 2,
-    "game": 296391,
-    "details": "stalling penalty",
+    {
+      "player": "RodrigoLannister",
+      "points": 2,
+      "game": 296391,
+      "details": "stalling penalty"
     },
-     {
-    "player": "MikeBike",
-    "points": 2,
-    "game": 296357,
-    "details": "stalling penalty",
+    {
+      "player": "MikeBike",
+      "points": 2,
+      "game": 296357,
+      "details": "stalling penalty"
     },
-     {
-    "player": "BarteqZw",
-    "points": 2,
-    "game": 296362,
-    "details": "stalling penalty",
+    {
+      "player": "BarteqZw",
+      "points": 2,
+      "game": 296362,
+      "details": "stalling penalty"
     },
-     {
-    "player": "RodrigoLannister",
-    "points": 1,
-    "game": 296391,
-    "details": "speed penalty",
+    {
+      "player": "RodrigoLannister",
+      "points": 1,
+      "game": 296391,
+      "details": "speed penalty"
     },
-     {
-    "player": "Figueira",
-    "points": 5,
-    "game": 296391,
-    "details": "speed penalty",
+    {
+      "player": "Figueira",
+      "points": 5,
+      "game": 296391,
+      "details": "speed penalty"
     },
-         {
-    "player": "Figueira",
-    "points": 5,
-    "game": 296337,
-    "details": "speed penalty",
+    {
+      "player": "Figueira",
+      "points": 5,
+      "game": 296337,
+      "details": "speed penalty"
     },
-      {
-    "player": "DawidW",
-    "points": 2,
-    "game": 296337,
-    "details": "speed penalty",
-    },
+    {
+      "player": "DawidW",
+      "points": 2,
+      "game": 296337,
+      "details": "speed penalty"
+    }
   ],
   "isFinished": true,
   "promotions": 3
