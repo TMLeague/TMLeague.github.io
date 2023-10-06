@@ -43,7 +43,7 @@ logger.LogInformation(
     "Generating drafts started with following arguments:\r\n{arguments}",
     string.Join(Environment.NewLine, ArgumentsString()));
 
-if (!options.Value.QualityMeasures.Neighbor && !options.Value.QualityMeasures.Enemy &&
+if (!options.Value.QualityMeasures.Neighbor && !options.Value.QualityMeasures.Game &&
     !options.Value.QualityMeasures.Proximity)
 {
     logger.LogError("All quality measures are disabled. Enable at least one of them and restart the application.");
@@ -167,7 +167,7 @@ string QualityMeasureNames(QualityMeasures measures)
 {
     var measureNames = new List<string>();
     if (measures.Neighbor) measureNames.Add(nameof(QualityMeasures.Neighbor));
-    if (measures.Enemy) measureNames.Add(nameof(QualityMeasures.Enemy));
+    if (measures.Game) measureNames.Add(nameof(QualityMeasures.Game));
     if (measures.Proximity) measureNames.Add(nameof(QualityMeasures.Proximity));
 
     return string.Join(", ", measureNames);
@@ -180,7 +180,7 @@ string ResultsHeader(QualityMeasures qualityMeasures)
 {
     var headers = new List<string>();
     if (qualityMeasures.Neighbor) headers.Add("Neighbor");
-    if (qualityMeasures.Enemy) headers.Add("Enemy");
+    if (qualityMeasures.Game) headers.Add("Games");
     if (qualityMeasures.Proximity) headers.Add("Proximity");
 
     return string.Join('\t', headers.Select(name => $"{name}Min\t{name}Max\t{name}Std"));
@@ -190,7 +190,7 @@ string ResultsRow(DraftScore score, QualityMeasures qualityMeasures)
 {
     var headers = new List<ScoreData>();
     if (qualityMeasures.Neighbor) headers.Add(score.Neighbor);
-    if (qualityMeasures.Enemy) headers.Add(score.Enemy);
+    if (qualityMeasures.Game) headers.Add(score.Game);
     if (qualityMeasures.Proximity) headers.Add(score.Proximity);
 
     return string.Join('\t',
@@ -201,7 +201,7 @@ string ResultsBestScore(DraftScore score, QualityMeasures qualityMeasures)
 {
     var headers = new List<double>();
     if (qualityMeasures.Neighbor) headers.Add(score.Neighbor.Std);
-    if (qualityMeasures.Enemy) headers.Add(score.Enemy.Std);
+    if (qualityMeasures.Game) headers.Add(score.Game.Std);
     if (qualityMeasures.Proximity) headers.Add(score.Proximity.Std);
 
     return string.Join(", ", headers.Select(value => Math.Round(value, 2)));

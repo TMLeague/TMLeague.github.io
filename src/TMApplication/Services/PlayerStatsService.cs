@@ -115,11 +115,11 @@ public class PlayerStatsService
             playerRows.Count(tuple =>
                 IsNeighbor(tuple.First, tuple.Second, housesCount)),
             playerRows.Count(tuple =>
-                IsEnemy(tuple.First, tuple.Second)),
+                IsInGame(tuple.First, tuple.Second)),
             playerRows.Sum(tuple =>
                 ProximityScore(tuple.First, tuple.Second, housesCount)),
             GetPairs(playerRows, (house1, house2) => IsNeighbor(house1, house2, housesCount)),
-            GetPairs(playerRows, IsEnemy));
+            GetPairs(playerRows, IsInGame));
     }
 
     private static int GetPairs((House First, House Second)[] playerRows, Func<House, House, bool> isRelated)
@@ -134,16 +134,16 @@ public class PlayerStatsService
         return playerRelatedRows.Count(tuple => p1Relations[tuple.Second] == tuple.First);
     }
 
-    private static bool IsEnemy(House playerHouse, House enemyHouse) =>
-        playerHouse != House.Unknown && enemyHouse != House.Unknown && enemyHouse != playerHouse;
+    private static bool IsInGame(House playerHouse, House otherHouse) =>
+        playerHouse != House.Unknown && otherHouse != House.Unknown && otherHouse != playerHouse;
 
-    private static bool IsNeighbor(House playerHouse, House enemyHouse, int housesCount) =>
-        playerHouse != House.Unknown && Neighbors[GetHousesCount(housesCount)][playerHouse].Contains(enemyHouse);
+    private static bool IsNeighbor(House playerHouse, House otherHouse, int housesCount) =>
+        playerHouse != House.Unknown && Neighbors[GetHousesCount(housesCount)][playerHouse].Contains(otherHouse);
 
-    private static double ProximityScore(House playerHouse, House enemyHouse, int housesCount) =>
+    private static double ProximityScore(House playerHouse, House otherHouse, int housesCount) =>
         ProximityScores.TryGetValue(housesCount, out var proximityScores) ?
-            proximityScores[(int)playerHouse][(int)enemyHouse] :
-            IsNeighbor(playerHouse, enemyHouse, housesCount) ? 1 : 0;
+            proximityScores[(int)playerHouse][(int)otherHouse] :
+            IsNeighbor(playerHouse, otherHouse, housesCount) ? 1 : 0;
 
     private static int GetHousesCount(int housesCount) => housesCount switch
     {
