@@ -43,6 +43,13 @@ logger.LogInformation(
     "Generating drafts started with following arguments:\r\n{arguments}",
     string.Join(Environment.NewLine, ArgumentsString()));
 
+if (!options.Value.QualityMeasures.Neighbor && !options.Value.QualityMeasures.Enemy &&
+    !options.Value.QualityMeasures.Proximity)
+{
+    logger.LogError("All quality measures are disabled. Enable at least one of them and restart the application.");
+    return;
+}
+
 var directory = Directory.CreateDirectory(options.Value.ResultsPath);
 var bestScores = new DraftScoresBag();
 
@@ -54,15 +61,18 @@ _ = Task.Run(async () =>
         var resultsPath = Path.Combine(options.Value.ResultsPath, "results.txt");
         await using var resultsFile = File.CreateText(resultsPath);
         await resultsFile.WriteAsync(
-            $"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd\tProximityMin\tProximityMax\tProximityStd{Environment.NewLine}");
+            $"ID\t{ResultsHeader(options.Value.QualityMeasures)}{Environment.NewLine}");
         while (!cts.Token.IsCancellationRequested)
         {
             var score = await channel.Reader.ReadAsync(cts.Token);
             await resultsFile.WriteAsync(
-                $"{score.Id}\t{score.Neighbor.Min}\t{score.Neighbor.Max}\t{score.Neighbor.Std}\t{score.Enemy.Min}\t{score.Enemy.Max}\t{score.Enemy.Std}\t{score.Proximity.Min}\t{score.Proximity.Max}\t{score.Proximity.Std}{Environment.NewLine}");
+                $"{score.Id}\t{ResultsRow(score, options.Value.QualityMeasures)}{Environment.NewLine}");
             await resultsFile.FlushAsync();
             logger.LogInformation(
-                $"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}): {string.Join(", ", bestScores.Values.OrderBy(s => s.Neighbor.Std).Select(draftScore => $"{draftScore.Id} ({Math.Round(draftScore.Neighbor.Std, 2)}, {Math.Round(draftScore.Enemy.Std, 2)}, {Math.Round(draftScore.Proximity.Std, 2)})"))}");
+                $"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}): " +
+                string.Join(", ", bestScores.Values
+                    .OrderBy(s => s.Neighbor.Std)
+                    .Select(draftScore => $"{draftScore.Id} ({ResultsBestScore(draftScore, options.Value.QualityMeasures)})")));
         }
 
         logger.LogInformation("Results writing task finished.");
@@ -106,9 +116,9 @@ Enumerable.Range(0, options.Value.Threads).AsParallel().ForAll(async taskId =>
                 .SelectMany(s => s).OfType<PlayerDraftStat>().ToArray();
             var score = new DraftScore($"{taskId}-{i}", allStats);
 
-            if (!bestScores.IsDominated(score))
+            if (!bestScores.IsDominated(score, options.Value.QualityMeasures))
             {
-                await bestScores.Add(score, cts.Token);
+                await bestScores.Add(score, cts.Token, options.Value.QualityMeasures);
 
                 var path = Path.Combine(options.Value.ResultsPath, $"{taskId}-{i}.draft.txt");
                 _ = File.WriteAllTextAsync(path, draft.Serialize())
@@ -149,8 +159,50 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.Players), options.Value.Players),
         ArgumentLine(nameof(options.Value.Houses), options.Value.Houses),
         ArgumentLine(nameof(options.Value.Threads), options.Value.Threads),
-        ArgumentLine(nameof(options.Value.ResultsPath), options.Value.ResultsPath)
+        ArgumentLine(nameof(options.Value.ResultsPath), options.Value.ResultsPath),
+        ArgumentLine(nameof(options.Value.QualityMeasures), QualityMeasureNames(options.Value.QualityMeasures)),
     };
 
-string ArgumentLine(string name, object? value) =>
+string QualityMeasureNames(QualityMeasures measures)
+{
+    var measureNames = new List<string>();
+    if (measures.Neighbor) measureNames.Add(nameof(QualityMeasures.Neighbor));
+    if (measures.Enemy) measureNames.Add(nameof(QualityMeasures.Enemy));
+    if (measures.Proximity) measureNames.Add(nameof(QualityMeasures.Proximity));
+
+    return string.Join(", ", measureNames);
+}
+
+string ArgumentLine(string name, object value) =>
     $"{Environment.NewLine} - {name}: {value}";
+
+string ResultsHeader(QualityMeasures qualityMeasures)
+{
+    var headers = new List<string>();
+    if (qualityMeasures.Neighbor) headers.Add("Neighbor");
+    if (qualityMeasures.Enemy) headers.Add("Enemy");
+    if (qualityMeasures.Proximity) headers.Add("Proximity");
+
+    return string.Join('\t', headers.Select(name => $"{name}Min\t{name}Max\t{name}Std"));
+}
+
+string ResultsRow(DraftScore score, QualityMeasures qualityMeasures)
+{
+    var headers = new List<ScoreData>();
+    if (qualityMeasures.Neighbor) headers.Add(score.Neighbor);
+    if (qualityMeasures.Enemy) headers.Add(score.Enemy);
+    if (qualityMeasures.Proximity) headers.Add(score.Proximity);
+
+    return string.Join('\t',
+        headers.Select(scoreData => $"{Math.Round(scoreData.Min, 2)}\t{Math.Round(scoreData.Max, 2)}\t{Math.Round(scoreData.Std, 2)}"));
+}
+
+string ResultsBestScore(DraftScore score, QualityMeasures qualityMeasures)
+{
+    var headers = new List<double>();
+    if (qualityMeasures.Neighbor) headers.Add(score.Neighbor.Std);
+    if (qualityMeasures.Enemy) headers.Add(score.Enemy.Std);
+    if (qualityMeasures.Proximity) headers.Add(score.Proximity.Std);
+
+    return string.Join(", ", headers.Select(value => Math.Round(value, 2)));
+}

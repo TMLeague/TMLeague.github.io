@@ -10,15 +10,16 @@ internal class DraftScoresBag
     public int Count => _draftScores.Count;
     public ICollection<DraftScore> Values => _draftScores.Values;
 
-    public bool IsDominated(DraftScore score) => _draftScores.Values.Any(draftScore => draftScore.IsDominating(score));
+    public bool IsDominated(DraftScore score, QualityMeasures measures) =>
+        _draftScores.Values.Any(draftScore => draftScore.IsDominating(score, measures));
 
-    public async Task Add(DraftScore newScore, CancellationToken cancellationToken)
+    public async Task Add(DraftScore newScore, CancellationToken cancellationToken, QualityMeasures measures)
     {
         await _semaphore.WaitAsync(cancellationToken);
         try
         {
             foreach (var (i, draftScore) in _draftScores)
-                if (newScore.IsDominating(draftScore))
+                if (newScore.IsDominating(draftScore, measures))
                     _draftScores.TryRemove(i, out _);
             _draftScores.TryAdd(newScore.Id, newScore);
         }

@@ -1,4 +1,6 @@
-﻿namespace TMDraftsGenerator;
+﻿using TMModels;
+
+namespace TMDraftsGenerator;
 
 internal class DraftOptions
 {
@@ -6,4 +8,5 @@ internal class DraftOptions
     public int Houses { get; set; } = 6;
     public int Threads { get; set; } = 1;
     public string ResultsPath { get; set; } = "results";
+    public QualityMeasures QualityMeasures { get; set; } = new();
 }

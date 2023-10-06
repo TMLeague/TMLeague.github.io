@@ -20,21 +20,22 @@ public record DraftScore(string Id,
         new ScoreData(allStats, stat => stat.Proximity))
     { }
 
-    public bool IsDominating(DraftScore other) =>
-        Neighbor.Min >= other.Neighbor.Min &&
-        Neighbor.Max <= other.Neighbor.Max &&
-        Neighbor.Std <= other.Neighbor.Std + 0.001 &&
-        Enemy.Min >= other.Enemy.Min &&
-        Enemy.Max <= other.Enemy.Max &&
-        Enemy.Std <= other.Enemy.Std + 0.001 &&
-        Proximity.Min >= other.Proximity.Min &&
-        Proximity.Max <= other.Proximity.Max &&
-        Proximity.Std <= other.Proximity.Std + 0.001;
+    public bool IsDominating(DraftScore other, QualityMeasures measures)
+    {
+        if (measures.Neighbor && !Neighbor.IsDominating(other.Neighbor))
+            return false;
+        if (measures.Enemy && !Enemy.IsDominating(other.Enemy))
+            return false;
+        if (measures.Proximity && !Proximity.IsDominating(other.Proximity))
+            return false;
 
-    public bool IsEqual(DraftScore other) =>
-        Neighbor.IsEqual(other.Neighbor) &&
-        Enemy.IsEqual(other.Neighbor) &&
-        Proximity.IsEqual(other.Neighbor);
+        return true;
+    }
+
+    public bool IsEqual(DraftScore other, QualityMeasures measures) =>
+        (!measures.Neighbor || Neighbor.IsEqual(other.Neighbor)) &&
+        (!measures.Enemy || Enemy.IsEqual(other.Neighbor)) &&
+        (!measures.Proximity || Proximity.IsEqual(other.Neighbor));
 }
 
 public record ScoreData(double Min, double Max, double Std)
@@ -47,10 +48,20 @@ public record ScoreData(double Min, double Max, double Std)
         stats.Select(selector).ToArray().Std())
     { }
 
-    public bool IsEqual(ScoreData other)
-    {
-        return Math.Abs(Min - other.Min) < Precision &&
-               Math.Abs(Max - other.Max) < Precision &&
-               Math.Abs(Std - other.Std) < Precision;
-    }
+    public bool IsDominating(ScoreData other) =>
+        Min + 0.001 >= other.Min &&
+        Max <= other.Max + 0.001 &&
+        Std <= other.Std + 0.001;
+
+    public bool IsEqual(ScoreData other) =>
+        Math.Abs(Min - other.Min) < Precision &&
+        Math.Abs(Max - other.Max) < Precision &&
+        Math.Abs(Std - other.Std) < Precision;
+}
+
+public class QualityMeasures
+{
+    public bool Neighbor { get; set; }
+    public bool Enemy { get; set; }
+    public bool Proximity { get; set; }
 }
