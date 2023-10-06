@@ -12,6 +12,15 @@
     Fill in the configuration. Make sure that you enter the correct data so you don't have to correct it manually later!<br />
     When you submit the form, draft would be generated.<br />
     Remember to save the draft, because it is not stored anywhere else!
+    @if (DivisionDraft?.IsRandom ?? false)
+    {
+        <div class="alert alert-warning mt-3 mb-0" role="alert">
+            <p class="mt-0 mb-1">You have chosen to generate a random draft or the number of players for whom there is no predefined draft. Check the quality of the drawn draft before you use it!</p>
+            <p class="my-1">If you click on the "Show stats" button, you will see some additional characteristics of the generated draft. Minimizing the standard deviation is usually a good enough measure.</p>
+            <p class="my-1">If the generated draft does not meet your expectations, you can click "Generate draft" (or "Enter" on your keyboard) again.</p>
+            <p class="mt-1 mb-0">If you want to take more time to find a better draft, check the 'Use random draft' option, set the 'Timeout' and the weights you assign to each measure of draft quality. A value of 0 allows you to disregard a measure.</p>
+        </div>
+    }
 </lead>
 
 @if (DivisionDraft != null || _isDraftLoading)

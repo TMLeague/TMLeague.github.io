@@ -53,7 +53,7 @@ public class DraftScoreWeights
     public double EnemyStd { get; set; } = -1;
 }
 
-public record DivisionDraft(List<PlayerDraft> Draft)
+public record DivisionDraft(List<PlayerDraft> Draft, bool IsRandom)
 {
     public int Players => Draft.Count;
     public int Games => Draft.FirstOrDefault()?.Games.Length ?? 0;
