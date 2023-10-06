@@ -49,6 +49,7 @@
                         }
                         <th scope="col" style="width: 100px" class="tt">Neighbor<div class="tt-inner px-3">Number of games with the same player as a neighbor</div></th>
                         <th scope="col" style="width: 100px" class="tt">Player<div class="tt-inner px-3">Number of games against the same player</div></th>
+                        <th scope="col" style="width: 100px" class="tt">Proximity<div class="tt-inner px-3">Approximate measure of total strength of interactions between players</div></th>
                     }
                 </tr>
             </thead>
@@ -78,11 +79,15 @@
                                 }
                                 else
                                 {
-                                    <td>@($"{stat.Neighbor}/{stat.Enemy}")</td>
+                                    <td class="fs-10">
+                                        <p class="m-0">@($"{stat.Neighbor}/{stat.Enemy}")</p>
+                                        <p class="m-0">@Math.Round(stat.Proximity, 1)</p>
+                                    </td>
                                 }
                             }
                             <td>@($"{player.Stats.NeighborMin}-{player.Stats.NeighborMax}")</td>
                             <td>@($"{player.Stats.EnemyMin}-{player.Stats.EnemyMax}")</td>
+                            <td>@($"{Math.Round(player.Stats.ProximityMin, 1)}-{Math.Round(player.Stats.ProximityMax, 1)}")</td>
                         }
                     </tr>
                 }
@@ -93,6 +98,7 @@
         {
             <p class="m-0">Neighbor range: <span class="fw-bold">@($"{DivisionDraft.NeighborMin}-{DivisionDraft.NeighborMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.NeighborStd, 2)</span></p>
             <p class="m-0">Enemy range: <span class="fw-bold">@($"{DivisionDraft.EnemyMin}-{DivisionDraft.EnemyMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.EnemyStd, 2)</span></p>
+            <p class="m-0">Proximity range: <span class="fw-bold">@($"{Math.Round(DivisionDraft.ProximityMin, 2)}-{Math.Round(DivisionDraft.ProximityMax, 2)}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.ProximityStd, 2)</span></p>
         }
 
         @if (_areMessagesVisible)
@@ -278,28 +284,73 @@ else
         {
             <div class="col-12 row">
                 <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                    <label for="neighborMin" class="form-label text-start">Min neighbor weight</label>
-                    <InputNumber id="neighborMin" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMin" class="form-control" aria-describedby="neighborMinHelp" />
+                    <div class="row mx-0 mb-3">
+                        Neighbor weight
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Min</label>
+                        <div class="col-6">
+                            <InputNumber id="neighborMin" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMin" class="form-control" aria-describedby="neighborMinHelp" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Max</label>
+                        <div class="col-6">
+                            <InputNumber id="neighborMax" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMax" class="form-control" aria-describedby="neighborMaxHelp" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Std</label>
+                        <div class="col-6">
+                            <InputNumber id="neighborStd" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborStd" class="form-control" aria-describedby="neighborStdHelp" />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                    <label for="neighborMax" class="form-label text-start">Max neighbor weight</label>
-                    <InputNumber id="neighborMax" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborMax" class="form-control" aria-describedby="neighborMaxHelp" />
+                    <div class="row mx-0 mb-3">
+                        Enemy weight
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Min</label>
+                        <div class="col-6">
+                            <InputNumber id="enemyMin" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMin" class="form-control" aria-describedby="enemyMinHelp" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Max</label>
+                        <div class="col-6">
+                            <InputNumber id="enemyMax" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMax" class="form-control" aria-describedby="enemyMaxHelp" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Std</label>
+                        <div class="col-6">
+                            <InputNumber id="enemyStd" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyStd" class="form-control" aria-describedby="enemyStdHelp" />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                    <label for="neighborStd" class="form-label text-start">Std neighbor weight</label>
-                    <InputNumber id="neighborStd" @bind-Value="DivisionForm.RandomOptions.Weights.NeighborStd" class="form-control" aria-describedby="neighborStdHelp" />
-                </div>
-                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                    <label for="enemyMin" class="form-label text-start">Min enemy weight</label>
-                    <InputNumber id="enemyMin" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMin" class="form-control" aria-describedby="enemyMinHelp" />
-                </div>
-                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                    <label for="enemyMax" class="form-label text-start">Max enemy weight</label>
-                    <InputNumber id="enemyMax" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMax" class="form-control" aria-describedby="enemyMaxHelp" />
-                </div>
-                <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
-                    <label for="enemyStd" class="form-label text-start">Std enemy weight</label>
-                    <InputNumber id="enemyStd" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyStd" class="form-control" aria-describedby="enemyStdHelp" />
+                    <div class="row mx-0 mb-3">
+                        Proximity weight
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Min</label>
+                        <div class="col-6">
+                            <InputNumber id="proximityMin" @bind-Value="DivisionForm.RandomOptions.Weights.ProximityMin" class="form-control" aria-describedby="proximityMinHelp" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Max</label>
+                        <div class="col-6">
+                            <InputNumber id="proximityMax" @bind-Value="DivisionForm.RandomOptions.Weights.ProximityMax" class="form-control" aria-describedby="proximityMaxHelp" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-6">Std</label>
+                        <div class="col-6">
+                            <InputNumber id="proximityStd" @bind-Value="DivisionForm.RandomOptions.Weights.ProximityStd" class="form-control" aria-describedby="proximityStdHelp" />
+                        </div>
+                    </div>
                 </div>
             </div>
         }

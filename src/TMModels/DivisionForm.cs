@@ -51,6 +51,9 @@ public class DraftScoreWeights
     public double EnemyMin { get; set; } = 1;
     public double EnemyMax { get; set; } = -1;
     public double EnemyStd { get; set; } = -1;
+    public double ProximityMin { get; set; } = 1;
+    public double ProximityMax { get; set; } = -1;
+    public double ProximityStd { get; set; } = -1;
 }
 
 public record DivisionDraft(List<PlayerDraft> Draft, bool IsRandom)
@@ -68,6 +71,9 @@ public record DivisionDraft(List<PlayerDraft> Draft, bool IsRandom)
     public int EnemyMin => AllStats.Select(stat => stat.Enemy).Min();
     public int EnemyMax => AllStats.Select(stat => stat.Enemy).Max();
     public double EnemyStd => AllStats.Select(stat => stat.Enemy).ToArray().Std();
+    public double ProximityMin => AllStats.Select(stat => stat.Proximity).Min();
+    public double ProximityMax => AllStats.Select(stat => stat.Proximity).Max();
+    public double ProximityStd => AllStats.Select(stat => stat.Proximity).ToArray().Std();
 
     public double GetScore(DraftScoreWeights weights) =>
         NeighborMin * weights.NeighborMin +
@@ -75,7 +81,10 @@ public record DivisionDraft(List<PlayerDraft> Draft, bool IsRandom)
         NeighborStd * weights.NeighborStd +
         EnemyMin * weights.EnemyMin +
         EnemyMax * weights.EnemyMax +
-        EnemyStd * weights.EnemyStd;
+        EnemyStd * weights.EnemyStd +
+        ProximityMin * weights.ProximityMin +
+        ProximityMax * weights.ProximityMax +
+        ProximityStd * weights.ProximityStd;
 }
 
 public record PlayerDraft(
@@ -91,6 +100,8 @@ public class PlayerDraftStats : List<PlayerDraftStat?>
     public int NeighborMax => this.Max(stat => stat?.Neighbor ?? 0);
     public int EnemyMin => this.Min(stat => stat?.Enemy ?? int.MaxValue);
     public int EnemyMax => this.Max(stat => stat?.Enemy ?? 0);
+    public double ProximityMin => this.Min(stat => stat?.Proximity ?? int.MaxValue);
+    public double ProximityMax => this.Max(stat => stat?.Proximity ?? 0);
 
     public PlayerDraftStats() { }
     public PlayerDraftStats(IEnumerable<PlayerDraftStat?> collection) : base(collection) { }
