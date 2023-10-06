@@ -138,13 +138,12 @@ public class LeagueService
         var playersLength = divisionForm.PlayerNames.Count;
         if (playersLength < 3)
             return null;
+
         var drafts = divisionForm.RandomOptions.UseRandomDraft ?
             Array.Empty<Draft>() :
             await _dataProvider.GetDrafts(playersLength, cancellationToken);
 
-        var draft = drafts.Length > 0 ?
-            _draftService.GetDraft(drafts[Random.Shared.Next(drafts.Length)]) :
-            _draftService.GetDraft(playersLength, 6);
+        var draft = GetDraftInternal(drafts, playersLength, out var isRandom);
         if (draft == null)
             return null;
 
@@ -163,9 +162,21 @@ public class LeagueService
                 messageSubject,
                 messageBody.FillParameters(GetPlayerHouseGames(playerKv.Second)), playerKv.Third)).ToList();
 
-        var divisionDraft = new DivisionDraft(playerDrafts);
+        var divisionDraft = new DivisionDraft(playerDrafts, isRandom);
 
         return divisionDraft;
+    }
+
+    private Draft GetDraftInternal(Draft[] drafts, int playersLength, out bool isRandom)
+    {
+        if (drafts.Length > 0)
+        {
+            isRandom = false;
+            return _draftService.GetDraft(drafts[Random.Shared.Next(drafts.Length)]);
+        }
+
+        isRandom = true;
+        return _draftService.GetDraft(playersLength, 6);
     }
 
     public async Task<LeagueSeasonsViewModel?> GetLeagueSeasonsVm(string leagueId, CancellationToken cancellationToken = default)

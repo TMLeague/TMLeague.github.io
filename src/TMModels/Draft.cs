@@ -11,31 +11,57 @@ public record Draft(
 }
 
 public record DraftScore(string Id,
-    int NeighborMin, int NeighborMax, double NeighborStd,
-    int EnemyMin, int EnemyMax, double EnemyStd)
+    ScoreData Neighbor, ScoreData Enemy, ScoreData Proximity)
 {
     public DraftScore(string id, PlayerDraftStat[] allStats) : this(
         id,
-        allStats.Select(stat => stat.Neighbor).Min(),
-        allStats.Select(stat => stat.Neighbor).Max(),
-        allStats.Select(stat => stat.Neighbor).ToArray().Std(),
-        allStats.Select(stat => stat.Enemy).Min(),
-        allStats.Select(stat => stat.Enemy).Max(),
-        allStats.Select(stat => stat.Enemy).ToArray().Std())
+        new ScoreData(allStats, stat => stat.Neighbor),
+        new ScoreData(allStats, stat => stat.Enemy),
+        new ScoreData(allStats, stat => stat.Proximity))
     { }
 
-    public bool IsDominating(DraftScore other) =>
-        NeighborMin >= other.NeighborMin &&
-        NeighborMax <= other.NeighborMax &&
-        NeighborStd <= other.NeighborStd + 0.001 &&
-        EnemyMin >= other.EnemyMin &&
-        EnemyMax <= other.EnemyMax &&
-        EnemyStd <= other.EnemyStd + 0.001;
+    public bool IsDominating(DraftScore other, QualityMeasures measures)
+    {
+        if (measures.Neighbor && !Neighbor.IsDominating(other.Neighbor))
+            return false;
+        if (measures.Enemy && !Enemy.IsDominating(other.Enemy))
+            return false;
+        if (measures.Proximity && !Proximity.IsDominating(other.Proximity))
+            return false;
 
-    public bool IsEqual(DraftScore other) => NeighborMin == other.NeighborMin &&
-                                             NeighborMax == other.NeighborMax &&
-                                             Math.Abs(NeighborStd - other.NeighborStd) < 0.001 &&
-                                             EnemyMin == other.EnemyMin &&
-                                             EnemyMax == other.EnemyMax &&
-                                             Math.Abs(EnemyStd - other.EnemyStd) < 0.001;
+        return true;
+    }
+
+    public bool IsEqual(DraftScore other, QualityMeasures measures) =>
+        (!measures.Neighbor || Neighbor.IsEqual(other.Neighbor)) &&
+        (!measures.Enemy || Enemy.IsEqual(other.Neighbor)) &&
+        (!measures.Proximity || Proximity.IsEqual(other.Neighbor));
+}
+
+public record ScoreData(double Min, double Max, double Std)
+{
+    private const double Precision = 0.001;
+
+    public ScoreData(PlayerDraftStat[] stats, Func<PlayerDraftStat, double> selector) : this(
+        stats.Select(selector).Min(),
+        stats.Select(selector).Max(),
+        stats.Select(selector).ToArray().Std())
+    { }
+
+    public bool IsDominating(ScoreData other) =>
+        Min + 0.001 >= other.Min &&
+        Max <= other.Max + 0.001 &&
+        Std <= other.Std + 0.001;
+
+    public bool IsEqual(ScoreData other) =>
+        Math.Abs(Min - other.Min) < Precision &&
+        Math.Abs(Max - other.Max) < Precision &&
+        Math.Abs(Std - other.Std) < Precision;
+}
+
+public class QualityMeasures
+{
+    public bool Neighbor { get; set; }
+    public bool Enemy { get; set; }
+    public bool Proximity { get; set; }
 }

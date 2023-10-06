@@ -49,6 +49,20 @@ public class PlayerStatsService
         }
     };
 
+    public static readonly Dictionary<int, double[][]> ProximityScores = new()
+    {
+        [6] = new[]
+        {
+            new [] { 0, 0,     0,     0,     0,     0,     0.0   },
+            new [] { 0, 0,     0.713, 0.88,  0.55,  0.084, 0.925 },
+            new [] { 0, 0.713, 0,     0.25,  0.838, 1,     0.125 },
+            new [] { 0, 0.88,  0.25,  0,     0.163, 0.97,  0.063 },
+            new [] { 0, 0.55,  0.838, 0.163, 0,     0.45,  0.995 },
+            new [] { 0, 0.084, 1,     0.97,  0.45,  0,     0.04  },
+            new [] { 0, 0.925, 0.125, 0.063, 0.995, 0.04,  0     }
+        }
+    };
+
     public IEnumerable<PlayerDraftStats> GetStats(House[][] draftTable, string[] players)
     {
         var houses = draftTable.First().Distinct().OrderBy(house => house).ToArray();
@@ -72,7 +86,11 @@ public class PlayerStatsService
             p1Row
                 .Zip(p2Row)
                 .Sum(tuple =>
-                    IsEnemy(tuple.First, tuple.Second) ? 1 : 0));
+                    IsEnemy(tuple.First, tuple.Second) ? 1 : 0),
+            p1Row
+                .Zip(p2Row)
+                .Sum(tuple =>
+                    ProximityScore(tuple.First, tuple.Second, housesCount)));
     }
 
 
@@ -81,6 +99,11 @@ public class PlayerStatsService
 
     private static bool IsNeighbor(House playerHouse, House enemyHouse, int housesCount) =>
         playerHouse != House.Unknown && Neighbors[GetHousesCount(housesCount)][playerHouse].Contains(enemyHouse);
+
+    private static double ProximityScore(House playerHouse, House enemyHouse, int housesCount) =>
+        ProximityScores.TryGetValue(housesCount, out var proximityScores) ?
+            proximityScores[(int)playerHouse][(int)enemyHouse] :
+            IsNeighbor(playerHouse, enemyHouse, housesCount) ? 1 : 0;
 
     private static int GetHousesCount(int housesCount) => housesCount switch
     {
