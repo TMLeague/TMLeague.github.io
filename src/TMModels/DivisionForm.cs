@@ -113,6 +113,8 @@ public class PlayerDraftStats : List<PlayerDraftStat?>
 /// <param name="Player">Player name</param>
 /// <param name="Neighbor">Number of games in which player is a neighbor</param>
 /// <param name="Enemy">Number of games in which player is an enemy</param>
-public record PlayerDraftStat(string Player, int Neighbor, int Enemy, double Proximity);
+/// <param name="NeighborPairs">Number of pairs of games where players have reversed houses neighboring each other</param>
+/// <param name="EnemyPairs">Number of pairs of games where players have reversed houses</param>
+public record PlayerDraftStat(string Player, int Neighbor, int Enemy, double Proximity, int NeighborPairs, int EnemyPairs);
 
 public record PlayerHouseGames(int Baratheon, int Lannister, int Stark, int Tyrell, int Greyjoy, int Martell, int Arryn);
