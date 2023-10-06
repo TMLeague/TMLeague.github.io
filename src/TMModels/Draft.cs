@@ -11,31 +11,46 @@ public record Draft(
 }
 
 public record DraftScore(string Id,
-    int NeighborMin, int NeighborMax, double NeighborStd,
-    int EnemyMin, int EnemyMax, double EnemyStd)
+    ScoreData Neighbor, ScoreData Enemy, ScoreData Proximity)
 {
     public DraftScore(string id, PlayerDraftStat[] allStats) : this(
         id,
-        allStats.Select(stat => stat.Neighbor).Min(),
-        allStats.Select(stat => stat.Neighbor).Max(),
-        allStats.Select(stat => stat.Neighbor).ToArray().Std(),
-        allStats.Select(stat => stat.Enemy).Min(),
-        allStats.Select(stat => stat.Enemy).Max(),
-        allStats.Select(stat => stat.Enemy).ToArray().Std())
+        new ScoreData(allStats, stat => stat.Neighbor),
+        new ScoreData(allStats, stat => stat.Enemy),
+        new ScoreData(allStats, stat => stat.Proximity))
     { }
 
     public bool IsDominating(DraftScore other) =>
-        NeighborMin >= other.NeighborMin &&
-        NeighborMax <= other.NeighborMax &&
-        NeighborStd <= other.NeighborStd + 0.001 &&
-        EnemyMin >= other.EnemyMin &&
-        EnemyMax <= other.EnemyMax &&
-        EnemyStd <= other.EnemyStd + 0.001;
+        Neighbor.Min >= other.Neighbor.Min &&
+        Neighbor.Max <= other.Neighbor.Max &&
+        Neighbor.Std <= other.Neighbor.Std + 0.001 &&
+        Enemy.Min >= other.Enemy.Min &&
+        Enemy.Max <= other.Enemy.Max &&
+        Enemy.Std <= other.Enemy.Std + 0.001 &&
+        Proximity.Min >= other.Proximity.Min &&
+        Proximity.Max <= other.Proximity.Max &&
+        Proximity.Std <= other.Proximity.Std + 0.001;
 
-    public bool IsEqual(DraftScore other) => NeighborMin == other.NeighborMin &&
-                                             NeighborMax == other.NeighborMax &&
-                                             Math.Abs(NeighborStd - other.NeighborStd) < 0.001 &&
-                                             EnemyMin == other.EnemyMin &&
-                                             EnemyMax == other.EnemyMax &&
-                                             Math.Abs(EnemyStd - other.EnemyStd) < 0.001;
+    public bool IsEqual(DraftScore other) =>
+        Neighbor.IsEqual(other.Neighbor) &&
+        Enemy.IsEqual(other.Neighbor) &&
+        Proximity.IsEqual(other.Neighbor);
+}
+
+public record ScoreData(double Min, double Max, double Std)
+{
+    private const double Precision = 0.001;
+
+    public ScoreData(PlayerDraftStat[] stats, Func<PlayerDraftStat, double> selector) : this(
+        stats.Select(selector).Min(),
+        stats.Select(selector).Max(),
+        stats.Select(selector).ToArray().Std())
+    { }
+
+    public bool IsEqual(ScoreData other)
+    {
+        return Math.Abs(Min - other.Min) < Precision &&
+               Math.Abs(Max - other.Max) < Precision &&
+               Math.Abs(Std - other.Std) < Precision;
+    }
 }

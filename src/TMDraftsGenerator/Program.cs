@@ -54,15 +54,15 @@ _ = Task.Run(async () =>
         var resultsPath = Path.Combine(options.Value.ResultsPath, "results.txt");
         await using var resultsFile = File.CreateText(resultsPath);
         await resultsFile.WriteAsync(
-            $"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd{Environment.NewLine}");
+            $"ID\tNeighborMin\tNeighborMax\tNeighborStd\tEnemyMin\tEnemyMax\tEnemyStd\tProximityMin\tProximityMax\tProximityStd{Environment.NewLine}");
         while (!cts.Token.IsCancellationRequested)
         {
             var score = await channel.Reader.ReadAsync(cts.Token);
             await resultsFile.WriteAsync(
-                $"{score.Id}\t{score.NeighborMin}\t{score.NeighborMax}\t{score.NeighborStd}\t{score.EnemyMin}\t{score.EnemyMax}\t{score.EnemyStd}{Environment.NewLine}");
+                $"{score.Id}\t{score.Neighbor.Min}\t{score.Neighbor.Max}\t{score.Neighbor.Std}\t{score.Enemy.Min}\t{score.Enemy.Max}\t{score.Enemy.Std}\t{score.Proximity.Min}\t{score.Proximity.Max}\t{score.Proximity.Std}{Environment.NewLine}");
             await resultsFile.FlushAsync();
             logger.LogInformation(
-                $"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}): {string.Join(", ", bestScores.Values.OrderBy(s => s.NeighborStd).Select(draftScore => $"{draftScore.Id} ({Math.Round(draftScore.NeighborStd, 2)}, {Math.Round(draftScore.EnemyStd, 2)})"))}");
+                $"[{DateTime.Now:HH:mm:ss}] Best scores ({bestScores.Count}): {string.Join(", ", bestScores.Values.OrderBy(s => s.Neighbor.Std).Select(draftScore => $"{draftScore.Id} ({Math.Round(draftScore.Neighbor.Std, 2)}, {Math.Round(draftScore.Enemy.Std, 2)}, {Math.Round(draftScore.Proximity.Std, 2)})"))}");
         }
 
         logger.LogInformation("Results writing task finished.");
