@@ -36,7 +36,7 @@ public class PlayerStatsServiceTests
 
         foreach (var playerStats in allStats)
         {
-            playerStats.EnemyMax.Should().Be(4);
+            playerStats.GameMax.Should().Be(4);
             playerStats.Count(stat => stat == null).Should().Be(1);
         }
     }

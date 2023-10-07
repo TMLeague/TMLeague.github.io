@@ -43,8 +43,7 @@ logger.LogInformation(
     "Generating drafts started with following arguments:\r\n{arguments}",
     string.Join(Environment.NewLine, ArgumentsString()));
 
-if (!options.Value.QualityMeasures.Neighbor && !options.Value.QualityMeasures.Enemy &&
-    !options.Value.QualityMeasures.Proximity)
+if (options.Value.QualityMeasures.List.All(measureOptions => !measureOptions.Enabled))
 {
     logger.LogError("All quality measures are disabled. Enable at least one of them and restart the application.");
     return;
@@ -116,7 +115,7 @@ Enumerable.Range(0, options.Value.Threads).AsParallel().ForAll(async taskId =>
                 .SelectMany(s => s).OfType<PlayerDraftStat>().ToArray();
             var score = new DraftScore($"{taskId}-{i}", allStats);
 
-            if (!bestScores.IsDominated(score, options.Value.QualityMeasures))
+            if (score.IsMeetingConstraints(options.Value.QualityMeasures) && !bestScores.IsDominated(score, options.Value.QualityMeasures))
             {
                 await bestScores.Add(score, cts.Token, options.Value.QualityMeasures);
 
@@ -144,7 +143,7 @@ Enumerable.Range(0, options.Value.Threads).AsParallel().ForAll(async taskId =>
 
 try
 {
-    await Task.Delay(TimeSpan.FromDays(14), cts.Token);
+    await Task.Delay(Timeout.Infinite, cts.Token);
 }
 catch (TaskCanceledException)
 {
@@ -163,46 +162,25 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.QualityMeasures), QualityMeasureNames(options.Value.QualityMeasures)),
     };
 
-string QualityMeasureNames(QualityMeasures measures)
-{
-    var measureNames = new List<string>();
-    if (measures.Neighbor) measureNames.Add(nameof(QualityMeasures.Neighbor));
-    if (measures.Enemy) measureNames.Add(nameof(QualityMeasures.Enemy));
-    if (measures.Proximity) measureNames.Add(nameof(QualityMeasures.Proximity));
-
-    return string.Join(", ", measureNames);
-}
+string QualityMeasureNames(QualityMeasures measures) => string.Join(", ",
+    measures.List
+        .Where(measureOptions => measureOptions.Enabled)
+        .Select(measureOptions => measureOptions.Name));
 
 string ArgumentLine(string name, object value) =>
     $"{Environment.NewLine} - {name}: {value}";
 
-string ResultsHeader(QualityMeasures qualityMeasures)
-{
-    var headers = new List<string>();
-    if (qualityMeasures.Neighbor) headers.Add("Neighbor");
-    if (qualityMeasures.Enemy) headers.Add("Enemy");
-    if (qualityMeasures.Proximity) headers.Add("Proximity");
+string ResultsHeader(QualityMeasures measures) => string.Join('\t',
+    measures.List
+        .Where(measureOptions => measureOptions.Enabled)
+        .Select(measureOptions => $"{measureOptions.Name}Min\t{measureOptions.Name}Max\t{measureOptions.Name}Std"));
 
-    return string.Join('\t', headers.Select(name => $"{name}Min\t{name}Max\t{name}Std"));
-}
+string ResultsRow(DraftScore score, QualityMeasures measures) => string.Join('\t',
+    measures.List
+        .Where(measureOptions => measureOptions.Enabled)
+        .Select(measureOptions => $"{Math.Round(measureOptions.GetScore(score).Min, 2)}\t{Math.Round(measureOptions.GetScore(score).Max, 2)}\t{Math.Round(measureOptions.GetScore(score).Std, 2)}"));
 
-string ResultsRow(DraftScore score, QualityMeasures qualityMeasures)
-{
-    var headers = new List<ScoreData>();
-    if (qualityMeasures.Neighbor) headers.Add(score.Neighbor);
-    if (qualityMeasures.Enemy) headers.Add(score.Enemy);
-    if (qualityMeasures.Proximity) headers.Add(score.Proximity);
-
-    return string.Join('\t',
-        headers.Select(scoreData => $"{Math.Round(scoreData.Min, 2)}\t{Math.Round(scoreData.Max, 2)}\t{Math.Round(scoreData.Std, 2)}"));
-}
-
-string ResultsBestScore(DraftScore score, QualityMeasures qualityMeasures)
-{
-    var headers = new List<double>();
-    if (qualityMeasures.Neighbor) headers.Add(score.Neighbor.Std);
-    if (qualityMeasures.Enemy) headers.Add(score.Enemy.Std);
-    if (qualityMeasures.Proximity) headers.Add(score.Proximity.Std);
-
-    return string.Join(", ", headers.Select(value => Math.Round(value, 2)));
-}
+string ResultsBestScore(DraftScore score, QualityMeasures measures) => string.Join(", ",
+    measures.List
+        .Where(measureOptions => measureOptions.Enabled)
+        .Select(measureOptions => Math.Round(measureOptions.GetScore(score).Std, 2)));

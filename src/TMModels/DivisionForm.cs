@@ -45,9 +45,9 @@ public class DraftScoreWeights
     public double NeighborMin { get; set; } = 1;
     public double NeighborMax { get; set; } = -1;
     public double NeighborStd { get; set; } = -1;
-    public double EnemyMin { get; set; } = 1;
-    public double EnemyMax { get; set; } = -1;
-    public double EnemyStd { get; set; } = -1;
+    public double GameMin { get; set; } = 1;
+    public double GameMax { get; set; } = -1;
+    public double GameStd { get; set; } = -1;
     public double ProximityMin { get; set; } = 1;
     public double ProximityMax { get; set; } = -1;
     public double ProximityStd { get; set; } = -1;
@@ -65,9 +65,9 @@ public record DivisionDraft(List<PlayerDraft> Draft, bool IsRandom)
     public int NeighborMin => AllStats.Select(stat => stat.Neighbor).Min();
     public int NeighborMax => AllStats.Select(stat => stat.Neighbor).Max();
     public double NeighborStd => AllStats.Select(stat => stat.Neighbor).ToArray().Std();
-    public int EnemyMin => AllStats.Select(stat => stat.Enemy).Min();
-    public int EnemyMax => AllStats.Select(stat => stat.Enemy).Max();
-    public double EnemyStd => AllStats.Select(stat => stat.Enemy).ToArray().Std();
+    public int GameMin => AllStats.Select(stat => stat.Games).Min();
+    public int GameMax => AllStats.Select(stat => stat.Games).Max();
+    public double GameStd => AllStats.Select(stat => stat.Games).ToArray().Std();
     public double ProximityMin => AllStats.Select(stat => stat.Proximity).Min();
     public double ProximityMax => AllStats.Select(stat => stat.Proximity).Max();
     public double ProximityStd => AllStats.Select(stat => stat.Proximity).ToArray().Std();
@@ -76,9 +76,9 @@ public record DivisionDraft(List<PlayerDraft> Draft, bool IsRandom)
         NeighborMin * weights.NeighborMin +
         NeighborMax * weights.NeighborMax +
         NeighborStd * weights.NeighborStd +
-        EnemyMin * weights.EnemyMin +
-        EnemyMax * weights.EnemyMax +
-        EnemyStd * weights.EnemyStd +
+        GameMin * weights.GameMin +
+        GameMax * weights.GameMax +
+        GameStd * weights.GameStd +
         ProximityMin * weights.ProximityMin +
         ProximityMax * weights.ProximityMax +
         ProximityStd * weights.ProximityStd;
@@ -95,8 +95,8 @@ public class PlayerDraftStats : List<PlayerDraftStat?>
 {
     public int NeighborMin => this.Min(stat => stat?.Neighbor ?? int.MaxValue);
     public int NeighborMax => this.Max(stat => stat?.Neighbor ?? 0);
-    public int EnemyMin => this.Min(stat => stat?.Enemy ?? int.MaxValue);
-    public int EnemyMax => this.Max(stat => stat?.Enemy ?? 0);
+    public int GameMin => this.Min(stat => stat?.Games ?? int.MaxValue);
+    public int GameMax => this.Max(stat => stat?.Games ?? 0);
     public double ProximityMin => this.Min(stat => stat?.Proximity ?? int.MaxValue);
     public double ProximityMax => this.Max(stat => stat?.Proximity ?? 0);
 
@@ -109,7 +109,19 @@ public class PlayerDraftStats : List<PlayerDraftStat?>
 /// </summary>
 /// <param name="Player">Player name</param>
 /// <param name="Neighbor">Number of games in which player is a neighbor</param>
-/// <param name="Enemy">Number of games in which player is an enemy</param>
-public record PlayerDraftStat(string Player, int Neighbor, int Enemy, double Proximity);
+/// <param name="Games">Number of games in which player is an enemy</param>
+/// <param name="Proximity">An approximate strength of interactions between players</param>
+/// <param name="NeighborPairs">Number of pairs of games where players have reversed houses neighboring each other</param>
+/// <param name="GamesPairs">Number of pairs of games where players have reversed houses</param>
+/// <param name="Allies">Estimated games in which players will be allied.</param>
+/// <param name="Enemies">Estimated games in which players will be enemies.</param>
+public record PlayerDraftStat(string Player, int Neighbor, int Games, double Proximity, int NeighborPairs,
+    int GamesPairs, double Allies, double Enemies)
+{
+    /// <summary>
+    /// Estimated total relations between players in their games.
+    /// </summary>
+    public double Relations => Allies - Enemies;
+}
 
 public record PlayerHouseGames(int Baratheon, int Lannister, int Stark, int Tyrell, int Greyjoy, int Martell, int Arryn);

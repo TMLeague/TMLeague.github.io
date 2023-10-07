@@ -79,13 +79,13 @@
                                 else
                                 {
                                     <td class="fs-10">
-                                        <p class="m-0">@($"{stat.Neighbor}/{stat.Enemy}")</p>
+                                        <p class="m-0">@($"{stat.Neighbor}/{stat.Games}")</p>
                                         <p class="m-0">@Math.Round(stat.Proximity, 1)</p>
                                     </td>
                                 }
                             }
                             <td>@($"{player.Stats.NeighborMin}-{player.Stats.NeighborMax}")</td>
-                            <td>@($"{player.Stats.EnemyMin}-{player.Stats.EnemyMax}")</td>
+                            <td>@($"{player.Stats.GameMin}-{player.Stats.GameMax}")</td>
                             <td>@($"{Math.Round(player.Stats.ProximityMin, 1)}-{Math.Round(player.Stats.ProximityMax, 1)}")</td>
                         }
                     </tr>
@@ -96,7 +96,7 @@
         @if (_areStatsVisible)
         {
             <p class="m-0">Neighbor range: <span class="fw-bold">@($"{DivisionDraft.NeighborMin}-{DivisionDraft.NeighborMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.NeighborStd, 2)</span></p>
-            <p class="m-0">Enemy range: <span class="fw-bold">@($"{DivisionDraft.EnemyMin}-{DivisionDraft.EnemyMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.EnemyStd, 2)</span></p>
+            <p class="m-0">Games range: <span class="fw-bold">@($"{DivisionDraft.GameMin}-{DivisionDraft.GameMax}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.GameStd, 2)</span></p>
             <p class="m-0">Proximity range: <span class="fw-bold">@($"{Math.Round(DivisionDraft.ProximityMin, 2)}-{Math.Round(DivisionDraft.ProximityMax, 2)}")</span>, std: <span class="fw-bold">@Math.Round(DivisionDraft.ProximityStd, 2)</span></p>
         }
 
@@ -227,7 +227,7 @@ else
             {
                 <div class="col-md-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
                     <label for="timeout" class="form-label text-start">Timeout</label>
-                    <div id="timeoutHelp" class="form-text">The time of generating best draft in format "HH:MM:SS".</div>
+                    <div id="timeoutHelp" class="form-text">The time of generating best draft in format "HH:MM:SS". The page will not be responing during this time.</div>
                     <InputText id="timeout" @bind-Value="DivisionForm.RandomOptions.TimeoutRaw" class="form-control" aria-describedby="timeoutHelp" />
                 </div>
             }
@@ -260,24 +260,24 @@ else
                 </div>
                 <div class="col-md-2 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
                     <div class="row mx-0 mb-3">
-                        Enemy weight
+                        Common games weight
                     </div>
                     <div class="row mb-3">
                         <label class="col-6">Min</label>
                         <div class="col-6">
-                            <InputNumber id="enemyMin" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMin" class="form-control" aria-describedby="enemyMinHelp" />
+                            <InputNumber id="gameMin" @bind-Value="DivisionForm.RandomOptions.Weights.GameMin" class="form-control" aria-describedby="gameMinHelp" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-6">Max</label>
                         <div class="col-6">
-                            <InputNumber id="enemyMax" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyMax" class="form-control" aria-describedby="enemyMaxHelp" />
+                            <InputNumber id="gameMax" @bind-Value="DivisionForm.RandomOptions.Weights.GameMax" class="form-control" aria-describedby="gameMaxHelp" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-6">Std</label>
                         <div class="col-6">
-                            <InputNumber id="enemyStd" @bind-Value="DivisionForm.RandomOptions.Weights.EnemyStd" class="form-control" aria-describedby="enemyStdHelp" />
+                            <InputNumber id="gameStd" @bind-Value="DivisionForm.RandomOptions.Weights.GameStd" class="form-control" aria-describedby="gameStdHelp" />
                         </div>
                     </div>
                 </div>
