@@ -115,7 +115,7 @@ Enumerable.Range(0, options.Value.Threads).AsParallel().ForAll(async taskId =>
                 .SelectMany(s => s).OfType<PlayerDraftStat>().ToArray();
             var score = new DraftScore($"{taskId}-{i}", allStats);
 
-            if (!bestScores.IsDominated(score, options.Value.QualityMeasures))
+            if (score.IsMeetingConstraints(options.Value.QualityMeasures) && !bestScores.IsDominated(score, options.Value.QualityMeasures))
             {
                 await bestScores.Add(score, cts.Token, options.Value.QualityMeasures);
 

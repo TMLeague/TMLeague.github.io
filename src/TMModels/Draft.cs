@@ -25,37 +25,19 @@ public record DraftScore(string Id,
         new ScoreData(allStats, stat => stat.Relations))
     { }
 
-    public bool IsDominating(DraftScore other, QualityMeasures measures)
-    {
-        if (measures.Neighbor.Enabled && !Neighbor.IsDominating(other.Neighbor))
-            return false;
-        if (measures.Game.Enabled && !Game.IsDominating(other.Game))
-            return false;
-        if (measures.Proximity.Enabled && !Proximity.IsDominating(other.Proximity))
-            return false;
-        if (measures.NeighborPairs.Enabled && !NeighborPairs.IsDominating(other.NeighborPairs))
-            return false;
-        if (measures.GamePairs.Enabled && !GamePairs.IsDominating(other.GamePairs))
-            return false;
-        if (measures.Allies.Enabled && !Allies.IsDominating(other.Allies))
-            return false;
-        if (measures.Enemies.Enabled && !Enemies.IsDominating(other.Enemies))
-            return false;
-        if (measures.Relations.Enabled && !Relations.IsDominating(other.Relations))
-            return false;
+    public bool IsDominating(DraftScore other, QualityMeasures measures) => measures.List.All(measureOptions =>
+        !measureOptions.Enabled ||
+        measureOptions.GetScore(this).IsDominating(measureOptions.GetScore(other)));
 
-        return true;
-    }
+    public bool IsMeetingConstraints(QualityMeasures measures) => measures.List.All(measureOptions =>
+        !measureOptions.Enabled ||
+        ((measureOptions.Min == null || measureOptions.GetScore(this).Min >= measureOptions.Min.Value) &&
+         (measureOptions.Max == null || measureOptions.GetScore(this).Max <= measureOptions.Max) &&
+         (measureOptions.Std == null || measureOptions.GetScore(this).Std <= measureOptions.Std)));
 
-    public bool IsEqual(DraftScore other, QualityMeasures measures) =>
-        (!measures.Neighbor.Enabled || Neighbor.IsEqual(other.Neighbor)) &&
-        (!measures.Game.Enabled || Game.IsEqual(other.Neighbor)) &&
-        (!measures.Proximity.Enabled || Proximity.IsEqual(other.Neighbor)) &&
-        (!measures.NeighborPairs.Enabled || NeighborPairs.IsEqual(other.NeighborPairs)) &&
-        (!measures.GamePairs.Enabled || GamePairs.IsEqual(other.GamePairs)) &&
-        (!measures.Allies.Enabled || Allies.IsEqual(other.Allies)) &&
-        (!measures.Enemies.Enabled || Enemies.IsEqual(other.Enemies)) &&
-        (!measures.Relations.Enabled || Relations.IsEqual(other.Relations));
+    public bool IsEqual(DraftScore other, QualityMeasures measures) => measures.List.All(measureOptions =>
+        !measureOptions.Enabled ||
+        measureOptions.GetScore(this).IsEqual(measureOptions.GetScore(other)));
 }
 
 public record ScoreData(double Min, double Max, double Std)
