@@ -7,7 +7,7 @@ public record Draft(
     string[][] Table)
 {
     public string Serialize() =>
-        string.Join(Environment.NewLine, Table.Select(row => string.Join("\t", row)));
+        string.Join(Environment.NewLine, Table.Select(row => string.Join('\t', row)));
 }
 
 public record DraftScore(string Id,
@@ -131,4 +131,5 @@ public abstract class QualityMeasureOptions
     public double? Min { get; set; }
     public double? Max { get; set; }
     public double? Std { get; set; }
+    public double? Weight { get; set; }
 }
