@@ -13,6 +13,8 @@ public record Draft(
 public record DraftScore(string Id,
     ScoreData Neighbor, ScoreData Game, ScoreData Proximity, ScoreData NeighborPairs, ScoreData GamePairs, ScoreData Allies, ScoreData Enemies, ScoreData Relations)
 {
+    private const double Precision = 0.001;
+
     public DraftScore(string id, PlayerDraftStat[] allStats) : this(
         id,
         new ScoreData(allStats, stat => stat.Neighbor),
@@ -31,9 +33,9 @@ public record DraftScore(string Id,
 
     public bool IsMeetingConstraints(QualityMeasures measures) => measures.List.All(measureOptions =>
         !measureOptions.Enabled ||
-        ((measureOptions.Min == null || measureOptions.GetScore(this).Min >= measureOptions.Min.Value) &&
-         (measureOptions.Max == null || measureOptions.GetScore(this).Max <= measureOptions.Max) &&
-         (measureOptions.Std == null || measureOptions.GetScore(this).Std <= measureOptions.Std)));
+        ((measureOptions.Min == null || measureOptions.GetScore(this).Min + Precision >= measureOptions.Min.Value) &&
+         (measureOptions.Max == null || measureOptions.GetScore(this).Max <= measureOptions.Max + Precision) &&
+         (measureOptions.Std == null || measureOptions.GetScore(this).Std <= measureOptions.Std + Precision)));
 
     public bool IsEqual(DraftScore other, QualityMeasures measures) => measures.List.All(measureOptions =>
         !measureOptions.Enabled ||
