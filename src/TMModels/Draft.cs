@@ -27,35 +27,35 @@ public record DraftScore(string Id,
 
     public bool IsDominating(DraftScore other, QualityMeasures measures)
     {
-        if (measures.Neighbor && !Neighbor.IsDominating(other.Neighbor))
+        if (measures.Neighbor.Enabled && !Neighbor.IsDominating(other.Neighbor))
             return false;
-        if (measures.Game && !Game.IsDominating(other.Game))
+        if (measures.Game.Enabled && !Game.IsDominating(other.Game))
             return false;
-        if (measures.Proximity && !Proximity.IsDominating(other.Proximity))
+        if (measures.Proximity.Enabled && !Proximity.IsDominating(other.Proximity))
             return false;
-        if (measures.NeighborPairs && !NeighborPairs.IsDominating(other.NeighborPairs))
+        if (measures.NeighborPairs.Enabled && !NeighborPairs.IsDominating(other.NeighborPairs))
             return false;
-        if (measures.GamePairs && !GamePairs.IsDominating(other.GamePairs))
+        if (measures.GamePairs.Enabled && !GamePairs.IsDominating(other.GamePairs))
             return false;
-        if (measures.Allies && !Allies.IsDominating(other.Allies))
+        if (measures.Allies.Enabled && !Allies.IsDominating(other.Allies))
             return false;
-        if (measures.Enemies && !Enemies.IsDominating(other.Enemies))
+        if (measures.Enemies.Enabled && !Enemies.IsDominating(other.Enemies))
             return false;
-        if (measures.Relations && !Relations.IsDominating(other.Relations))
+        if (measures.Relations.Enabled && !Relations.IsDominating(other.Relations))
             return false;
 
         return true;
     }
 
     public bool IsEqual(DraftScore other, QualityMeasures measures) =>
-        (!measures.Neighbor || Neighbor.IsEqual(other.Neighbor)) &&
-        (!measures.Game || Game.IsEqual(other.Neighbor)) &&
-        (!measures.Proximity || Proximity.IsEqual(other.Neighbor)) &&
-        (!measures.NeighborPairs || NeighborPairs.IsEqual(other.NeighborPairs)) &&
-        (!measures.GamePairs || GamePairs.IsEqual(other.GamePairs)) &&
-        (!measures.Allies || Allies.IsEqual(other.Allies)) &&
-        (!measures.Enemies || Enemies.IsEqual(other.Enemies)) &&
-        (!measures.Relations || Relations.IsEqual(other.Relations));
+        (!measures.Neighbor.Enabled || Neighbor.IsEqual(other.Neighbor)) &&
+        (!measures.Game.Enabled || Game.IsEqual(other.Neighbor)) &&
+        (!measures.Proximity.Enabled || Proximity.IsEqual(other.Neighbor)) &&
+        (!measures.NeighborPairs.Enabled || NeighborPairs.IsEqual(other.NeighborPairs)) &&
+        (!measures.GamePairs.Enabled || GamePairs.IsEqual(other.GamePairs)) &&
+        (!measures.Allies.Enabled || Allies.IsEqual(other.Allies)) &&
+        (!measures.Enemies.Enabled || Enemies.IsEqual(other.Enemies)) &&
+        (!measures.Relations.Enabled || Relations.IsEqual(other.Relations));
 }
 
 public record ScoreData(double Min, double Max, double Std)
@@ -81,12 +81,70 @@ public record ScoreData(double Min, double Max, double Std)
 
 public class QualityMeasures
 {
-    public bool Neighbor { get; set; }
-    public bool Game { get; set; }
-    public bool Proximity { get; set; }
-    public bool NeighborPairs { get; set; }
-    public bool GamePairs { get; set; }
-    public bool Allies { get; set; }
-    public bool Enemies { get; set; }
-    public bool Relations { get; set; }
+    public NeighborQualityMeasureOptions Neighbor { get; set; } = new();
+    public GameQualityMeasureOptions Game { get; set; } = new();
+    public ProximityQualityMeasureOptions Proximity { get; set; } = new();
+    public NeighborPairsQualityMeasureOptions NeighborPairs { get; set; } = new();
+    public GamePairsQualityMeasureOptions GamePairs { get; set; } = new();
+    public AlliesQualityMeasureOptions Allies { get; set; } = new();
+    public EnemiesQualityMeasureOptions Enemies { get; set; } = new();
+    public RelationsQualityMeasureOptions Relations { get; set; } = new();
+
+    public QualityMeasureOptions[] List { get; }
+
+    public QualityMeasures()
+    {
+        List = new QualityMeasureOptions[] { Neighbor, Game, Proximity, NeighborPairs, GamePairs, Allies, Enemies, Relations };
+    }
+}
+
+public class NeighborQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Neighbor";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.Neighbor;
+}
+public class GameQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Game";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.Game;
+}
+public class ProximityQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Proximity";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.Proximity;
+}
+public class NeighborPairsQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Neighbor pairs";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.NeighborPairs;
+}
+public class GamePairsQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Game pairs";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.GamePairs;
+}
+public class AlliesQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Allies";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.Allies;
+}
+public class EnemiesQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Enemies";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.Enemies;
+}
+public class RelationsQualityMeasureOptions : QualityMeasureOptions
+{
+    public override string Name => "Relations";
+    public override Func<DraftScore, ScoreData> GetScore => score => score.Relations;
+}
+
+public abstract class QualityMeasureOptions
+{
+    public abstract string Name { get; }
+    public abstract Func<DraftScore, ScoreData> GetScore { get; }
+    public bool Enabled { get; set; }
+    public double? Min { get; set; }
+    public double? Max { get; set; }
+    public double? Std { get; set; }
 }
