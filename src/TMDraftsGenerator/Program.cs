@@ -144,7 +144,7 @@ Enumerable.Range(0, options.Value.Threads).AsParallel().ForAll(async taskId =>
 
 try
 {
-    await Task.Delay(TimeSpan.FromDays(14), cts.Token);
+    await Task.Delay(Timeout.Infinite, cts.Token);
 }
 catch (TaskCanceledException)
 {
@@ -169,6 +169,11 @@ string QualityMeasureNames(QualityMeasures measures)
     if (measures.Neighbor) measureNames.Add(nameof(QualityMeasures.Neighbor));
     if (measures.Game) measureNames.Add(nameof(QualityMeasures.Game));
     if (measures.Proximity) measureNames.Add(nameof(QualityMeasures.Proximity));
+    if (measures.NeighborPairs) measureNames.Add(nameof(QualityMeasures.NeighborPairs));
+    if (measures.GamePairs) measureNames.Add(nameof(QualityMeasures.GamePairs));
+    if (measures.Allies) measureNames.Add(nameof(QualityMeasures.Allies));
+    if (measures.Enemies) measureNames.Add(nameof(QualityMeasures.Enemies));
+    if (measures.Relations) measureNames.Add(nameof(QualityMeasures.Relations));
 
     return string.Join(", ", measureNames);
 }
@@ -182,6 +187,11 @@ string ResultsHeader(QualityMeasures qualityMeasures)
     if (qualityMeasures.Neighbor) headers.Add("Neighbor");
     if (qualityMeasures.Game) headers.Add("Games");
     if (qualityMeasures.Proximity) headers.Add("Proximity");
+    if (qualityMeasures.NeighborPairs) headers.Add("Neighbor pairs");
+    if (qualityMeasures.GamePairs) headers.Add("Game pairs");
+    if (qualityMeasures.Allies) headers.Add("Allies");
+    if (qualityMeasures.Enemies) headers.Add("Enemies");
+    if (qualityMeasures.Relations) headers.Add("Relations");
 
     return string.Join('\t', headers.Select(name => $"{name}Min\t{name}Max\t{name}Std"));
 }
@@ -192,6 +202,11 @@ string ResultsRow(DraftScore score, QualityMeasures qualityMeasures)
     if (qualityMeasures.Neighbor) headers.Add(score.Neighbor);
     if (qualityMeasures.Game) headers.Add(score.Game);
     if (qualityMeasures.Proximity) headers.Add(score.Proximity);
+    if (qualityMeasures.NeighborPairs) headers.Add(score.NeighborPairs);
+    if (qualityMeasures.GamePairs) headers.Add(score.GamePairs);
+    if (qualityMeasures.Allies) headers.Add(score.Allies);
+    if (qualityMeasures.Enemies) headers.Add(score.Enemies);
+    if (qualityMeasures.Relations) headers.Add(score.Relations);
 
     return string.Join('\t',
         headers.Select(scoreData => $"{Math.Round(scoreData.Min, 2)}\t{Math.Round(scoreData.Max, 2)}\t{Math.Round(scoreData.Std, 2)}"));
@@ -203,6 +218,11 @@ string ResultsBestScore(DraftScore score, QualityMeasures qualityMeasures)
     if (qualityMeasures.Neighbor) headers.Add(score.Neighbor.Std);
     if (qualityMeasures.Game) headers.Add(score.Game.Std);
     if (qualityMeasures.Proximity) headers.Add(score.Proximity.Std);
+    if (qualityMeasures.NeighborPairs) headers.Add(score.NeighborPairs.Std);
+    if (qualityMeasures.GamePairs) headers.Add(score.GamePairs.Std);
+    if (qualityMeasures.Allies) headers.Add(score.Allies.Std);
+    if (qualityMeasures.Enemies) headers.Add(score.Enemies.Std);
+    if (qualityMeasures.Relations) headers.Add(score.Relations.Std);
 
     return string.Join(", ", headers.Select(value => Math.Round(value, 2)));
 }

@@ -60,7 +60,7 @@ public class PlayerStatsService
         [6] = new[]
         {
             //       n, Barath Lannis Stark  Tyrell Greyjo Martell
-            new [] { 0, 0,     0,     0,     0,     0,     0.0   }, // Unknown
+            new [] { 0, 0,     0,     0,     0,     0,     0D    }, // Unknown
             new [] { 0, 0,     0.713, 0.88,  0.55,  0.084, 0.925 }, // Baratheon
             new [] { 0, 0.713, 0,     0.25,  0.838, 1,     0.125 }, // Lannister
             new [] { 0, 0.88,  0.25,  0,     0.163, 0.97,  0.063 }, // Stark
@@ -85,13 +85,13 @@ public class PlayerStatsService
         [6] = new[]
         {
             //       n, Barat Lanni Stark Tyrel Greyj Martell
-            new [] { 0, 0,    0,    0,    0,    0,    0.0  }, // Unknown
+            new [] { 0, 0,    0,    0,    0,    0,    0D   }, // Unknown
             new [] { 0, 0,    -0.5, 0.5,  0,    0,    -0.5 }, // Baratheon
-            new [] { 0, -0.5, 0,    0,    0.5,  1,    0.0  }, // Lannister
-            new [] { 0, 0.5,  0,    0,    0,    -1,   0.0  }, // Stark
-            new [] { 0, 0,    0.5,  0,    0,    0,    1.0  }, // Tyrell
-            new [] { 0, 0,    1,   -1,    0,    0,    0.0  }, // Greyjoy
-            new [] { 0, -0.5, 0,    0,    1,    0,    0.0  }  // Martell
+            new [] { 0, -0.5, 0,    0,    0.5,  1,    0D   }, // Lannister
+            new [] { 0, 0.5,  0,    0,    0,    -1,   0D   }, // Stark
+            new [] { 0, 0,    0.5,  0,    0,    0,    1D   }, // Tyrell
+            new [] { 0, 0,    1,   -1,    0,    0,    0D   }, // Greyjoy
+            new [] { 0, -0.5, 0,    0,    1,    0,    0D   }  // Martell
         }
     };
 
@@ -111,6 +111,12 @@ public class PlayerStatsService
         var p1Row = draftTable[p1Idx];
         var p2Row = draftTable[p2Idx];
         var playerRows = p1Row.Zip(p2Row).ToArray();
+        var playerRelations = RelationScores.TryGetValue(housesCount, out var relationScores)
+            ? playerRows
+                .Select(tuple => relationScores[(int)tuple.First][(int)tuple.Second])
+                .ToArray()
+            : Array.Empty<double>();
+
         return new PlayerDraftStat(p2,
             playerRows.Count(tuple =>
                 IsNeighbor(tuple.First, tuple.Second, housesCount)),
@@ -119,7 +125,9 @@ public class PlayerStatsService
             playerRows.Sum(tuple =>
                 ProximityScore(tuple.First, tuple.Second, housesCount)),
             GetPairs(playerRows, (house1, house2) => IsNeighbor(house1, house2, housesCount)),
-            GetPairs(playerRows, IsInGame));
+            GetPairs(playerRows, IsInGame),
+            playerRelations.Where(relation => relation > 0).Sum(),
+            -playerRelations.Where(relation => relation < 0).Sum());
     }
 
     private static int GetPairs((House First, House Second)[] playerRows, Func<House, House, bool> isRelated)
@@ -131,7 +139,9 @@ public class PlayerStatsService
         var p1Relations = playerRelatedRows
             .ToDictionary(tuple => tuple.First, tuple => tuple.Second);
 
-        return playerRelatedRows.Count(tuple => p1Relations[tuple.Second] == tuple.First);
+        return playerRelatedRows.Count(tuple =>
+            p1Relations.TryGetValue(tuple.Second, out var p2House) &&
+            p2House == tuple.First);
     }
 
     private static bool IsInGame(House playerHouse, House otherHouse) =>
