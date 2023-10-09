@@ -5,7 +5,7 @@
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=88811",
   "discord": "https://discord.gg/DkbBJpmjYM",
   "judgeTitle": "Many-Faced God",
-  "seasons": [ "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10" ],
+  "seasons": [ "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11" ],
   "trainingSeasons": [ "s0" ],
   "mainDivisions": [
     {
@@ -47,7 +47,7 @@
       "Martell: {martell}",
       "Baratheon: {baratheon}",
       "",
-      "Please have a final look at the rules before starting (https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=81775#top).",
+      "Please have a final look at the rules before starting (https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=88811).",
       "You create only your Stark game with the following settings:",
       "* Default + Pro",
       "* PBEM + Start By Anybody Allowed",
