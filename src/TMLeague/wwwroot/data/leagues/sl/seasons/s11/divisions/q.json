@@ -1,6 +1,6 @@
 {
   "name": "Qualifiers",
-  "judge": "Karijin",
+  "judge": "Sigi Reuven",
   "players": [
     "RodrigoLannister",
     "BarteqZw",
@@ -14,16 +14,16 @@
     "DothraikiCentaur"
   ],
   "games": [
+    299160,
+    299180,
+    299214,
+    299246,
+    299186,
+    299179,
     null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    299157,
+    299207,
+    299162
   ],
   "penalties": [],
   "isFinished": false,
