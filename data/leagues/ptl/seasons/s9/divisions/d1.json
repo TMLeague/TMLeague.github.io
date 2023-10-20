@@ -27,7 +27,28 @@
     295933,
     296015
   ],
-  "penalties": [],
-  "isFinished": false,
-  "winnerTitle": null
+   "penalties": [
+	{
+	  "player": "spartan109",
+	  "points": 22.5,
+	  "details": "mpm G4/G6/G7/G10"
+	},
+	{
+	  "player": "JulianSnow",
+	  "points": 9,
+	  "details": "mpm G6/G7"
+	},
+	{
+	  "player": "Figueira",
+	  "points": 1,
+	  "details": "mpm G4"
+	},
+	{
+	  "player": "shallatoon",
+	  "points": 1,
+	  "details": "mpm G6"
+	}
+  ],
+  "isFinished": true,
+  "winnerTitle": "Dragonrider"
 }
