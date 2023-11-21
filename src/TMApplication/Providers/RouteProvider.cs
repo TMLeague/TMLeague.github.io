@@ -40,13 +40,13 @@ public static class RouteProvider
             ? $"{League}/{leagueId}/{Summary}/{tableType}/{ScoreTypes.Get(tableType, scoreType)}"
             : $"{League}/{leagueId}/{Summary}/{tableType}/{ScoreTypes.Get(tableType, scoreType)}/{divisionId}";
 
-    public static string GetPlayerRoute(string? leagueId, string playerName) =>
+    public static string GetPlayerRoute(string? leagueId, string playerName, PlayerTableType type = PlayerTableType.Seasons) =>
         leagueId == null ?
-            GetPlayerRoute(playerName) :
-            $"{League}/{leagueId}/{Player}/{playerName}";
+            GetPlayerRoute(playerName, type) :
+            $"{League}/{leagueId}/{Player}/{playerName}/{type}";
 
-    public static string GetPlayerRoute(string playerName) =>
-            $"{Player}/{playerName}";
+    public static string GetPlayerRoute(string playerName, PlayerTableType type = PlayerTableType.Seasons) =>
+            $"{Player}/{playerName}/{type}";
 
     public static string GetLeagueSeasonsRoute(string leagueId) =>
         $"{League}/{leagueId}/{Seasons}";

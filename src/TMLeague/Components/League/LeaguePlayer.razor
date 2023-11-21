@@ -2,105 +2,177 @@
     @if (PlayerVm != null)
     {
         <div class="row">
-            <table class="table table-striped table-dark pb-0" width="1000px">
-                <thead>
-                    <tr>
-                        <th scope="col" style="width: 50px">Season</th>
-                        <th scope="col" style="width: 50px">Division</th>
-                        <th scope="col" style="width: 50px">Position</th>
-                        <th scope="col" style="width: 50px">Points</th>
-                        <th scope="col" style="width: 50px">Wins</th>
-                        <th scope="col" style="width: 50px">Penalties</th>
-                        <th scope="col" style="width: 50px">CLA</th>
-                        <th scope="col" style="width: 50px">Supplies</th>
-                        <th scope="col" style="width: 50px">PT</th>
-                        <th scope="col" style="width: 50px">MPM</th>
-                        <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
-                        <th scope="col" style="width: 50px" class="">Baratheon</th>
-                        <th scope="col" style="width: 50px" class="">Lannister</th>
-                        <th scope="col" style="width: 50px" class="">Stark</th>
-                        <th scope="col" style="width: 50px" class="">Tyrell</th>
-                        <th scope="col" style="width: 50px" class="">Greyjoy</th>
-                        <th scope="col" style="width: 50px" class="">Martell</th>
-                        <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
-                        <th scope="col" style="width: 50px" class="">Battles</th>
-                        <th scope="col" style="width: 50px" class="">Kills<i>*</i></th>
-                        <th scope="col" style="width: 50px" class="">Casualties<i>*</i></th>
-                        <th scope="col" style="width: 50px" class="">PT+</th>
-                        <th scope="col" style="width: 50px" class="">PT-</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var playerSeasonVm in PlayerVm.Seasons.Reverse())
-                    {
+            @if (TableType == PlayerTableType.Games)
+            {
+                <table class="table table-striped table-dark pb-0" width="650px">
+                    <thead>
                         <tr>
-                            <th scope="row">
-                                @if (LeagueId == null)
-                                {
-                                    @playerSeasonVm.SeasonId.ToUpper()
-                                }
-                                else
-                                {
-                                    <a href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, playerSeasonVm.SeasonId)" class="text-inherit">@playerSeasonVm.SeasonId.ToUpper()</a>
-                                }
-                            </th>
-                            <td>
-                                @if (LeagueId == null)
-                                {
-                                    @playerSeasonVm.SeasonId.ToUpper()
-                                }
-                                else
-                                {
-                                    <a href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, playerSeasonVm.SeasonId, playerSeasonVm.DivisionId)" class="text-inherit">@playerSeasonVm.DivisionId.ToUpper()</a>
-                                }
-                            </td>
-                            <td class="text-warning">@playerSeasonVm.Position</td>
-                            <td class="text-warning">@playerSeasonVm.TotalPoints</td>
-                            <td>@playerSeasonVm.Wins</td>
-                            <td>@playerSeasonVm.PenaltiesPoints</td>
-                            <td>@playerSeasonVm.Cla</td>
-                            <td>@playerSeasonVm.Supplies</td>
-                            <td>@playerSeasonVm.PowerTokens</td>
-                            <td>@Math.Round(playerSeasonVm.MinutesPerMove)</td>
-                            <td class="p-1 invisible border-0"></td>
-                            <td class="tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Baratheon)"></HouseCell>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Lannister)"></HouseCell>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Stark)"></HouseCell>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Tyrell)"></HouseCell>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Greyjoy)"></HouseCell>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Martell)"></HouseCell>
-                            </td>
-                            <td class="p-1 invisible border-0"></td>
-                            <td class="tt" ontouchstart="">
-                                <BattleStats Stats="@playerSeasonVm.Stats?.Battles"></BattleStats>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <UnitStats Stats="@playerSeasonVm.Stats?.Kills"></UnitStats>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <UnitStats Stats="@playerSeasonVm.Stats?.Casualties"></UnitStats>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <PowerTokenStats Stats="@playerSeasonVm.Stats?.PowerTokens"></PowerTokenStats>
-                            </td>
-                            <td class="tt" ontouchstart="">
-                                <BidStats Stats="@playerSeasonVm.Stats?.Bids"></BidStats>
-                            </td>
+                            <th scope="col" style="width: 50px">House</th>
+                            <th scope="col" style="width: 50px">Points</th>
+                            <th scope="col" style="width: 50px">Battle penalties</th>
+                            <th scope="col" style="width: 50px">CLA</th>
+                            <th scope="col" style="width: 50px">Supplies</th>
+                            <th scope="col" style="width: 50px">PT</th>
+                            <th scope="col" style="width: 50px">MPM</th>
+                            <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
+                            <th scope="col" style="width: 50px" class="">Battles</th>
+                            <th scope="col" style="width: 50px" class="">Kills<i>*</i></th>
+                            <th scope="col" style="width: 50px" class="">Casualties<i>*</i></th>
+                            <th scope="col" style="width: 50px" class="">PT+</th>
+                            <th scope="col" style="width: 50px" class="">PT-</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerSeasonVm in PlayerVm.Seasons.Reverse())
+                        {
+                            @foreach (var game in playerSeasonVm.Houses.OrderBy(model => model.House))
+                            {
+                                <tr>
+                                    <th scope="row" class="text-nowrap">
+                                        <span>@game.House.ToString()</span>
+                                        <span>
+                                            (
+                                            @if (LeagueId == null)
+                                            {
+                                                @playerSeasonVm.SeasonId.ToUpper()
+                                            }
+                                            else
+                                            {
+                                                <a href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, playerSeasonVm.SeasonId)" class="text-inherit">@playerSeasonVm.SeasonId.ToUpper()</a>
+                                            }
+                                            )
+                                        </span>
+                                    </th>
+                                    <td class="text-warning">@game.Points</td>
+                                    <td>@game.BattlePenalty</td>
+                                    <td>@game.Cla</td>
+                                    <td>@game.Supplies</td>
+                                    <td>@game.PowerTokens</td>
+                                    <td>@Math.Round(game.MinutesPerMove)</td>
+                                    <td class="p-1 invisible border-0"></td>
+                                    <td class="tt" ontouchstart="">
+                                        <BattleStats Stats="@game.Stats?.Battles"></BattleStats>
+                                    </td>
+                                    <td class="tt" ontouchstart="">
+                                        <UnitStats Stats="@game.Stats?.Kills"></UnitStats>
+                                    </td>
+                                    <td class="tt" ontouchstart="">
+                                        <UnitStats Stats="@game.Stats?.Casualties"></UnitStats>
+                                    </td>
+                                    <td class="tt" ontouchstart="">
+                                        <PowerTokenStats Stats="@game.Stats?.PowerTokens"></PowerTokenStats>
+                                    </td>
+                                    <td class="tt" ontouchstart="">
+                                        <BidStats Stats="@game.Stats?.Bids"></BidStats>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="table table-striped table-dark pb-0" width="1000px">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 50px">Season</th>
+                            <th scope="col" style="width: 50px">Division</th>
+                            <th scope="col" style="width: 50px">Position</th>
+                            <th scope="col" style="width: 50px">Points</th>
+                            <th scope="col" style="width: 50px">Wins</th>
+                            <th scope="col" style="width: 50px">Penalties</th>
+                            <th scope="col" style="width: 50px">CLA</th>
+                            <th scope="col" style="width: 50px">Supplies</th>
+                            <th scope="col" style="width: 50px">PT</th>
+                            <th scope="col" style="width: 50px">MPM</th>
+                            <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
+                            <th scope="col" style="width: 50px" class="">Baratheon</th>
+                            <th scope="col" style="width: 50px" class="">Lannister</th>
+                            <th scope="col" style="width: 50px" class="">Stark</th>
+                            <th scope="col" style="width: 50px" class="">Tyrell</th>
+                            <th scope="col" style="width: 50px" class="">Greyjoy</th>
+                            <th scope="col" style="width: 50px" class="">Martell</th>
+                            <th scope="col" style="width: 0" class="p-1 invisible border-0 "></th>
+                            <th scope="col" style="width: 50px" class="">Battles</th>
+                            <th scope="col" style="width: 50px" class="">Kills<i>*</i></th>
+                            <th scope="col" style="width: 50px" class="">Casualties<i>*</i></th>
+                            <th scope="col" style="width: 50px" class="">PT+</th>
+                            <th scope="col" style="width: 50px" class="">PT-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerSeasonVm in PlayerVm.Seasons.Reverse())
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @if (LeagueId == null)
+                                    {
+                                        @playerSeasonVm.SeasonId.ToUpper()
+                                    }
+                                    else
+                                    {
+                                        <a href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, playerSeasonVm.SeasonId)" class="text-inherit">@playerSeasonVm.SeasonId.ToUpper()</a>
+                                    }
+                                </th>
+                                <td>
+                                    @if (LeagueId == null)
+                                    {
+                                        @playerSeasonVm.DivisionId.ToUpper()
+                                    }
+                                    else
+                                    {
+                                        <a href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, playerSeasonVm.SeasonId, playerSeasonVm.DivisionId)" class="text-inherit">@playerSeasonVm.DivisionId.ToUpper()</a>
+                                    }
+                                </td>
+                                <td class="text-warning">@playerSeasonVm.Position</td>
+                                <td class="text-warning">@playerSeasonVm.TotalPoints</td>
+                                <td>@playerSeasonVm.Wins</td>
+                                <td>@playerSeasonVm.PenaltiesPoints</td>
+                                <td>@playerSeasonVm.Cla</td>
+                                <td>@playerSeasonVm.Supplies</td>
+                                <td>@playerSeasonVm.PowerTokens</td>
+                                <td>@Math.Round(playerSeasonVm.MinutesPerMove)</td>
+                                <td class="p-1 invisible border-0"></td>
+                                <td class="tt" ontouchstart="">
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Baratheon)"></HouseCell>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Lannister)"></HouseCell>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Stark)"></HouseCell>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Tyrell)"></HouseCell>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Greyjoy)"></HouseCell>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@playerSeasonVm.SeasonId" DivisionId="@playerSeasonVm.DivisionId" HouseVm="@playerSeasonVm.GetHouse(House.Martell)"></HouseCell>
+                                </td>
+                                <td class="p-1 invisible border-0"></td>
+                                <td class="tt" ontouchstart="">
+                                    <BattleStats Stats="@playerSeasonVm.Stats?.Battles"></BattleStats>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <UnitStats Stats="@playerSeasonVm.Stats?.Kills"></UnitStats>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <UnitStats Stats="@playerSeasonVm.Stats?.Casualties"></UnitStats>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <PowerTokenStats Stats="@playerSeasonVm.Stats?.PowerTokens"></PowerTokenStats>
+                                </td>
+                                <td class="tt" ontouchstart="">
+                                    <BidStats Stats="@playerSeasonVm.Stats?.Bids"></BidStats>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
     }
 </div>
@@ -111,4 +183,7 @@
 
     [Parameter]
     public PlayerLeagueViewModel? PlayerVm { get; set; }
+
+    [Parameter]
+    public PlayerTableType TableType { get; set; }
 }
