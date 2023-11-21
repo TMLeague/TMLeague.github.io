@@ -31,3 +31,13 @@ public record PlayerSeasonScoreViewModel(
         Houses?.FirstOrDefault(h => h.House == house) ??
         new PlayerHouseViewModel(null, house);
 }
+
+public static class PlayerTableTypes
+{
+    public static readonly PlayerTableType[] All = new[] { PlayerTableType.Seasons, PlayerTableType.Games };
+}
+
+public enum PlayerTableType
+{
+    Seasons, Games
+}

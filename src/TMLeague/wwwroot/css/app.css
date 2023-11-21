@@ -64,7 +64,7 @@ a,
 /* Buttons */
 .btn.active,
 .btn.active:hover,
-.btn.activefocus {
+.btn.active:focus {
     color: #222 !important;
     background-color: #999;
     border: solid 2px #999;
@@ -107,7 +107,7 @@ a,
 
 .btn-group .btn.active,
 .btn-group .btn.active:hover,
-.btn-group .btn.activefocus {
+.btn-group .btn.active:focus {
     outline: solid 1px #222;
 }
 

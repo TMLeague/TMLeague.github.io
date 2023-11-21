@@ -1,5 +1,5 @@
-﻿@page "/league/{leagueId}/player/{playerName}"
-@page "/player/{playerName}"
+﻿@page "/league/{leagueId}/player/{playerName}/{tableTypeId}"
+@page "/player/{playerName}/{tableTypeId}"
 @inject PlayerService PlayerService
 <h3>
     <PlayerLink PlayerName="@PlayerName"></PlayerLink>
@@ -26,6 +26,19 @@
     }
     else
     {
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-row my-1">
+                <div class="btn-group">
+                    @foreach (var type in PlayerTableTypes.All)
+                    {
+                        <a class="btn btn-primary @(TableType == type ? "active" : "")" href="@RouteProvider.GetPlayerRoute(LeagueId, PlayerVm.Name, type)" disabled=@(TableType == type)>
+                            @type
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+
         @if (LeagueId == null || PlayerLeagueVm == null)
         {
             @foreach (var playerLeagueVm in PlayerVm.Leagues)
@@ -34,7 +47,7 @@
                     <a href="@RouteProvider.GetLeagueIndexRoute(playerLeagueVm.LeagueId)" class="text-inherit">@playerLeagueVm.LeagueName</a>
                 </h4>
 
-                <LeaguePlayer LeagueId="@playerLeagueVm.LeagueId" PlayerVm="@playerLeagueVm"></LeaguePlayer>
+                <LeaguePlayer LeagueId="@playerLeagueVm.LeagueId" PlayerVm="@playerLeagueVm" TableType="@TableType"></LeaguePlayer>
             }
         }
         else
@@ -43,9 +56,9 @@
                 <a href="@RouteProvider.GetLeagueIndexRoute(LeagueId)" class="text-inherit">@PlayerLeagueVm.LeagueName</a>
             </h4>
 
-            <LeaguePlayer LeagueId="@LeagueId" PlayerVm="@PlayerLeagueVm"></LeaguePlayer>
+            <LeaguePlayer LeagueId="@LeagueId" PlayerVm="@PlayerLeagueVm" TableType="@TableType"></LeaguePlayer>
 
-            <NavLink class="btn btn-primary w-100 mb-3" href=@RouteProvider.GetPlayerRoute(PlayerVm.Name)>Show all leagues</NavLink>
+            <NavLink class="btn btn-primary w-100 mb-3" href=@RouteProvider.GetPlayerRoute(PlayerVm.Name, TableType)>Show all leagues</NavLink>
         }
     }
 </div>
@@ -65,9 +78,13 @@
     [Parameter]
     public string? PlayerName { get; set; }
 
+    [Parameter]
+    public string? TableTypeId { get; set; }
+    private PlayerTableType TableType => Enum.TryParse<PlayerTableType>(TableTypeId ?? "", out var tableType) ? tableType : PlayerTableType.Seasons;
+
     private PlayerViewModel? PlayerVm { get; set; }
-    
-    private PlayerLeagueViewModel? PlayerLeagueVm => LeagueId == null ? 
+
+    private PlayerLeagueViewModel? PlayerLeagueVm => LeagueId == null ?
         null :
         PlayerVm?.Leagues.FirstOrDefault(league => league.LeagueId == LeagueId);
 
