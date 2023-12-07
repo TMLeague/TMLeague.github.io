@@ -1,0 +1,23 @@
+{
+  "name": "Cracow League",
+  "description": null,
+  "backgroundImage": "data/leagues/cl/cl.jpg",
+  "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=87066",
+  "discord": "https://discord.gg/TVmq9gBD",
+  "seasons": [ "s1", "s2" ],
+  "trainingSeasons": [],
+  "mainDivisions": [
+    {
+      "id": "d1",
+      "name": "Division 1",
+      "relegations": 0
+    }
+  ],
+  "scoring": {
+    "pointsPerStronghold": 1,
+    "pointsPerCastle": 1,
+    "pointsPerWin": 3,
+    "requiredBattlesBefore10thTurn": 0,
+    "tiebreakers": [ "wins", "cla", "supplies", "powerTokens", "minutesPerMove" ]
+  }
+}
