@@ -4,7 +4,7 @@
   "backgroundImage": "data/leagues/cl/cl.jpg",
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=87066",
   "discord": "https://discord.gg/TVmq9gBD",
-  "seasons": [ "s1", "s2" ],
+  "seasons": [ "s1", "s2", "s3" ],
   "trainingSeasons": [],
   "mainDivisions": [
     {
