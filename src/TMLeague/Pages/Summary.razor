@@ -281,11 +281,11 @@
 
     [Parameter]
     public string? TableTypeId { get; set; }
-    private TableType TableType => Enum.TryParse<TableType>(TableTypeId ?? "", out var tableType) ? tableType : TableType.Players;
+    private TableType TableType => Enum.TryParse<TableType>(TableTypeId ?? "", true, out var tableType) ? tableType : TableType.Players;
 
     [Parameter]
     public string? ScoreTypeId { get; set; }
-    private ScoreType ScoreType => Enum.TryParse<ScoreType>(ScoreTypeId ?? "", out var scoreType) ? scoreType : ScoreType.Best;
+    private ScoreType ScoreType => Enum.TryParse<ScoreType>(ScoreTypeId ?? "", true, out var scoreType) ? scoreType : ScoreType.Best;
 
     private SummaryViewModel? SummaryVm { get; set; }
 

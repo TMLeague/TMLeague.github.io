@@ -80,7 +80,7 @@
 
     [Parameter]
     public string? TableTypeId { get; set; }
-    private PlayerTableType TableType => Enum.TryParse<PlayerTableType>(TableTypeId ?? "", out var tableType) ? tableType : PlayerTableType.Seasons;
+    private PlayerTableType TableType => Enum.TryParse<PlayerTableType>(TableTypeId ?? "", true, out var tableType) ? tableType : PlayerTableType.Seasons;
 
     private PlayerViewModel? PlayerVm { get; set; }
 

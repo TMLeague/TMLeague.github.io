@@ -26,6 +26,8 @@ on:
         description: division id
         required: false
         default: ''
+  schedule:
+    - cron: '51 5,8,11,14,17,20 * * *'
 
 jobs:
   import-and-deploy:
@@ -56,9 +58,35 @@ jobs:
         branch: feature/games-import
         delete-branch: true
 
+    #- name: Approve Pull Request
+    #  uses: juliangruber/approve-pull-request-action@v2.0.0
+    #  with:
+    #    github-token: ${{ secrets.APPROVER_TOKEN }}
+    #    number: ${{ steps.create-pr.outputs.pull-request-number }}
+    #    repo: juliangruber/approve-pull-request-action # optional
+
     - name: Merge Pull Request
       uses: juliangruber/merge-pull-request-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         number: ${{ steps.create-pr.outputs.pull-request-number }}
         method: squash
+
+    # publishes Blazor project to the release-folder
+    - name: Publish TMLeague
+      run: dotnet publish src/TMLeague/TMLeague.csproj -c Release -o release --nologo
+
+    # copy index.html to 404.html to serve the same file when a file is not found
+    - name: copy index.html to 404.html
+      run: cp release/wwwroot/index.html release/wwwroot/404.html
+
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
+
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: release/wwwroot
