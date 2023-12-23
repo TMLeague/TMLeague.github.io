@@ -13,12 +13,16 @@ When all changes are applied, it needs to be saved. Because it's easy to make a 
 All changes in a master branch are always published after a short time by the configured github action.
 
 To save your changes you need to:
-1. commit them to a new branch and then
-   ![commit changes](/docs/img/commit-changes.png)
-   ![propose changes](/docs/img/propose-changes.png)
+1. commit them to a new branch and then  
+   
+   ![commit changes](/docs/img/commit-changes.png)  
+   ![propose changes](/docs/img/propose-changes.png)  
 2. create a pull request to a master,
-   ![create a pull request](img/create-pull-request.png)
-3. (optional) ask someone else for a review of your changes
-   ![review a pull request](img/review-pull-request.png)
-4. merge a pull request.
-   ![merge a pull request](/docs/img/merge-pull-request.png)
+     
+   ![create a pull request](img/create-pull-request.png)  
+3. (optional) ask someone else for a review of your changes  
+   
+   ![review a pull request](img/review-pull-request.png)  
+4. merge a pull request.  
+   
+   ![merge a pull request](/docs/img/merge-pull-request.png)  
