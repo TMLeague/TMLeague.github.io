@@ -35,18 +35,18 @@ public static class RouteProvider
         scoreType == null ?
             (string.IsNullOrEmpty(divisionId) ?
                 $"{League}/{leagueId}/{Summary}" :
-                $"{League}/{leagueId}/{Summary}/{TableType.Players}/{ScoreType.Best}/{divisionId}") :
+                $"{League}/{leagueId}/{Summary}/{TableType.Players.ToString().ToLower()}/{ScoreType.Best.ToString().ToLower()}/{divisionId}") :
         string.IsNullOrEmpty(divisionId)
-            ? $"{League}/{leagueId}/{Summary}/{tableType}/{ScoreTypes.Get(tableType, scoreType)}"
-            : $"{League}/{leagueId}/{Summary}/{tableType}/{ScoreTypes.Get(tableType, scoreType)}/{divisionId}";
+            ? $"{League}/{leagueId}/{Summary}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}"
+            : $"{League}/{leagueId}/{Summary}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}/{divisionId}";
 
     public static string GetPlayerRoute(string? leagueId, string playerName, PlayerTableType type = PlayerTableType.Seasons) =>
         leagueId == null ?
             GetPlayerRoute(playerName, type) :
-            $"{League}/{leagueId}/{Player}/{playerName}/{type}";
+            $"{League}/{leagueId}/{Player}/{playerName}/{type.ToString().ToLower()}";
 
     public static string GetPlayerRoute(string playerName, PlayerTableType type = PlayerTableType.Seasons) =>
-            $"{Player}/{playerName}/{type}";
+            $"{Player}/{playerName}/{type.ToString().ToLower()}";
 
     public static string GetLeagueSeasonsRoute(string leagueId) =>
         $"{League}/{leagueId}/{Seasons}";
