@@ -107,6 +107,11 @@
       "from": "Figueira",
       "to": "damrej",
       "game": 296337
+    },
+    {
+      "from": "Test",
+      "to": "Test2",
+      "game": 296111
     }
   ],
   "isFinished": true,
