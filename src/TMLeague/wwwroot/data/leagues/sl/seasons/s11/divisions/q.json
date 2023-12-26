@@ -25,7 +25,50 @@
     299207,
     299162
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Guiscard",
+      "game": 299179,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "Guiscard",
+      "game": 299214,
+      "points": 1,
+      "details": "Chose card too early"
+    },
+    {
+      "player": "Kaisers landing",
+      "game": 299180,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "Saizzo",
+      "game": 299207,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 299253,
+      "points": 2,
+      "details": "Chose card and retreated too early"
+    },
+    {
+      "player": "DothraikiCentaur",
+      "game": 299214,
+      "points": 1,
+      "details": "Retreated too early"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 299157,
+      "points": 4,
+      "details": "Speed penalty"
+    }
+  ],
   "isFinished": false,
   "promotions": 3
 }
