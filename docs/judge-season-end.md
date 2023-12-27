@@ -67,7 +67,8 @@ When all games are finished and all penalties and replacements are entered to th
 ```
 
 > [!CAUTION]
-> If you mark division as finished in the same pull request to master in which you added any penalties, replacements or winner title, you need to run an "import game" action that update division results despite the fact its finished (normally finished divisions' results are not updated anymore).
+> Division state in the app will be updated during next cyclic game states import (every 3h during a day).
+> If you want to update it immediately, you need to run an "import game" action that update division results.
 
 ### Winner Title
 For the D1 also a winner title can be set in the `winnerTitle` property:
@@ -88,9 +89,6 @@ To save your changes you need to:
      
    ![create a pull request](img/create-pull-request.png)  
 3. (optional) import games,  
-   
-   ![import games](img/import-games.png)  
-4. (optional) ask someone else for a review of your changes  
    
    ![review a pull request](img/review-pull-request.png)  
 5. merge a pull request.  
