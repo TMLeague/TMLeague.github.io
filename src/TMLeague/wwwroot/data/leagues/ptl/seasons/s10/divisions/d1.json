@@ -27,7 +27,33 @@
     299640,
 	299620
   ],
-  "penalties": [],
-  "isFinished": false,
-  "winnerTitle": null
+  "penalties": [
+  	{
+	  "player": "07291711",
+	  "points": 5,
+	  "details": "G3 KM, G4 Whisper"
+	},
+	{
+	  "player": "TurtleHermit",
+	  "points": 2,
+	  "details": "G4 KM"
+	},
+	{
+	  "player": "Sparrow",
+	  "points": 1,
+	  "details": "G6 KM"
+	},
+	{
+	  "player": "sicre",
+	  "points": 1,
+	  "details": "G7 KM"
+	},
+	{
+	  "player": "Figueira",
+	  "points": 2,
+	  "details": "G9 KM"
+	}
+  ],
+  "isFinished": true,
+  "winnerTitle": "King's justice"
 }
