@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMModels.Tests", "tests\TMM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMApplication.Tests", "tests\TMApplication.Tests\TMApplication.Tests.csproj", "{93810ADD-FE72-4694-95C3-472ABC4E7ACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDraftsGenerator", "src\TMDraftsGenerator\TMDraftsGenerator.csproj", "{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDraftsGenerator", "src\TMDraftsGenerator\TMDraftsGenerator.csproj", "{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMLeague.Tests", "tests\TMLeague.Tests\TMLeague.Tests.csproj", "{A1943125-B868-49EA-8FC0-88C9E93189A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1943125-B868-49EA-8FC0-88C9E93189A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1943125-B868-49EA-8FC0-88C9E93189A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1943125-B868-49EA-8FC0-88C9E93189A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1943125-B868-49EA-8FC0-88C9E93189A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{9074305C-92AD-4004-A40C-FFE136B21864} = {B8E51811-E2A3-459F-8DFA-D4879CC1CA3E}
 		{0D868DC6-6A71-4AAB-96FA-045CB8AEC919} = {B8E51811-E2A3-459F-8DFA-D4879CC1CA3E}
 		{93810ADD-FE72-4694-95C3-472ABC4E7ACC} = {B8E51811-E2A3-459F-8DFA-D4879CC1CA3E}
+		{A1943125-B868-49EA-8FC0-88C9E93189A1} = {B8E51811-E2A3-459F-8DFA-D4879CC1CA3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20E684B9-1B99-491A-B599-303E69D68F4E}

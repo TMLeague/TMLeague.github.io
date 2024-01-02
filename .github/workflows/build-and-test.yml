@@ -1,0 +1,36 @@
+# This workflow build and test a project
+# author: Imrihil
+
+name: Build and test a project
+
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+    - master
+    paths:
+    - src/TMApplication/**
+    - src/TMGameImporter/**
+    - src/TMModels/**
+
+jobs:
+  deploy-to-github-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.x
+
+    - name: Test
+      run: dotnet test -c Release
+
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: dotnet-results-7.x
+        path: TestResults-7.x
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ failure() }}
