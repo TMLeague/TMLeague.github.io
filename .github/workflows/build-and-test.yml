@@ -8,10 +8,6 @@ on:
   push:
     branches: 
     - master
-    paths:
-    - src/TMApplication/**
-    - src/TMGameImporter/**
-    - src/TMModels/**
 
 jobs:
   build-and-test:
@@ -19,13 +15,26 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Changed Files
+      id: changed-files-yaml
+      uses: tj-actions/changed-files@v41.0.1
+      with:
+        files: |
+          src/TMApplication/**
+          src/TMGameImporter/**
+          src/TMModels/**
+          src/TMLeague/wwwroot/data/leagues/**
+          src/TMLeague/wwwroot/data/home.json
+
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.x
+      if: steps.changed-files-yaml.outputs.test_any_changed == 'true'
 
     - name: Test
       run: dotnet test -c Release --logger trx --results-directory "TestResults-7.x"
+      if: steps.changed-files-yaml.outputs.test_any_changed == 'true'
 
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v3

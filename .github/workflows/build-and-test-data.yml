@@ -5,12 +5,6 @@ name: Build a project and test league data
 
 on:
   workflow_dispatch:
-  push:
-    branches: 
-    - master
-    paths:
-    - 'src/TMLeague/wwwroot/data/leagues/**'
-    - 'src/TMLeague/wwwroot/data/home.json'
 
 jobs:
   build-and-test-data:
