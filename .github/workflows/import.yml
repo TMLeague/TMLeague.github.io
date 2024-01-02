@@ -1,4 +1,4 @@
-# This workflow import games, commit them and deploy the project to GitHub Pages branch
+# This workflow import games and then commit them
 # author: Imrihil
 
 name: Import games
