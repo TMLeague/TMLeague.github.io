@@ -25,7 +25,39 @@
       "game": null,
       "points": 3,
       "details": "3 day absence"
+    },
+    {
+      "player": "JulianSnow",
+      "game": 298730,
+      "points": 3.5,
+      "details": "speed"
+    },
+    {
+      "player": "JulianSnow",
+      "game": 298725,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "JulianSnow",
+      "game": 298726,
+      "points": 2,
+      "details": "speed"
+    },
+    {
+      "player": "JulianSnow",
+      "game": 298727,
+      "points": 2,
+      "details": "speed"
+    },
+    {
+      "player": "JulianSnow",
+      "game": 298729,
+      "points": 2.5,
+      "details": "speed"
     }
   ],
-  "isFinished": false
+  "isFinished": true,
+  "promotions": 3,
+  "relegations": 0
 }

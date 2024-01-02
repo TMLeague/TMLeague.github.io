@@ -25,7 +25,32 @@
     298709,
     298710
   ],
-  "penalties": [],
-  "isFinished": false,
+  "penalties": [
+    {
+      "player": "Zesty18",
+      "game": 298705,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "DawidW",
+      "game": 298715,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Gordalicious",
+      "game": 298707,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "Zesty18",
+      "game": null,
+      "points": 2,
+      "details": null
+    }
+  ],
+  "isFinished": true,
   "winnerTitle": null
 }
