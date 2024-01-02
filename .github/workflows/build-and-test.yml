@@ -14,7 +14,7 @@ on:
     - src/TMModels/**
 
 jobs:
-  deploy-to-github-pages:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
