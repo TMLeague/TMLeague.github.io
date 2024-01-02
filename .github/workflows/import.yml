@@ -28,7 +28,7 @@ on:
         default: ''
 
 jobs:
-  import-and-deploy:
+  import:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
