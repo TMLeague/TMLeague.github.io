@@ -10,8 +10,6 @@
     "BarteqZw",
     "Ser Joseph"
   ],
-  "promotions": 3,
-  "relegations": 0,
   "games": [
     298723,
     298730,
@@ -59,5 +57,7 @@
       "details": "speed"
     }
   ],
-  "isFinished": true
+  "isFinished": true,
+  "promotions": 3,
+  "relegations": 0
 }
