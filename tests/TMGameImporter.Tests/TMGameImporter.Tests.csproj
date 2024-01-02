@@ -9,13 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="data\278340-chat.json" />
-		<None Remove="data\278340-gameData.json" />
-		<None Remove="data\278340-log.html" />
-		<None Remove="data\sl-summary.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Content Include="data\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

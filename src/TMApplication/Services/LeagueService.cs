@@ -167,7 +167,7 @@ public class LeagueService
         return divisionDraft;
     }
 
-    private Draft GetDraftInternal(Draft[] drafts, int playersLength, out bool isRandom)
+    private Draft? GetDraftInternal(Draft[] drafts, int playersLength, out bool isRandom)
     {
         if (drafts.Length > 0)
         {

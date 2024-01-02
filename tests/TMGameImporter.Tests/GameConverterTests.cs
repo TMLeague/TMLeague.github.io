@@ -26,12 +26,12 @@ public class GameConverterTests
         const string dataDirectory = "data";
         const int gameId = 278340;
         var gameData = JsonSerializer.Deserialize<StateRaw>(
-            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-gameData.json")),
+            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}_gamedata.json")),
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         var chat = JsonSerializer.Deserialize<StateRaw>(
-            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-chat.json")), 
+            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}_chat.json")), 
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        var logHtml = File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}-log.html"));
+        var logHtml = File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}_log.html"));
 
         // act
         var game = _gameConverter.Convert(gameId, gameData!, chat!, logHtml);
