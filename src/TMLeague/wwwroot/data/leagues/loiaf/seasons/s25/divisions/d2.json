@@ -31,7 +31,43 @@
       "game": null,
       "points": 6,
       "details": "5 day absence"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 298694,
+      "points": 1.5,
+      "details": "speed"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 298739,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 298740,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "diogobensabat",
+      "game": 298740,
+      "points": 6,
+      "details": "major KM"
+    },
+    {
+      "player": "Doru11",
+      "game": 298740,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 298848,
+      "points": 0.5,
+      "details": "speed"
     }
   ],
-  "isFinished": false
+  "isFinished": true
 }
