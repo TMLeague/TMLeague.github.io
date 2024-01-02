@@ -24,7 +24,7 @@ jobs:
         dotnet-version: 7.x
 
     - name: Test
-      run: dotnet test tests\TMLeague.Tests -c Release
+      run: dotnet test tests\TMLeague.Tests\TMLeague.Tests.csproj -c Release
 
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v3
