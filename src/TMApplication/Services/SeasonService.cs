@@ -18,10 +18,7 @@ public class SeasonService
     {
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
         var progress = 100 * Math.Min(
-            Math.Max(
-                (DateTimeOffset.UtcNow - season?.StartDate) / (season?.EndDate - season?.StartDate) ?? 0,
-                0),
-            1);
+            Math.Max((DateTimeOffset.UtcNow - season?.StartDate) / (season?.EndDate - season?.StartDate) ?? 0, 0), 1);
 
         return new LeagueSeasonSummaryViewModel(leagueId, seasonId, season?.Name,
             season?.Divisions ?? Array.Empty<string>(), season?.StartDate, season?.EndDate, progress);
@@ -36,23 +33,16 @@ public class SeasonService
 
         var divisionId = season.Divisions.First();
         var division = await _dataProvider.GetDivision(leagueId, seasonId, divisionId, cancellationToken);
-        if (division == null)
+        if (division is not { IsFinished: true })
             return null;
 
-        if (division.IsFinished)
-        {
-            var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
-            if (results != null)
-            {
-                var player = results.Players.FirstOrDefault();
-                if (player == null)
-                    return null;
+        var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+        if (results == null)
+            return null;
 
-                return new LeagueSeasonChampionViewModel(seasonId, season.Name, player.Player, division.WinnerTitle);
-            }
-        }
-
-        return null;
+        var player = results.Players.FirstOrDefault();
+        return player == null ? null :
+            new LeagueSeasonChampionViewModel(seasonId, season.Name, player.Player, division.WinnerTitle);
     }
 
     public async Task<LeagueSeasonViewModel?> GetSeasonDivisionsVm(
@@ -105,11 +95,11 @@ public class SeasonService
                 continue;
 
             var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
-            if (results == null)
-                continue;
+            var players = results == null ?
+                division.Players.Select(name => new SeasonPlayerViewModel(name, 0, false, false)).ToList() :
+                results.Players.Select(playerResult => new SeasonPlayerViewModel(
+                    playerResult.Player, playerResult.TotalPoints, playerResult.IsPromoted, playerResult.IsRelegated)).ToList();
 
-            var players = results.Players.Select(playerResult =>
-                new SeasonPlayerViewModel(playerResult.Player, playerResult.TotalPoints, playerResult.IsPromoted, playerResult.IsRelegated)).ToList();
             var divisionVm = new SeasonDivisionViewModel(divisionId, division.Name, players);
             divisions.Add(divisionVm);
         }
