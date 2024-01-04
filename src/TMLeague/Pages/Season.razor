@@ -115,11 +115,11 @@ else
         _isInitialized = true;
     }
 
-    private string GetPlayerClass(SeasonPlayerViewModel playerVm, int i)
+    private static string GetPlayerClass(SeasonPlayerViewModel playerVm, int i)
     {
         if (playerVm.IsPromoted) return "promoted";
         if (playerVm.IsRelegated) return "relegated";
-        if (i == 0) return "winner";
+        if (playerVm.Points > 0 && i == 0) return "winner";
 
         return string.Empty;
     }
