@@ -2,15 +2,15 @@
   "Name": "Portuguese League",
   "Description": "This league was inspired by the \"World Cup\", with the idea of gathering more portuguese players and bring a competitive team to the World Cup in upcoming years.",
   "BackgroundImage": "data/leagues/ptl/ptl.jpg",
-  "Rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=76410",
+  "Rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=76410&pid=76413#p76413",
   "Discord": null,
-  "Seasons": [ "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"],
+  "Seasons": [ "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
   "TrainingSeasons": [],
   "MainDivisions": [
     {
       "Id": "d1",
       "Name": "Division 1",
-      "Relegations": 0
+      "Relegations": 2
     }
   ],
   "Scoring": {
