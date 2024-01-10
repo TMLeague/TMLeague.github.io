@@ -72,7 +72,7 @@ else
                         @foreach (var (playerVm, i) in division.Players.Select((playerVm, i) => (playerVm, i)))
                         {
                             <tr>
-                                <th scope="row" class="@GetPlayerClass(playerVm, i)">
+                                <th scope="row" class="@GetPlayerClass(division.Players, playerVm, i)">
                                     <a href="@RouteProvider.GetPlayerRoute(LeagueId, playerVm.Name)" class="text-inherit">@playerVm.Name</a>
                                 </th>
                                 <td class="text-warning">@playerVm.Points</td>
@@ -115,11 +115,14 @@ else
         _isInitialized = true;
     }
 
-    private static string GetPlayerClass(SeasonPlayerViewModel playerVm, int i)
+    private static string GetPlayerClass(IEnumerable<SeasonPlayerViewModel> players, SeasonPlayerViewModel playerVm, int i)
     {
+        if (players.All(model => model.Points == 0)) 
+            return string.Empty;
+
         if (playerVm.IsPromoted) return "promoted";
         if (playerVm.IsRelegated) return "relegated";
-        if (playerVm.Points > 0 && i == 0) return "winner";
+        if (i == 0) return "winner";
 
         return string.Empty;
     }
