@@ -2,7 +2,7 @@
 @inject SeasonService SeasonService
 @inject ILogger<Season> Logger
 
-<h3>League @LeagueId</h3>
+<h3>@(SeasonVm?.LeagueName ?? $"League {LeagueId}")</h3>
 <h4>
     @if (SeasonVm?.SeasonNavigation.Previous == null)
     {
@@ -20,7 +20,7 @@
     {
         <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Previous)"><i class="bi bi-chevron-left"></i></a>
     }
-    <span>@(SeasonVm?.Name ?? "Season")</span>
+    <span>@(SeasonVm?.SeasonName ?? "Season")</span>
     @if (LeagueId != null && SeasonVm?.SeasonNavigation.Next != null)
     {
         <a class="text-inherit" href="@RouteProvider.GetLeagueSeasonRoute(LeagueId, SeasonVm.SeasonNavigation.Next)"><i class="bi bi-chevron-right"></i></a>

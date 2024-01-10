@@ -104,6 +104,6 @@ public class SeasonService
             divisions.Add(divisionVm);
         }
 
-        return new SeasonViewModel(season.Name, divisions, league?.GetSeasonNavigation(seasonId) ?? new Navigation());
+        return new SeasonViewModel(league?.Name ?? $"League {leagueId}", season.Name, divisions, league?.GetSeasonNavigation(seasonId) ?? new Navigation());
     }
 }

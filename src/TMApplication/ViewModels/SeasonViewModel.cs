@@ -3,7 +3,8 @@
 namespace TMApplication.ViewModels;
 
 public record SeasonViewModel(
-    string Name,
+    string LeagueName,
+    string SeasonName,
     IReadOnlyList<SeasonDivisionViewModel> Divisions,
     Navigation SeasonNavigation);
 
