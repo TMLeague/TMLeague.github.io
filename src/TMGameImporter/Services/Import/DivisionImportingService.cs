@@ -191,7 +191,7 @@ internal class DivisionImportingService
         }
     }
 
-    private static int Compare(PlayerResult p1, PlayerResult p2, IEnumerable<Tiebreaker> tiebreakers)
+    internal static int Compare(PlayerResult p1, PlayerResult p2, IEnumerable<Tiebreaker> tiebreakers)
     {
         if (p1.TotalPoints != p2.TotalPoints)
             return p1.TotalPoints.CompareTo(p2.TotalPoints);
@@ -206,7 +206,7 @@ internal class DivisionImportingService
                     return p1.Wins - p2.Wins;
 
                 case Tiebreaker.Penalties:
-                    if (p1.PenaltiesPoints == p2.PenaltiesPoints)
+                    if (Math.Abs(p1.PenaltiesPoints - p2.PenaltiesPoints) < 0.0001)
                         continue;
                     return p2.PenaltiesPoints.CompareTo(p1.PenaltiesPoints);
 
@@ -228,7 +228,7 @@ internal class DivisionImportingService
                 case Tiebreaker.MinutesPerMove:
                     if (p1.MinutesPerMove.CompareTo(p2.MinutesPerMove) == 0)
                         continue;
-                    return p1.MinutesPerMove.CompareTo(p2.MinutesPerMove);
+                    return p2.MinutesPerMove.CompareTo(p1.MinutesPerMove);
 
                 default:
                     throw new ArgumentOutOfRangeException();
