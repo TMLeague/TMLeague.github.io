@@ -1,7 +1,7 @@
 {
   "entryAssembly": "TMLeague",
   "resources": {
-    "hash": "sha256-RuRR3R2SuGv9WJOoi4M2bE3gc8xMDrtkZLTDeX/CsC8=",
+    "hash": "sha256-ZL6BYkMi8m6vecDv0W33rbgKz797PHdY9e04GGmlDDc=",
     "runtime": {
       "dotnet.7.0.14.mikshhdjmu.js": "sha256-YWGUknGRzP/fgO6YjvCJKPVQNZAPEd6ll+rHfQEIW+I=",
       "dotnet.timezones.blat": "sha256-t5xviiOQTfAsF0UDhmcyalKiaehUmf/sqJl97tmPM0M=",
@@ -55,10 +55,10 @@
       "System.Text.RegularExpressions.dll": "sha256-iC7j/UdrqkcMEX5wh3FWG3R485t3zY8ZAbXPwiulhEw=",
       "System.Threading.dll": "sha256-aTv6LO8ME+TvDeJA4ISZ9ovVInS6gOYVLhozP+cZR1Y=",
       "System.Web.HttpUtility.dll": "sha256-jLrtoC44GFwzuiuR+qsw1TyWSOMpca7CG65pSHmeiMI=",
-      "TMApplication.dll": "sha256-a7wiEbr1PjR4OVNl0+DoadLVWow7F8uSsLPf5JDFUwM=",
-      "TMInfrastructure.dll": "sha256-fDu+yL1LL9ApfLIoqxAqYmKFFuOafY6S2l8UQB7hOaI=",
-      "TMLeague.dll": "sha256-YnLye7+s5J71vnXYEmJJRepSX/A0+Mpqe9Fmv0/9ht8=",
-      "TMModels.dll": "sha256-S55fhBJY3lZi/3n0fgKVzUL75x8tMNp1RNtQCsmmVxY="
+      "TMApplication.dll": "sha256-pn04CqPVsNqctWOhgNuGJ4cN2LTC/brqsoCUGHfr4wY=",
+      "TMInfrastructure.dll": "sha256-KndQYfFspxjIdiWBnPvKhoyr1auquVRaeA+CtBehQGM=",
+      "TMLeague.dll": "sha256-HIZ1bzkoCLl2oCY5QStP3ALEA7Lkexs8L0vSdnjrlUQ=",
+      "TMModels.dll": "sha256-DTTBR0ptwoQRNY0AKggQ8VvI7eD9wPQuuGVWGmmSCXI="
     },
     "runtimeAssets": {
       "dotnet.wasm": {
