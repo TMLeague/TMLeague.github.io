@@ -5,6 +5,7 @@ namespace TMApplication.Providers;
 public interface IDataProvider
 {
     Task<Home?> GetHome(CancellationToken cancellationToken);
+    Task<string[]?> GetPasswords(CancellationToken cancellationToken);
     Task<League?> GetLeague(string leagueId, CancellationToken cancellationToken);
     Task<Season?> GetSeason(string? leagueId, string seasonId, CancellationToken cancellationToken);
     Task<Division?> GetDivision(string? leagueId, string seasonId, string divisionId,

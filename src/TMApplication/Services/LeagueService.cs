@@ -153,7 +153,7 @@ public class LeagueService
             housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
         var players = divisionForm.PlayerNames.OrderBy(p => p).ToArray();
         var stats = _playerStatsService.GetStats(draftTable, players);
-        var passwords = _generator.Get(league.InitialMessage?.PasswordLength ?? 6, playersLength).ToArray();
+        var passwords = (await _generator.Get(league.InitialMessage?.PasswordLength ?? 6, playersLength, cancellationToken)).ToArray();
 
         var messageSubject = divisionForm.MessageSubject?.FillParameters(divisionForm) ?? string.Empty;
         var messageBody = divisionForm.MessageBody?.FillParameters(divisionForm) ?? string.Empty;

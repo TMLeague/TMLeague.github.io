@@ -29,6 +29,10 @@ public class LocalApi : IDataProvider
         await Get<Home>("Home",
             "/data/home.json", cancellationToken);
 
+    public async Task<string[]?> GetPasswords(CancellationToken cancellationToken) =>
+        await Get<string[]>("Passwords",
+            "/data/passwords.json", cancellationToken);
+
     public async Task<League?> GetLeague(string leagueId, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(leagueId);

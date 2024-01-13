@@ -30,6 +30,6 @@ builder.Services
     .AddScoped<PlayerStatsService>()
     .AddScoped<SummaryService>()
     .AddScoped<HallOfFameService>()
-    .AddTransient<IPasswordGenerator, RandomPasswordGenerator>();
+    .AddTransient<IPasswordGenerator, GameOfThronePasswordGenerator>();
 
 await builder.Build().RunAsync();
