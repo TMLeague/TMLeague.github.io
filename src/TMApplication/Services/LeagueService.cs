@@ -12,13 +12,15 @@ public class LeagueService
     private readonly SeasonService _seasonService;
     private readonly DraftService _draftService;
     private readonly PlayerStatsService _playerStatsService;
+    private readonly IPasswordGenerator _generator;
 
-    public LeagueService(IDataProvider dataProvider, SeasonService seasonService, DraftService draftService, PlayerStatsService playerStatsService)
+    public LeagueService(IDataProvider dataProvider, SeasonService seasonService, DraftService draftService, PlayerStatsService playerStatsService, IPasswordGenerator generator)
     {
         _dataProvider = dataProvider;
         _seasonService = seasonService;
         _draftService = draftService;
         _playerStatsService = playerStatsService;
+        _generator = generator;
     }
 
     public async Task<LeagueViewModel> GetLeagueVm(string leagueId, CancellationToken cancellationToken = default)
@@ -151,6 +153,7 @@ public class LeagueService
             housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
         var players = divisionForm.PlayerNames.OrderBy(p => p).ToArray();
         var stats = _playerStatsService.GetStats(draftTable, players);
+        var passwords = _generator.Get(league.InitialMessage?.PasswordLength ?? 6, playersLength).ToArray();
 
         var messageSubject = divisionForm.MessageSubject?.FillParameters(divisionForm) ?? string.Empty;
         var messageBody = divisionForm.MessageBody?.FillParameters(divisionForm) ?? string.Empty;
@@ -160,7 +163,8 @@ public class LeagueService
                 playerKv.First,
                 playerKv.Second,
                 messageSubject,
-                messageBody.FillParameters(GetPlayerHouseGames(playerKv.Second)), playerKv.Third)).ToList();
+                messageBody.FillParameters(GetPlayerDraftParameters(playerKv.Second, passwords)),
+                playerKv.Third)).ToList();
 
         var divisionDraft = new DivisionDraft(playerDrafts, isRandom);
 
@@ -213,12 +217,22 @@ public class LeagueService
         return new LeagueChampionsViewModel(champions);
     }
 
-    private static PlayerHouseGames GetPlayerHouseGames(House[] houses) => new(
-        Array.IndexOf(houses, House.Baratheon) + 1,
-        Array.IndexOf(houses, House.Lannister) + 1,
-        Array.IndexOf(houses, House.Stark) + 1,
-        Array.IndexOf(houses, House.Tyrell) + 1,
-        Array.IndexOf(houses, House.Greyjoy) + 1,
-        Array.IndexOf(houses, House.Martell) + 1,
-        Array.IndexOf(houses, House.Arryn) + 1);
+    private static PlayerDraftParameters GetPlayerDraftParameters(House[] houses, IReadOnlyList<string> passwords)
+    {
+        var baratheonIdx = Array.IndexOf(houses, House.Baratheon);
+        var lannisterIdx = Array.IndexOf(houses, House.Lannister);
+        var starkIdx = Array.IndexOf(houses, House.Stark);
+        var tyrellIdx = Array.IndexOf(houses, House.Tyrell);
+        var greyjoyIdx = Array.IndexOf(houses, House.Greyjoy);
+        var martellIdx = Array.IndexOf(houses, House.Martell);
+        var arrynIdx = Array.IndexOf(houses, House.Arryn);
+        return new PlayerDraftParameters(
+            baratheonIdx + 1, baratheonIdx >= 0 ? passwords[baratheonIdx] : "",
+            lannisterIdx + 1, lannisterIdx >= 0 ? passwords[lannisterIdx] : "",
+            starkIdx + 1, starkIdx >= 0 ? passwords[starkIdx] : "",
+            tyrellIdx + 1, tyrellIdx >= 0 ? passwords[tyrellIdx] : "",
+            greyjoyIdx + 1, greyjoyIdx >= 0 ? passwords[greyjoyIdx] : "",
+            martellIdx + 1, martellIdx >= 0 ? passwords[martellIdx] : "",
+            arrynIdx + 1, arrynIdx >= 0 ? passwords[arrynIdx] : "");
+    }
 }

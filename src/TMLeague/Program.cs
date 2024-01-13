@@ -29,6 +29,7 @@ builder.Services
     .AddScoped<DraftService>()
     .AddScoped<PlayerStatsService>()
     .AddScoped<SummaryService>()
-    .AddScoped<HallOfFameService>();
+    .AddScoped<HallOfFameService>()
+    .AddTransient<IPasswordGenerator, RandomPasswordGenerator>();
 
 await builder.Build().RunAsync();
