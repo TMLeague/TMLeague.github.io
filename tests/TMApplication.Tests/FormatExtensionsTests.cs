@@ -20,14 +20,14 @@ public class FormatExtensionsTests
             MessageSubject = "League, S{season}, D{division}",
             MessageBody = @"Greetings!
 
-Here are your houses for the Silent League, Season {season}, Division {division} in the format house -> game:
+Here are your houses for the Silent League, Season {season}, Division {division} in the format house -> game (password):
 
-Stark: {stark}
-Greyjoy: {greyjoy}
-Lannister: {lannister}
-Tyrell: {tyrell}
-Martell: {martell}
-Baratheon: {baratheon}
+Stark: {stark} ({starkPassword})
+Greyjoy: {greyjoy} ({greyjoyPassword})
+Lannister: {lannister} ({lannisterPassword})
+Tyrell: {tyrell} ({tyrellPassword})
+Martell: {martell} ({martellPassword})
+Baratheon: {baratheon} ({baratheonPassword})
 
 Please have a final look at the rules before starting (https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=81775#top).
 You create only your Stark game with the following settings:
@@ -35,8 +35,7 @@ You create only your Stark game with the following settings:
 * PBEM + Start By Anybody Allowed
 * Choose house
 * Faceless 
-With the title being ‚‚Silent League S{season}/D{division}/G{stark}‘‘ and the password ‚‚{password}‘‘ (triple check all of this is correct before you create or join a game!).
-The password for your other games to join will also be ‚‚{password}‘‘.
+With the title being ‚‚Silent League S{season}/D{division}/G{stark}‘‘ and the password ‚‚{starkPassword}‘‘ (triple check all of this is correct before you create or join a game!).
 
 If there are any problems, please contact {contact} on Discord or Thronemaster and we'll help you with your questions!
 
@@ -57,7 +56,14 @@ with -1 for each offense.
 Again and to reinforce the previous statement: The faceless and silent aspects of the games are our top priorities."
         };
 
-        var playerHouseGames = new PlayerHouseGames(1, 4, 3, 7, 9, 2, 0);
+        var playerHouseGames = new PlayerDraftParameters(
+            1, "abc",
+            4, "def",
+            3, "ghi",
+            7, "jkl",
+            9, "mno",
+            2, "pqr",
+            0, "stu");
 
         var subject = divisionForm.MessageSubject.FillParameters(divisionForm);
         subject.Should().Be("League, S8, D1");
@@ -65,14 +71,14 @@ Again and to reinforce the previous statement: The faceless and silent aspects o
         var body = divisionForm.MessageBody.FillParameters(divisionForm).FillParameters(playerHouseGames);
         body.Should().Be(@"Greetings!
 
-Here are your houses for the Silent League, Season 8, Division 1 in the format house -> game:
+Here are your houses for the Silent League, Season 8, Division 1 in the format house -> game (password):
 
-Stark: 3
-Greyjoy: 9
-Lannister: 4
-Tyrell: 7
-Martell: 2
-Baratheon: 1
+Stark: 3 (ghi)
+Greyjoy: 9 (mno)
+Lannister: 4 (def)
+Tyrell: 7 (jkl)
+Martell: 2 (pqr)
+Baratheon: 1 (abc)
 
 Please have a final look at the rules before starting (https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=81775#top).
 You create only your Stark game with the following settings:
@@ -80,8 +86,7 @@ You create only your Stark game with the following settings:
 * PBEM + Start By Anybody Allowed
 * Choose house
 * Faceless 
-With the title being ‚‚Silent League S8/D1/G3‘‘ and the password ‚‚Cersei‘‘ (triple check all of this is correct before you create or join a game!).
-The password for your other games to join will also be ‚‚Cersei‘‘.
+With the title being ‚‚Silent League S8/D1/G3‘‘ and the password ‚‚ghi‘‘ (triple check all of this is correct before you create or join a game!).
 
 If there are any problems, please contact me on Discord or Thronemaster and we'll help you with your questions!
 
