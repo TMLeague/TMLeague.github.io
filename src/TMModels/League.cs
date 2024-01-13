@@ -70,4 +70,5 @@ public static class Tiebreakers
 
 public record InitialMessage(
     string Subject,
-    string[] Body);
+    string[] Body,
+    int? PasswordLength);
