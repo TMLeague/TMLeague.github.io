@@ -135,7 +135,7 @@ internal class DivisionImportingService
             houseScore.House,
             position == 1,
             GetPointsForGame(houseScore, position, scoring),
-            GetBattlePenalty(game, houseScore, scoring),
+            GetBattlePenalty(houseScore, scoring),
             houseScore.Strongholds,
             houseScore.Castles,
             houseScore.Cla,
@@ -157,9 +157,9 @@ internal class DivisionImportingService
     private static bool IsCleanWin(HouseScore houseScore) =>
         houseScore.Castles + houseScore.Strongholds >= 7;
 
-    private static int GetBattlePenalty(Game game, HouseScore houseScore, Scoring scoring)
+    private static int GetBattlePenalty(HouseScore houseScore, Scoring scoring)
     {
-        if (game.Turn < 10 || houseScore.BattlesInTurn.Length < 10)
+        if (houseScore.Turn < 10 || houseScore.BattlesInTurn.Length < 10)
             return 0;
 
         var battlesBefore10ThTurn = houseScore.BattlesInTurn[..9].Sum(battlesInTurn => battlesInTurn);
