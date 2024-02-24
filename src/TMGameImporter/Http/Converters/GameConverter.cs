@@ -40,7 +40,7 @@ internal class GameConverter
     {
         const int houseSize = 6;
 
-        var logsPerTurn = log?.Logs.GroupBy(item => item.Turn);
+        var logsPerTurn = log?.Logs.GroupBy(item => item.Turn).ToArray();
 
         var houses = state.HousesOrder.Select((house, i) =>
                 GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn))
@@ -63,7 +63,7 @@ internal class GameConverter
         return houses;
     }
 
-    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IEnumerable<IGrouping<int, LogItem>>? logsPerTurn)
+    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IGrouping<int, LogItem>[]? logsPerTurn)
     {
         var player = state.Players[idx];
         var throne = int.Parse(houseDataRaw[..1]);
@@ -93,9 +93,16 @@ internal class GameConverter
                 .Count(item => IsPlayerBattleLogItem(house, item)))
             .ToArray() ?? Array.Empty<int>();
 
+        var turn = logsPerTurn?.Select(items =>
+            items.Any(log =>
+                log.House == house && log.Phase == Phase.Planning) 
+                ? items.Key 
+                : 0)
+            .Max() ?? 0;
+
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
-            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, new Stats());
+            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, turn, new Stats());
     }
 
     private static bool IsPlayerBattleLogItem(House house, LogItem item) =>

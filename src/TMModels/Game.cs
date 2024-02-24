@@ -32,6 +32,7 @@ public record HouseScore(
     double MinutesPerMove,
     int Moves,
     int[] BattlesInTurn,
+    int Turn,
     Stats? Stats) : IComparable<HouseScore>
 {
     public Stats Stats { get; } = Stats ?? new Stats();
