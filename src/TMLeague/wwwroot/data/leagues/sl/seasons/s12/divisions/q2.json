@@ -19,7 +19,20 @@
     301996,
     301956
   ],
-  "penalties": [],
-  "isFinished": false,
+  "penalties": [
+     {
+      "player": "BarteqZw",
+      "game": 302031,
+      "points": 5,
+      "details": "Minor KM"
+    },
+    {
+      "player": "We_do_not_sow",
+      "game": 301950,
+      "points": 3,
+      "details": "No delay"
+    }
+  ],
+  "isFinished": true,
   "promotions": 2
 }
