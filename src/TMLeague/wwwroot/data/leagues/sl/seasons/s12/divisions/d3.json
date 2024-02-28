@@ -1,3 +1,4 @@
+
 {
   "name": "Division 3",
   "judge": "NIghtCrawler",
@@ -26,5 +27,6 @@
     302072
   ],
   "penalties": [],
+  "relegations": 4,
   "isFinished": false
 }
