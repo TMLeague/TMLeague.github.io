@@ -1,4 +1,4 @@
-if{
+{
   "name": "Division 2",
   "judge": "Karijin",
   "players": [
@@ -39,5 +39,5 @@ if{
       "details": "spoiling for removing Lannister support"
     }
   ],
-  "isFinished": false
+  "isFinished": true
 }
