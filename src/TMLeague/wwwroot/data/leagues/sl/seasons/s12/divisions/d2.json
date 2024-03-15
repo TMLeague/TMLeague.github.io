@@ -25,6 +25,19 @@
     301934,
     301983
   ],
-  "penalties": [],
-  "isFinished": false
+  "penalties": [
+    {
+      "player": "rasmus482",
+      "points": 5,
+      "game": 301942,
+      "details": "spoiling, not stopping Bara but even cycle him"
+    },
+    {
+      "player": "sicre",
+      "points": 5,
+      "game": 301949,
+      "details": "spoiling for removing Lannister support"
+    }
+  ],
+  "isFinished": true
 }
