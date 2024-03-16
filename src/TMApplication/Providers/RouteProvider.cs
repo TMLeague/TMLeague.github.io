@@ -13,6 +13,7 @@ public static class RouteProvider
     private const string Season = "season";
     private const string Seasons = "seasons";
     private const string Summary = "summary";
+    private const string Penalties = "penalties";
 
     public static string GetRoute(string? leagueId = null, string? seasonId = null, string? divisionId = null)
     {
@@ -56,6 +57,9 @@ public static class RouteProvider
 
     public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId) =>
         $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
+
+    public static string GetLeagueDivisionPenaltiesRoute(string leagueId, string seasonId, string divisionId) =>
+        $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{Penalties}";
 
     public static string GetLeagueJudgeRoute(string leagueId) =>
         $"{League}/{leagueId}/{Judge}";

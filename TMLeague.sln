@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMApplication.Tests", "test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDraftsGenerator", "src\TMDraftsGenerator\TMDraftsGenerator.csproj", "{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMLeague.Tests", "tests\TMLeague.Tests\TMLeague.Tests.csproj", "{A1943125-B868-49EA-8FC0-88C9E93189A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMLeague.Tests", "tests\TMLeague.Tests\TMLeague.Tests.csproj", "{A1943125-B868-49EA-8FC0-88C9E93189A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

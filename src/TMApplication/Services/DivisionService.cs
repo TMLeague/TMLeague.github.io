@@ -36,19 +36,10 @@ public class DivisionService
         if (games.Count > 0)
             progress /= games.Count;
 
-        var winnerPlayerName = await GetWinner(leagueId, seasonId, divisionId, division, cancellationToken);
+        var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+        var winnerPlayerName = results?.IsFinished == true ? results?.Players.First().Player : null;
 
         return new LeagueDivisionSummaryViewModel(leagueId, seasonId, divisionId, division?.Name, progress, games, winnerPlayerName);
-    }
-
-    private async Task<string?> GetWinner(string leagueId, string seasonId, string divisionId,
-        Division division, CancellationToken cancellationToken)
-    {
-        if (!division.IsFinished)
-            return null;
-
-        var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
-        return results?.Players.First().Player;
     }
 
     public async Task<DivisionViewModel?> GetDivisionVm(string leagueId, string seasonId, string divisionId,
@@ -77,13 +68,14 @@ public class DivisionService
         var messages = await GetMessages(leagueId, seasonId, divisionId, division, cancellationToken);
 
         var games = await GetDivisionGames(division, cancellationToken).ToArrayAsync(cancellationToken);
-        return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, division.IsFinished, division.WinnerTitle,
+        return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, results?.IsFinished ?? false, division.WinnerTitle,
             (results?.Players.Select(GetPlayerVm) ??
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
             games,
             league.Scoring?.Tiebreakers ?? Tiebreakers.Default, messages,
             results?.GeneratedTime,
-            league.GetSeasonNavigation(seasonId), season.GetDivisionNavigation(divisionId));
+            league.GetSeasonNavigation(seasonId), season.GetDivisionNavigation(divisionId),
+            division.Replacements, division.Promotions, division.Relegations);
     }
 
     private async IAsyncEnumerable<DivisionGameViewModel?> GetDivisionGames(Division division, [EnumeratorCancellation] CancellationToken cancellationToken)

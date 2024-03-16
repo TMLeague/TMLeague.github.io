@@ -289,12 +289,22 @@ else
         </table>
     </div>
 
-    <div class="row my-2">
-        @foreach (var message in DivisionVm.Messages)
-        {
-            <div class="alert @GetAlertClass(message) p-1 mb-1" role="alert">@((MarkupString)message.Message)</div>
-        }
-    </div>
+    @if (DivisionVm.Messages.Length != 0)
+    {
+        <div class="row my-2">
+            @foreach (var message in DivisionVm.Messages)
+            {
+                <div class="alert @GetAlertClass(message) p-1 mb-1" role="alert">@((MarkupString)message.Message)</div>
+            }
+        </div>
+    }
+
+    @if (LeagueId != null && SeasonId != null && DivisionId != null && !DivisionVm.IsFinished)
+    {
+        <div class="row my-2">
+            <a href="@RouteProvider.GetLeagueDivisionPenaltiesRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Add penalties</a>
+        </div>
+    }
 }
 
 <footer class="text-white-50 d-block">
