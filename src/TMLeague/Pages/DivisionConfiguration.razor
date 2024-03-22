@@ -45,9 +45,10 @@ else
                 var player = formPlayer;
                 <div class="row mb-3">
                     <label class="col-2 col-md-1">@($"P{player.Idx}")</label>
-                    <div class="col-10 col-md-11">
+                    <div class="col-9 col-md-10">
                         <InputText id="@($"player-{player.Idx}")" @bind-Value="@player.Name" placeholder="TM player name" class="form-control" aria-describedby="playersHelp" />
                     </div>
+                    <button type="button" class="col-1 p-0 btn btn-link" @onclick="() => RemovePlayer(player.Idx)"><i class="bi bi-x"></i></button>
                 </div>
             }
             <div class="row mb-3">
@@ -65,9 +66,10 @@ else
                 var game = formGame;
                 <div class="row mb-3">
                     <label class="col-2 col-md-1">@($"G{game.Idx}")</label>
-                    <div class="col-10 col-md-11">
+                    <div class="col-9 col-md-10">
                         <InputNumber id="@($"game-{game.Idx}")" @bind-Value="@game.TmId" placeholder="TM game ID" class="form-control" aria-describedby="gamesHelp" />
                     </div>
+                    <button type="button" class="col-1 p-0 btn btn-link" @onclick="() => RemoveGame(game.Idx)"><i class="bi bi-x"></i></button>
                 </div>
             }
             <div class="row mb-3">
@@ -82,9 +84,9 @@ else
             </div>
             <div class="row mb-3" style="min-width: 400px;">
                 <label class="col-3" style="min-width: 100px;">Player</label>
-                <label class="col-3" style="min-width: 100px;">Game</label>
-                <label class="col-3" style="min-width: 100px;">Points</label>
-                <label class="col-3" style="min-width: 100px;">Details</label>
+                <label class="col-2" style="min-width: 66px;">Game</label>
+                <label class="col-2" style="min-width: 66px;">Points</label>
+                <label class="col-4" style="min-width: 133px;">Details</label>
             </div>
             @foreach (var formPenalty in DivisionConfigurationForm.Penalties)
             {
@@ -99,7 +101,7 @@ else
                             }
                         </InputSelect>
                     </div>
-                    <div class="col-3" style="min-width: 100px;">
+                    <div class="col-2" style="min-width: 66px;">
                         <InputSelect id="@($"penalty-{penalty.Idx}-game")" @bind-Value="@penalty.Game" class="form-select" aria-describedby="penaltiesHelp">
                             <option value="0">---</option>
                             @foreach (var game in DivisionConfigurationForm.GetPlayerGames(penalty.Player))
@@ -108,12 +110,13 @@ else
                             }
                         </InputSelect>
                     </div>
-                    <div class="col-3" style="min-width: 100px;">
+                    <div class="col-2" style="min-width: 66px;">
                         <InputNumber id="@($"penalty-{penalty.Idx}-points")" @bind-Value="@penalty.Points" placeholder="Points" class="form-control" aria-describedby="penaltiesHelp" />
                     </div>
-                    <div class="col-3" style="min-width: 100px;">
+                    <div class="col-4" style="min-width: 133px;">
                         <InputText id="@($"penalty-{penalty.Idx}-details")" @bind-Value="@penalty.Details" placeholder="Details" class="form-control" aria-describedby="penaltiesHelp" />
                     </div>
+                    <button type="button" class="col-1 p-0 btn btn-link" style="min-width: 33px;" @onclick="() => RemovePenalty(penalty.Idx)"><i class="bi bi-x"></i></button>
                 </div>
             }
             <div class="row mb-3">
@@ -126,10 +129,10 @@ else
             <div id="replacementsHelp" class="form-text">
                 If there are any replacements they should be added. "From" is an original player registered to the league, "To" is the TM name of the replacing player.
             </div>
-            <div class="row mb-3" style="min-width: 400px;">
+            <div class="row mb-3" style="min-width: 300px;">
                 <label class="col-4" style="min-width: 100px;">From</label>
                 <label class="col-4" style="min-width: 100px;">To</label>
-                <label class="col-4" style="min-width: 100px;">Game</label>
+                <label class="col-3" style="min-width: 66px;">Game</label>
             </div>
             @foreach (var formReplacement in DivisionConfigurationForm.Replacements)
             {
@@ -147,7 +150,7 @@ else
                     <div class="col-4" style="min-width: 100px;">
                         <InputText id="@($"replacement-{replacement.Idx}-to")" @bind-Value="@replacement.To" placeholder="TM player name" class="form-control" aria-describedby="replacementsHelp" />
                     </div>
-                    <div class="col-4" style="min-width: 100px;">
+                    <div class="col-3" style="min-width: 100px;">
                         <InputSelect id="@($"replacement-{replacement.Idx}-game")" @bind-Value="@replacement.Game" class="form-select" aria-describedby="replacementsHelp">
                             <option value="0">---</option>
                             @foreach (var game in DivisionConfigurationForm.GetPlayerGames(replacement.From))
@@ -156,6 +159,7 @@ else
                             }
                         </InputSelect>
                     </div>
+                    <button type="button" class="col-1 p-0 btn btn-link" style="min-width: 33px;" @onclick="() => RemoveReplacement(replacement.Idx)"><i class="bi bi-x"></i></button>
                 </div>
             }
             <div class="row mb-3">
@@ -217,7 +221,7 @@ else
     public string? SeasonId { get; set; }
     [Parameter]
     public string? DivisionId { get; set; }
-    
+
     private DivisionConfigurationForm? DivisionConfigurationForm { get; set; }
 
     private bool _isInitialized;
@@ -274,17 +278,50 @@ else
         await JsRuntime.InvokeVoidAsync("openInNewTab", RouteProvider.GetGithubDivision(LeagueId, SeasonId, DivisionId));
     }
 
-    private void AddPlayer() => DivisionConfigurationForm?.Players.Add(new DivisionConfigurationFormPlayer(DivisionConfigurationForm.Players.Count + 1, new List<DivisionConfigurationFormGame>()));
+    private void AddPlayer() => DivisionConfigurationForm?.Players.Add(new DivisionConfigurationFormPlayer(
+        DivisionConfigurationForm.Players.Count + 1, 
+        new List<DivisionConfigurationFormGame>()));
 
-    private void AddGame() => DivisionConfigurationForm?.Games.Add(new DivisionConfigurationFormGame(DivisionConfigurationForm.Games.Count + 1));
+    private void AddGame() => DivisionConfigurationForm?.Games.Add(new DivisionConfigurationFormGame(
+        DivisionConfigurationForm.Games.Count + 1));
 
-    private void AddPenalty() => DivisionConfigurationForm?.Penalties.Add(new DivisionConfigurationFormPenalty(DivisionConfigurationForm.Penalties.Count + 1)
-        {
-            Player = DivisionConfigurationForm.Penalties.LastOrDefault()?.Player
-        });
+    private void AddPenalty() => DivisionConfigurationForm?.Penalties.Add(new DivisionConfigurationFormPenalty(
+        DivisionConfigurationForm.Penalties.Count + 1,
+        DivisionConfigurationForm.Penalties.LastOrDefault()?.Player));
 
-    private void AddReplacement() => DivisionConfigurationForm?.Replacements.Add(new DivisionConfigurationFormReplacement(DivisionConfigurationForm.Replacements.Count + 1)
-        {
-            From = DivisionConfigurationForm.Replacements.LastOrDefault()?.From
-        });
+    private void AddReplacement() => DivisionConfigurationForm?.Replacements.Add(new DivisionConfigurationFormReplacement(
+        DivisionConfigurationForm.Replacements.Count + 1, 
+        DivisionConfigurationForm.Replacements.LastOrDefault()?.From));
+
+    private void RemovePlayer(int idx)
+    {
+        if (DivisionConfigurationForm == null) return;
+        DivisionConfigurationForm.Players.RemoveAt(idx - 1);
+        foreach (var (player, i) in DivisionConfigurationForm.Players.Select((p, i) => (p, i)))
+            player.Idx = i + 1;
+    }
+
+    private void RemoveGame(int idx)
+    {
+        if (DivisionConfigurationForm == null) return;
+        DivisionConfigurationForm.Games.RemoveAt(idx - 1);
+        foreach (var (game, i) in DivisionConfigurationForm.Games.Select((g, i) => (g, i)))
+            game.Idx = i + 1;
+    }
+
+    private void RemovePenalty(int idx)
+    {
+        if (DivisionConfigurationForm == null) return;
+        DivisionConfigurationForm.Penalties.RemoveAt(idx - 1);
+        foreach (var (penalty, i) in DivisionConfigurationForm.Penalties.Select((p, i) => (p, i)))
+            penalty.Idx = i + 1;
+    }
+
+    private void RemoveReplacement(int idx)
+    {
+        if (DivisionConfigurationForm == null) return;
+        DivisionConfigurationForm.Replacements.RemoveAt(idx - 1);
+        foreach (var (replacement, i) in DivisionConfigurationForm.Replacements.Select((r, i) => (r, i)))
+            replacement.Idx = i + 1;
+    }
 }

@@ -28,6 +28,8 @@ public class DivisionConfigurationForm
     [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidatePlayers))]
     public List<DivisionConfigurationFormPlayer> Players { get; set; }
 
+    [Required(ErrorMessage = "Division must have at least 3 games.")]
+    [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidateGames))]
     public List<DivisionConfigurationFormGame> Games { get; set; }
 
     public List<DivisionConfigurationFormPenalty> Penalties { get; set; }
@@ -46,53 +48,68 @@ public class DivisionConfigurationForm
         string.IsNullOrWhiteSpace(player) ? Games : Players
             .FirstOrDefault(p => p.Name == player)?.Games ?? Games;
 
-    public static ValidationResult? ValidatePlayers(IEnumerable<DivisionConfigurationFormPlayer> players, ValidationContext context) =>
-        players.Count(player => !string.IsNullOrWhiteSpace(player.Name)) < 3
+    public static ValidationResult? ValidatePlayers(List<DivisionConfigurationFormPlayer> players, ValidationContext context)
+    {
+        if (players.Any(player => string.IsNullOrWhiteSpace(player.Name)))
+            return new ValidationResult("Player name is required.");
+
+        if (players.Select(player => player.Name).Distinct().Count() == players.Count)
+            return new ValidationResult("Players contain duplicates.");
+
+        return players.Count(player => !string.IsNullOrWhiteSpace(player.Name)) < 3
             ? new ValidationResult("Division must have at least 3 players.")
+            : ValidationResult.Success;
+    }
+
+    public static ValidationResult? ValidateGames(IEnumerable<DivisionConfigurationFormGame> games, ValidationContext context) =>
+        games.Count(game => game.TmId > 0) < 3
+            ? new ValidationResult("Division must have at least 3 games.")
             : ValidationResult.Success;
 }
 
-public record DivisionConfigurationFormPlayer(int Idx, List<DivisionConfigurationFormGame> Games)
+public record DivisionConfigurationFormPlayer(int Idx, List<DivisionConfigurationFormGame> Games, string Name = "")
 {
-    public string Name { get; set; } = string.Empty;
+    public int Idx { get; set; } = Idx;
+
+    [Required]
+    [MinLength(1, ErrorMessage = "Thronemaster player name is required.")]
+    public string Name { get; set; } = Name;
 }
 
-public record DivisionConfigurationFormGame(int Idx)
+public record DivisionConfigurationFormGame(int Idx, int? TmId = null)
 {
-    public DivisionConfigurationFormGame(int? tmId, int idx) : this(idx)
-    {
-        TmId = tmId;
-    }
-
-    public int? TmId { get; set; }
+    public int Idx { get; set; } = Idx;
+    public int? TmId { get; set; } = TmId;
 }
 
-public record DivisionConfigurationFormPenalty(int Idx)
+public record DivisionConfigurationFormPenalty(int Idx, string? Player = null, int? Game = null, double Points = 0, string Details = "")
 {
-    public DivisionConfigurationFormPenalty(int idx, string player, int? game, double points, string details) : this(idx)
-    {
-        Player = player;
-        Game = game;
-        Points = points;
-        Details = details;
-    }
+    public int Idx { get; set; } = Idx;
 
-    public string? Player { get; set; }
-    public int? Game { get; set; }
-    public double Points { get; set; }
-    public string? Details { get; set; }
+    [Required]
+    [MinLength(1, ErrorMessage = "Thronemaster player name is required.")]
+    public string? Player { get; set; } = Player;
+
+    public int? Game { get; set; } = Game;
+
+    public double Points { get; set; } = Points;
+
+    public string? Details { get; set; } = Details;
 }
 
-public record DivisionConfigurationFormReplacement(int Idx)
+public record DivisionConfigurationFormReplacement(int Idx, string? From = null, string? To = null, int? Game = null)
 {
-    public DivisionConfigurationFormReplacement(int idx, string from, string to, int game) : this(idx)
-    {
-        From = from;
-        To = to;
-        Game = game;
-    }
+    public int Idx { get; set; } = Idx;
 
-    public string? From { get; set; }
-    public string? To { get; set; }
-    public int? Game { get; set; }
+    [Required]
+    [MinLength(1, ErrorMessage = "Replaced thronemaster player name is required.")]
+    public string? From { get; set; } = From;
+
+    [Required]
+    [MinLength(1, ErrorMessage = "Replacing thronemaster player name is required.")]
+    public string? To { get; set; } = To;
+
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Thronemaster game ID of a replacement is required.")]
+    public int? Game { get; set; } = Game;
 }

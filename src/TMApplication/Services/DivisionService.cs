@@ -199,14 +199,14 @@ public class DivisionService
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
 
         var players = division.Players
-            .Select((player, i) => new DivisionConfigurationFormPlayer(i + 1, GetGames(player, division.Games, results)) { Name = player })
+            .Select((player, i) => new DivisionConfigurationFormPlayer(i + 1, GetGames(player, division.Games, results), player))
             .ToList();
 
         return new DivisionConfigurationForm(
             division.Name,
             division.Judge,
             players,
-            division.Games.Select((game, i) => new DivisionConfigurationFormGame(i + 1) { TmId = game }).ToList(),
+            division.Games.Select((game, i) => new DivisionConfigurationFormGame(i + 1, game)).ToList(),
             division.Penalties?.Select((penalty, i) => new DivisionConfigurationFormPenalty(i + 1, penalty.Player, penalty.Game,
                 penalty.Points, penalty.Details)).ToList(),
             division.Replacements?.Select((replacement, i) => new DivisionConfigurationFormReplacement(i + 1, replacement.From,
@@ -220,6 +220,6 @@ public class DivisionService
     private static List<DivisionConfigurationFormGame> GetGames(string player, int?[] games, Results? results) =>
         results?.Players
             .FirstOrDefault(result => result.Player == player)?.Houses
-            .Select(result => new DivisionConfigurationFormGame(result.Game, games.IndexOf(result.Game) + 1))
+            .Select(result => new DivisionConfigurationFormGame(games.IndexOf(result.Game) + 1, result.Game))
             .ToList() ?? new List<DivisionConfigurationFormGame>();
 }
