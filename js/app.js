@@ -17,3 +17,7 @@ function copyClipboard(data) {
 function scrollToTop() {
     document.documentElement.scrollTop = 0;
 }
+
+function openInNewTab(url) {
+    window.open(url, '_blank').focus();
+}
