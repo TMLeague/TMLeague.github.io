@@ -1,10 +1,8 @@
-﻿@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/penalties"
-@using System.Text.Json
-@using System.Text.Json.Serialization
+﻿@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/configuration"
 @inject DivisionService DivisionService
 @inject IJSRuntime JsRuntime
 
-<h3>Penalties</h3>
+<h3>Division configuration form</h3>
 
 @if (PenaltiesForm == null)
 {
@@ -21,7 +19,9 @@
 }
 else
 {
-    <EditForm Model="@PenaltiesForm" OnSubmit="@HandleSubmit" class="text-start row mt-4">
+    <EditForm Model="@PenaltiesForm" OnValidSubmit="@HandleSubmit" class="text-start row mt-4">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
         <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
             <label for="name" class="form-label text-start">Name</label>
@@ -217,7 +217,7 @@ else
     public string? SeasonId { get; set; }
     [Parameter]
     public string? DivisionId { get; set; }
-
+    
     private PenaltiesForm? PenaltiesForm { get; set; }
 
     private bool _isInitialized;
@@ -254,7 +254,7 @@ else
             return;
 
         var division = new TMModels.Division(
-            PenaltiesForm.Name,
+            PenaltiesForm.Name!,
             PenaltiesForm.Judge,
             PenaltiesForm.Players.Select(player => player.Name).ToArray(),
             PenaltiesForm.Games.Select(game => game.TmId).ToArray(),

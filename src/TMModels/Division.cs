@@ -2,7 +2,7 @@
 
 public record Division(
     string Name,
-    string Judge,
+    string? Judge,
     string[] Players,
     int?[] Games,
     Penalty[]? Penalties,

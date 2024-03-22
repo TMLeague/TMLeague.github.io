@@ -11,7 +11,7 @@ public static class RouteProvider
     private const string Judge = "judge";
     private const string League = "league";
     private const string Leagues = "leagues";
-    private const string Penalties = "penalties";
+    private const string Configuration = "configuration";
     private const string Player = "player";
     private const string Season = "season";
     private const string Seasons = "seasons";
@@ -61,7 +61,7 @@ public static class RouteProvider
         $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
 
     public static string GetLeagueDivisionPenaltiesRoute(string leagueId, string seasonId, string divisionId) =>
-        $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{Penalties}";
+        $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{Configuration}";
 
     public static string GetLeagueJudgeRoute(string leagueId) =>
         $"{League}/{leagueId}/{Judge}";

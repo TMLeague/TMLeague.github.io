@@ -69,14 +69,14 @@ public class DivisionService
         var messages = await GetMessages(leagueId, seasonId, divisionId, division, cancellationToken);
 
         var games = await GetDivisionGames(division, cancellationToken).ToArrayAsync(cancellationToken);
-        return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge, results?.IsFinished ?? false, division.WinnerTitle,
+        return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge ?? string.Empty, results?.IsFinished ?? false, division.WinnerTitle,
             (results?.Players.Select(GetPlayerVm) ??
              division.Players.Select(s => new DivisionPlayerViewModel(s))).ToArray(),
             games,
             league.Scoring?.Tiebreakers ?? Tiebreakers.Default, messages,
             results?.GeneratedTime,
             league.GetSeasonNavigation(seasonId), season.GetDivisionNavigation(divisionId),
-            division.Replacements, division.Promotions, division.Relegations);
+            division.Replacements ?? Array.Empty<Replacement>(), division.Promotions, division.Relegations);
     }
 
     private async IAsyncEnumerable<DivisionGameViewModel?> GetDivisionGames(Division division, [EnumeratorCancellation] CancellationToken cancellationToken)
@@ -208,9 +208,9 @@ public class DivisionService
             players,
             division.Games.Select((game, i) => new PenaltyFormGame(i + 1) { TmId = game }).ToList(),
             division.Penalties?.Select((penalty, i) => new PenaltyFormPenalty(i + 1, penalty.Player, penalty.Game,
-                penalty.Points, penalty.Details)).ToList() ?? new List<PenaltyFormPenalty>(),
+                penalty.Points, penalty.Details)).ToList(),
             division.Replacements?.Select((replacement, i) => new PenaltyFormReplacement(i + 1, replacement.From,
-                replacement.To, replacement.Game)).ToList() ?? new List<PenaltyFormReplacement>(),
+                replacement.To, replacement.Game)).ToList(),
             true,
             division.WinnerTitle,
             division.Promotions,

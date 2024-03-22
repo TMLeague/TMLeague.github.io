@@ -1,35 +1,55 @@
-﻿namespace TMModels;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TMModels;
 
 public class PenaltiesForm
 {
-    public PenaltiesForm(string name, string judge, List<PenaltyFormPlayer> players, List<PenaltyFormGame> games, List<PenaltyFormPenalty> penalties, List<PenaltyFormReplacement> replacements, bool isFinished, string? winnerTitle, int? promotions, int? relegations)
+    public PenaltiesForm(string? name, string? judge, List<PenaltyFormPlayer>? players, List<PenaltyFormGame>? games, List<PenaltyFormPenalty>? penalties, List<PenaltyFormReplacement>? replacements, bool isFinished, string? winnerTitle, int? promotions, int? relegations)
     {
         Name = name;
         Judge = judge;
-        Players = players;
-        Games = games;
-        Penalties = penalties;
-        Replacements = replacements;
+        Players = players ?? new List<PenaltyFormPlayer>();
+        Games = games ?? new List<PenaltyFormGame>();
+        Penalties = penalties ?? new List<PenaltyFormPenalty>();
+        Replacements = replacements ?? new List<PenaltyFormReplacement>();
         IsFinished = isFinished;
         WinnerTitle = winnerTitle;
         Promotions = promotions;
         Relegations = relegations;
     }
 
-    public string Name { get; set; }
-    public string Judge { get; set; }
+    [Required(ErrorMessage = "Division must have name.")]
+    [MinLength(1, ErrorMessage = "Division must have name.")]
+    public string? Name { get; set; }
+
+    public string? Judge { get; set; }
+
+    [Required(ErrorMessage = "Division must have at least 3 players.")]
+    [CustomValidation(typeof(PenaltiesForm), nameof(ValidatePlayers))]
     public List<PenaltyFormPlayer> Players { get; set; }
+
     public List<PenaltyFormGame> Games { get; set; }
+
     public List<PenaltyFormPenalty> Penalties { get; set; }
+
     public List<PenaltyFormReplacement> Replacements { get; set; }
+
     public bool IsFinished { get; set; }
+
     public string? WinnerTitle { get; set; }
+
     public int? Promotions { get; set; }
+
     public int? Relegations { get; set; }
 
     public IEnumerable<PenaltyFormGame> GetPlayerGames(string? player) =>
         string.IsNullOrWhiteSpace(player) ? Games : Players
             .FirstOrDefault(p => p.Name == player)?.Games ?? Games;
+
+    public static ValidationResult? ValidatePlayers(IEnumerable<PenaltyFormPlayer> players, ValidationContext context) =>
+        players.Count(player => !string.IsNullOrWhiteSpace(player.Name)) < 3
+            ? new ValidationResult("Division must have at least 3 players.")
+            : ValidationResult.Success;
 }
 
 public record PenaltyFormPlayer(int Idx, List<PenaltyFormGame> Games)
