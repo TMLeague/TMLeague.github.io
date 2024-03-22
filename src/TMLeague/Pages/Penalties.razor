@@ -6,7 +6,7 @@
 
 <h3>Penalties</h3>
 
-@if (DivisionVm == null || PenaltiesForm == null)
+@if (PenaltiesForm == null)
 {
     <div class="row">
         @if (_isInitialized)
@@ -75,9 +75,93 @@ else
             </div>
         </div>
 
-        <h4>Penalties</h4>
+        <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+            <label for="penalties" class="form-label text-start">Penalties</label>
+            <div id="penaltiesHelp" class="form-text">
+                In first column choose penalized player, in the second a related game, then number of penalty points and finally short description about the penalty's reason.
+            </div>
+            <div class="row mb-3" style="min-width: 400px;">
+                <label class="col-3" style="min-width: 100px;">Player</label>
+                <label class="col-3" style="min-width: 100px;">Game</label>
+                <label class="col-3" style="min-width: 100px;">Points</label>
+                <label class="col-3" style="min-width: 100px;">Details</label>
+            </div>
+            @foreach (var formPenalty in PenaltiesForm.Penalties)
+            {
+                var penalty = formPenalty;
+                <div class="row mb-3" style="min-width: 400px;">
+                    <div class="col-3" style="min-width: 100px;">
+                        <InputSelect id="@($"penalty-{penalty.Idx}-player")" @bind-Value="@penalty.Player" class="form-select" aria-describedby="penaltiesHelp">
+                            <option value="">---</option>
+                            @foreach (var player in PenaltiesForm.Players)
+                            {
+                                <option value="@player.Name">@player.Name</option>
+                            }
+                        </InputSelect>
+                    </div>
+                    <div class="col-3" style="min-width: 100px;">
+                        <InputSelect id="@($"penalty-{penalty.Idx}-game")" @bind-Value="@penalty.Game" class="form-select" aria-describedby="penaltiesHelp">
+                            <option value="0">---</option>
+                            @foreach (var game in PenaltiesForm.GetPlayerGames(penalty.Player))
+                            {
+                                <option value="@game.TmId">@($"G{game.Idx}")</option>
+                            }
+                        </InputSelect>
+                    </div>
+                    <div class="col-3" style="min-width: 100px;">
+                        <InputNumber id="@($"penalty-{penalty.Idx}-points")" @bind-Value="@penalty.Points" placeholder="Points" class="form-control" aria-describedby="penaltiesHelp" />
+                    </div>
+                    <div class="col-3" style="min-width: 100px;">
+                        <InputText id="@($"penalty-{penalty.Idx}-details")" @bind-Value="@penalty.Details" placeholder="Details" class="form-control" aria-describedby="penaltiesHelp" />
+                    </div>
+                </div>
+            }
+            <div class="row mb-3">
+                <button type="button" class="btn btn-primary w-100" @onclick="AddPenalty">Add penalty</button>
+            </div>
+        </div>
 
-        <h4>Replacements</h4>
+        <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
+            <label for="replacements" class="form-label text-start">Replacements</label>
+            <div id="replacementsHelp" class="form-text">
+                If there are any replacements they should be added. "From" is an original player registered to the league, "To" is the TM name of the replacing player.
+            </div>
+            <div class="row mb-3" style="min-width: 400px;">
+                <label class="col-4" style="min-width: 100px;">From</label>
+                <label class="col-4" style="min-width: 100px;">To</label>
+                <label class="col-4" style="min-width: 100px;">Game</label>
+            </div>
+            @foreach (var formReplacement in PenaltiesForm.Replacements)
+            {
+                var replacement = formReplacement;
+                <div class="row mb-3" style="min-width: 400px;">
+                    <div class="col-4" style="min-width: 100px;">
+                        <InputSelect id="@($"replacement-{replacement.Idx}-from")" @bind-Value="@replacement.From" class="form-select" aria-describedby="replacementsHelp">
+                            <option value="">---</option>
+                            @foreach (var player in PenaltiesForm.Players)
+                            {
+                                <option value="@player.Name">@player.Name</option>
+                            }
+                        </InputSelect>
+                    </div>
+                    <div class="col-4" style="min-width: 100px;">
+                        <InputText id="@($"replacement-{replacement.Idx}-to")" @bind-Value="@replacement.To" placeholder="TM player name" class="form-control" aria-describedby="replacementsHelp" />
+                    </div>
+                    <div class="col-4" style="min-width: 100px;">
+                        <InputSelect id="@($"replacement-{replacement.Idx}-game")" @bind-Value="@replacement.Game" class="form-select" aria-describedby="replacementsHelp">
+                            <option value="0">---</option>
+                            @foreach (var game in PenaltiesForm.GetPlayerGames(replacement.From))
+                            {
+                                <option value="@game.TmId">@($"G{game.Idx}")</option>
+                            }
+                        </InputSelect>
+                    </div>
+                </div>
+            }
+            <div class="row mb-3">
+                <button type="button" class="btn btn-primary w-100" @onclick="AddReplacement">Add replacement</button>
+            </div>
+        </div>
 
         <div class="@(DivisionId == "d1" ? "col-sm-6" : "") p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
             <label for="isFinished" class="form-label text-start">Finished</label>
@@ -134,8 +218,6 @@ else
     [Parameter]
     public string? DivisionId { get; set; }
 
-    private DivisionViewModel? DivisionVm { get; set; }
-
     private PenaltiesForm? PenaltiesForm { get; set; }
 
     private bool _isInitialized;
@@ -145,8 +227,7 @@ else
         if (LeagueId == null || SeasonId == null || DivisionId == null)
             return;
 
-        DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId); // TODO: GetPenaltiesForm
-        SetPenaltiesForm();
+        PenaltiesForm = await DivisionService.GetPenaltiesForm(LeagueId, SeasonId, DivisionId);
 
         await base.OnParametersSetAsync();
     }
@@ -156,37 +237,8 @@ else
         if (LeagueId == null || SeasonId == null || DivisionId == null)
             return;
 
-        DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
-        SetPenaltiesForm();
+        PenaltiesForm = await DivisionService.GetPenaltiesForm(LeagueId, SeasonId, DivisionId);
         _isInitialized = true;
-    }
-
-    private void SetPenaltiesForm()
-    {
-        if (DivisionVm == null || PenaltiesForm != null)
-            return;
-
-        PenaltiesForm = new PenaltiesForm(
-            DivisionVm.DivisionName,
-            DivisionVm.Judge,
-            DivisionVm.Players.Select((player, i) => new PenaltyFormPlayer(i + 1) { Name = player.Name }).ToList(),
-            DivisionVm.Games.Select((game, i) => new PenaltyFormGame(i + 1) { TmId = game?.Id }).ToList(),
-            DivisionVm.Players
-                .SelectMany(player => player.Penalties
-                    .Where(penalty => penalty.Details != Penalty.BattlePenalty)
-                    .Select(penalty => new PenaltyForm(
-                        player.Name,
-                        penalty.Game,
-                        penalty.Points,
-                        penalty.Details))).ToList(),
-            DivisionVm.Replacements?.Select(replacement => new ReplacementForm(
-                replacement.From,
-                replacement.To,
-                replacement.Game)).ToList() ?? new List<ReplacementForm>(),
-            true,
-            DivisionVm.WinnerTitle,
-            DivisionVm.Promotions,
-            DivisionVm.Relegations);
     }
 
     static readonly JsonSerializerOptions JsonSerializerOptions = new()
@@ -206,8 +258,12 @@ else
             PenaltiesForm.Judge,
             PenaltiesForm.Players.Select(player => player.Name).ToArray(),
             PenaltiesForm.Games.Select(game => game.TmId).ToArray(),
-            PenaltiesForm.Penalties.Select(penalty => new Penalty(penalty.Player, penalty.Game, penalty.Points, penalty.Details)).ToArray(),
-            PenaltiesForm.Replacements.Select(replacement => new Replacement(replacement.From, replacement.To, replacement.Game)).ToArray(),
+            PenaltiesForm.Penalties
+                .Where(penalty => !string.IsNullOrWhiteSpace(penalty.Player))
+                .Select(penalty => new Penalty(penalty.Player!, penalty.Game, penalty.Points, penalty.Details ?? string.Empty)).ToArray(),
+            PenaltiesForm.Replacements
+                .Where(replacement => !string.IsNullOrWhiteSpace(replacement.From) && !string.IsNullOrWhiteSpace(replacement.To) && replacement.Game != null)
+                .Select(replacement => new Replacement(replacement.From!, replacement.To!, replacement.Game!.Value)).ToArray(),
             PenaltiesForm.IsFinished,
             PenaltiesForm.WinnerTitle,
             PenaltiesForm.Promotions,
@@ -218,7 +274,17 @@ else
         await JsRuntime.InvokeVoidAsync("openInNewTab", RouteProvider.GetGithubDivision(LeagueId, SeasonId, DivisionId));
     }
 
-    private void AddPlayer() => PenaltiesForm?.Players.Add(new PenaltyFormPlayer(PenaltiesForm.Players.Count + 1));
+    private void AddPlayer() => PenaltiesForm?.Players.Add(new PenaltyFormPlayer(PenaltiesForm.Players.Count + 1, new List<PenaltyFormGame>()));
 
     private void AddGame() => PenaltiesForm?.Games.Add(new PenaltyFormGame(PenaltiesForm.Games.Count + 1));
+
+    private void AddPenalty() => PenaltiesForm?.Penalties.Add(new PenaltyFormPenalty(PenaltiesForm.Penalties.Count + 1)
+        {
+            Player = PenaltiesForm.Penalties.LastOrDefault()?.Player
+        });
+
+    private void AddReplacement() => PenaltiesForm?.Replacements.Add(new PenaltyFormReplacement(PenaltiesForm.Replacements.Count + 1)
+        {
+            From = PenaltiesForm.Replacements.LastOrDefault()?.From
+        });
 }

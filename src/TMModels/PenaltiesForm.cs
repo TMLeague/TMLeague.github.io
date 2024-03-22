@@ -2,7 +2,7 @@
 
 public class PenaltiesForm
 {
-    public PenaltiesForm(string name, string judge, List<PenaltyFormPlayer> players, List<PenaltyFormGame> games, List<PenaltyForm> penalties, List<ReplacementForm> replacements, bool isFinished, string? winnerTitle, int? promotions, int? relegations)
+    public PenaltiesForm(string name, string judge, List<PenaltyFormPlayer> players, List<PenaltyFormGame> games, List<PenaltyFormPenalty> penalties, List<PenaltyFormReplacement> replacements, bool isFinished, string? winnerTitle, int? promotions, int? relegations)
     {
         Name = name;
         Judge = judge;
@@ -20,27 +20,36 @@ public class PenaltiesForm
     public string Judge { get; set; }
     public List<PenaltyFormPlayer> Players { get; set; }
     public List<PenaltyFormGame> Games { get; set; }
-    public List<PenaltyForm> Penalties { get; set; }
-    public List<ReplacementForm> Replacements { get; set; }
+    public List<PenaltyFormPenalty> Penalties { get; set; }
+    public List<PenaltyFormReplacement> Replacements { get; set; }
     public bool IsFinished { get; set; }
     public string? WinnerTitle { get; set; }
     public int? Promotions { get; set; }
     public int? Relegations { get; set; }
+
+    public IEnumerable<PenaltyFormGame> GetPlayerGames(string? player) =>
+        string.IsNullOrWhiteSpace(player) ? Games : Players
+            .FirstOrDefault(p => p.Name == player)?.Games ?? Games;
 }
 
-public record PenaltyFormPlayer(int Idx)
+public record PenaltyFormPlayer(int Idx, List<PenaltyFormGame> Games)
 {
     public string Name { get; set; } = string.Empty;
 }
 
 public record PenaltyFormGame(int Idx)
 {
+    public PenaltyFormGame(int? tmId, int idx) : this(idx)
+    {
+        TmId = tmId;
+    }
+
     public int? TmId { get; set; }
 }
 
-public class PenaltyForm
+public record PenaltyFormPenalty(int Idx)
 {
-    public PenaltyForm(string player, int? game, double points, string details)
+    public PenaltyFormPenalty(int idx, string player, int? game, double points, string details) : this(idx)
     {
         Player = player;
         Game = game;
@@ -48,22 +57,22 @@ public class PenaltyForm
         Details = details;
     }
 
-    public string Player { get; set; }
+    public string? Player { get; set; }
     public int? Game { get; set; }
     public double Points { get; set; }
-    public string Details { get; set; }
+    public string? Details { get; set; }
 }
 
-public class ReplacementForm
+public record PenaltyFormReplacement(int Idx)
 {
-    public ReplacementForm(string from, string to, int game)
+    public PenaltyFormReplacement(int idx, string from, string to, int game) : this(idx)
     {
         From = from;
         To = to;
         Game = game;
     }
 
-    public string From { get; set; }
-    public string To { get; set; }
-    public int Game { get; set; }
+    public string? From { get; set; }
+    public string? To { get; set; }
+    public int? Game { get; set; }
 }
