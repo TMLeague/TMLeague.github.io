@@ -19,7 +19,7 @@
 }
 else
 {
-    <EditForm Model="@DivisionConfigurationForm" OnValidSubmit="@HandleSubmit" class="text-start row mt-4">
+    <EditForm Model="@DivisionConfigurationForm" OnInvalidSubmit="@ScrollToTop" OnValidSubmit="@HandleSubmit" class="text-start row mt-4">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -252,6 +252,11 @@ else
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
         };
 
+    private async Task ScrollToTop(EditContext context)
+    {
+        await JsRuntime.InvokeVoidAsync("scrollToTop");
+    }
+
     private async Task HandleSubmit(EditContext context)
     {
         if (DivisionConfigurationForm == null)
@@ -324,4 +329,5 @@ else
         foreach (var (replacement, i) in DivisionConfigurationForm.Replacements.Select((r, i) => (r, i)))
             replacement.Idx = i + 1;
     }
+
 }

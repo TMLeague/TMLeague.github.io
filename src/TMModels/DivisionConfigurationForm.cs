@@ -32,8 +32,10 @@ public class DivisionConfigurationForm
     [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidateGames))]
     public List<DivisionConfigurationFormGame> Games { get; set; }
 
+    [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidatePenalties))]
     public List<DivisionConfigurationFormPenalty> Penalties { get; set; }
 
+    [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidateReplacements))]
     public List<DivisionConfigurationFormReplacement> Replacements { get; set; }
 
     public bool IsFinished { get; set; }
@@ -51,20 +53,47 @@ public class DivisionConfigurationForm
     public static ValidationResult? ValidatePlayers(List<DivisionConfigurationFormPlayer> players, ValidationContext context)
     {
         if (players.Any(player => string.IsNullOrWhiteSpace(player.Name)))
-            return new ValidationResult("Player name is required.");
+            return new ValidationResult("Division player name is required.");
 
-        if (players.Select(player => player.Name).Distinct().Count() == players.Count)
-            return new ValidationResult("Players contain duplicates.");
+        if (players.Select(player => player.Name).Distinct().Count() < players.Count)
+            return new ValidationResult("Division players contain duplicates.");
 
         return players.Count(player => !string.IsNullOrWhiteSpace(player.Name)) < 3
             ? new ValidationResult("Division must have at least 3 players.")
             : ValidationResult.Success;
     }
 
-    public static ValidationResult? ValidateGames(IEnumerable<DivisionConfigurationFormGame> games, ValidationContext context) =>
-        games.Count(game => game.TmId > 0) < 3
+    public static ValidationResult? ValidateGames(List<DivisionConfigurationFormGame> games, ValidationContext context)
+    {
+        if (games.Select(game => game.TmId).Distinct().Count() < games.Count)
+            return new ValidationResult("Division games contain duplicates.");
+
+        return games.Count(game => game.TmId > 0) < 3
             ? new ValidationResult("Division must have at least 3 games.")
             : ValidationResult.Success;
+    }
+
+    public static ValidationResult? ValidatePenalties(IEnumerable<DivisionConfigurationFormPenalty> penalties, ValidationContext context) => 
+        penalties.Any(penalty => string.IsNullOrWhiteSpace(penalty.Player)) 
+            ? new ValidationResult("Penalty player name is required.")
+            : ValidationResult.Success;
+
+    public static ValidationResult? ValidateReplacements(IEnumerable<DivisionConfigurationFormReplacement> replacements, ValidationContext context)
+    {
+        foreach (var replacement in replacements)
+        {
+            if (string.IsNullOrWhiteSpace(replacement.From))
+                return new ValidationResult("Replaced player name (from) is required.");
+
+            if (string.IsNullOrWhiteSpace(replacement.To))
+                return new ValidationResult("Replacing player name (to) is required.");
+
+            if (replacement.Game is null or < 1)
+                return new ValidationResult("Replacement game is required.");
+        }
+
+        return ValidationResult.Success;
+    }
 }
 
 public record DivisionConfigurationFormPlayer(int Idx, List<DivisionConfigurationFormGame> Games, string Name = "")

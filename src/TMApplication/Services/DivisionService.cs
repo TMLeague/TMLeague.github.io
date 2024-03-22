@@ -202,6 +202,7 @@ public class DivisionService
             .Select((player, i) => new DivisionConfigurationFormPlayer(i + 1, GetGames(player, division.Games, results), player))
             .ToList();
 
+        var leagueDivision = league.MainDivisions.FirstOrDefault(d => d.Id == divisionId);
         return new DivisionConfigurationForm(
             division.Name,
             division.Judge,
@@ -213,8 +214,8 @@ public class DivisionService
                 replacement.To, replacement.Game)).ToList(),
             true,
             division.WinnerTitle,
-            division.Promotions,
-            division.Relegations);
+            division.Promotions ?? leagueDivision?.Promotions,
+            division.Relegations ?? leagueDivision?.Relegations);
     }
 
     private static List<DivisionConfigurationFormGame> GetGames(string player, int?[] games, Results? results) =>
