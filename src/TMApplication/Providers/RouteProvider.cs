@@ -5,10 +5,13 @@ namespace TMApplication.Providers;
 public static class RouteProvider
 {
     private const string Division = "division";
+    private const string Divisions = "divisions";
     private const string Game = "game";
     private const string Index = "index";
     private const string Judge = "judge";
     private const string League = "league";
+    private const string Leagues = "leagues";
+    private const string Configuration = "configuration";
     private const string Player = "player";
     private const string Season = "season";
     private const string Seasons = "seasons";
@@ -57,6 +60,9 @@ public static class RouteProvider
     public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId) =>
         $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
 
+    public static string GetLeagueDivisionPenaltiesRoute(string leagueId, string seasonId, string divisionId) =>
+        $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{Configuration}";
+
     public static string GetLeagueJudgeRoute(string leagueId) =>
         $"{League}/{leagueId}/{Judge}";
 
@@ -67,4 +73,7 @@ public static class RouteProvider
 
     public static string GetGameRoute(int gameId) =>
         $"{Game}/{gameId}";
+
+    public static string GetGithubDivision(string? leagueId, string? seasonId, string? divisionId, bool edit = true) =>
+        $"https://github.com/TMLeague/TMLeague.github.io/{(edit ? "edit" : "blob")}/master/src/TMLeague/wwwroot/data/{Leagues}/{leagueId}/{Seasons}/{seasonId}/{Divisions}/{divisionId}.json";
 }

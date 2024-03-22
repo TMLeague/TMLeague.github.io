@@ -16,7 +16,10 @@ public record DivisionViewModel(
     NotificationMessage[] Messages,
     DateTimeOffset? GeneratedTime,
     Navigation SeasonNavigation,
-    Navigation DivisionNavigation);
+    Navigation DivisionNavigation,
+    Replacement[] Replacements,
+    int? Promotions,
+    int? Relegations);
 
 public record DivisionPlayerViewModel(
     string Name,

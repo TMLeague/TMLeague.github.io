@@ -173,7 +173,7 @@ internal class DivisionImportingService
             .Select(penalty => new PlayerPenalty(penalty.Game, penalty.Points, penalty.Details));
         var battlePenalties = houseResults
             .Where(houseResult => houseResult.BattlePenalty > 0)
-            .Select(houseResult => new PlayerPenalty(houseResult.Game, houseResult.BattlePenalty, "for not enough battles before 10th round"));
+            .Select(houseResult => new PlayerPenalty(houseResult.Game, houseResult.BattlePenalty, Penalty.BattlePenalty));
         return (divisionPenalties?.Concat(battlePenalties) ?? battlePenalties).ToArray();
     }
 
