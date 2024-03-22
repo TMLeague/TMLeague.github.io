@@ -4,7 +4,7 @@
 
 <h3>Division configuration form</h3>
 
-@if (PenaltiesForm == null)
+@if (DivisionConfigurationForm == null)
 {
     <div class="row">
         @if (_isInitialized)
@@ -19,20 +19,20 @@
 }
 else
 {
-    <EditForm Model="@PenaltiesForm" OnValidSubmit="@HandleSubmit" class="text-start row mt-4">
+    <EditForm Model="@DivisionConfigurationForm" OnValidSubmit="@HandleSubmit" class="text-start row mt-4">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
         <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
             <label for="name" class="form-label text-start">Name</label>
             <div id="nameHelp" class="form-text">A name of the division</div>
-            <InputText id="name" @bind-Value="PenaltiesForm.Name" placeholder="Name" class="form-control" aria-describedby="nameHelp" />
+            <InputText id="name" @bind-Value="DivisionConfigurationForm.Name" placeholder="Name" class="form-control" aria-describedby="nameHelp" />
         </div>
 
         <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
             <label for="judge" class="form-label text-start">Judge</label>
             <div id="judgeHelp" class="form-text">A judge of the division</div>
-            <InputText id="judge" @bind-Value="PenaltiesForm.Judge" placeholder="TM judge name" class="form-control" aria-describedby="judgeHelp" />
+            <InputText id="judge" @bind-Value="DivisionConfigurationForm.Judge" placeholder="TM judge name" class="form-control" aria-describedby="judgeHelp" />
         </div>
 
         <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
@@ -40,7 +40,7 @@ else
             <div id="playersHelp" class="form-text">
                 Please insert the <b>Thronemaster's names of players</b> from the <b>Division</b>.
             </div>
-            @foreach (var formPlayer in PenaltiesForm.Players)
+            @foreach (var formPlayer in DivisionConfigurationForm.Players)
             {
                 var player = formPlayer;
                 <div class="row mb-3">
@@ -60,7 +60,7 @@ else
             <div id="gamesHelp" class="form-text">
                 Please insert the <b>Thronemaster's IDs of games</b> from the <b>Division</b>.
             </div>
-            @foreach (var formGame in PenaltiesForm.Games)
+            @foreach (var formGame in DivisionConfigurationForm.Games)
             {
                 var game = formGame;
                 <div class="row mb-3">
@@ -86,14 +86,14 @@ else
                 <label class="col-3" style="min-width: 100px;">Points</label>
                 <label class="col-3" style="min-width: 100px;">Details</label>
             </div>
-            @foreach (var formPenalty in PenaltiesForm.Penalties)
+            @foreach (var formPenalty in DivisionConfigurationForm.Penalties)
             {
                 var penalty = formPenalty;
                 <div class="row mb-3" style="min-width: 400px;">
                     <div class="col-3" style="min-width: 100px;">
                         <InputSelect id="@($"penalty-{penalty.Idx}-player")" @bind-Value="@penalty.Player" class="form-select" aria-describedby="penaltiesHelp">
                             <option value="">---</option>
-                            @foreach (var player in PenaltiesForm.Players)
+                            @foreach (var player in DivisionConfigurationForm.Players)
                             {
                                 <option value="@player.Name">@player.Name</option>
                             }
@@ -102,7 +102,7 @@ else
                     <div class="col-3" style="min-width: 100px;">
                         <InputSelect id="@($"penalty-{penalty.Idx}-game")" @bind-Value="@penalty.Game" class="form-select" aria-describedby="penaltiesHelp">
                             <option value="0">---</option>
-                            @foreach (var game in PenaltiesForm.GetPlayerGames(penalty.Player))
+                            @foreach (var game in DivisionConfigurationForm.GetPlayerGames(penalty.Player))
                             {
                                 <option value="@game.TmId">@($"G{game.Idx}")</option>
                             }
@@ -131,14 +131,14 @@ else
                 <label class="col-4" style="min-width: 100px;">To</label>
                 <label class="col-4" style="min-width: 100px;">Game</label>
             </div>
-            @foreach (var formReplacement in PenaltiesForm.Replacements)
+            @foreach (var formReplacement in DivisionConfigurationForm.Replacements)
             {
                 var replacement = formReplacement;
                 <div class="row mb-3" style="min-width: 400px;">
                     <div class="col-4" style="min-width: 100px;">
                         <InputSelect id="@($"replacement-{replacement.Idx}-from")" @bind-Value="@replacement.From" class="form-select" aria-describedby="replacementsHelp">
                             <option value="">---</option>
-                            @foreach (var player in PenaltiesForm.Players)
+                            @foreach (var player in DivisionConfigurationForm.Players)
                             {
                                 <option value="@player.Name">@player.Name</option>
                             }
@@ -150,7 +150,7 @@ else
                     <div class="col-4" style="min-width: 100px;">
                         <InputSelect id="@($"replacement-{replacement.Idx}-game")" @bind-Value="@replacement.Game" class="form-select" aria-describedby="replacementsHelp">
                             <option value="0">---</option>
-                            @foreach (var game in PenaltiesForm.GetPlayerGames(replacement.From))
+                            @foreach (var game in DivisionConfigurationForm.GetPlayerGames(replacement.From))
                             {
                                 <option value="@game.TmId">@($"G{game.Idx}")</option>
                             }
@@ -166,7 +166,7 @@ else
         <div class="@(DivisionId == "d1" ? "col-sm-6" : "") p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
             <label for="isFinished" class="form-label text-start">Finished</label>
             <div class="d-flex align-items-center">
-                <InputCheckbox id="isFinished" @bind-Value="PenaltiesForm.IsFinished" class="form-check-input me-2" aria-describedby="isFinishedHelp" />
+                <InputCheckbox id="isFinished" @bind-Value="DivisionConfigurationForm.IsFinished" class="form-check-input me-2" aria-describedby="isFinishedHelp" />
                 <div id="isFinishedHelp" class="form-text m-0">
                     Uncheck if division is not finished yet
                 </div>
@@ -178,20 +178,20 @@ else
             <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
                 <label for="winnerTitle" class="form-label text-start">Winner title</label>
                 <div id="winnerTitleHelp" class="form-text">A winner title</div>
-                <InputText id="winnerTitle" @bind-Value="PenaltiesForm.WinnerTitle" placeholder="The King" class="form-control" aria-describedby="winnerTitleHelp" />
+                <InputText id="winnerTitle" @bind-Value="DivisionConfigurationForm.WinnerTitle" placeholder="The King" class="form-control" aria-describedby="winnerTitleHelp" />
             </div>
         }
 
         <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
             <label for="promotions" class="form-label text-start">Promotions</label>
             <div id="promotionsHelp" class="form-text">A number of promoted players to the higher division</div>
-            <InputNumber id="promotions" @bind-Value="PenaltiesForm.Promotions" placeholder="0" class="form-control" aria-describedby="promotionsHelp" />
+            <InputNumber id="promotions" @bind-Value="DivisionConfigurationForm.Promotions" placeholder="0" class="form-control" aria-describedby="promotionsHelp" />
         </div>
 
         <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
             <label for="relegations" class="form-label text-start">Relegations</label>
             <div id="relegationsHelp" class="form-text">A number of relegated players to the lower division</div>
-            <InputNumber id="relegations" @bind-Value="PenaltiesForm.Relegations" placeholder="0" class="form-control" aria-describedby="relegationsHelp" />
+            <InputNumber id="relegations" @bind-Value="DivisionConfigurationForm.Relegations" placeholder="0" class="form-control" aria-describedby="relegationsHelp" />
         </div>
 
         <div class="alert alert-warning p-1 mb-1 text-center" role="alert">
@@ -218,7 +218,7 @@ else
     [Parameter]
     public string? DivisionId { get; set; }
     
-    private PenaltiesForm? PenaltiesForm { get; set; }
+    private DivisionConfigurationForm? DivisionConfigurationForm { get; set; }
 
     private bool _isInitialized;
 
@@ -227,7 +227,7 @@ else
         if (LeagueId == null || SeasonId == null || DivisionId == null)
             return;
 
-        PenaltiesForm = await DivisionService.GetPenaltiesForm(LeagueId, SeasonId, DivisionId);
+        DivisionConfigurationForm = await DivisionService.GetDivisionConfigurationForm(LeagueId, SeasonId, DivisionId);
 
         await base.OnParametersSetAsync();
     }
@@ -237,7 +237,7 @@ else
         if (LeagueId == null || SeasonId == null || DivisionId == null)
             return;
 
-        PenaltiesForm = await DivisionService.GetPenaltiesForm(LeagueId, SeasonId, DivisionId);
+        DivisionConfigurationForm = await DivisionService.GetDivisionConfigurationForm(LeagueId, SeasonId, DivisionId);
         _isInitialized = true;
     }
 
@@ -250,41 +250,41 @@ else
 
     private async Task HandleSubmit(EditContext context)
     {
-        if (PenaltiesForm == null)
+        if (DivisionConfigurationForm == null)
             return;
 
         var division = new TMModels.Division(
-            PenaltiesForm.Name!,
-            PenaltiesForm.Judge,
-            PenaltiesForm.Players.Select(player => player.Name).ToArray(),
-            PenaltiesForm.Games.Select(game => game.TmId).ToArray(),
-            PenaltiesForm.Penalties
+            DivisionConfigurationForm.Name!,
+            DivisionConfigurationForm.Judge,
+            DivisionConfigurationForm.Players.Select(player => player.Name).ToArray(),
+            DivisionConfigurationForm.Games.Select(game => game.TmId).ToArray(),
+            DivisionConfigurationForm.Penalties
                 .Where(penalty => !string.IsNullOrWhiteSpace(penalty.Player))
                 .Select(penalty => new Penalty(penalty.Player!, penalty.Game, penalty.Points, penalty.Details ?? string.Empty)).ToArray(),
-            PenaltiesForm.Replacements
+            DivisionConfigurationForm.Replacements
                 .Where(replacement => !string.IsNullOrWhiteSpace(replacement.From) && !string.IsNullOrWhiteSpace(replacement.To) && replacement.Game != null)
                 .Select(replacement => new Replacement(replacement.From!, replacement.To!, replacement.Game!.Value)).ToArray(),
-            PenaltiesForm.IsFinished,
-            PenaltiesForm.WinnerTitle,
-            PenaltiesForm.Promotions,
-            PenaltiesForm.Relegations);
+            DivisionConfigurationForm.IsFinished,
+            DivisionConfigurationForm.WinnerTitle,
+            DivisionConfigurationForm.Promotions,
+            DivisionConfigurationForm.Relegations);
         var data = JsonSerializer.Serialize(division, JsonSerializerOptions);
         await JsRuntime.InvokeVoidAsync("copyClipboard", data);
 
         await JsRuntime.InvokeVoidAsync("openInNewTab", RouteProvider.GetGithubDivision(LeagueId, SeasonId, DivisionId));
     }
 
-    private void AddPlayer() => PenaltiesForm?.Players.Add(new PenaltyFormPlayer(PenaltiesForm.Players.Count + 1, new List<PenaltyFormGame>()));
+    private void AddPlayer() => DivisionConfigurationForm?.Players.Add(new DivisionConfigurationFormPlayer(DivisionConfigurationForm.Players.Count + 1, new List<DivisionConfigurationFormGame>()));
 
-    private void AddGame() => PenaltiesForm?.Games.Add(new PenaltyFormGame(PenaltiesForm.Games.Count + 1));
+    private void AddGame() => DivisionConfigurationForm?.Games.Add(new DivisionConfigurationFormGame(DivisionConfigurationForm.Games.Count + 1));
 
-    private void AddPenalty() => PenaltiesForm?.Penalties.Add(new PenaltyFormPenalty(PenaltiesForm.Penalties.Count + 1)
+    private void AddPenalty() => DivisionConfigurationForm?.Penalties.Add(new DivisionConfigurationFormPenalty(DivisionConfigurationForm.Penalties.Count + 1)
         {
-            Player = PenaltiesForm.Penalties.LastOrDefault()?.Player
+            Player = DivisionConfigurationForm.Penalties.LastOrDefault()?.Player
         });
 
-    private void AddReplacement() => PenaltiesForm?.Replacements.Add(new PenaltyFormReplacement(PenaltiesForm.Replacements.Count + 1)
+    private void AddReplacement() => DivisionConfigurationForm?.Replacements.Add(new DivisionConfigurationFormReplacement(DivisionConfigurationForm.Replacements.Count + 1)
         {
-            From = PenaltiesForm.Replacements.LastOrDefault()?.From
+            From = DivisionConfigurationForm.Replacements.LastOrDefault()?.From
         });
 }

@@ -176,7 +176,7 @@ public class DivisionService
         return gameIdx < 0 ? null : $"G{gameIdx + 1}";
     }
 
-    public async Task<PenaltiesForm?> GetPenaltiesForm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
+    public async Task<DivisionConfigurationForm?> GetDivisionConfigurationForm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
     {
         var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
         if (league == null)
@@ -199,17 +199,17 @@ public class DivisionService
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
 
         var players = division.Players
-            .Select((player, i) => new PenaltyFormPlayer(i + 1, GetGames(player, division.Games, results)) { Name = player })
+            .Select((player, i) => new DivisionConfigurationFormPlayer(i + 1, GetGames(player, division.Games, results)) { Name = player })
             .ToList();
 
-        return new PenaltiesForm(
+        return new DivisionConfigurationForm(
             division.Name,
             division.Judge,
             players,
-            division.Games.Select((game, i) => new PenaltyFormGame(i + 1) { TmId = game }).ToList(),
-            division.Penalties?.Select((penalty, i) => new PenaltyFormPenalty(i + 1, penalty.Player, penalty.Game,
+            division.Games.Select((game, i) => new DivisionConfigurationFormGame(i + 1) { TmId = game }).ToList(),
+            division.Penalties?.Select((penalty, i) => new DivisionConfigurationFormPenalty(i + 1, penalty.Player, penalty.Game,
                 penalty.Points, penalty.Details)).ToList(),
-            division.Replacements?.Select((replacement, i) => new PenaltyFormReplacement(i + 1, replacement.From,
+            division.Replacements?.Select((replacement, i) => new DivisionConfigurationFormReplacement(i + 1, replacement.From,
                 replacement.To, replacement.Game)).ToList(),
             true,
             division.WinnerTitle,
@@ -217,9 +217,9 @@ public class DivisionService
             division.Relegations);
     }
 
-    private static List<PenaltyFormGame> GetGames(string player, int?[] games, Results? results) =>
+    private static List<DivisionConfigurationFormGame> GetGames(string player, int?[] games, Results? results) =>
         results?.Players
             .FirstOrDefault(result => result.Player == player)?.Houses
-            .Select(result => new PenaltyFormGame(result.Game, games.IndexOf(result.Game) + 1))
-            .ToList() ?? new List<PenaltyFormGame>();
+            .Select(result => new DivisionConfigurationFormGame(result.Game, games.IndexOf(result.Game) + 1))
+            .ToList() ?? new List<DivisionConfigurationFormGame>();
 }
