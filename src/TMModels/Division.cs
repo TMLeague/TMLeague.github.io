@@ -16,7 +16,10 @@ public record Penalty(
     string Player,
     int? Game,
     double Points,
-    string Details);
+    string Details)
+{
+    public const string BattlePenalty = "for not enough battles before 10th round";
+};
 
 public record Replacement(
     string From,
