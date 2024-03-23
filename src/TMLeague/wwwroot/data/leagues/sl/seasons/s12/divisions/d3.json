@@ -1,32 +1,62 @@
-
 {
-  "name": "Division 3",
-  "judge": "NIghtCrawler",
-  "players": [
-    "Stefano",
-    "mafiagustawa",
-    "Guiscard",
-    "PawcioF",
-    "Imrihil",
-    "fsilverwood",
-    "Sean_Snow",
-    "Kamil_J",
-    "ZedelaII",
-    "viblz"
-  ],
-  "games": [
-    302073,
-    302101,
-    302070,
-    302065,
-    302112,
-    302077,
-    302095,
-    302085,
-    302064,
-    302072
-  ],
-  "penalties": [],
-  "relegations": 4,
-  "isFinished": false
+    "name": "Division 3",
+    "judge": "NIghtCrawler",
+    "players": [
+        "Stefano",
+        "mafiagustawa",
+        "Guiscard",
+        "PawcioF",
+        "Imrihil",
+        "fsilverwood",
+        "Sean_Snow",
+        "Kamil_J",
+        "ZedelaII",
+        "viblz"
+    ],
+    "games": [
+        302073,
+        302101,
+        302070,
+        302065,
+        302112,
+        302077,
+        302095,
+        302085,
+        302064,
+        302072
+    ],
+    "penalties": [
+        {
+            "player": "PawcioF",
+            "game": 302072,
+            "points": 5,
+            "details": "KM penalty"
+        },
+        {
+            "player": "PawcioF",
+            "game": 302077,
+            "points": 2,
+            "details": "No stalling"
+        },
+        {
+            "player": "viblz",
+            "game": 302077,
+            "points": 3,
+            "details": "No stalling"
+        },
+        {
+            "player": "Guiscard",
+            "game": 302072,
+            "points": 3,
+            "details": "No stalling"
+        },
+        {
+            "player": "fsilverwood",
+            "game": 302072,
+            "points": 2,
+            "details": "No stalling"
+        }
+    ],
+    "relegations": 4,
+    "isFinished": true
 }
