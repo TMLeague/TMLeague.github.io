@@ -30,13 +30,19 @@ internal class DivisionImportingService
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} import started...",
             leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
 
-        var division = await _fileLoader.LoadDivision(leagueId, seasonId, divisionId, cancellationToken);
+        var division = await GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null && divisionId != divisionId.ToLower())
+        {
+            divisionId = divisionId.ToLower();
+            division = await GetDivision(leagueId, seasonId, divisionId, cancellationToken);
+        }
         if (division == null)
         {
-            _logger.LogError("   Division {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
-                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
-            return;
+            divisionId = $"d{divisionId.ToLower()}";
+            division = await GetDivision(leagueId, seasonId, divisionId, cancellationToken);
         }
+        if (division == null)
+            return;
 
         var oldResults = await _fileLoader.LoadResults(leagueId, seasonId, divisionId, cancellationToken);
         if (oldResults != null)
@@ -86,6 +92,19 @@ internal class DivisionImportingService
 
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} imported.",
             leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+    }
+
+    private async Task<Division?> GetDivision(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken)
+    {
+        var division = await _fileLoader.LoadDivision(leagueId, seasonId, divisionId, cancellationToken);
+        if (division == null)
+            _logger.LogError("   Division {leagueId}/{seasonId}/{divisionId} cannot be deserialized correctly.",
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+        else
+            _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} deserialized correctly.",
+                leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
+
+        return division;
     }
 
     private static PlayerResult GetPlayerResults(string playerName, IEnumerable<Game> games, Scoring scoring, Division division)

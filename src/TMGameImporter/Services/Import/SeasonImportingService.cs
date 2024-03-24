@@ -27,13 +27,19 @@ internal class SeasonImportingService
         _logger.LogInformation("  Season {leagueId}/{seasonId} import started...",
             leagueId.ToUpper(), seasonId.ToUpper());
 
-        var season = await _fileLoader.LoadSeason(leagueId, seasonId, cancellationToken);
+        var season = await GetSeason(leagueId, seasonId, cancellationToken);
+        if (season == null && seasonId != seasonId.ToLower())
+        {
+            seasonId = seasonId.ToLower();
+            season = await GetSeason(leagueId, seasonId, cancellationToken);
+        }
         if (season == null)
         {
-            _logger.LogError("  Season {leagueId}/{seasonId} cannot be deserialized correctly.",
-                leagueId.ToUpper(), seasonId.ToUpper());
-            return;
+            seasonId = $"s{seasonId.ToLower()}";
+            season = await GetSeason(leagueId, seasonId, cancellationToken);
         }
+        if (season == null)
+            return;
 
         if (string.IsNullOrEmpty(_options.Value.Division))
         {
@@ -53,5 +59,17 @@ internal class SeasonImportingService
 
         _logger.LogInformation("  Season {leagueId}/{seasonId} imported.",
             leagueId.ToUpper(), seasonId.ToUpper());
+    }
+
+    private async Task<Season?> GetSeason(string leagueId, string seasonId, CancellationToken cancellationToken)
+    {
+        var season = await _fileLoader.LoadSeason(leagueId, seasonId, cancellationToken);
+        if (season == null)
+            _logger.LogError("  Season {leagueId}/{seasonId} cannot be deserialized correctly.",
+                leagueId.ToUpper(), seasonId.ToUpper());
+        else
+            _logger.LogInformation("  Season {leagueId}/{seasonId} deserialized correctly.",
+                leagueId.ToUpper(), seasonId.ToUpper());
+        return season;
     }
 }

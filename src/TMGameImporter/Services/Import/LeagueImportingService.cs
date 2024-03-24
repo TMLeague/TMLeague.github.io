@@ -26,13 +26,14 @@ internal class LeagueImportingService
     {
         _logger.LogInformation(" League {leagueId} import started...", leagueId.ToUpper());
 
-        var league = await _fileLoader.LoadLeague(leagueId, cancellationToken);
-        if (league == null)
+        var league = await GetLeague(leagueId, cancellationToken);
+        if (league == null && leagueId != leagueId.ToLower())
         {
-            _logger.LogError(" League {leagueId} cannot be deserialized correctly.",
-                leagueId.ToUpper());
-            return;
+            leagueId = leagueId.ToLower();
+            league = await GetLeague(leagueId, cancellationToken);
         }
+        if (league == null)
+            return;
 
         var leagueScoring = league.Scoring ?? new Scoring(2, 1, 4, 0, 0, 0, 0, Tiebreakers.Default);
         if (string.IsNullOrEmpty(_options.Value.Season))
@@ -46,5 +47,15 @@ internal class LeagueImportingService
         }
 
         _logger.LogInformation(" League {leagueId} imported.", leagueId.ToUpper());
+    }
+
+    private async Task<League?> GetLeague(string leagueId, CancellationToken cancellationToken)
+    {
+        var league = await _fileLoader.LoadLeague(leagueId, cancellationToken);
+        if (league == null)
+            _logger.LogError(" League {leagueId} cannot be deserialized correctly.", leagueId.ToUpper());
+        else
+            _logger.LogInformation(" League {leagueId} deserialized correctly.", leagueId.ToUpper());
+        return league;
     }
 }
