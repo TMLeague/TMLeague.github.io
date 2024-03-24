@@ -10,6 +10,7 @@ on:
     - master
     paths-ignore:
     - .github/workflows/**
+    - src/TMLeague/wwwroot/data/leagues/**
 
 jobs:
   deploy-to-github-pages:
