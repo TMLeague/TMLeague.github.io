@@ -1,7 +1,7 @@
 {
   "entryAssembly": "TMLeague",
   "resources": {
-    "hash": "sha256-4K5nzLvFLhnL0Kyr+9vw6ZlIDEOSDkyJjN04m8qVpdw=",
+    "hash": "sha256-Xuc7teNDJhUSsJRpMcL4cSERRJcL29P65mBDIn+NxrY=",
     "runtime": {
       "dotnet.7.0.17.l5d3yuhyfu.js": "sha256-E0n6hbqoR0T+sf5KQWRykPOVHyupoVmuMAlrNdZv/58=",
       "dotnet.timezones.blat": "sha256-GzDmKQksbAkzNe1GNrGcVtpc0naGXOFCpUzq3c/pV+c=",
@@ -49,17 +49,17 @@
       "System.ObjectModel.dll": "sha256-wNKsDPYGLyC/SSH5ThQ8tVpBRzD+PMf1BJoH7G7t3ow=",
       "System.Private.CoreLib.dll": "sha256-vdsXizeM1u1aTQbH1DUJJnRTjE8AUqGn99O59NTY4So=",
       "System.Private.Uri.dll": "sha256-uceZJK5ZyUz+F2CI5KfqhX5fnipN+aWkGVw6GinpUPE=",
-      "System.Runtime.dll": "sha256-4Bwi+Z2RjOl87Uk97YZxP64ago0iKxy7Mz3+w4kZ33I=",
+      "System.Runtime.dll": "sha256-wLcow5OHbsL0O70KiL6nVfvKIW8ho5npKCdxpmJR2PQ=",
       "System.Runtime.InteropServices.JavaScript.dll": "sha256-1ofqj7zZxyz0rTNNU6oSfvSzK+0NimDaqNU56A5A6kE=",
       "System.Text.Encodings.Web.dll": "sha256-T1ERtxndWmM/nfh/xDv3QVSjBCpBykhBYnULX9dFNcI=",
       "System.Text.Json.dll": "sha256-7PDIYOFCIotmejGbcLvAnHB8Z8C4qdx+jV4MI1EwZhI=",
       "System.Text.RegularExpressions.dll": "sha256-HDr2Se3W3O304Tpt3Xt3FVnxJe/2b/2IbDydrHiT3E0=",
       "System.Threading.dll": "sha256-rRuZJEE80r6Cf1ibhlAf1k8Z7cW9xmIx7Xsj30opyfQ=",
       "System.Web.HttpUtility.dll": "sha256-jgUATSJtgT1+hKuVlVCcITA3b+xlxmmX/ZjhnlzSsDU=",
-      "TMApplication.dll": "sha256-kfMfaMWrgqr+d9mfjqb3fiG9YGTPThqw0Tn0Mj3fIgc=",
-      "TMInfrastructure.dll": "sha256-K8ikSGR8F28W8NZU8BfsogkqeUo3YF2xbLrPfUA+Jns=",
-      "TMLeague.dll": "sha256-AauH831k5gzuSjIxkAKTiFcZSqpHb5VrYBkVzmQgBIU=",
-      "TMModels.dll": "sha256-0+Mq1EppayU2F4/YnVqWsoaGfbu3Fy94eOpy9uOKd0w="
+      "TMApplication.dll": "sha256-jZ1PF9euYbfaEX7KUF8QW6b8lMK1Y7XXY8GpXetLJtA=",
+      "TMInfrastructure.dll": "sha256-aj0VyIUOluI96dpJBb2MZJxMxlpj587hkcrVlUovp9A=",
+      "TMLeague.dll": "sha256-vSiYvJu1CiClI95bbJ2CiSujIbR7Eskwh6AzsZBs68s=",
+      "TMModels.dll": "sha256-jRxZfTjRumx3XJ+mjDTjvKAexqR3VRZOZ0TOs/FIQ6g="
     },
     "runtimeAssets": {
       "dotnet.wasm": {
