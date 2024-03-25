@@ -28,6 +28,11 @@ on:
         default: ''
   schedule:
     - cron: '51 5,8,11,14,17,20 * * *'
+  push:
+    branches: 
+    - master
+    paths:
+    - src/TMLeague/wwwroot/data/leagues/**
 
 jobs:
   import-and-deploy:
