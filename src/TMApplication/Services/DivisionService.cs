@@ -176,11 +176,26 @@ public class DivisionService
         return gameIdx < 0 ? null : $"G{gameIdx + 1}";
     }
 
-    public async Task<DivisionConfigurationForm?> GetDivisionConfigurationForm(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken = default)
+    public async Task<DivisionConfigurationForm?> GetDivisionConfigurationForm(string leagueId, string? seasonId, string? divisionId, bool isFinished, CancellationToken cancellationToken = default)
     {
         var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
         if (league == null)
             return null;
+
+        if (string.IsNullOrEmpty(seasonId) || string.IsNullOrEmpty(divisionId))
+        {
+            return new DivisionConfigurationForm(
+                string.Empty,
+                string.Empty,
+                new List<DivisionConfigurationFormPlayer>(),
+                new List<DivisionConfigurationFormGame>(),
+                new List<DivisionConfigurationFormPenalty>(),
+                new List<DivisionConfigurationFormReplacement>(),
+                false,
+                string.Empty,
+                null,
+                null);
+        }
 
         var season = await _dataProvider.GetSeason(leagueId, seasonId, cancellationToken);
         if (season == null)
@@ -199,7 +214,8 @@ public class DivisionService
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
 
         var players = division.Players
-            .Select((player, i) => new DivisionConfigurationFormPlayer(i + 1, GetGames(player, division.Games, results), player))
+            .Select((player, i) =>
+                new DivisionConfigurationFormPlayer(i + 1, GetGames(player, division.Games, results), player))
             .ToList();
 
         var leagueDivision = league.MainDivisions.FirstOrDefault(d => d.Id == divisionId);
@@ -208,11 +224,13 @@ public class DivisionService
             division.Judge,
             players,
             division.Games.Select((game, i) => new DivisionConfigurationFormGame(i + 1, game)).ToList(),
-            division.Penalties?.Select((penalty, i) => new DivisionConfigurationFormPenalty(i + 1, penalty.Player, penalty.Game,
+            division.Penalties?.Select((penalty, i) => new DivisionConfigurationFormPenalty(i + 1, penalty.Player,
+                penalty.Game,
                 penalty.Points, penalty.Details)).ToList(),
-            division.Replacements?.Select((replacement, i) => new DivisionConfigurationFormReplacement(i + 1, replacement.From,
+            division.Replacements?.Select((replacement, i) => new DivisionConfigurationFormReplacement(i + 1,
+                replacement.From,
                 replacement.To, replacement.Game)).ToList(),
-            true,
+            division.IsFinished || isFinished,
             division.WinnerTitle,
             division.Promotions ?? leagueDivision?.Promotions,
             division.Relegations ?? leagueDivision?.Relegations);

@@ -60,8 +60,28 @@ public static class RouteProvider
     public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId) =>
         $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
 
-    public static string GetLeagueDivisionPenaltiesRoute(string leagueId, string seasonId, string divisionId) =>
+    public static string GetLeagueDivisionCreationRoute(string leagueId, string? seasonNumber, string? divisionNumber, string? judge, IEnumerable<string>? playerNames)
+    {
+        var url = $"{League}/{leagueId}/{Configuration}";
+
+        var query = new List<KeyValuePair<string, string>>();
+        if (!string.IsNullOrWhiteSpace(seasonNumber))
+            query.Add(new KeyValuePair<string, string>("season", seasonNumber));
+        if (!string.IsNullOrWhiteSpace(divisionNumber))
+            query.Add(new KeyValuePair<string, string>("division", divisionNumber));
+        if (!string.IsNullOrWhiteSpace(judge))
+            query.Add(new KeyValuePair<string, string>("judge", judge));
+        if (playerNames != null)
+            query.AddRange(playerNames.Select(name => new KeyValuePair<string, string>("player", name)));
+
+        return query.Count == 0 ? url : $"{url}?{string.Join("&", query.Select(pair => $"{pair.Key}={pair.Value}"))}";
+    }
+
+    public static string GetLeagueDivisionConfigurationRoute(string leagueId, string seasonId, string divisionId) =>
         $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{Configuration}";
+
+    public static string GetLeagueDivisionFinishingRoute(string leagueId, string seasonId, string divisionId) =>
+        $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{Configuration}/finished";
 
     public static string GetLeagueJudgeRoute(string leagueId) =>
         $"{League}/{leagueId}/{Judge}";
@@ -71,9 +91,11 @@ public static class RouteProvider
             GetGameRoute(gameId) :
             $"{League}/{leagueId}/{Game}/{gameId}";
 
-    public static string GetGameRoute(int gameId) =>
+    private static string GetGameRoute(int gameId) =>
         $"{Game}/{gameId}";
 
     public static string GetGithubDivision(string? leagueId, string? seasonId, string? divisionId, bool edit = true) =>
-        $"https://github.com/TMLeague/TMLeague.github.io/{(edit ? "edit" : "blob")}/master/src/TMLeague/wwwroot/data/{Leagues}/{leagueId}/{Seasons}/{seasonId}/{Divisions}/{divisionId}.json";
+        string.IsNullOrWhiteSpace(seasonId) || string.IsNullOrWhiteSpace(divisionId)
+            ? $"https://github.com/TMLeague/TMLeague.github.io/new/master/src/TMLeague/wwwroot/data/{Leagues}/{leagueId}/{Seasons}"
+            : $"https://github.com/TMLeague/TMLeague.github.io/{(edit ? "edit" : "blob")}/master/src/TMLeague/wwwroot/data/{Leagues}/{leagueId}/{Seasons}/{seasonId}/{Divisions}/{divisionId}.json";
 }

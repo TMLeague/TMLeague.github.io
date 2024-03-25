@@ -302,7 +302,10 @@ else
     @if (LeagueId != null && SeasonId != null && DivisionId != null && !DivisionVm.IsFinished)
     {
         <div class="row my-2">
-            <a href="@RouteProvider.GetLeagueDivisionPenaltiesRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Add penalties</a>
+            <a href="@RouteProvider.GetLeagueDivisionConfigurationRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Configure</a>
+        </div>
+        <div class="row my-2">
+            <a href="@RouteProvider.GetLeagueDivisionFinishingRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Add penalties</a>
         </div>
     }
 }

@@ -1,8 +1,10 @@
 ﻿@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/configuration"
+@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/configuration/{Finished}"
+@page "/league/{leagueId}/configuration"
 @inject DivisionService DivisionService
 @inject IJSRuntime JsRuntime
 
-<h3>Division configuration form</h3>
+<h3>Division configuration</h3>
 
 @if (DivisionConfigurationForm == null)
 {
@@ -45,15 +47,21 @@ else
                 var player = formPlayer;
                 <div class="row mb-3">
                     <label class="col-2 col-md-1">@($"P{player.Idx}")</label>
-                    <div class="col-9 col-md-10">
+                    <div class="@(DivisionConfigurationForm.CanModifyLists ? "col-9 col-md-10" : "col-10 col-md-11")">
                         <InputText id="@($"player-{player.Idx}")" @bind-Value="@player.Name" placeholder="TM player name" class="form-control" aria-describedby="playersHelp" />
                     </div>
-                    <button type="button" class="col-1 p-0 btn btn-link" @onclick="() => RemovePlayer(player.Idx)"><i class="bi bi-x"></i></button>
+                    @if (DivisionConfigurationForm.CanModifyLists)
+                    {
+                        <button type="button" class="col-1 p-0 btn btn-link" @onclick="() => RemovePlayer(player.Idx)"><i class="bi bi-x"></i></button>
+                    }
                 </div>
             }
-            <div class="row mb-3">
-                <button type="button" class="btn btn-primary w-100" @onclick="AddPlayer">Add player</button>
-            </div>
+            @if (DivisionConfigurationForm.CanModifyLists)
+            {
+                <div class="row mb-3">
+                    <button type="button" class="btn btn-primary w-100" @onclick="() => AddPlayer()">Add player</button>
+                </div>
+            }
         </div>
 
         <div class="col-sm-6 p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
@@ -66,15 +74,21 @@ else
                 var game = formGame;
                 <div class="row mb-3">
                     <label class="col-2 col-md-1">@($"G{game.Idx}")</label>
-                    <div class="col-9 col-md-10">
+                    <div class="@(DivisionConfigurationForm.CanModifyLists ? "col-9 col-md-10" : "col-10 col-md-11")">
                         <InputNumber id="@($"game-{game.Idx}")" @bind-Value="@game.TmId" placeholder="TM game ID" class="form-control" aria-describedby="gamesHelp" />
                     </div>
-                    <button type="button" class="col-1 p-0 btn btn-link" @onclick="() => RemoveGame(game.Idx)"><i class="bi bi-x"></i></button>
+                    @if (DivisionConfigurationForm.CanModifyLists)
+                    {
+                        <button type="button" class="col-1 p-0 btn btn-link" @onclick="() => RemoveGame(game.Idx)"><i class="bi bi-x"></i></button>
+                    }
                 </div>
             }
-            <div class="row mb-3">
-                <button type="button" class="btn btn-primary w-100" @onclick="AddGame">Add game</button>
-            </div>
+            @if (DivisionConfigurationForm.CanModifyLists)
+            {
+                <div class="row mb-3">
+                    <button type="button" class="btn btn-primary w-100" @onclick="AddGame">Add game</button>
+                </div>
+            }
         </div>
 
         <div class="p-3 mb-3 bg-dark-container rounded-5 d-flex flex-column">
@@ -199,13 +213,41 @@ else
         </div>
 
         <div class="alert alert-warning p-1 mb-1 text-center" role="alert">
-            Please remember to:
+            Please remember to finish the process on GitHub:
             <ol class="mx-auto mb-0" style="width: fit-content;">
+                <li>paste copied text to the json file,</li>
+                @if (IsNew)
+                {
+                    <li>
+                        set proper file path (use "/") and<br />
+                        name with ".json" extension,
+                    </li>
+                }
                 <li>commit your changes,</li>
                 <li>make a pull request and</li>
-                <li>merge to master.</li>
+                @if (IsNew)
+                {
+                    <li>notify any reviewer about your changes.</li>
+                }
+                else
+                {
+                    <li>merge it to master.</li>
+                }
             </ol>
-            If you have any problems, you can contact Imrihil on Discord.
+            @if (IsNew)
+            {
+                <p class="m-0">
+                    Detailed instructions are available in <a href="https://github.com/TMLeague/TMLeague.github.io/blob/master/docs/judge-season-new.md" target="_blank"><i>A guide for league judges at the start of a new season</i> on GitHub.</a>
+                </p>
+            }
+            else
+            {
+                <p class="m-0">
+                    Detailed instructions are available in <a href="https://github.com/TMLeague/TMLeague.github.io/blob/master/docs/judge-season-end.md#commit-your-changes-and-create-a-pull-request" target="_blank">the <i>Commit your changes and create a pull request</i> section on GitHub.</a><br />
+                    You don't have to wait for the review before merging division json configuration file to master.
+                </p>
+            }
+            If you have any problems, you can contact Imrihil via Discord, an <a href="mailto:imrihil@gmail.com">e-mail</a> or on a <a href="https://www.thronemaster.net/?goto=account&sub=private_messages&type=new&to=Imrihil" target="_blank">thronemaster.net</a>.
         </div>
 
         <div class="col-12 my-4">
@@ -221,27 +263,50 @@ else
     public string? SeasonId { get; set; }
     [Parameter]
     public string? DivisionId { get; set; }
+    [Parameter]
+    public string? Finished { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "season")]
+    public string? SeasonQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "division")]
+    public string? DivisionQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "judge")]
+    public string? JudgeQuery { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "player")]
+    public string[] PlayersQuery { get; set; } = Array.Empty<string>();
+
+    private bool IsFinished => string.Equals(Finished, "Finished", StringComparison.InvariantCultureIgnoreCase);
+    private bool IsNew => string.IsNullOrWhiteSpace(SeasonId) || string.IsNullOrWhiteSpace(DivisionId);
 
     private DivisionConfigurationForm? DivisionConfigurationForm { get; set; }
 
     private bool _isInitialized;
 
-    protected override async Task OnParametersSetAsync()
-    {
-        if (LeagueId == null || SeasonId == null || DivisionId == null)
-            return;
-
-        DivisionConfigurationForm = await DivisionService.GetDivisionConfigurationForm(LeagueId, SeasonId, DivisionId);
-
-        await base.OnParametersSetAsync();
-    }
-
     protected override async Task OnInitializedAsync()
     {
-        if (LeagueId == null || SeasonId == null || DivisionId == null)
-            return;
+        if (LeagueId != null)
+            DivisionConfigurationForm = await DivisionService.GetDivisionConfigurationForm(LeagueId, SeasonId, DivisionId, IsFinished);
 
-        DivisionConfigurationForm = await DivisionService.GetDivisionConfigurationForm(LeagueId, SeasonId, DivisionId);
+        if (DivisionConfigurationForm != null)
+        {
+            if (string.IsNullOrWhiteSpace(DivisionConfigurationForm.Name) && !string.IsNullOrWhiteSpace(DivisionQuery))
+                DivisionConfigurationForm.Name = GetDivisionName(DivisionQuery);
+
+            if (string.IsNullOrWhiteSpace(DivisionConfigurationForm.Judge) && !string.IsNullOrWhiteSpace(JudgeQuery))
+                DivisionConfigurationForm.Judge = JudgeQuery;
+
+            foreach (var playerQuery in PlayersQuery)
+                if (DivisionConfigurationForm.Players.All(player => player.Name != playerQuery))
+                    AddPlayer(playerQuery);
+        }
+
         _isInitialized = true;
     }
 
@@ -252,10 +317,8 @@ else
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
         };
 
-    private async Task ScrollToTop(EditContext context)
-    {
+    private async Task ScrollToTop(EditContext context) =>
         await JsRuntime.InvokeVoidAsync("scrollToTop");
-    }
 
     private async Task HandleSubmit(EditContext context)
     {
@@ -279,55 +342,56 @@ else
             DivisionConfigurationForm.Relegations);
         var data = JsonSerializer.Serialize(division, JsonSerializerOptions);
         await JsRuntime.InvokeVoidAsync("copyClipboard", data);
-
         await JsRuntime.InvokeVoidAsync("openInNewTab", RouteProvider.GetGithubDivision(LeagueId, SeasonId, DivisionId));
     }
 
-    private void AddPlayer() => DivisionConfigurationForm?.Players.Add(new DivisionConfigurationFormPlayer(
-        DivisionConfigurationForm.Players.Count + 1, 
-        new List<DivisionConfigurationFormGame>()));
+    private void AddPlayer(string name = "")
+    {
+        if (DivisionConfigurationForm == null) return;
+        DivisionConfigurationForm.Players.Add(new DivisionConfigurationFormPlayer(
+            DivisionConfigurationForm.Players.Count + 1, new List<DivisionConfigurationFormGame>(), name));
+        if (DivisionConfigurationForm.Games.Count < DivisionConfigurationForm.Players.Count)
+            DivisionConfigurationForm.Games.Add(new DivisionConfigurationFormGame(DivisionConfigurationForm.Games.Count + 1));
+    }
 
-    private void AddGame() => DivisionConfigurationForm?.Games.Add(new DivisionConfigurationFormGame(
-        DivisionConfigurationForm.Games.Count + 1));
+    private void AddGame() => DivisionConfigurationForm?.Games.Add(
+        new DivisionConfigurationFormGame(DivisionConfigurationForm.Games.Count + 1));
 
     private void AddPenalty() => DivisionConfigurationForm?.Penalties.Add(new DivisionConfigurationFormPenalty(
-        DivisionConfigurationForm.Penalties.Count + 1,
-        DivisionConfigurationForm.Penalties.LastOrDefault()?.Player));
+        DivisionConfigurationForm.Penalties.Count + 1, DivisionConfigurationForm.Penalties.LastOrDefault()?.Player));
 
     private void AddReplacement() => DivisionConfigurationForm?.Replacements.Add(new DivisionConfigurationFormReplacement(
-        DivisionConfigurationForm.Replacements.Count + 1, 
-        DivisionConfigurationForm.Replacements.LastOrDefault()?.From));
+        DivisionConfigurationForm.Replacements.Count + 1, DivisionConfigurationForm.Replacements.LastOrDefault()?.From));
 
-    private void RemovePlayer(int idx)
+    private void RemovePlayer(int idx) =>
+        Remove(DivisionConfigurationForm?.Players, idx, (player, newIdx) => player.Idx = newIdx);
+
+    private void RemoveGame(int idx) =>
+        Remove(DivisionConfigurationForm?.Games, idx, (game, newIdx) => game.Idx = newIdx);
+
+    private void RemovePenalty(int idx) =>
+        Remove(DivisionConfigurationForm?.Penalties, idx, (penalty, newIdx) => penalty.Idx = newIdx);
+
+    private void RemoveReplacement(int idx) =>
+        Remove(DivisionConfigurationForm?.Replacements, idx, (replacement, newIdx) => replacement.Idx = newIdx);
+
+    private static void Remove<T>(IList<T>? list, int idx, Action<T, int> updateIndex)
     {
-        if (DivisionConfigurationForm == null) return;
-        DivisionConfigurationForm.Players.RemoveAt(idx - 1);
-        foreach (var (player, i) in DivisionConfigurationForm.Players.Select((p, i) => (p, i)))
-            player.Idx = i + 1;
+        if (list == null) return;
+
+        list.RemoveAt(idx - 1);
+
+        foreach (var (item, i) in list.Select((item, i) => (item, i)))
+            updateIndex(item, i + 1);
     }
 
-    private void RemoveGame(int idx)
+    private static string GetDivisionName(string divisionNumber)
     {
-        if (DivisionConfigurationForm == null) return;
-        DivisionConfigurationForm.Games.RemoveAt(idx - 1);
-        foreach (var (game, i) in DivisionConfigurationForm.Games.Select((g, i) => (g, i)))
-            game.Idx = i + 1;
-    }
+        if (divisionNumber.Equals("q", StringComparison.InvariantCultureIgnoreCase))
+            return "Qualifiers";
 
-    private void RemovePenalty(int idx)
-    {
-        if (DivisionConfigurationForm == null) return;
-        DivisionConfigurationForm.Penalties.RemoveAt(idx - 1);
-        foreach (var (penalty, i) in DivisionConfigurationForm.Penalties.Select((p, i) => (p, i)))
-            penalty.Idx = i + 1;
+        return divisionNumber.StartsWith("q", StringComparison.InvariantCultureIgnoreCase)
+            ? $"Qualifiers {divisionNumber[1..]}"
+            : $"Division {divisionNumber}";
     }
-
-    private void RemoveReplacement(int idx)
-    {
-        if (DivisionConfigurationForm == null) return;
-        DivisionConfigurationForm.Replacements.RemoveAt(idx - 1);
-        foreach (var (replacement, i) in DivisionConfigurationForm.Replacements.Select((r, i) => (r, i)))
-            replacement.Idx = i + 1;
-    }
-
 }

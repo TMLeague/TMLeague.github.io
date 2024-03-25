@@ -22,6 +22,13 @@
     }
 </lead>
 
+@if (LeagueId != null)
+{
+    <div class="row my-2">
+        <a href="@($"{RouteProvider.GetLeagueDivisionCreationRoute(LeagueId, DivisionForm?.Season, DivisionForm?.Division, DivisionForm?.JudgeName, DivisionForm?.PlayerNames)}")" target="_blank" class="btn btn-primary w-100 text-inherit">Add new division configuration</a>
+    </div>
+}
+
 @if (DivisionDraft != null || _isDraftLoading)
 {
     <h4 class="mt-4">Draft table</h4>
@@ -342,7 +349,7 @@ else
     public string? SpecialNoteQuery { get; set; }
 
     [Parameter]
-    [SupplyParameterFromQuery(Name = "players")]
+    [SupplyParameterFromQuery(Name = "player")]
     public string[] PlayersQuery { get; set; } = Array.Empty<string>();
 
     private string? LeagueName { get; set; }
