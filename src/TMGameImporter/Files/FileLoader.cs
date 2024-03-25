@@ -17,19 +17,13 @@ internal class FileLoader
         await DeserializeFile<Home>(_pathProvider.GetConfigFilePath(), true, cancellationToken);
 
     public async Task<League?> LoadLeague(string leagueId, CancellationToken cancellationToken) =>
-        await DeserializeFile<League>(_pathProvider.GetConfigFilePath(leagueId), true, cancellationToken)
-        ?? await DeserializeFile<League>(_pathProvider.GetConfigFilePath(leagueId.ToLower()), true, cancellationToken);
+        await DeserializeFile<League>(_pathProvider.GetConfigFilePath(leagueId), true, cancellationToken);
 
     public async Task<Season?> LoadSeason(string leagueId, string seasonId, CancellationToken cancellationToken) =>
-        await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId, seasonId), false, cancellationToken)
-        ?? await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId.ToLower(), seasonId.ToLower()), false, cancellationToken)
-        ?? await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId.ToLower(), $"s{seasonId.ToLower()}"), false, cancellationToken);
+        await DeserializeFile<Season>(_pathProvider.GetConfigFilePath(leagueId, seasonId), false, cancellationToken);
 
     public async Task<Division?> LoadDivision(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken) =>
-        await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId, seasonId, divisionId), false, cancellationToken) 
-        ?? await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId.ToLower(), seasonId.ToLower(), divisionId.ToLower()), false, cancellationToken)
-        ?? await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId.ToLower(), seasonId.ToLower(), $"d{divisionId.ToLower()}"), false, cancellationToken)
-        ?? await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId.ToLower(), $"s{seasonId.ToLower()}", $"d{divisionId.ToLower()}"), false, cancellationToken);
+        await DeserializeFile<Division>(_pathProvider.GetConfigFilePath(leagueId, seasonId, divisionId), false, cancellationToken);
 
     public async Task<Game?> LoadGame(int gameId, CancellationToken cancellationToken) =>
         await DeserializeFile<Game>(_pathProvider.GetGamePath(gameId), false, cancellationToken);
