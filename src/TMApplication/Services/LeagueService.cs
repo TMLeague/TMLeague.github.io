@@ -163,7 +163,7 @@ public class LeagueService
                 playerKv.First,
                 playerKv.Second,
                 messageSubject,
-                messageBody.FillParameters(GetPlayerDraftParameters(playerKv.Second, passwords)),
+                messageBody.FillParameters(GetPlayerDraftParameters(playerKv.First, playerKv.Second, passwords)),
                 playerKv.Third)).ToList();
 
         var divisionDraft = new DivisionDraft(playerDrafts, isRandom);
@@ -217,7 +217,7 @@ public class LeagueService
         return new LeagueChampionsViewModel(champions);
     }
 
-    private static PlayerDraftParameters GetPlayerDraftParameters(House[] houses, IReadOnlyList<string> passwords)
+    private static PlayerDraftParameters GetPlayerDraftParameters(string name, House[] houses, IReadOnlyList<string> passwords)
     {
         var baratheonIdx = Array.IndexOf(houses, House.Baratheon);
         var lannisterIdx = Array.IndexOf(houses, House.Lannister);
@@ -227,6 +227,7 @@ public class LeagueService
         var martellIdx = Array.IndexOf(houses, House.Martell);
         var arrynIdx = Array.IndexOf(houses, House.Arryn);
         return new PlayerDraftParameters(
+            name,
             baratheonIdx + 1, baratheonIdx >= 0 ? passwords[baratheonIdx] : "",
             lannisterIdx + 1, lannisterIdx >= 0 ? passwords[lannisterIdx] : "",
             starkIdx + 1, starkIdx >= 0 ? passwords[starkIdx] : "",
