@@ -57,6 +57,7 @@ Again and to reinforce the previous statement: The faceless and silent aspects o
         };
 
         var playerHouseGames = new PlayerDraftParameters(
+            "Robb",
             1, "abc",
             4, "def",
             3, "ghi",

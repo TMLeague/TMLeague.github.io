@@ -132,6 +132,7 @@ public record PlayerDraftStat(
 }
 
 public record PlayerDraftParameters(
+    string Player,
     int Baratheon,
     string BaratheonPassword,
     int Lannister,
