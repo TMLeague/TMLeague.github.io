@@ -83,14 +83,19 @@ public class LeagueService
         if (league == null)
             return null;
 
-        var nextMainSeason = league.Seasons.Length == 0 ?
-            "1" :
-            league.Seasons
+        var nextMainSeason = "1";
+        if (league.Seasons.Length > 0)
+        {
+            var lastSeasonId = league.Seasons.Last();
+            var lastSeason = await _dataProvider.GetSeason(leagueId, lastSeasonId, cancellationToken);
+            if (await IsNextSeason(leagueId, lastSeasonId, lastSeason, cancellationToken))
+                nextMainSeason = lastSeasonId[1..];
+            else
+                nextMainSeason = league.Seasons
                 .Max(season =>
-                    int.TryParse(season[1..], out var seasonNumber) ?
-                        seasonNumber + 1 :
-                        1)
+                    int.TryParse(season[1..], out var seasonNumber) ? seasonNumber + 1 : 1)
                 .ToString();
+        }
 
         return new DivisionSetupViewModel(
             league.Name,
@@ -99,6 +104,21 @@ public class LeagueService
                 string.Empty :
                 string.Join(Environment.NewLine, league.InitialMessage.Body),
             nextMainSeason);
+    }
+
+    private async Task<bool> IsNextSeason(string leagueId, string seasonId, Season? lastSeason, CancellationToken cancellationToken)
+    {
+        if (lastSeason == null)
+            return true;
+
+        foreach (var divisionId in lastSeason.Divisions)
+        {
+            var division = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
+            if (division == null || division.IsFinished == false)
+                return true;
+        }
+
+        return false;
     }
 
     public async Task<DivisionDraft?> GetBestDraft(DivisionForm divisionForm, CancellationToken cancellationToken = default)
