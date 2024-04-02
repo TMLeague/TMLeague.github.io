@@ -2,7 +2,7 @@
   "name": "Division 1",
   "judge": null,
   "players": [
-    "PawcioF",
+    "klevushkin",
     "Karijin",
     "PhantasticPhil",
     "Guiscard",
@@ -22,5 +22,5 @@
     302335
   ],
   "penalties": [],
-  "isFinished": false
+  "isFinished": true
 } 
