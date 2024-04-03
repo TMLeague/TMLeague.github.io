@@ -15,17 +15,18 @@
   ],
   "games": [
     null,
+    304083,
     null,
+    304078,
+    304122,
+    304117,
     null,
+    304075,
     null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    304073
   ],
   "penalties": [],
-  "isFinished": false,
+  "replacements": [],
+  "promotions": 3,
   "relegations": 4
 }
