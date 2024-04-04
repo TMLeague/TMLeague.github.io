@@ -9,13 +9,93 @@ public record Game(
     bool IsStalling,
     int Turn,
     Map Map,
+    WesterosStats? Westeros,
+    RavenAction[]? Ravens,
     HouseScore[] Houses,
     DateTimeOffset GeneratedTime,
     bool IsCreatedManually = false)
 {
-    public double Progress => IsFinished ? 
+    public double Progress => IsFinished ?
         100 : IsStalling ?
             97 : 100 * (double)Turn / 11;
+}
+
+public record RavenAction(RavenActionType Type, House House);
+
+public enum RavenActionType
+{
+    Nothing, Replaced, Look, Knows, Discarded
+}
+
+public record Map(
+    Land[] Lands,
+    Sea[] Seas,
+    Port[] Ports);
+
+public record Land(
+    bool IsEnabled,
+    int Id,
+    string Name,
+    House House,
+    int Footmen,
+    int Knights,
+    int SiegeEngines,
+    int Tokens,
+    int MobilizationPoints,
+    int Supplies,
+    int Crowns);
+
+public record Sea(
+    bool IsEnabled,
+    int Id,
+    string Name,
+    House House,
+    int Ships);
+
+public record Port(
+    bool IsEnabled,
+    int Id,
+    string Name,
+    int Ships);
+
+public record WesterosStats(
+    WesterosPhase1[][] Phase1,
+    WesterosPhase2[][] Phase2,
+    WesterosPhase3[][] Phase3,
+    Wildlings[][] Wildlings)
+{
+    public void AddPhase1(int turn, WesterosPhase1 @event) =>
+        Phase1[turn - 1] = Phase1[turn - 1].Append(@event).Distinct().ToArray();
+
+    public void AddPhase2(int turn, WesterosPhase2 @event) =>
+        Phase2[turn - 1] = Phase2[turn - 1].Append(@event).Distinct().ToArray();
+
+    public void AddPhase3(int turn, WesterosPhase3 @event) =>
+        Phase3[turn - 1] = Phase3[turn - 1].Append(@event).Distinct().ToArray();
+
+    public void AddWildlings(int turn, Wildlings @event) =>
+        Wildlings[turn - 1] = Wildlings[turn - 1].Append(@event).Distinct().ToArray();
+}
+
+public enum WesterosPhase1
+{
+    Supply, Mustering, ThroneOfBlades, LastDaysOfSummer, WinterIsComing
+}
+
+public enum WesterosPhase2
+{
+    ClashOfKings, GameOfThrones, DarkWingsDarkWords, LastDaysOfSummer, WinterIsComing
+}
+
+public enum WesterosPhase3
+{
+    WildlingAttack, SeaOfStorms, RainsOfAutumn, FeastForCrows, WebOfLies, StormOfSwords, PutToTheSword
+}
+
+public enum Wildlings
+{
+    MassingOnTheMilkwater, AKingBeyondTheWall, MammothRiders, CrowKillers,
+    TheHordeDescends, SkinchangerScout, RattleshirtsRaiders, SilenceAtTheWall, PreemptiveRaid
 }
 
 public record HouseScore(
@@ -55,37 +135,6 @@ public record HouseScore(
         return otherHouse.Throne - Throne;
     }
 }
-
-public record Map(
-    Land[] Lands,
-    Sea[] Seas,
-    Port[] Ports);
-
-public record Land(
-    bool IsEnabled,
-    int Id,
-    string Name,
-    House House,
-    int Footmen,
-    int Knights,
-    int SiegeEngines,
-    int Tokens,
-    int MobilizationPoints,
-    int Supplies,
-    int Crowns);
-
-public record Sea(
-    bool IsEnabled,
-    int Id,
-    string Name,
-    House House,
-    int Ships);
-
-public record Port(
-    bool IsEnabled,
-    int Id,
-    string Name,
-    int Ships);
 
 public record Stats(
     BattleStats Battles,

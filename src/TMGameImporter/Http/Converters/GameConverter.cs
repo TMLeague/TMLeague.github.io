@@ -33,7 +33,9 @@ internal class GameConverter
 
         var houses = GetHouses(state, log);
 
-        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn, state.Map, houses, DateTimeOffset.UtcNow);
+        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn,
+            state.Map, GetWesteros(log?.Logs, state.Turn), GetRavenActions(log?.Logs, state.Turn),
+            houses, DateTimeOffset.UtcNow);
     }
 
     private HouseScore[] GetHouses(State state, Log? log)
@@ -95,8 +97,8 @@ internal class GameConverter
 
         var turn = logsPerTurn?.Select(items =>
             items.Any(log =>
-                log.House == house && log.Phase == Phase.Planning) 
-                ? items.Key 
+                log.House == house && log.Phase == Phase.Planning)
+                ? items.Key
                 : 0)
             .Max() ?? 0;
 
@@ -109,4 +111,55 @@ internal class GameConverter
         item.Phase == Phase.March &&
         item.Message.Contains("Battle!") &&
         item.Message.Contains(house.ToString(), StringComparison.InvariantCultureIgnoreCase);
+
+    private static WesterosStats? GetWesteros(IReadOnlyCollection<LogItem>? logs, int turn)
+    {
+        if (logs == null)
+            return null;
+
+        var westerosStats = new WesterosStats(
+            GetArrayWithEmptyArrays<WesterosPhase1>(turn),
+            GetArrayWithEmptyArrays<WesterosPhase2>(turn),
+            GetArrayWithEmptyArrays<WesterosPhase3>(turn),
+            GetArrayWithEmptyArrays<Wildlings>(turn));
+        IWesterosConverter phaseConverter = new WesterosPhase1Converter();
+
+        foreach (var log in logs.Where(log => log.Phase == Phase.Westeros))
+            phaseConverter = phaseConverter.Parse(log, westerosStats);
+
+        return westerosStats;
+    }
+
+    private static RavenAction[]? GetRavenActions(IReadOnlyCollection<LogItem>? logs, int turn)
+    {
+        if (logs == null)
+            return null;
+
+        var actions = new RavenAction[turn];
+        foreach (var log in logs)
+        {
+            if (log.Phase == Phase.Raven)
+                actions[log.Turn - 1] = new RavenAction(GetRavenActionType(log.Message), log.House);
+            else if (log.Message.Contains("did not use the messenger raven."))
+                actions[log.Turn - 1] = new RavenAction(RavenActionType.Nothing, log.House);
+            else if (log.Message.Contains("placed the card at the bottom of the Wildling deck."))
+                actions[log.Turn - 1] = new RavenAction(RavenActionType.Discarded, log.House);
+            else if (log.Message.Contains("knows things."))
+                actions[log.Turn - 1] = new RavenAction(RavenActionType.Knows, log.House);
+        }
+
+        return actions;
+    }
+
+    private static RavenActionType GetRavenActionType(string logMessage)
+    {
+        if (logMessage.Contains("decided to look in the Wildling deck."))
+            return RavenActionType.Look;
+        if (logMessage.Contains(" replaced ") && logMessage.Contains("Order"))
+            return RavenActionType.Replaced;
+        return RavenActionType.Nothing;
+    }
+
+    private static T[][] GetArrayWithEmptyArrays<T>(int turn) =>
+        Enumerable.Range(0, turn).Select(_ => Array.Empty<T>()).ToArray();
 }
