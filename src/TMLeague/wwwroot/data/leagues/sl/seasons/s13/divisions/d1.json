@@ -14,18 +14,18 @@
     "LoPHH"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    304139,
+    304144,
+    304119,
+    304125,
+    304127,
+    304120,
+    304128,
+    304145,
+    304118,
+    304110
   ],
   "penalties": [],
-  "isFinished": false,
-  "winnerTitle": null
+  "replacements": [],
+  "relegations": 3
 }
