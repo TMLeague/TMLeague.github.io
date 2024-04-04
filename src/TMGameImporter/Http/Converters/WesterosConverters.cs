@@ -167,7 +167,8 @@ internal class WesterosWildlingsConverter : IWesterosConverter
             events.AddWildlings(item.Turn, Wildlings.RattleshirtsRaiders);
             return new WesterosPhase1Converter();
         }
-        if (item.Message.Contains("Drawn Wildling card: Silence at the Wall"))
+        if (item.Message.Contains("Drawn Wildling card: Silence at the Wall") ||
+            item.Message.Contains("Nothing happens."))
         {
             events.AddWildlings(item.Turn, Wildlings.SilenceAtTheWall);
             return new WesterosPhase1Converter();

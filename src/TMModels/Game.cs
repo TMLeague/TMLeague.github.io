@@ -20,13 +20,6 @@ public record Game(
             97 : 100 * (double)Turn / 11;
 }
 
-public record RavenAction(RavenActionType Type, House House);
-
-public enum RavenActionType
-{
-    Nothing, Replaced, Look, Knows, Discarded
-}
-
 public record Map(
     Land[] Lands,
     Sea[] Seas,
@@ -77,25 +70,37 @@ public record WesterosStats(
         Wildlings[turn - 1] = Wildlings[turn - 1].Append(@event).Distinct().ToArray();
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WesterosPhase1
 {
     Supply, Mustering, ThroneOfBlades, LastDaysOfSummer, WinterIsComing
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WesterosPhase2
 {
     ClashOfKings, GameOfThrones, DarkWingsDarkWords, LastDaysOfSummer, WinterIsComing
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WesterosPhase3
 {
     WildlingAttack, SeaOfStorms, RainsOfAutumn, FeastForCrows, WebOfLies, StormOfSwords, PutToTheSword
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Wildlings
 {
     MassingOnTheMilkwater, AKingBeyondTheWall, MammothRiders, CrowKillers,
     TheHordeDescends, SkinchangerScout, RattleshirtsRaiders, SilenceAtTheWall, PreemptiveRaid
+}
+
+public record RavenAction(RavenActionType Type, House House);
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum RavenActionType
+{
+    Nothing, Replaced, Look, Knows, Discarded
 }
 
 public record HouseScore(
