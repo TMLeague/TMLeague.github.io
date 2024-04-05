@@ -96,6 +96,8 @@ internal class WesterosPhase3Converter : IWesterosConverter
         if (item.Message.Contains("Wildlings Attack: "))
         {
             events.AddPhase3(item.Turn, WesterosPhase3.WildlingAttack);
+            if (item.Message.Contains("Wildlings Attack: The Wildlings got cold feet and didn't attack."))
+                return new WesterosPhase1Converter();
             return new WesterosWildlingsConverter();
         }
         if (item.Message.Contains("Sea of Storms (W)"))

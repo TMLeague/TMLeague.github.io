@@ -55,7 +55,7 @@ public record WesterosStats(
     WesterosPhase1[][] Phase1,
     WesterosPhase2[][] Phase2,
     WesterosPhase3[][] Phase3,
-    Wildling[][] Wildlings, 
+    Wildling[][] Wildlings,
     int Turn)
 {
     public void AddPhase1(int turn, WesterosPhase1 @event) =>
@@ -135,23 +135,23 @@ public static class Cards
     public static readonly IReadOnlyDictionary<Wildling, Card> Wildlings =
         new Dictionary<Wildling, Card>
         {
-            [TMModels.Wildling.AKingBeyondTheWall] = new("A King Beyond the Wall",
+            [Wildling.AKingBeyondTheWall] = new("A King Beyond the Wall",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Moves his tokens to the lowest position of every influence track</div><h6>Everyone else</h6><div>In turn order, each player chooses either the Fiefdoms or King's Court Influence track and moves his token to the lowest position of that track.</div><h6>Night's Watch Victory</h6><div>Moves his token to the top of one Influence track of his choice, then takes the appropriate Dominance token.</div>"),
-            [TMModels.Wildling.CrowKillers] = new("Crow Killers",
+            [Wildling.CrowKillers] = new("Crow Killers",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Replaces all of his Knights with available Footmen. Any Knight unable to be replaced is destroyed</div><h6>Everyone else</h6><div>Replaces 2 of their Knights with available Footmen. Any Knight unable to be replaced is destroyed.</div><h6>Night's Watch Victory</h6><div>May immediately replace up to 2 of his Footmen anywhere, with available Knights</div>"),
-            [TMModels.Wildling.MammothRiders] = new("Mammoth Riders",
+            [Wildling.MammothRiders] = new("Mammoth Riders",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Destroys 3 of his units anywhere</div><h6>Everyone else</h6><div>Destroys 2 of their units anywhere</div><h6>Night's Watch Victory</h6><div>May retrieve 1 House card of his choice from his House card discard pile</div>"),
-            [TMModels.Wildling.MassingOnTheMilkwater] = new("Massing on the Milkwater",
+            [Wildling.MassingOnTheMilkwater] = new("Massing on the Milkwater",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>If he has more than one Hosue card in his hand, he discards all cards with the highest combat strength</div><h6>Everyone else</h6><div>If they have more than one House card in their hand, they must choose and discard one of those cards</div><h6>Night's Watch Victory</h6><div>Returns his entire House card discard pile into his hand</div>"),
-            [TMModels.Wildling.PreemptiveRaid] = new("Preemptive Raid",
+            [Wildling.PreemptiveRaid] = new("Preemptive Raid",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Chooses one of the following: <br/>A) Destroys 2 of his units anywhere<br/>B) Is reduced 2 positions on his highest influence track</div><h6>Everyone else</h6><div>Nothing happens</div><h6>Night's Watch Victory</h6><div>The wildlings immediately attack again with a strength of 6. You do not participate in the bidding against this attack (nor do you receive any rewards or penalties)</div>"),
-            [TMModels.Wildling.RattleshirtsRaiders] = new("Rattleshirt's Raiders",
+            [Wildling.RattleshirtsRaiders] = new("Rattleshirt's Raiders",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Is reduced 2 positions on the Supply track (to no lower than 0); then reconcile armies to their new Supply limits</div><h6>Everyone else</h6><div>Is reduced 1 position on the Supply track (to no lower than 0); then reconcile armies to their new Supply limits</div><h6>Night's Watch Victory</h6><div>Is increased 1 position on the Supply track (to no higher than 6)</div>"),
-            [TMModels.Wildling.SilenceAtTheWall] = new("Silence at the Wall",
+            [Wildling.SilenceAtTheWall] = new("Silence at the Wall",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Nothing happens</div><h6>Everyone else</h6><div>Nothing happens</div><h6>Night's Watch Victory</h6><div>Nothing happens</div>"),
-            [TMModels.Wildling.SkinchangerScout] = new("Skinchanger Scout",
+            [Wildling.SkinchangerScout] = new("Skinchanger Scout",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Discards all available Power tokens</div><h6>Everyone else</h6><div>Discards 2 available Power tokens, or as many as they are able.</div><h6>Night's Watch Victory</h6><div>All Power tokens he bid on this attack are immediately returned to his available Power.</div>"),
-            [TMModels.Wildling.TheHordeDescends] = new("The Horde Descends",
+            [Wildling.TheHordeDescends] = new("The Horde Descends",
                 "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Destroys 2 of his units at one of his Castles or Strongholds. If unable he destroys 2 of his units anywhere</div><h6>Everyone else</h6><div>Destroys 1 of their units anywyere</div><h6>Night's Watch Victory</h6><div>May muster forces (following normal mustering rules) in any one Castle or Stronghold area he controls</div>")
         };
 }
@@ -179,6 +179,8 @@ public record HouseScore(
     int Moves,
     int[] BattlesInTurn,
     int Turn,
+    bool? KnowsNextWildlings,
+    int? KnownWildlingsCount,
     Stats? Stats) : IComparable<HouseScore>
 {
     public Stats Stats { get; } = Stats ?? new Stats();
@@ -389,4 +391,18 @@ public record BidStats
         stats.KingsCourt / divisor,
         stats.Wildlings / divisor,
         stats.Aeron / divisor);
+}
+
+public class WildligKnowledge : Dictionary<House, HouseWildligKnowledge>
+{
+    public IEnumerable<KeyValuePair<House, HouseWildligKnowledge>> Ordered => this.OrderBy(pair => pair.Key);
+
+    public WildligKnowledge(IDictionary<House, HouseWildligKnowledge> dictionary) : base(dictionary) { }
+}
+
+public record HouseWildligKnowledge(bool Knows, int KnownWildlings)
+{
+    public HouseWildligKnowledge Discarded() => this with { Knows = false };
+    public HouseWildligKnowledge Know() => new(true, Knows ? KnownWildlings : KnownWildlings + 1);
+    public HouseWildligKnowledge Attack() => new(false, Knows ? KnownWildlings : KnownWildlings + 1);
 }

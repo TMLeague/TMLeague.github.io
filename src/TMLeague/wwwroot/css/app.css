@@ -500,8 +500,16 @@ a,
     background-color: #ca2 !important;
 }
 
+.house-baratheon-opacity-50 {
+    background-color: rgba(204, 170, 34, 0.5) !important;
+}
+
 .house-lannister {
     background-color: #811 !important;
+}
+
+.house-lannister-opacity-50 {
+    background-color: rgba(136, 17, 17, 0.5) !important;
 }
 
 .house-stark {
@@ -509,20 +517,41 @@ a,
     background-color: #999 !important;
 }
 
+.house-stark-opacity-50 {
+    color: #25292C;
+    background-color: rgba(153, 153, 153, 0.5) !important;
+}
+
 .house-tyrell {
     background-color: #050 !important;
+}
+
+.house-tyrell-opacity-50 {
+    background-color: rgba(0, 85, 0, 0.5) !important;
 }
 
 .house-greyjoy {
     background-color: #222 !important;
 }
 
+.house-greyjoy-opacity-50 {
+    background-color: rgba(34, 34, 34, 0.5) !important;
+}
+
 .house-martell {
     background-color: #b62 !important;
 }
 
+.house-martell-opacity-50 {
+    background-color: rgba(187, 102, 34, 0.5) !important;
+}
+
 .house-arryn {
     background-color: #036 !important;
+}
+
+.house-arryn-opacity-50 {
+    background-color: rgba(0, 51, 102, 0.5) !important;
 }
 
 .valid.modified:not([type=checkbox]) {

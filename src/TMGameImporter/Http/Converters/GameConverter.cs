@@ -31,86 +31,18 @@ internal class GameConverter
 
         var log = _logConverter.Convert(gameId, logHtmlString);
 
-        var houses = GetHouses(state, log);
+        var westerosStats = GetWesteros(log?.Logs, state.Turn);
+
+        var ravenActions = GetRavenActions(log?.Logs, state.Turn);
+
+        var wildlingKnowledge = GetWildlingKnowledge(state.HousesOrder, westerosStats?.Wildlings, ravenActions);
+
+        var houses = GetHouses(state, log, wildlingKnowledge);
 
         return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn,
-            state.Map, GetWesteros(log?.Logs, state.Turn), GetRavenActions(log?.Logs, state.Turn),
+            state.Map, westerosStats, ravenActions,
             houses, DateTimeOffset.UtcNow);
     }
-
-    private HouseScore[] GetHouses(State state, Log? log)
-    {
-        const int houseSize = 6;
-
-        var logsPerTurn = log?.Logs.GroupBy(item => item.Turn).ToArray();
-
-        var houses = state.HousesOrder.Select((house, i) =>
-                GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn))
-            .ToArray();
-
-        Array.Sort(houses);
-        Array.Reverse(houses);
-
-        if (log == null)
-            return houses;
-
-        try
-        {
-            houses = houses.CalculateStats(log);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, "Calculating stats for game {gameId} failed.", state.GameId);
-        }
-        return houses;
-    }
-
-    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IGrouping<int, LogItem>[]? logsPerTurn)
-    {
-        var player = state.Players[idx];
-        var throne = int.Parse(houseDataRaw[..1]);
-        var fiefdoms = int.Parse(houseDataRaw[1..2]);
-        var kingsCourt = int.Parse(houseDataRaw[2..3]);
-        var supplies = int.Parse(houseDataRaw[3..4]);
-        var powerTokens = int.Parse(houseDataRaw[4..6]);
-        var strongholds = 0;
-        var castles = 0;
-        var cla = 0;
-        foreach (var land in state.Map.Lands)
-        {
-            if (land.House != house)
-                continue;
-
-            cla++;
-            if (land.MobilizationPoints == 1)
-                castles++;
-            else if (land.MobilizationPoints == 2)
-                strongholds++;
-        }
-
-        var houseSpeed = state.Stats.FirstOrDefault(speed => speed.House == house);
-
-        var battlesInTurn = logsPerTurn?
-            .Select(items => items
-                .Count(item => IsPlayerBattleLogItem(house, item)))
-            .ToArray() ?? Array.Empty<int>();
-
-        var turn = logsPerTurn?.Select(items =>
-            items.Any(log =>
-                log.House == house && log.Phase == Phase.Planning)
-                ? items.Key
-                : 0)
-            .Max() ?? 0;
-
-        return new HouseScore(house, player, throne,
-            fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
-            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, turn, new Stats());
-    }
-
-    private static bool IsPlayerBattleLogItem(House house, LogItem item) =>
-        item.Phase == Phase.March &&
-        item.Message.Contains("Battle!") &&
-        item.Message.Contains(house.ToString(), StringComparison.InvariantCultureIgnoreCase);
 
     private static WesterosStats? GetWesteros(IReadOnlyCollection<LogItem>? logs, int turn)
     {
@@ -163,4 +95,100 @@ internal class GameConverter
 
     private static T[][] GetArrayWithEmptyArrays<T>(int turn) =>
         Enumerable.Range(0, turn).Select(_ => Array.Empty<T>()).ToArray();
+
+    private WildligKnowledge? GetWildlingKnowledge(House[] houses, Wildling[][]? wildlingsByTurn, RavenAction[]? ravenActions)
+    {
+        if (wildlingsByTurn == null || ravenActions == null)
+            return null;
+
+        var knowledge = new WildligKnowledge(houses.ToDictionary(house => house, _ => new HouseWildligKnowledge(false, 0)));
+
+        foreach (var (wildlings, ravenAction) in wildlingsByTurn.Zip(ravenActions))
+        {
+            foreach (var _ in wildlings)
+                foreach (var (house, houseKnowledge) in knowledge.ToArray())
+                    knowledge[house] = houseKnowledge.Attack();
+
+            if (ravenAction.Type is RavenActionType.Discarded or RavenActionType.Knows or RavenActionType.Look)
+                knowledge[ravenAction.House] = knowledge[ravenAction.House].Know();
+
+            if (ravenAction.Type == RavenActionType.Discarded)
+                foreach (var (house, houseKnowledge) in knowledge.Where(pair => pair.Value.Knows).ToArray())
+                    knowledge[house] = houseKnowledge.Discarded();
+        }
+
+        return knowledge;
+    }
+
+    private HouseScore[] GetHouses(State state, Log? log, WildligKnowledge? wildligKnowledge)
+    {
+        const int houseSize = 6;
+
+        var logsPerTurn = log?.Logs.GroupBy(item => item.Turn).ToArray();
+
+        var houses = state.HousesOrder.Select((house, i) =>
+                GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn, wildligKnowledge))
+            .OrderByDescending(score => score)
+            .ToArray();
+
+        if (log == null)
+            return houses;
+
+        try
+        {
+            houses = houses.CalculateStats(log);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Calculating stats for game {gameId} failed.", state.GameId);
+        }
+        return houses;
+    }
+
+    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IGrouping<int, LogItem>[]? logsPerTurn, WildligKnowledge? wildligKnowledge)
+    {
+        var player = state.Players[idx];
+        var throne = int.Parse(houseDataRaw[..1]);
+        var fiefdoms = int.Parse(houseDataRaw[1..2]);
+        var kingsCourt = int.Parse(houseDataRaw[2..3]);
+        var supplies = int.Parse(houseDataRaw[3..4]);
+        var powerTokens = int.Parse(houseDataRaw[4..6]);
+        var strongholds = 0;
+        var castles = 0;
+        var cla = 0;
+        foreach (var land in state.Map.Lands)
+        {
+            if (land.House != house)
+                continue;
+
+            cla++;
+            if (land.MobilizationPoints == 1)
+                castles++;
+            else if (land.MobilizationPoints == 2)
+                strongholds++;
+        }
+
+        var houseSpeed = state.Stats.FirstOrDefault(speed => speed.House == house);
+
+        var battlesInTurn = logsPerTurn?
+            .Select(items => items
+                .Count(item => IsPlayerBattleLogItem(house, item)))
+            .ToArray() ?? Array.Empty<int>();
+
+        var turn = logsPerTurn?.Select(items =>
+            items.Any(log =>
+                log.House == house && log.Phase == Phase.Planning)
+                ? items.Key
+                : 0)
+            .Max() ?? 0;
+
+        return new HouseScore(house, player, throne,
+            fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
+            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, turn, wildligKnowledge?[house].Knows, wildligKnowledge?[house].KnownWildlings, new Stats());
+    }
+
+    private static bool IsPlayerBattleLogItem(House house, LogItem item) =>
+        item.Phase == Phase.March &&
+        item.Message.Contains("Battle!") &&
+        item.Message.Contains(house.ToString(), StringComparison.InvariantCultureIgnoreCase);
 }
