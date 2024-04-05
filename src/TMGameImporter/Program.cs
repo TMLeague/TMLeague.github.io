@@ -11,6 +11,14 @@ using TMGameImporter.Http.Converters;
 using TMGameImporter.Services.Import;
 using TMGameImporter.Services.Summaries;
 
+var cts = new CancellationTokenSource();
+Console.CancelKeyPress += (s, e) =>
+{
+    Console.WriteLine("Canceling...");
+    cts.Cancel();
+    e.Cancel = true;
+};
+
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 var host = Host.CreateDefaultBuilder()
@@ -50,21 +58,29 @@ var host = Host.CreateDefaultBuilder()
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
 var options = host.Services.GetRequiredService<IOptions<ImporterOptions>>();
 logger.LogInformation(
-    "Importing program started with following arguments: {arguments}", 
+    "Importing program started with following arguments: {arguments}",
     string.Join("", ArgumentsString()));
 
 //var fixingService = host.Services.GetRequiredService<FixingService>();
 //await fixingService.FixHouses();
 //return;
 
+if (options.Value.Games is { Length: > 0 })
+{
+    var gameImportingService = host.Services.GetRequiredService<GameImportingService>();
+    foreach (var game in options.Value.Games)
+        await gameImportingService.Import(game, cts.Token);
+    return;
+}
+
 var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
-await mainImportingService.Import();
+await mainImportingService.Import(cts.Token);
 
 var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
-await summaryCalculatingService.Calculate();
+await summaryCalculatingService.Calculate(cts.Token);
 
 var playerCalculatingService = host.Services.GetRequiredService<PlayerCalculatingService>();
-await playerCalculatingService.Calculate();
+await playerCalculatingService.Calculate(cts.Token);
 
 string[] ArgumentsString() =>
     new[]
@@ -74,8 +90,9 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames),
         ArgumentLine(nameof(options.Value.League), options.Value.League),
         ArgumentLine(nameof(options.Value.Season), options.Value.Season),
-        ArgumentLine(nameof(options.Value.Division), options.Value.Division)
+        ArgumentLine(nameof(options.Value.Division), options.Value.Division),
+        ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games))
     };
 
-string ArgumentLine(string name, object? value) => 
+string ArgumentLine(string name, object? value) =>
     $"{Environment.NewLine} - {name}: {value}";

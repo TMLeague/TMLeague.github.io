@@ -31,23 +31,104 @@ internal class GameConverter
 
         var log = _logConverter.Convert(gameId, logHtmlString);
 
-        var houses = GetHouses(state, log);
+        var westerosStats = GetWesteros(log?.Logs, state.Turn);
 
-        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn, state.Map, houses, DateTimeOffset.UtcNow);
+        var ravenActions = GetRavenActions(log?.Logs, state.Turn);
+
+        var wildlingKnowledge = GetWildlingKnowledge(state.HousesOrder, westerosStats?.Wildlings, ravenActions);
+
+        var houses = GetHouses(state, log, wildlingKnowledge);
+
+        return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn,
+            state.Map, westerosStats, ravenActions, houses, DateTimeOffset.UtcNow);
     }
 
-    private HouseScore[] GetHouses(State state, Log? log)
+    private static WesterosStats? GetWesteros(IReadOnlyCollection<LogItem>? logs, int turn)
+    {
+        if (logs == null)
+            return null;
+
+        var westerosStats = new WesterosStats(
+            GetArrayWithEmptyArrays<WesterosPhase1>(turn),
+            GetArrayWithEmptyArrays<WesterosPhase2>(turn),
+            GetArrayWithEmptyArrays<WesterosPhase3>(turn),
+            GetArrayWithEmptyArrays<Wildling>(turn),
+            turn);
+        IWesterosConverter phaseConverter = new WesterosPhase1Converter();
+
+        foreach (var log in logs.Where(log => log.Phase == Phase.Westeros))
+            phaseConverter = phaseConverter.Parse(log, westerosStats);
+
+        return westerosStats;
+    }
+
+    private static RavenAction?[]? GetRavenActions(IReadOnlyCollection<LogItem>? logs, int turn)
+    {
+        if (logs == null)
+            return null;
+
+        var actions = new RavenAction?[turn];
+        foreach (var log in logs)
+        {
+            if (log.Phase == Phase.Raven)
+                actions[log.Turn - 1] = new RavenAction(GetRavenActionType(log.Message), log.House);
+            else if (log.Message.Contains("did not use the messenger raven."))
+                actions[log.Turn - 1] = new RavenAction(RavenActionType.Nothing, log.House);
+            else if (log.Message.Contains("placed the card at the bottom of the Wildling deck."))
+                actions[log.Turn - 1] = new RavenAction(RavenActionType.Discarded, log.House);
+            else if (log.Message.Contains("knows things."))
+                actions[log.Turn - 1] = new RavenAction(RavenActionType.Knows, log.House);
+        }
+
+        return actions;
+    }
+
+    private static RavenActionType GetRavenActionType(string logMessage)
+    {
+        if (logMessage.Contains("decided to look in the Wildling deck."))
+            return RavenActionType.Look;
+        if (logMessage.Contains(" replaced ") && logMessage.Contains("Order"))
+            return RavenActionType.Replaced;
+        return RavenActionType.Nothing;
+    }
+
+    private static T[][] GetArrayWithEmptyArrays<T>(int turn) =>
+        Enumerable.Range(0, turn).Select(_ => Array.Empty<T>()).ToArray();
+
+    private WildligKnowledge? GetWildlingKnowledge(House[] houses, Wildling[][]? wildlingsByTurn, RavenAction?[]? ravenActions)
+    {
+        if (wildlingsByTurn == null || ravenActions == null)
+            return null;
+
+        var knowledge = new WildligKnowledge(houses.ToDictionary(house => house, _ => new HouseWildligKnowledge(false, 0)));
+
+        foreach (var (wildlings, ravenAction) in wildlingsByTurn.Zip(ravenActions))
+        {
+            foreach (var _ in wildlings)
+                foreach (var (house, houseKnowledge) in knowledge.ToArray())
+                    knowledge[house] = houseKnowledge.Attack();
+
+            if (ravenAction?.Type is RavenActionType.Discarded or RavenActionType.Knows or RavenActionType.Look)
+                knowledge[ravenAction.House] = knowledge[ravenAction.House].Know();
+
+            if (ravenAction?.Type == RavenActionType.Discarded)
+                foreach (var (house, houseKnowledge) in knowledge.Where(pair => pair.Value.Knows).ToArray())
+                    knowledge[house] = houseKnowledge.Discarded();
+        }
+
+        return knowledge;
+    }
+
+    private HouseScore[] GetHouses(State state, Log? log, WildligKnowledge? wildligKnowledge)
     {
         const int houseSize = 6;
 
         var logsPerTurn = log?.Logs.GroupBy(item => item.Turn).ToArray();
 
         var houses = state.HousesOrder.Select((house, i) =>
-                GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn))
+                GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn, wildligKnowledge))
+            .OrderByDescending(score => score)
             .ToArray();
-
-        Array.Sort(houses);
-        Array.Reverse(houses);
 
         if (log == null)
             return houses;
@@ -63,7 +144,7 @@ internal class GameConverter
         return houses;
     }
 
-    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IGrouping<int, LogItem>[]? logsPerTurn)
+    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IGrouping<int, LogItem>[]? logsPerTurn, WildligKnowledge? wildligKnowledge)
     {
         var player = state.Players[idx];
         var throne = int.Parse(houseDataRaw[..1]);
@@ -95,14 +176,18 @@ internal class GameConverter
 
         var turn = logsPerTurn?.Select(items =>
             items.Any(log =>
-                log.House == house && log.Phase == Phase.Planning) 
-                ? items.Key 
+                log.House == house && log.Phase == Phase.Planning)
+                ? items.Key
                 : 0)
             .Max() ?? 0;
 
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
-            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, battlesInTurn, turn, new Stats());
+            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, 
+            battlesInTurn, turn, 
+            wildligKnowledge == null ? null :
+            wildligKnowledge[house].Knows ? 1 : 1D / (9 - wildligKnowledge[house].KnownWildlings), 
+            new Stats());
     }
 
     private static bool IsPlayerBattleLogItem(House house, LogItem item) =>

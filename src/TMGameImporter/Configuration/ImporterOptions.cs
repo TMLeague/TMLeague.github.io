@@ -8,4 +8,5 @@ internal class ImporterOptions
     public string? League { get; set; }
     public string? Season { get; set; }
     public string? Division { get; set; }
+    public int[]? Games { get; set; }
 }
