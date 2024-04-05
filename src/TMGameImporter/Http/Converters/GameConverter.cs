@@ -40,8 +40,7 @@ internal class GameConverter
         var houses = GetHouses(state, log, wildlingKnowledge);
 
         return new Game(gameId, state.Name, state.IsFinished, isStalling, state.Turn,
-            state.Map, westerosStats, ravenActions,
-            houses, DateTimeOffset.UtcNow);
+            state.Map, westerosStats, ravenActions, houses, DateTimeOffset.UtcNow);
     }
 
     private static WesterosStats? GetWesteros(IReadOnlyCollection<LogItem>? logs, int turn)

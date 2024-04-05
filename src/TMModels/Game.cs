@@ -10,7 +10,7 @@ public record Game(
     int Turn,
     Map Map,
     WesterosStats? Westeros,
-    RavenAction[]? Ravens,
+    RavenAction?[]? Ravens,
     HouseScore[] Houses,
     DateTimeOffset GeneratedTime,
     bool IsCreatedManually = false)
