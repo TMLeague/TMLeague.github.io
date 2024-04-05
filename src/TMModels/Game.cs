@@ -179,8 +179,7 @@ public record HouseScore(
     int Moves,
     int[] BattlesInTurn,
     int Turn,
-    bool? KnowsNextWildlings,
-    int? KnownWildlingsCount,
+    double? KnowsNextWildlings,
     Stats? Stats) : IComparable<HouseScore>
 {
     public Stats Stats { get; } = Stats ?? new Stats();

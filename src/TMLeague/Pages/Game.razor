@@ -198,13 +198,30 @@ else if (GameIdInt != null)
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <h5>Wildlings</h5>
+                    @if (GameVm.Houses.All(score => score.KnowsNextWildlings != null))
+                    {
+                        <div class="row m-1 p-0">
+                            @foreach (var house in GameVm.Houses.OrderBy(score => score.House))
+                            {
+                                <div class="col-2 alert @GetHouseClass(house) tt tt-down m-0 p-0">
+                                    <div class="overflow-hidden fs-8">
+                                        <div>@house.House</div>
+                                        <div>@($"{Math.Round(100 * house.KnowsNextWildlings ?? 0)}%")</div>
+                                    </div>
+                                    <div class="tt-inner text-primary px-3">
+                                        @(house.KnowsNextWildlings >= 0.99 ? $"{house.House} knows things" : $"{house.House} has {Math.Round(100 * house.KnowsNextWildlings ?? 0)}% chance of knowing the next wildling card.")
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
                     @foreach (var (card, value) in GameVm.Westeros.Wildlings)
                     {
                         <div class="alert alert-info @(value ? "tt tt-down" : "alert-info-opacity-50") row m-1 p-0">
                             <div class="col-12">@Cards.Wildlings[card].Name</div>
                             @if (value)
                             {
-                                <div class="px-3 tt-inner" style="width:800px">@((MarkupString)Cards.Wildlings[card].Description)</div>
+                                <div class="tt-inner px-3" style="width:800px">@((MarkupString)Cards.Wildlings[card].Description)</div>
                             }
                         </div>
                     }
@@ -250,4 +267,6 @@ else if (GameIdInt != null)
 
         _isInitialized = true;
     }
+
+    private static string GetHouseClass(HouseScore house) => $"house-{house.House.ToString().ToLower()}{(house.KnowsNextWildlings >= 0.99 ? "" : "-opacity-25")}";
 }

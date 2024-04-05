@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
@@ -33,17 +34,25 @@ internal class GameImportingService
         {
             _logger.LogInformation("    Game {gameId} import started...", gameId);
 
-            var game = await _fileLoader.LoadGame(gameId, cancellationToken);
-            if (game?.IsCreatedManually ?? false)
+            Game? game;
+            try
             {
-                _logger.LogInformation("    Game {gameId} is created manually and can't be overriden.", gameId);
-                return game;
-            }
+                game = await _fileLoader.LoadGame(gameId, cancellationToken);
+                if (game?.IsCreatedManually ?? false)
+                {
+                    _logger.LogInformation("    Game {gameId} is created manually and can't be overriden.", gameId);
+                    return game;
+                }
 
-            if ((game?.IsFinished ?? false) && !_options.Value.FetchFinishedGames)
+                if ((game?.IsFinished ?? false) && !_options.Value.FetchFinishedGames)
+                {
+                    _logger.LogInformation("    Game {gameId} is already fetched and is finished.", gameId);
+                    return game;
+                }
+            }
+            catch (Exception exception)
             {
-                _logger.LogInformation("    Game {gameId} is already fetched and is finished.", gameId);
-                return game;
+                _logger.LogWarning(exception, "    Game {gameId} can't be loaded.", gameId);
             }
 
             var gameData = await _api.GetGameData(gameId, CancellationToken.None);
