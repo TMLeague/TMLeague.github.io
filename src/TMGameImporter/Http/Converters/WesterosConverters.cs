@@ -134,48 +134,48 @@ internal class WesterosWildlingsConverter : IWesterosConverter
     {
         if (item.Message.Contains("Drawn Wildling card: Massing on the Milkwater"))
         {
-            events.AddWildlings(item.Turn, Wildlings.MassingOnTheMilkwater);
+            events.AddWildling(item.Turn, Wildling.MassingOnTheMilkwater);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: A King Beyond the Wall"))
         {
-            events.AddWildlings(item.Turn, Wildlings.AKingBeyondTheWall);
+            events.AddWildling(item.Turn, Wildling.AKingBeyondTheWall);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: Mammoth Riders"))
         {
-            events.AddWildlings(item.Turn, Wildlings.MammothRiders);
+            events.AddWildling(item.Turn, Wildling.MammothRiders);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: Crow Killers"))
         {
-            events.AddWildlings(item.Turn, Wildlings.CrowKillers);
+            events.AddWildling(item.Turn, Wildling.CrowKillers);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: The Horde Descends"))
         {
-            events.AddWildlings(item.Turn, Wildlings.TheHordeDescends);
+            events.AddWildling(item.Turn, Wildling.TheHordeDescends);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: Skinchanger Scout"))
         {
-            events.AddWildlings(item.Turn, Wildlings.SkinchangerScout);
+            events.AddWildling(item.Turn, Wildling.SkinchangerScout);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: Rattleshirt's Raiders"))
         {
-            events.AddWildlings(item.Turn, Wildlings.RattleshirtsRaiders);
+            events.AddWildling(item.Turn, Wildling.RattleshirtsRaiders);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: Silence at the Wall") ||
             item.Message.Contains("Nothing happens."))
         {
-            events.AddWildlings(item.Turn, Wildlings.SilenceAtTheWall);
+            events.AddWildling(item.Turn, Wildling.SilenceAtTheWall);
             return new WesterosPhase1Converter();
         }
         if (item.Message.Contains("Drawn Wildling card: Preemptive Raid"))
         {
-            events.AddWildlings(item.Turn, Wildlings.PreemptiveRaid);
+            events.AddWildling(item.Turn, Wildling.PreemptiveRaid);
             return new WesterosPhase1Converter();
         }
 

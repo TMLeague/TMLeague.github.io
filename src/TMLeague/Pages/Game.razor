@@ -15,32 +15,32 @@ else if (GameIdInt != null)
         @if (GameVm.IsFinished)
         {
             <div class="progress-bar overflow-visible bg-success"
-         role="progressbar" aria-valuenow="10"
-         aria-valuemin="0" aria-valuemax="10" style="width: 100%">
+                 role="progressbar" aria-valuenow="10"
+                 aria-valuemin="0" aria-valuemax="10" style="width: 100%">
                 Finished
             </div>
         }
         else if (GameVm.IsStalling)
         {
             <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-success"
-         role="progressbar" aria-valuenow="9"
-         aria-valuemin="0" aria-valuemax="10" style="width: 97%">
+                 role="progressbar" aria-valuenow="9"
+                 aria-valuemin="0" aria-valuemax="10" style="width: 97%">
                 Stalling
             </div>
             <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-warning text-dark"
-         role="progressbar" aria-valuenow="1"
-         aria-valuemin="0" aria-valuemax="10" style="width: 3%">
+                 role="progressbar" aria-valuenow="1"
+                 aria-valuemin="0" aria-valuemax="10" style="width: 3%">
             </div>
         }
         else
         {
             <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-success"
-         role="progressbar" aria-valuenow="@(GameVm.Turn - 1)"
-         aria-valuemin="0" aria-valuemax="10" style="@($"width: {100 * (GameVm.Turn - 1) / 10}%")">
+                 role="progressbar" aria-valuenow="@(GameVm.Turn - 1)"
+                 aria-valuemin="0" aria-valuemax="10" style="@($"width: {100 * (GameVm.Turn - 1) / 10}%")">
             </div>
             <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-warning text-dark"
-         role="progressbar" aria-valuenow="1"
-         aria-valuemin="0" aria-valuemax="10" style="width: 10%">
+                 role="progressbar" aria-valuenow="1"
+                 aria-valuemin="0" aria-valuemax="10" style="width: 10%">
                 @($"T{GameVm.Turn}")
             </div>
         }
@@ -159,6 +159,58 @@ else if (GameIdInt != null)
                 </tbody>
             </table>
         </div>
+
+        @if (GameVm.Westeros != null && !GameVm.IsFinished)
+        {
+            <div class="row">
+                <h4>Westeros cards for turn @(GameVm.Westeros.Turn + 1)</h4>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <h5>Phase I</h5>
+                    @foreach (var (card, value) in GameVm.Westeros.Phase1)
+                    {
+                        <div class="alert alert-info @(card == WesterosPhase1.WinterIsComing ? "alert-info-opacity-75" : "") row m-1 p-0">
+                            <div class="col-9">@Cards.WesterosPhase1[card].Name</div>
+                            <div class="col-3">@($"{Math.Round(value * 100)}%")</div>
+                        </div>
+                    }
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <h5>Phase II</h5>
+                    @foreach (var (card, value) in GameVm.Westeros.Phase2)
+                    {
+                        <div class="alert alert-info @(card == WesterosPhase2.WinterIsComing ? "alert-info-opacity-75" : "") row m-1 p-0">
+                            <div class="col-9">@Cards.WesterosPhase2[card].Name</div>
+                            <div class="col-3">@($"{Math.Round(value * 100)}%")</div>
+                        </div>
+                    }
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <h5>Phase III</h5>
+                    @foreach (var (card, value) in GameVm.Westeros.Phase3)
+                    {
+                        <div class="alert alert-info @(value > 0 ? "" : "alert-info-opacity-50")  row m-1 p-0">
+                            <div class="col-9">@Cards.WesterosPhase3[card].Name</div>
+                            <div class="col-3">@($"{Math.Round(value * 100)}%")</div>
+                        </div>
+                    }
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <h5>Wildlings</h5>
+                    @foreach (var (card, value) in GameVm.Westeros.Wildlings)
+                    {
+                        <div class="alert alert-info @(value ? "tt tt-down" : "alert-info-opacity-50") row m-1 p-0">
+                            <div class="col-12">@Cards.Wildlings[card].Name</div>
+                            @if (value)
+                            {
+                                <div class="px-3 tt-inner" style="width:800px">@((MarkupString)Cards.Wildlings[card].Description)</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
     }
 </div>
 

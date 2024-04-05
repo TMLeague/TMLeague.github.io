@@ -121,7 +121,8 @@ internal class GameConverter
             GetArrayWithEmptyArrays<WesterosPhase1>(turn),
             GetArrayWithEmptyArrays<WesterosPhase2>(turn),
             GetArrayWithEmptyArrays<WesterosPhase3>(turn),
-            GetArrayWithEmptyArrays<Wildlings>(turn));
+            GetArrayWithEmptyArrays<Wildling>(turn),
+            turn);
         IWesterosConverter phaseConverter = new WesterosPhase1Converter();
 
         foreach (var log in logs.Where(log => log.Phase == Phase.Westeros))

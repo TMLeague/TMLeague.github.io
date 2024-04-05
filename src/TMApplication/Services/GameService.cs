@@ -1,5 +1,6 @@
 ﻿using TMApplication.Providers;
 using TMApplication.ViewModels;
+using TMModels;
 
 namespace TMApplication.Services;
 
@@ -29,7 +30,7 @@ public class GameService
         var game = await _dataProvider.GetGame(gameId, cancellationToken);
         if (game == null)
             return null;
-
-        return new GameViewModel(game.Id, game.Name, game.IsFinished, game.IsStalling, game.Turn, game.Houses, game.GeneratedTime);
+        
+        return new GameViewModel(game.Id, game.Name, game.IsFinished, game.IsStalling, game.Turn, game.Houses, game.Westeros == null ? null : new WesterosProbabilities(game.Westeros), game.GeneratedTime);
     }
 }

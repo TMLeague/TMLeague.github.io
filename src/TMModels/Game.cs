@@ -55,7 +55,8 @@ public record WesterosStats(
     WesterosPhase1[][] Phase1,
     WesterosPhase2[][] Phase2,
     WesterosPhase3[][] Phase3,
-    Wildlings[][] Wildlings)
+    Wildling[][] Wildlings, 
+    int Turn)
 {
     public void AddPhase1(int turn, WesterosPhase1 @event) =>
         Phase1[turn - 1] = Phase1[turn - 1].Append(@event).Distinct().ToArray();
@@ -66,7 +67,7 @@ public record WesterosStats(
     public void AddPhase3(int turn, WesterosPhase3 @event) =>
         Phase3[turn - 1] = Phase3[turn - 1].Append(@event).Distinct().ToArray();
 
-    public void AddWildlings(int turn, Wildlings @event) =>
+    public void AddWildling(int turn, Wildling @event) =>
         Wildlings[turn - 1] = Wildlings[turn - 1].Append(@event).Distinct().ToArray();
 }
 
@@ -89,10 +90,70 @@ public enum WesterosPhase3
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum Wildlings
+public enum Wildling
 {
-    MassingOnTheMilkwater, AKingBeyondTheWall, MammothRiders, CrowKillers,
-    TheHordeDescends, SkinchangerScout, RattleshirtsRaiders, SilenceAtTheWall, PreemptiveRaid
+    AKingBeyondTheWall, CrowKillers, MammothRiders, MassingOnTheMilkwater, PreemptiveRaid,
+    RattleshirtsRaiders, SilenceAtTheWall, SkinchangerScout, TheHordeDescends
+}
+
+public record Card(string Name, string Description);
+
+public static class Cards
+{
+    public static readonly IReadOnlyDictionary<WesterosPhase1, Card> WesterosPhase1 =
+        new Dictionary<WesterosPhase1, Card>
+        {
+            [TMModels.WesterosPhase1.Supply] = new("Supply", "Supplies update"),
+            [TMModels.WesterosPhase1.Mustering] = new("Mustering", "Mustering units"),
+            [TMModels.WesterosPhase1.ThroneOfBlades] = new("A Throne of Blades (W)", "The holder of the Iron Throne chose"),
+            [TMModels.WesterosPhase1.LastDaysOfSummer] = new("Last Days of Summer (W)", "Nothing"),
+            [TMModels.WesterosPhase1.WinterIsComing] = new("Winter is Coming", "Reshuffle the deck")
+        };
+
+    public static readonly IReadOnlyDictionary<WesterosPhase2, Card> WesterosPhase2 =
+        new Dictionary<WesterosPhase2, Card>
+        {
+            [TMModels.WesterosPhase2.ClashOfKings] = new("Clash of Kings", "Influence Track Bidding"),
+            [TMModels.WesterosPhase2.GameOfThrones] = new("Game of Thrones", "Gaining Power Tokens"),
+            [TMModels.WesterosPhase2.DarkWingsDarkWords] = new("Dark Wings, Dark Words (W)", "The holder of the Messenger Raven chose"),
+            [TMModels.WesterosPhase2.LastDaysOfSummer] = new("Last Days of Summer (W)", "Nothing"),
+            [TMModels.WesterosPhase2.WinterIsComing] = new("Winter is Coming", "Reshuffle the deck")
+        };
+
+    public static readonly IReadOnlyDictionary<WesterosPhase3, Card> WesterosPhase3 =
+        new Dictionary<WesterosPhase3, Card>
+        {
+            [TMModels.WesterosPhase3.WildlingAttack] = new("Wildlings Attack", "Wildlings Attack Bidding"),
+            [TMModels.WesterosPhase3.SeaOfStorms] = new("Sea of Storms (W)", "No Raids Orders"),
+            [TMModels.WesterosPhase3.RainsOfAutumn] = new("Rains of Autumn (W)", "No March+1 Order"),
+            [TMModels.WesterosPhase3.FeastForCrows] = new("Feast for Crows (W)", "No Consolidate Power Orders"),
+            [TMModels.WesterosPhase3.WebOfLies] = new("Web of Lies (W)", "No Support Orders"),
+            [TMModels.WesterosPhase3.StormOfSwords] = new("Storm of Swords (W)", "No Defense Orders"),
+            [TMModels.WesterosPhase3.PutToTheSword] = new("Put To the Sword", "The holder of the Valyrian Steel Blade chose")
+        };
+
+    public static readonly IReadOnlyDictionary<Wildling, Card> Wildlings =
+        new Dictionary<Wildling, Card>
+        {
+            [TMModels.Wildling.AKingBeyondTheWall] = new("A King Beyond the Wall",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Moves his tokens to the lowest position of every influence track</div><h6>Everyone else</h6><div>In turn order, each player chooses either the Fiefdoms or King's Court Influence track and moves his token to the lowest position of that track.</div><h6>Night's Watch Victory</h6><div>Moves his token to the top of one Influence track of his choice, then takes the appropriate Dominance token.</div>"),
+            [TMModels.Wildling.CrowKillers] = new("Crow Killers",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Replaces all of his Knights with available Footmen. Any Knight unable to be replaced is destroyed</div><h6>Everyone else</h6><div>Replaces 2 of their Knights with available Footmen. Any Knight unable to be replaced is destroyed.</div><h6>Night's Watch Victory</h6><div>May immediately replace up to 2 of his Footmen anywhere, with available Knights</div>"),
+            [TMModels.Wildling.MammothRiders] = new("Mammoth Riders",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Destroys 3 of his units anywhere</div><h6>Everyone else</h6><div>Destroys 2 of their units anywhere</div><h6>Night's Watch Victory</h6><div>May retrieve 1 House card of his choice from his House card discard pile</div>"),
+            [TMModels.Wildling.MassingOnTheMilkwater] = new("Massing on the Milkwater",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>If he has more than one Hosue card in his hand, he discards all cards with the highest combat strength</div><h6>Everyone else</h6><div>If they have more than one House card in their hand, they must choose and discard one of those cards</div><h6>Night's Watch Victory</h6><div>Returns his entire House card discard pile into his hand</div>"),
+            [TMModels.Wildling.PreemptiveRaid] = new("Preemptive Raid",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Chooses one of the following: <br/>A) Destroys 2 of his units anywhere<br/>B) Is reduced 2 positions on his highest influence track</div><h6>Everyone else</h6><div>Nothing happens</div><h6>Night's Watch Victory</h6><div>The wildlings immediately attack again with a strength of 6. You do not participate in the bidding against this attack (nor do you receive any rewards or penalties)</div>"),
+            [TMModels.Wildling.RattleshirtsRaiders] = new("Rattleshirt's Raiders",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Is reduced 2 positions on the Supply track (to no lower than 0); then reconcile armies to their new Supply limits</div><h6>Everyone else</h6><div>Is reduced 1 position on the Supply track (to no lower than 0); then reconcile armies to their new Supply limits</div><h6>Night's Watch Victory</h6><div>Is increased 1 position on the Supply track (to no higher than 6)</div>"),
+            [TMModels.Wildling.SilenceAtTheWall] = new("Silence at the Wall",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Nothing happens</div><h6>Everyone else</h6><div>Nothing happens</div><h6>Night's Watch Victory</h6><div>Nothing happens</div>"),
+            [TMModels.Wildling.SkinchangerScout] = new("Skinchanger Scout",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Discards all available Power tokens</div><h6>Everyone else</h6><div>Discards 2 available Power tokens, or as many as they are able.</div><h6>Night's Watch Victory</h6><div>All Power tokens he bid on this attack are immediately returned to his available Power.</div>"),
+            [TMModels.Wildling.TheHordeDescends] = new("The Horde Descends",
+                "<h5>Wildling Victory</h5><h6>Lowest Bidder</h6><div>Destroys 2 of his units at one of his Castles or Strongholds. If unable he destroys 2 of his units anywhere</div><h6>Everyone else</h6><div>Destroys 1 of their units anywyere</div><h6>Night's Watch Victory</h6><div>May muster forces (following normal mustering rules) in any one Castle or Stronghold area he controls</div>")
+        };
 }
 
 public record RavenAction(RavenActionType Type, House House);

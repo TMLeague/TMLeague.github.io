@@ -439,6 +439,17 @@ a,
         border-color: transparent black transparent transparent;
     }
 
+.tt-down .tt-inner {
+    left: 20px;
+    top: 20px;
+}
+
+    .tt-down .tt-inner::after {
+        left: 20px;
+        top: -5px;
+        border-color: transparent transparent black transparent;
+    }
+
 .text-inherit {
     color: inherit !important;
 }
@@ -467,17 +478,17 @@ a,
     padding: 2px;
 }
 
-    .form-control:focus {
-        color: #ddd;
-        background: none;
-        border: 0;
-        border-bottom: 2px solid #496288;
-        box-shadow: none;
-    }
+.form-control:focus {
+    color: #ddd;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid #496288;
+    box-shadow: none;
+}
 
-    .form-control:focus-visible {
-        outline: none;
-    }
+.form-control:focus-visible {
+    outline: none;
+}
 
 /* Houses */
 
@@ -532,6 +543,15 @@ h4, h5, h6 {
     background: #575c72;
     border-color: #50506a;
     color: #ddd;
+}
+
+.alert-info-opacity-75 {
+    background: rgba(87, 92, 114, 0.75);
+}
+
+.alert-info-opacity-50 {
+    background: rgba(87, 92, 114, 0.50);
+    color: #888;
 }
 
 .alert-warning {
