@@ -128,3 +128,4 @@ where there are possible following parameters:
 - `League` - id of the league to import (when `null` or empty, all leagues are imported)
 - `Season` - id of the season to import (when `null` or empty, all seasons are imported)
 - `Division` - id of the division to import (when `null` or empty, all division are imported)
+- `Games` - ids of games to import (when contains any ids other parameters are ignored)

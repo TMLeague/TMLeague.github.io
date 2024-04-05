@@ -27,7 +27,7 @@ internal class GameImportingService
         _logger = logger;
     }
 
-    public async Task<Game?> Import(int gameId, CancellationToken cancellationToken)
+    public async Task<Game?> Import(int gameId, CancellationToken cancellationToken = default)
     {
         try
         {

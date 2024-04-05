@@ -12,6 +12,18 @@ internal class WesterosPhase1Converter : IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events)
     {
+        if (item.Message.StartsWith("'Winter is Coming' - New events came up.") &&
+            !item.Message.Contains("The crowds of Wildlings have been blown away by the armies of Westeros!"))
+        {
+            events.AddPhase1(item.Turn, WesterosPhase1.WinterIsComing);
+            return new WesterosPhase1Converter();
+        }
+        if (item.Message.StartsWith("'A Throne of Blades (W)' - The holder of the Iron Throne chose") &&
+            !item.Message.Contains("The crowds of Wildlings have been blown away by the armies of Westeros!"))
+        {
+            events.AddPhase1(item.Turn, WesterosPhase1.ThroneOfBlades);
+            return new WesterosPhase2Converter();
+        }
         if (item.Message.Contains("got new supplies") &&
             !item.Message.Contains("The crowds of Wildlings have been blown away by the armies of Westeros!"))
         {
@@ -24,23 +36,11 @@ internal class WesterosPhase1Converter : IWesterosConverter
             events.AddPhase1(item.Turn, WesterosPhase1.Mustering);
             return new WesterosPhase2Converter();
         }
-        if (item.Message.Contains("A Throne of Blades (W)") &&
-            !item.Message.Contains("The crowds of Wildlings have been blown away by the armies of Westeros!"))
-        {
-            events.AddPhase1(item.Turn, WesterosPhase1.ThroneOfBlades);
-            return new WesterosPhase2Converter();
-        }
         if (item.Message.Contains("Last Days of Summer (W)") &&
             !item.Message.Contains("The crowds of Wildlings have been blown away by the armies of Westeros!"))
         {
             events.AddPhase1(item.Turn, WesterosPhase1.LastDaysOfSummer);
             return new WesterosPhase2Converter();
-        }
-        if (item.Message.Contains("Winter is Coming") &&
-            !item.Message.Contains("The crowds of Wildlings have been blown away by the armies of Westeros!"))
-        {
-            events.AddPhase1(item.Turn, WesterosPhase1.WinterIsComing);
-            return new WesterosPhase1Converter();
         }
 
         if (item.Message.Contains("Drawn Wildling card:"))
@@ -54,6 +54,16 @@ internal class WesterosPhase2Converter : IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events)
     {
+        if (item.Message.StartsWith("'Winter is Coming' - New events came up."))
+        {
+            events.AddPhase2(item.Turn, WesterosPhase2.WinterIsComing);
+            return new WesterosPhase2Converter();
+        }
+        if (item.Message.StartsWith("'Dark Wings, Dark Words (W)' - The holder of the Messenger Raven chose"))
+        {
+            events.AddPhase2(item.Turn, WesterosPhase2.DarkWingsDarkWords);
+            return new WesterosPhase3Converter();
+        }
         if (item.Message.Contains("exerted a power of"))
         {
             events.AddPhase2(item.Turn, WesterosPhase2.ClashOfKings);
@@ -64,20 +74,10 @@ internal class WesterosPhase2Converter : IWesterosConverter
             events.AddPhase2(item.Turn, WesterosPhase2.GameOfThrones);
             return new WesterosPhase3Converter();
         }
-        if (item.Message.Contains("Dark Wings, Dark Words (W)"))
-        {
-            events.AddPhase2(item.Turn, WesterosPhase2.DarkWingsDarkWords);
-            return new WesterosPhase3Converter();
-        }
         if (item.Message.Contains("Last Days of Summer (W)"))
         {
             events.AddPhase2(item.Turn, WesterosPhase2.LastDaysOfSummer);
             return new WesterosPhase3Converter();
-        }
-        if (item.Message.Contains("Winter is Coming"))
-        {
-            events.AddPhase2(item.Turn, WesterosPhase2.WinterIsComing);
-            return new WesterosPhase2Converter();
         }
 
         return this;
@@ -88,7 +88,12 @@ internal class WesterosPhase3Converter : IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events)
     {
-        if (item.Message.Contains("Wildlings Attack"))
+        if (item.Message.StartsWith("'Put To the Sword'"))
+        {
+            events.AddPhase3(item.Turn, WesterosPhase3.PutToTheSword);
+            return new WesterosPhase1Converter();
+        }
+        if (item.Message.Contains("Wildlings Attack: "))
         {
             events.AddPhase3(item.Turn, WesterosPhase3.WildlingAttack);
             return new WesterosWildlingsConverter();
@@ -116,11 +121,6 @@ internal class WesterosPhase3Converter : IWesterosConverter
         if (item.Message.Contains("Storm of Swords (W)"))
         {
             events.AddPhase3(item.Turn, WesterosPhase3.StormOfSwords);
-            return new WesterosPhase1Converter();
-        }
-        if (item.Message.Contains("Put To the Sword"))
-        {
-            events.AddPhase3(item.Turn, WesterosPhase3.PutToTheSword);
             return new WesterosPhase1Converter();
         }
 
