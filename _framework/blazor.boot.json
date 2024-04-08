@@ -1,7 +1,7 @@
 {
   "entryAssembly": "TMLeague",
   "resources": {
-    "hash": "sha256-c1uIqt4m+U9XnLuOiaDG1Rg+kYRu4IRVJ8hdosjWU2E=",
+    "hash": "sha256-tE/YtowoxQCmCAjBlR7Cf4J+wqAnIRKxOnYqNn6Wlnc=",
     "runtime": {
       "dotnet.7.0.17.l5d3yuhyfu.js": "sha256-E0n6hbqoR0T+sf5KQWRykPOVHyupoVmuMAlrNdZv/58=",
       "dotnet.timezones.blat": "sha256-GzDmKQksbAkzNe1GNrGcVtpc0naGXOFCpUzq3c/pV+c=",
@@ -31,7 +31,7 @@
       "Microsoft.JSInterop.dll": "sha256-mN9NRjCix+WoB4T5gP2gNXLioxZJp+0st1wi6zcIABc=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-LIeei4/JFd3TBbtpEc1rneu+zOw4UNmSksghADw1m1I=",
       "System.Collections.Concurrent.dll": "sha256-PPy/NHWUte5L1c60nP0/QOnJP1AB8yzMZCh8GTR7Dmc=",
-      "System.Collections.dll": "sha256-8tuT4gRxqxDs+9hW7FV+cwVIpPxm15ENjnsRfn3z4z4=",
+      "System.Collections.dll": "sha256-FcOw3LO/Q1w4Hy8Q9V5X2LJbjs9kDxByooI4ntr8VeI=",
       "System.Collections.NonGeneric.dll": "sha256-N5aavWoZOppT4iOHflC+rLEo6fqPdt74JNejTdG3q+k=",
       "System.Collections.Specialized.dll": "sha256-zSeVFP8ZovRTb5HkXPamaO2I3WyraJbFXF1PXkDHMRQ=",
       "System.ComponentModel.Annotations.dll": "sha256-yl2bBQKZXLCR+NHRlvbPA32wdDLwH58pif7lB6Bncyc=",
@@ -56,10 +56,10 @@
       "System.Text.RegularExpressions.dll": "sha256-HDr2Se3W3O304Tpt3Xt3FVnxJe/2b/2IbDydrHiT3E0=",
       "System.Threading.dll": "sha256-rRuZJEE80r6Cf1ibhlAf1k8Z7cW9xmIx7Xsj30opyfQ=",
       "System.Web.HttpUtility.dll": "sha256-jgUATSJtgT1+hKuVlVCcITA3b+xlxmmX/ZjhnlzSsDU=",
-      "TMApplication.dll": "sha256-cUiRO7N6bXKqJuXGDObOOwDPQpjm7iSMT/l9ww356G4=",
-      "TMInfrastructure.dll": "sha256-Ku7PjCfKk/W1PlOl9pW32dbZksQ96Ky5C/ykMuDG2NE=",
-      "TMLeague.dll": "sha256-fINkykG5iNye/knlYnyGzktCHKeol3AuwuP5K5OF7mI=",
-      "TMModels.dll": "sha256-vATZy91q0+HgHSmbA/FDbx7x4Xo5gpEYZrEhXKq5B2M="
+      "TMApplication.dll": "sha256-ebuvY8natXAIBwfqXa3hAa62L7DX9bQ7vmmVu+mgWV0=",
+      "TMInfrastructure.dll": "sha256-r/EDtPU8NNKBuAC8NLLe2kgUQ5L0gQefdps+WnzRVoU=",
+      "TMLeague.dll": "sha256-YknTd159xnNkmWmN1LsZ/TmWzc0kczMawtZbZEALwyA=",
+      "TMModels.dll": "sha256-JRYW+wAr2GZfLeyapPmwT8i6CPPNzsgJED9CwfJUWcE="
     },
     "runtimeAssets": {
       "dotnet.wasm": {
