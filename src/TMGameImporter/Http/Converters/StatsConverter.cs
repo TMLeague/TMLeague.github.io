@@ -108,6 +108,10 @@ internal static class StatsConverter
         looserScore.Stats.Casualties.Ships += battle.Looser.Casualties.Ships;
         winnerScore.Stats.Kills.SiegeEngines += battle.Looser.Casualties.SiegeEngines;
         looserScore.Stats.Casualties.SiegeEngines += battle.Looser.Casualties.SiegeEngines;
+        winnerScore.Stats.Battles.Houses.TryGetValue(looserScore.House, out var battlesWithLooser);
+        winnerScore.Stats.Battles.Houses[looserScore.House] = battlesWithLooser + 1;
+        looserScore.Stats.Battles.Houses.TryGetValue(winnerScore.House, out var battlesWithWinner);
+        looserScore.Stats.Battles.Houses[winnerScore.House] = battlesWithWinner + 1;
 
         if (battle.Looser.Card?.Name == HouseCard.Mace)
         {

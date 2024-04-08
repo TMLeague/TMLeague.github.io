@@ -240,27 +240,38 @@ public record BattleStats
 {
     public double Won { get; set; }
     public double Lost { get; set; }
+    public Dictionary<House, double> Houses { get; set; } = new();
     [JsonIgnore]
     public double Total => Won + Lost;
 
     public BattleStats() { }
-    public BattleStats(double won, double lost)
+    public BattleStats(double won, double lost, Dictionary<House, double> houses)
     {
         Won = won;
         Lost = lost;
+        Houses = houses;
     }
 
     public static BattleStats Max(BattleStats stats1, BattleStats stats2) => new(
         Math.Max(stats1.Won, stats2.Won),
-        Math.Min(stats1.Lost, stats2.Lost));
+        Math.Min(stats1.Lost, stats2.Lost),
+        stats1.Houses.Keys.Concat(stats2.Houses.Keys).Distinct()
+            .ToDictionary(house => house, house => Math.Max(
+                stats1.Houses.TryGetValue(house, out var battles1) ? battles1 : 0,
+                stats2.Houses.TryGetValue(house, out var battles2) ? battles2 : 0)));
 
     public static BattleStats operator +(BattleStats stats1, BattleStats stats2) => new(
         stats1.Won + stats2.Won,
-        stats1.Lost + stats2.Lost);
+        stats1.Lost + stats2.Lost,
+        stats1.Houses.Keys.Concat(stats2.Houses.Keys).Distinct()
+            .ToDictionary(house => house, house =>
+                stats1.Houses.TryGetValue(house, out var battles1) ? battles1 : 0
+                    + (stats2.Houses.TryGetValue(house, out var battles2) ? battles2 : 0)));
 
     public static BattleStats operator /(BattleStats stats, double divisor) => new(
         stats.Won / divisor,
-        stats.Lost / divisor);
+        stats.Lost / divisor,
+        stats.Houses.ToDictionary(pair => pair.Key, pair => pair.Value / divisor));
 }
 
 public record UnitStats
