@@ -25,8 +25,57 @@
     301923,
     301878
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Ser Joseph",
+      "game": 301923,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 302029,
+      "points": 6,
+      "details": "spoiling"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 301872,
+      "points": 2,
+      "details": "speed"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 301869,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 301873,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 301874,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 301923,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "RodrigoLannister",
+      "game": 301878,
+      "points": 0.5,
+      "details": "speed"
+    }
+  ],
   "promotions": 3,
   "relegations": 3,
-  "isFinished": false
+  "isFinished": true
 }

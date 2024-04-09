@@ -17,7 +17,56 @@
     301866,
     301867
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "SGOMES02",
+      "game": 301862,
+      "points": 2.5,
+      "details": "speed"
+    },
+    {
+      "player": "SGOMES02",
+      "game": 301863,
+      "points": 5,
+      "details": "speed"
+    },
+    {
+      "player": "SGOMES02",
+      "game": 301864,
+      "points": 2.5,
+      "details": "speed"
+    },
+    {
+      "player": "SGOMES02",
+      "game": 301865,
+      "points": 1.5,
+      "details": "speed"
+    },
+    {
+      "player": "SGOMES02",
+      "game": 301866,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "GeneralVer",
+      "game": 301863,
+      "points": 5,
+      "details": "speed"
+    },
+    {
+      "player": "GeneralVer",
+      "game": 301864,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "GeneralVer",
+      "game": 301865,
+      "points": 0.5,
+      "details": "speed"
+    }
+  ],
   "promotions": 3,
-  "isFinished": false
+  "isFinished": true
 }
