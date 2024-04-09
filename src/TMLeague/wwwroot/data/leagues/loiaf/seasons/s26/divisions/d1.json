@@ -25,8 +25,39 @@
     301853,
     301868
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "DawidW",
+      "game": 301853,
+      "points": 6,
+      "details": "6.6 collusion to be kingmade"
+    },
+    {
+      "player": "Shade89",
+      "game": 301849,
+      "points": 3,
+      "details": "minor KM"
+    },
+    {
+      "player": "rasmus842",
+      "game": 301855,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "rasmus842",
+      "game": 301850,
+      "points": 0.5,
+      "details": "speed"
+    },
+    {
+      "player": "Marco Martell",
+      "game": 301853,
+      "points": 6,
+      "details": "major KM"
+    }
+  ],
   "relegations": 3,
-  "isFinished": false,
+  "isFinished": true,
   "winnerTitle": null
 }

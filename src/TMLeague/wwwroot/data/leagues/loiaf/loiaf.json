@@ -4,7 +4,7 @@
   "backgroundImage": "data/leagues/loiaf/loiaf.jpg",
   "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=87066",
   "discord": null,
-  "seasons": [ "s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25", "s26" ],
+  "seasons": [ "s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25", "s26", "s27" ],
   "trainingSeasons": [],
   "mainDivisions": [
     {

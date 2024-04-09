@@ -23,8 +23,21 @@
     301861,
     301891
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Shaun Baun",
+      "game": 301856,
+      "points": 6,
+      "details": "major KM"
+    },
+    {
+      "player": "got_pocak",
+      "game": 301857,
+      "points": 0.5,
+      "details": "speed"
+    }
+  ],
   "promotions": 3,
   "relegations": 2,
-  "isFinished": false
+  "isFinished": true
 }
