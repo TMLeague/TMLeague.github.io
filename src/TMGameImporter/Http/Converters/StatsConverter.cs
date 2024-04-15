@@ -101,37 +101,26 @@ internal static class StatsConverter
         if (winnerScore.House == battle.Attacker?.House)
         {
             winnerScore.Stats.Battles.SuccessfulAttacks++;
+            winnerScore.Interactions![looserScore.House].SuccessfulAttacks++;
             looserScore.Stats.Battles.LostDefenses++;
+            looserScore.Interactions![winnerScore.House].LostDefenses++;
         }
         else
         {
             winnerScore.Stats.Battles.SuccessfulDefenses++;
+            winnerScore.Interactions![looserScore.House].SuccessfulDefenses++;
             looserScore.Stats.Battles.LostAttacks++;
+            looserScore.Interactions![winnerScore.House].LostAttacks++;
         }
-        winnerScore.Stats.Kills.Footmen += battle.Looser.Casualties.Footmen;
-        looserScore.Stats.Casualties.Footmen += battle.Looser.Casualties.Footmen;
-        winnerScore.Stats.Kills.Knights += battle.Looser.Casualties.Knights;
-        looserScore.Stats.Casualties.Knights += battle.Looser.Casualties.Knights;
-        winnerScore.Stats.Kills.Ships += battle.Looser.Casualties.Ships;
-        looserScore.Stats.Casualties.Ships += battle.Looser.Casualties.Ships;
-        winnerScore.Stats.Kills.SiegeEngines += battle.Looser.Casualties.SiegeEngines;
-        looserScore.Stats.Casualties.SiegeEngines += battle.Looser.Casualties.SiegeEngines;
-        winnerScore.Stats.Battles.Houses.TryGetValue(looserScore.House, out var battlesWithLooser);
-        winnerScore.Stats.Battles.Houses[looserScore.House] = battlesWithLooser + 1;
-        looserScore.Stats.Battles.Houses.TryGetValue(winnerScore.House, out var battlesWithWinner);
-        looserScore.Stats.Battles.Houses[winnerScore.House] = battlesWithWinner + 1;
 
-        if (battle.Looser.Card?.Name == HouseCard.Mace)
-        {
-            if (battle.Looser.Casualties.Footmen > 0 && (battle.Looser == battle.Defender && battle.AttackerUnits.Footmen > 0 ||
-                                                         battle.Looser == battle.Attacker && battle.AttackerUnits.Footmen == 0))
-            {
-                looserScore.Stats.Casualties.Footmen--;
-                looserScore.Stats.Kills.Footmen++;
-                winnerScore.Stats.Casualties.Footmen++;
-                winnerScore.Stats.Kills.Footmen--;
-            }
-        }
+        winnerScore.Stats.Kills += battle.Looser.Casualties;
+        winnerScore.Stats.Casualties += battle.Winner.Casualties;
+        looserScore.Stats.Kills += battle.Winner.Casualties;
+        looserScore.Stats.Casualties += battle.Looser.Casualties;
+        winnerScore.Interactions[looserScore.House].Kills += battle.Looser.Casualties;
+        winnerScore.Interactions[looserScore.House].Casualties += battle.Winner.Casualties;
+        looserScore.Interactions[winnerScore.House].Kills += battle.Winner.Casualties;
+        looserScore.Interactions[winnerScore.House].Casualties += battle.Looser.Casualties;
 
         if (battle.IsAeronUsed)
             houseScores.Get(House.Greyjoy).Stats.Bids.Aeron += 2;
@@ -256,6 +245,13 @@ internal static class StatsConverter
             var siegeEnginesMatch = Regex.Match(logItem.Message, @"(\d+) Siege");
             if (siegeEnginesMatch.Success && int.TryParse(siegeEnginesMatch.Groups[1].Value, out var siegeEngines))
                 Looser!.Casualties.SiegeEngines = siegeEngines;
+
+            if (Looser!.Card?.Name == HouseCard.Mace && Looser.Casualties.Footmen > 0 &&
+                (Looser == Defender && AttackerUnits.Footmen > 0 || Looser == Attacker && AttackerUnits.Footmen == 0))
+            {
+                Looser.Casualties.Footmen--;
+                Winner!.Casualties.Footmen++;
+            }
         }
     }
 

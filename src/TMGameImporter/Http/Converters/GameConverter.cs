@@ -187,7 +187,7 @@ internal class GameConverter
             battlesInTurn, turn,
             wildligKnowledge == null ? null :
             wildligKnowledge[house].Knows ? 1 : 1D / (9 - wildligKnowledge[house].KnownWildlings),
-            new Stats(), null /*TODO*/);
+            new Stats(), new HousesInteractions(state.HousesOrder.ToDictionary(h => h, _ => new Interactions())));
     }
 
     private static bool IsPlayerBattleLogItem(House house, LogItem item) =>
