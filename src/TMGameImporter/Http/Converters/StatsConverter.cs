@@ -98,8 +98,16 @@ internal static class StatsConverter
         var winnerScore = houseScores.Get(battle.Winner.House);
         var looserScore = houseScores.Get(battle.Looser.House);
 
-        winnerScore.Stats.Battles.Won++;
-        looserScore.Stats.Battles.Lost++;
+        if (winnerScore.House == battle.Attacker?.House)
+        {
+            winnerScore.Stats.Battles.SuccessfulAttacks++;
+            looserScore.Stats.Battles.LostDefenses++;
+        }
+        else
+        {
+            winnerScore.Stats.Battles.SuccessfulDefenses++;
+            looserScore.Stats.Battles.LostAttacks++;
+        }
         winnerScore.Stats.Kills.Footmen += battle.Looser.Casualties.Footmen;
         looserScore.Stats.Casualties.Footmen += battle.Looser.Casualties.Footmen;
         winnerScore.Stats.Kills.Knights += battle.Looser.Casualties.Knights;
@@ -204,6 +212,8 @@ internal static class StatsConverter
 
     private record Battle(FightingHouse Attacker, FightingHouse Defender, string Area, string FromArea, UnitStats AttackerUnits)
     {
+        public FightingHouse? Attacker { get; set; } = Attacker;
+        public FightingHouse? Defender { get; set; } = Defender;
         public FightingHouse? Winner { get; set; }
         public FightingHouse? Looser => Winner == null ?
             null :
@@ -220,15 +230,15 @@ internal static class StatsConverter
 
             var strength = int.Parse(match.Groups[2].Value);
             var houseCardName = match.Groups[3].Value;
-            if (Attacker.House == logItem.House)
+            if (Attacker?.House == logItem.House)
                 Attacker.Card = new HouseCard(strength, houseCardName);
-            else
+            else if (Defender != null)
                 Defender.Card = new HouseCard(strength, houseCardName);
         }
 
         public void UpdateOutcome(LogItem logItem)
         {
-            Winner = Attacker.House == logItem.House ?
+            Winner = Attacker?.House == logItem.House ?
                 Defender : Attacker;
 
             var footmenMatch = Regex.Match(logItem.Message, @"(\d+) Footm\wn");

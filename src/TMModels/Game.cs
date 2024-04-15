@@ -180,7 +180,8 @@ public record HouseScore(
     int[] BattlesInTurn,
     int Turn,
     double? KnowsNextWildlings,
-    Stats? Stats) : IComparable<HouseScore>
+    Stats? Stats,
+    PlayersInteractions? PlayersInteractions) : IComparable<HouseScore>
 {
     public Stats Stats { get; } = Stats ?? new Stats();
     public string PlayerHouseName => string.IsNullOrEmpty(Player) ? House.ToString() : $"{Player} ({House})";
@@ -238,39 +239,53 @@ public record Stats(
 
 public record BattleStats
 {
-    public double Won { get; set; }
-    public double Lost { get; set; }
+    public double SuccessfulAttacks { get; set; }
+    public double SuccessfulDefenses { get; set; }
+    [JsonIgnore]
+    public double Won => SuccessfulAttacks + SuccessfulDefenses;
+    public double LostAttacks { get; set; }
+    public double LostDefenses { get; set; }
+    [JsonIgnore]
+    public double Lost => LostAttacks + LostDefenses;
     public Dictionary<House, double> Houses { get; set; } = new();
     [JsonIgnore]
     public double Total => Won + Lost;
 
     public BattleStats() { }
-    public BattleStats(double won, double lost, Dictionary<House, double> houses)
+    public BattleStats(double successfulAttacks, double successfulDefenses, double lostAttacks, double lostDefenses, Dictionary<House, double> houses)
     {
-        Won = won;
-        Lost = lost;
+        SuccessfulAttacks = successfulAttacks;
+        SuccessfulDefenses = successfulDefenses;
+        LostAttacks = lostAttacks;
+        LostDefenses = lostDefenses;
         Houses = houses;
     }
 
     public static BattleStats Max(BattleStats stats1, BattleStats stats2) => new(
-        Math.Max(stats1.Won, stats2.Won),
-        Math.Min(stats1.Lost, stats2.Lost),
+        Math.Max(stats1.SuccessfulAttacks, stats2.SuccessfulAttacks),
+        Math.Max(stats1.SuccessfulDefenses, stats2.SuccessfulDefenses),
+        Math.Min(stats1.LostAttacks, stats2.LostAttacks),
+        Math.Min(stats1.LostDefenses, stats2.LostDefenses),
         stats1.Houses.Keys.Concat(stats2.Houses.Keys).Distinct()
             .ToDictionary(house => house, house => Math.Max(
                 stats1.Houses.TryGetValue(house, out var battles1) ? battles1 : 0,
                 stats2.Houses.TryGetValue(house, out var battles2) ? battles2 : 0)));
 
     public static BattleStats operator +(BattleStats stats1, BattleStats stats2) => new(
-        stats1.Won + stats2.Won,
-        stats1.Lost + stats2.Lost,
+        stats1.SuccessfulAttacks + stats2.SuccessfulAttacks,
+        stats1.SuccessfulDefenses + stats2.SuccessfulDefenses,
+        stats1.LostAttacks + stats2.LostAttacks,
+        stats1.LostDefenses + stats2.LostDefenses,
         stats1.Houses.Keys.Concat(stats2.Houses.Keys).Distinct()
             .ToDictionary(house => house, house =>
                 stats1.Houses.TryGetValue(house, out var battles1) ? battles1 : 0
                     + (stats2.Houses.TryGetValue(house, out var battles2) ? battles2 : 0)));
 
     public static BattleStats operator /(BattleStats stats, double divisor) => new(
-        stats.Won / divisor,
-        stats.Lost / divisor,
+        stats.SuccessfulAttacks / divisor,
+        stats.SuccessfulDefenses / divisor,
+        stats.LostAttacks / divisor,
+        stats.LostDefenses / divisor,
         stats.Houses.ToDictionary(pair => pair.Key, pair => pair.Value / divisor));
 }
 
@@ -405,8 +420,6 @@ public record BidStats
 
 public class WildligKnowledge : Dictionary<House, HouseWildligKnowledge>
 {
-    public IEnumerable<KeyValuePair<House, HouseWildligKnowledge>> Ordered => this.OrderBy(pair => pair.Key);
-
     public WildligKnowledge(IDictionary<House, HouseWildligKnowledge> dictionary) : base(dictionary) { }
 }
 
@@ -415,4 +428,53 @@ public record HouseWildligKnowledge(bool Knows, int KnownWildlings)
     public HouseWildligKnowledge Discarded() => this with { Knows = false };
     public HouseWildligKnowledge Know() => new(true, Knows ? KnownWildlings : KnownWildlings + 1);
     public HouseWildligKnowledge Attack() => new(false, Knows ? KnownWildlings : KnownWildlings + 1);
+}
+
+public class PlayersInteractions : Dictionary<string, PlayerInteractions> { }
+public class HousesInteractions : Dictionary<House, Interactions> { }
+
+public record PlayerInteractions(
+    string Player,
+    House House) : Interactions
+{
+    public double Games { get; set; }
+    public double Neighbors { get; set; }
+    public Dictionary<string, double> Houses { get; set; } = new();
+}
+
+public record Interactions
+{
+    public double SuccessfulAttacks { get; set; }
+    public double SuccessfulDefenses { get; set; }
+    public double LostAttacks { get; set; }
+    public double LostDefenses { get; set; }
+    public double Supports { get; set; }
+    public double SupportsOpponent { get; set; }
+    public double WasSupported { get; set; }
+    public double WasSupportedOpponent { get; set; }
+    public double Raids { get; set; }
+    public double WasRaided { get; set; }
+    public double FavorsInTie { get; set; }
+    public double WasFavoredInTie { get; set; }
+
+    public Interactions()
+    { }
+
+    public Interactions(double successfulAttacks, double successfulDefenses, double lostAttacks, double lostDefenses,
+        double supports, double supportsOpponent, double wasSupported, double wasSupportedOpponent,
+        double raids, double wasRaided, double favorsInTie, double wasFavoredInTie)
+    {
+        SuccessfulAttacks = successfulAttacks;
+        SuccessfulDefenses = successfulDefenses;
+        LostAttacks = lostAttacks;
+        LostDefenses = lostDefenses;
+        Supports = supports;
+        SupportsOpponent = supportsOpponent;
+        WasSupported = wasSupported;
+        WasSupportedOpponent = wasSupportedOpponent;
+        Raids = raids;
+        WasRaided = wasRaided;
+        FavorsInTie = favorsInTie;
+        WasFavoredInTie = wasFavoredInTie;
+    }
 }
