@@ -20,7 +20,7 @@ public record PlayerResult(
     PlayerPenalty[] PenaltiesDetails,
     Stats? Stats)
 {
-    public Stats Stats { get; } = Stats ?? new Stats();
+    public Stats Stats { get; } = Stats ?? new Stats(Houses.Select(result => result.House));
     public bool IsPromoted { get; set; }
     public bool IsRelegated { get; set; }
     public int Position { get; set; }

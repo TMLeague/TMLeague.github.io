@@ -135,7 +135,7 @@ internal class GameConverter
 
         try
         {
-            houses = houses.CalculateStats(log);
+            houses = houses.CalculateStats(state, log);
         }
         catch (Exception ex)
         {
@@ -183,11 +183,11 @@ internal class GameConverter
 
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,
-            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0, 
-            battlesInTurn, turn, 
+            castles, cla, houseSpeed?.MinutesPerMove ?? 0, houseSpeed?.MovesCount ?? 0,
+            battlesInTurn, turn,
             wildligKnowledge == null ? null :
-            wildligKnowledge[house].Knows ? 1 : 1D / (9 - wildligKnowledge[house].KnownWildlings), 
-            new Stats());
+            wildligKnowledge[house].Knows ? 1 : 1D / (9 - wildligKnowledge[house].KnownWildlings),
+            new Stats(state.HousesOrder.Where(h => h != house)));
     }
 
     private static bool IsPlayerBattleLogItem(House house, LogItem item) =>

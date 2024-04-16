@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using TMGameImporter.Http.Converters.Models;
 using TMModels;
 using TMModels.ThroneMaster;
 
@@ -6,7 +7,7 @@ namespace TMGameImporter.Http.Converters;
 
 internal static class StatsConverter
 {
-    public static HouseScore[] CalculateStats(this HouseScore[] houseScores, Log log)
+    public static HouseScore[] CalculateStats(this HouseScore[] houseScores, State state, Log log)
     {
         Battle? battle = null;
         foreach (var logItem in log.Logs)
@@ -25,6 +26,8 @@ internal static class StatsConverter
                         battle = GetBattle(logItem);
                     break;
                 case Phase.Battle:
+                    if (battle != null && logItem.Message.Contains("supports") && logItem.Message.Contains("with a fighting strength of"))
+                        battle.AddSupport(logItem);
                     if (battle != null && logItem.Message.Contains("to lead his forces."))
                         battle.UpdateFightingHouse(logItem);
                     if (battle != null && logItem.Message.Contains("used Aeron's special ability to choose another house card."))
@@ -58,6 +61,15 @@ internal static class StatsConverter
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        foreach (var houseScore in houseScores)
+        {
+            if (houseScore.Stats.HousesInteractions == null)
+                continue;
+            
+            houseScore.Stats.PlayersInteractions?.Import(houseScore.House, state.Players.Length, houseScore.Stats.HousesInteractions!,
+                houseScores.ToDictionary(score => score.House, score => score.Player));
         }
 
         return houseScores;
@@ -98,32 +110,21 @@ internal static class StatsConverter
         var winnerScore = houseScores.Get(battle.Winner.House);
         var looserScore = houseScores.Get(battle.Looser.House);
 
-        winnerScore.Stats.Battles.Won++;
-        looserScore.Stats.Battles.Lost++;
-        winnerScore.Stats.Kills.Footmen += battle.Looser.Casualties.Footmen;
-        looserScore.Stats.Casualties.Footmen += battle.Looser.Casualties.Footmen;
-        winnerScore.Stats.Kills.Knights += battle.Looser.Casualties.Knights;
-        looserScore.Stats.Casualties.Knights += battle.Looser.Casualties.Knights;
-        winnerScore.Stats.Kills.Ships += battle.Looser.Casualties.Ships;
-        looserScore.Stats.Casualties.Ships += battle.Looser.Casualties.Ships;
-        winnerScore.Stats.Kills.SiegeEngines += battle.Looser.Casualties.SiegeEngines;
-        looserScore.Stats.Casualties.SiegeEngines += battle.Looser.Casualties.SiegeEngines;
-        winnerScore.Stats.Battles.Houses.TryGetValue(looserScore.House, out var battlesWithLooser);
-        winnerScore.Stats.Battles.Houses[looserScore.House] = battlesWithLooser + 1;
-        looserScore.Stats.Battles.Houses.TryGetValue(winnerScore.House, out var battlesWithWinner);
-        looserScore.Stats.Battles.Houses[winnerScore.House] = battlesWithWinner + 1;
-
-        if (battle.Looser.Card?.Name == HouseCard.Mace)
+        if (winnerScore.House == battle.Attacker!.House)
         {
-            if (battle.Looser.Casualties.Footmen > 0 && (battle.Looser == battle.Defender && battle.AttackerUnits.Footmen > 0 ||
-                                                         battle.Looser == battle.Attacker && battle.AttackerUnits.Footmen == 0))
-            {
-                looserScore.Stats.Casualties.Footmen--;
-                looserScore.Stats.Kills.Footmen++;
-                winnerScore.Stats.Casualties.Footmen++;
-                winnerScore.Stats.Kills.Footmen--;
-            }
+            winnerScore.Stats.AddSuccessfulAttack(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            looserScore.Stats.AddLostDefenses(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
         }
+        else
+        {
+            winnerScore.Stats.AddSuccessfulDefense(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            looserScore.Stats.AddLostAttack(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+        }
+
+        foreach (var (supporter, _) in battle.AttackerSupporters)
+            houseScores.Get(supporter).Stats.AddSupport(battle.Attacker.House, battle.Defender!.House);
+        foreach (var (supporter, _) in battle.DefenderSupporters)
+            houseScores.Get(supporter).Stats.AddSupport(battle.Defender!.House, battle.Attacker.House);
 
         if (battle.IsAeronUsed)
             houseScores.Get(House.Greyjoy).Stats.Bids.Aeron += 2;
@@ -204,11 +205,16 @@ internal static class StatsConverter
 
     private record Battle(FightingHouse Attacker, FightingHouse Defender, string Area, string FromArea, UnitStats AttackerUnits)
     {
+        public FightingHouse? Attacker { get; set; } = Attacker;
+        public FightingHouse? Defender { get; set; } = Defender;
         public FightingHouse? Winner { get; set; }
         public FightingHouse? Looser => Winner == null ?
             null :
             Winner == Attacker ?
                 Defender : Attacker;
+
+        public Dictionary<House, int> AttackerSupporters { get; } = new();
+        public Dictionary<House, int> DefenderSupporters { get; } = new();
 
         public bool IsAeronUsed { get; set; }
 
@@ -220,15 +226,15 @@ internal static class StatsConverter
 
             var strength = int.Parse(match.Groups[2].Value);
             var houseCardName = match.Groups[3].Value;
-            if (Attacker.House == logItem.House)
+            if (Attacker?.House == logItem.House)
                 Attacker.Card = new HouseCard(strength, houseCardName);
-            else
+            else if (Defender != null)
                 Defender.Card = new HouseCard(strength, houseCardName);
         }
 
         public void UpdateOutcome(LogItem logItem)
         {
-            Winner = Attacker.House == logItem.House ?
+            Winner = Attacker?.House == logItem.House ?
                 Defender : Attacker;
 
             var footmenMatch = Regex.Match(logItem.Message, @"(\d+) Footm\wn");
@@ -246,6 +252,26 @@ internal static class StatsConverter
             var siegeEnginesMatch = Regex.Match(logItem.Message, @"(\d+) Siege");
             if (siegeEnginesMatch.Success && int.TryParse(siegeEnginesMatch.Groups[1].Value, out var siegeEngines))
                 Looser!.Casualties.SiegeEngines = siegeEngines;
+
+            if (Looser!.Card?.Name == HouseCard.Mace && Looser.Casualties.Footmen > 0 &&
+                (Looser == Defender && AttackerUnits.Footmen > 0 || Looser == Attacker && AttackerUnits.Footmen == 0))
+            {
+                Looser.Casualties.Footmen--;
+                Winner!.Casualties.Footmen++;
+            }
+        }
+
+        public void AddSupport(LogItem logItem)
+        {
+            var supportMatch = Regex.Match(logItem.Message, @"(\w+) supports (\w+) with a fighting strength of (\d+)\.");
+            if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support)) 
+                return;
+
+            var supportedHouse = HouseParser.Parse(supportMatch.Groups[2].Value);
+            if (Attacker?.House == supportedHouse) 
+                AttackerSupporters[logItem.House] = support;
+            else if (Defender?.House == supportedHouse)
+                DefenderSupporters[logItem.House] = support;
         }
     }
 
