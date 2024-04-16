@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using TMGameImporter.Http.Converters.Models;
 using TMModels;
 using TMModels.ThroneMaster;
 
@@ -6,7 +7,7 @@ namespace TMGameImporter.Http.Converters;
 
 internal static class StatsConverter
 {
-    public static HouseScore[] CalculateStats(this HouseScore[] houseScores, Log log)
+    public static HouseScore[] CalculateStats(this HouseScore[] houseScores, State state, Log log)
     {
         Battle? battle = null;
         foreach (var logItem in log.Logs)
@@ -60,6 +61,15 @@ internal static class StatsConverter
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        foreach (var houseScore in houseScores)
+        {
+            if (houseScore.Stats.HousesInteractions == null)
+                continue;
+            
+            houseScore.Stats.PlayersInteractions?.Import(houseScore.House, state.Players.Length, houseScore.Stats.HousesInteractions!,
+                houseScores.ToDictionary(score => score.House, score => score.Player));
         }
 
         return houseScores;
@@ -257,7 +267,7 @@ internal static class StatsConverter
             if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support)) 
                 return;
 
-            var supportedHouse = Enum.Parse<House>(supportMatch.Groups[2].Value);
+            var supportedHouse = HouseParser.Parse(supportMatch.Groups[2].Value);
             if (Attacker?.House == supportedHouse) 
                 AttackerSupporters[logItem.House] = support;
             else if (Defender?.House == supportedHouse)

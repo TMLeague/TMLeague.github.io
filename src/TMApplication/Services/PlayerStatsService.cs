@@ -5,54 +5,6 @@ namespace TMApplication.Services;
 public class PlayerStatsService
 {
     /// <summary>
-    /// A dictionaries of houses that are neighboring to each other.
-    /// </summary>
-    public static readonly IReadOnlyDictionary<int, Dictionary<House, House[]>> Neighbors = new Dictionary<int, Dictionary<House, House[]>>
-    {
-        [3] = new()
-        {
-            [House.Baratheon] = new[] { House.Lannister, House.Stark },
-            [House.Lannister] = new[] { House.Baratheon, House.Stark },
-            [House.Stark] = new[] { House.Baratheon, House.Lannister }
-        },
-        [4] = new()
-        {
-            [House.Baratheon] = new[] { House.Lannister, House.Stark, House.Tyrell },
-            [House.Lannister] = new[] { House.Baratheon, House.Greyjoy, House.Tyrell },
-            [House.Stark] = new[] { House.Baratheon, House.Greyjoy },
-            [House.Tyrell] = new[] { House.Baratheon, House.Lannister },
-            [House.Greyjoy] = new[] { House.Lannister, House.Stark }
-        },
-        [5] = new()
-        {
-            [House.Baratheon] = new[] { House.Lannister, House.Stark, House.Tyrell },
-            [House.Lannister] = new[] { House.Baratheon, House.Greyjoy, House.Tyrell },
-            [House.Stark] = new[] { House.Baratheon, House.Greyjoy },
-            [House.Tyrell] = new[] { House.Baratheon, House.Lannister },
-            [House.Greyjoy] = new[] { House.Lannister, House.Stark }
-        },
-        [6] = new()
-        {
-            [House.Baratheon] = new[] { House.Lannister, House.Stark, House.Martell }, // no Tyrell
-            [House.Lannister] = new[] { House.Baratheon, House.Greyjoy, House.Tyrell },
-            [House.Stark] = new[] { House.Baratheon, House.Greyjoy },
-            [House.Tyrell] = new[] { House.Lannister, House.Martell }, // no Baratheon
-            [House.Greyjoy] = new[] { House.Lannister, House.Stark },
-            [House.Martell] = new[] { House.Baratheon, House.Tyrell }
-        },
-        [7] = new()
-        {
-            [House.Baratheon] = new[] { House.Lannister, House.Stark, House.Martell, House.Arryn },
-            [House.Lannister] = new[] { House.Baratheon, House.Greyjoy, House.Tyrell },
-            [House.Stark] = new[] { House.Baratheon, House.Greyjoy, House.Arryn },
-            [House.Tyrell] = new[] { House.Lannister, House.Martell },
-            [House.Greyjoy] = new[] { House.Lannister, House.Stark, House.Arryn },
-            [House.Martell] = new[] { House.Baratheon, House.Tyrell },
-            [House.Arryn] = new[] { House.Baratheon, House.Stark, House.Greyjoy }
-        }
-    };
-
-    /// <summary>
     /// A house x house tables with approximate measure of total strength of interactions between them
     /// </summary>
     public static readonly IReadOnlyDictionary<int, double[][]> ProximityScores = new Dictionary<int, double[][]>
@@ -119,12 +71,12 @@ public class PlayerStatsService
 
         return new PlayerDraftStat(p2,
             playerRows.Count(tuple =>
-                IsNeighbor(tuple.First, tuple.Second, housesCount)),
+                tuple.First.IsNeighbor(tuple.Second, housesCount)),
             playerRows.Count(tuple =>
                 IsInGame(tuple.First, tuple.Second)),
             playerRows.Sum(tuple =>
                 ProximityScore(tuple.First, tuple.Second, housesCount)),
-            GetPairs(playerRows, (house1, house2) => IsNeighbor(house1, house2, housesCount)),
+            GetPairs(playerRows, (house1, house2) => house1.IsNeighbor(house2, housesCount)),
             GetPairs(playerRows, IsInGame),
             playerRelations.Where(relation => relation > 0).Sum(),
             -playerRelations.Where(relation => relation < 0).Sum());
@@ -147,18 +99,8 @@ public class PlayerStatsService
     private static bool IsInGame(House playerHouse, House otherHouse) =>
         playerHouse != House.Unknown && otherHouse != House.Unknown && otherHouse != playerHouse;
 
-    private static bool IsNeighbor(House playerHouse, House otherHouse, int housesCount) =>
-        playerHouse != House.Unknown && Neighbors[GetHousesCount(housesCount)][playerHouse].Contains(otherHouse);
-
     private static double ProximityScore(House playerHouse, House otherHouse, int housesCount) =>
         ProximityScores.TryGetValue(housesCount, out var proximityScores) ?
             proximityScores[(int)playerHouse][(int)otherHouse] :
-            IsNeighbor(playerHouse, otherHouse, housesCount) ? 1 : 0;
-
-    private static int GetHousesCount(int housesCount) => housesCount switch
-    {
-        < 3 => 3,
-        > 7 => 7,
-        _ => housesCount
-    };
+            playerHouse.IsNeighbor(otherHouse, housesCount) ? 1 : 0;
 }

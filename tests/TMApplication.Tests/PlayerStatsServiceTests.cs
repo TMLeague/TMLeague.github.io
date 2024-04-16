@@ -49,8 +49,8 @@ public class PlayerStatsServiceTests
     [InlineData(7)]
     public void Neighbor_Should_Be_Symmetric(int playersCount)
     {
-        foreach (var (house, houseNeighbors) in PlayerStatsService.Neighbors[playersCount])
+        foreach (var (house, houseNeighbors) in Houses.Neighbors[playersCount])
             foreach (var house2 in houseNeighbors)
-                PlayerStatsService.Neighbors[playersCount][house2].Should().Contain(house);
+                Houses.Neighbors[playersCount][house2].Should().Contain(house);
     }
 }

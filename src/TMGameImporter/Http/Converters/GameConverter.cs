@@ -135,7 +135,7 @@ internal class GameConverter
 
         try
         {
-            houses = houses.CalculateStats(log);
+            houses = houses.CalculateStats(state, log);
         }
         catch (Exception ex)
         {
