@@ -281,7 +281,7 @@ public record Stats(
     public void AddLostAttack(House enemy, UnitStats winnerCasualties, UnitStats looserCasualties, Dictionary<House, int> attackerSupporters, Dictionary<House, int> defenderSupporters)
     {
         Battles.LostAttacks++;
-        HousesInteractions![enemy].LostDefenses++;
+        HousesInteractions![enemy].LostAttacks++;
         Kills += winnerCasualties;
         Casualties += looserCasualties;
         HousesInteractions[enemy].Kills += winnerCasualties;
@@ -568,6 +568,10 @@ public record PlayerInteractions() : Interactions
     public double Games { get; set; }
     public double Neighbors { get; set; }
     public Dictionary<string, double> Houses { get; set; } = new();
+    [JsonIgnore]
+    public double Value => Supports + WasSupported + FavorsInTie + WasFavoredInTie - SuccessfulAttacks - LostDefenses - SupportsOpponent - WasSupportedOpponent - Raids - WasRaided;
+    [JsonIgnore]
+    public double Total => SuccessfulAttacks + SuccessfulDefenses + LostAttacks + LostDefenses + Supports + SupportsOpponent + WasSupported + WasSupportedOpponent + Raids + WasRaided + FavorsInTie + WasFavoredInTie;
 
     public PlayerInteractions(string player) : this()
     {

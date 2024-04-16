@@ -82,29 +82,29 @@ else if (GameIdInt != null)
                         <th scope="col" style="width: 50px" rowspan="2">Battles</th>
                         <th scope="col" style="width: 50px" rowspan="2">Kills<i>*</i></th>
                         <th scope="col" style="width: 50px" rowspan="2">Casualties<i>*</i></th>
-                        <th scope="col" style="width: 50px" class="tt" colspan="2">
+                        <th scope="col" style="width: 50px" class="tt" colspan="2" ontouchstart="">
                             PT
                             <div class="px-3 tt-inner">Power Tokens</div>
                         </th>
                     </tr>
                     <tr class="align-middle">
-                        <th scope="col" style="width: 20px" class="tt">
+                        <th scope="col" style="width: 20px" class="tt" ontouchstart="">
                             IT
                             <div class="px-3 tt-inner">Iron Throne track position</div>
                         </th>
-                        <th scope="col" style="width: 20px" class="tt">
+                        <th scope="col" style="width: 20px" class="tt" ontouchstart="">
                             F
                             <div class="px-3 tt-inner">Fiefdoms track position</div>
                         </th>
-                        <th scope="col" style="width: 20px" class="tt">
+                        <th scope="col" style="width: 20px" class="tt" ontouchstart="">
                             KC
                             <div class="px-3 tt-inner">King's court track position</div>
                         </th>
-                        <th scope="col" style="width: 20px" class="tt">
+                        <th scope="col" style="width: 20px" class="tt" ontouchstart="">
                             +
                             <div class="px-3 tt-inner">Gathered</div>
                         </th>
-                        <th scope="col" style="width: 20px" class="tt">
+                        <th scope="col" style="width: 20px" class="tt" ontouchstart="">
                             -
                             <div class="px-3 tt-inner">Spent</div>
                         </th>
@@ -203,7 +203,7 @@ else if (GameIdInt != null)
                         <div class="row m-1 p-0">
                             @foreach (var house in GameVm.Houses.OrderBy(score => score.House))
                             {
-                                <div class="col-2 alert @GetHouseClass(house) tt tt-down m-0 p-0">
+                                <div class="col-2 alert @GetHouseClass(house) tt tt-down m-0 p-0" ontouchstart="">
                                     <div class="overflow-hidden fs-8">
                                         <div>@house.House</div>
                                         <div>@($"{Math.Round(100 * house.KnowsNextWildlings ?? 0)}%")</div>
@@ -217,7 +217,7 @@ else if (GameIdInt != null)
                     }
                     @foreach (var (card, value) in GameVm.Westeros.Wildlings)
                     {
-                        <div class="alert alert-info @(value ? "tt tt-down" : "alert-info-opacity-50") row m-1 p-0">
+                        <div class="alert alert-info @(value ? "tt tt-down" : "alert-info-opacity-50") row m-1 p-0" ontouchstart="">
                             <div class="col-12">@Cards.Wildlings[card].Name</div>
                             @if (value)
                             {
