@@ -84,7 +84,7 @@ public class SummaryService
         GetHousesAverage(score.Houses, seasons),
         score.PenaltiesPoints / seasons,
         (double?)score.Position / seasons,
-        score.Stats == null ? new Stats() : score.Stats / seasons);
+        score.Stats == null ? new Stats(score.Houses.Select(points => points.House)) : score.Stats / seasons);
 
     private static Dictionary<House, double> GetHousesAverage(IEnumerable<HousePoints> houses, int seasons) =>
         houses.ToDictionary(score => score.House, score => score.Points / seasons);
@@ -98,5 +98,5 @@ public class SummaryService
         (double)score.Supplies / games,
         (double)score.PowerTokens / games,
         (double)score.Moves / games,
-        score.Stats == null ? new Stats() : score.Stats / games);
+        score.Stats == null ? new Stats(score.Stats?.HousesInteractions?.Keys.AsEnumerable() ?? Array.Empty<House>()) : score.Stats / games);
 }

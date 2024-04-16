@@ -25,6 +25,8 @@ internal static class StatsConverter
                         battle = GetBattle(logItem);
                     break;
                 case Phase.Battle:
+                    if (battle != null && logItem.Message.Contains("supports") && logItem.Message.Contains("with a fighting strength of"))
+                        battle.AddSupport(logItem);
                     if (battle != null && logItem.Message.Contains("to lead his forces."))
                         battle.UpdateFightingHouse(logItem);
                     if (battle != null && logItem.Message.Contains("used Aeron's special ability to choose another house card."))
@@ -98,29 +100,21 @@ internal static class StatsConverter
         var winnerScore = houseScores.Get(battle.Winner.House);
         var looserScore = houseScores.Get(battle.Looser.House);
 
-        if (winnerScore.House == battle.Attacker?.House)
+        if (winnerScore.House == battle.Attacker!.House)
         {
-            winnerScore.Stats.Battles.SuccessfulAttacks++;
-            winnerScore.Interactions![looserScore.House].SuccessfulAttacks++;
-            looserScore.Stats.Battles.LostDefenses++;
-            looserScore.Interactions![winnerScore.House].LostDefenses++;
+            winnerScore.Stats.AddSuccessfulAttack(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            looserScore.Stats.AddLostDefenses(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
         }
         else
         {
-            winnerScore.Stats.Battles.SuccessfulDefenses++;
-            winnerScore.Interactions![looserScore.House].SuccessfulDefenses++;
-            looserScore.Stats.Battles.LostAttacks++;
-            looserScore.Interactions![winnerScore.House].LostAttacks++;
+            winnerScore.Stats.AddSuccessfulDefense(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            looserScore.Stats.AddLostAttack(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
         }
 
-        winnerScore.Stats.Kills += battle.Looser.Casualties;
-        winnerScore.Stats.Casualties += battle.Winner.Casualties;
-        looserScore.Stats.Kills += battle.Winner.Casualties;
-        looserScore.Stats.Casualties += battle.Looser.Casualties;
-        winnerScore.Interactions[looserScore.House].Kills += battle.Looser.Casualties;
-        winnerScore.Interactions[looserScore.House].Casualties += battle.Winner.Casualties;
-        looserScore.Interactions[winnerScore.House].Kills += battle.Winner.Casualties;
-        looserScore.Interactions[winnerScore.House].Casualties += battle.Looser.Casualties;
+        foreach (var (supporter, _) in battle.AttackerSupporters)
+            houseScores.Get(supporter).Stats.AddSupport(battle.Attacker.House, battle.Defender!.House);
+        foreach (var (supporter, _) in battle.DefenderSupporters)
+            houseScores.Get(supporter).Stats.AddSupport(battle.Defender!.House, battle.Attacker.House);
 
         if (battle.IsAeronUsed)
             houseScores.Get(House.Greyjoy).Stats.Bids.Aeron += 2;
@@ -209,6 +203,9 @@ internal static class StatsConverter
             Winner == Attacker ?
                 Defender : Attacker;
 
+        public Dictionary<House, int> AttackerSupporters { get; } = new();
+        public Dictionary<House, int> DefenderSupporters { get; } = new();
+
         public bool IsAeronUsed { get; set; }
 
         public void UpdateFightingHouse(LogItem logItem)
@@ -252,6 +249,19 @@ internal static class StatsConverter
                 Looser.Casualties.Footmen--;
                 Winner!.Casualties.Footmen++;
             }
+        }
+
+        public void AddSupport(LogItem logItem)
+        {
+            var supportMatch = Regex.Match(logItem.Message, @"(\w+) supports (\w+) with a fighting strength of (\d+)\.");
+            if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support)) 
+                return;
+
+            var supportedHouse = Enum.Parse<House>(supportMatch.Groups[2].Value);
+            if (Attacker?.House == supportedHouse) 
+                AttackerSupporters[logItem.House] = support;
+            else if (Defender?.House == supportedHouse)
+                DefenderSupporters[logItem.House] = support;
         }
     }
 

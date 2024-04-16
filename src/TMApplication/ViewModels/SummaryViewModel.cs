@@ -102,7 +102,7 @@ public record PlayerScoreDetailsViewModel(
     double? Position,
     Stats? Stats)
 {
-    public Stats Stats { get; } = Stats ?? new Stats();
+    public Stats Stats { get; } = Stats ?? new Stats(Houses.Keys);
     public double Baratheon => Houses.TryGetValue(House.Baratheon, out var score) ? score : 0;
     public double Lannister => Houses.TryGetValue(House.Lannister, out var score) ? score : 0;
     public double Stark => Houses.TryGetValue(House.Stark, out var score) ? score : 0;
