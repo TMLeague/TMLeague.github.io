@@ -103,22 +103,7 @@
                                     </ul>
                                     <ul class="list-group list-group-flush pt-1">
                                         <li class="list-group-item text-wrap bg-dark">
-                                            @foreach (var (houses, games) in interactions.HousesGames)
-                                            {
-                                                @if (houses.Length < 2)
-                                                    continue;
-
-                                                var house0 = Houses.Parse(houses[0]);
-                                                var house1 = Houses.Parse(houses[1]);
-
-                                                @foreach (var gameId in games)
-                                                {
-                                                    <a href="@RouteProvider.GetGameRoute(LeagueId, gameId)" class="btn btn-group p-0 m-0 me-1 mb-1" style="width: 58px;">
-                                                        <div class="btn px-1 py-0 border-1 border-black disabled @Houses.GetHouseClass(house0)">@houses[0]</div>
-                                                        <div class="btn px-1 py-0 border-1 border-black disabled @Houses.GetHouseClass(house1)">@houses[1]</div>
-                                                    </a>
-                                                }
-                                            }
+                                            <HouseGames LeagueId="LeagueId" Interactions="interactions"></HouseGames>
                                         </li>
                                         @if (ShowGames)
                                         {

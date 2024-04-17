@@ -10,7 +10,8 @@ public record PlayerViewModel(
 public record PlayerLeagueViewModel(
     string LeagueId,
     string LeagueName,
-    PlayerSeasonScoreViewModel[] Seasons);
+    PlayerSeasonScoreViewModel[] Seasons,
+    PlayersInteractions PlayersInteractions);
 
 public record PlayerSeasonScoreViewModel(
     string SeasonId,
@@ -28,7 +29,7 @@ public record PlayerSeasonScoreViewModel(
     Stats? Stats)
 {
     public PlayerHouseViewModel GetHouse(House house) =>
-        Houses?.FirstOrDefault(h => h.House == house) ??
+        Houses.FirstOrDefault(h => h.House == house) ??
         new PlayerHouseViewModel(null, house);
 }
 
