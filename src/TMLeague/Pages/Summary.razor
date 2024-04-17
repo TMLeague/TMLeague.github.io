@@ -264,6 +264,15 @@
                     }
                 </tbody>
             </table>
+
+            @if (TableType == TableType.Players)
+            {
+                <PlayersInteractionsTable LeagueId="LeagueId" PlayersVm="SummaryVm.Players.Select(player => new KeyValuePair<string, PlayersInteractions?>(player.PlayerName, player.PlayersInteractions(ScoreType))).ToArray()" Decimals="1" IsAverage="ScoreType == ScoreType.Average"></PlayersInteractionsTable>
+            }
+            else if (TableType == TableType.Houses)
+            {
+                <HousesInteractionsTable LeagueId="LeagueId" HousesVm="SummaryVm.Houses.Select(house => new KeyValuePair<House, HousesInteractions?>(house.House, house.HouseInteractions(ScoreType))).ToArray()" Decimals="1" IsAverage="ScoreType == ScoreType.Average"></HousesInteractionsTable>
+            }
         }
     </div>
 </div>
