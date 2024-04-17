@@ -317,39 +317,7 @@ else
                                     <div>@($"{interactions.Value} / {interactions.Total}")</div>
                                     <div class="fs-8">@($"G: {interactions.Neighbors} / {interactions.Games}")</div>
                                     <div class="tt-inner">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item text-bg-dark text-warning">
-                                                <b>Neighbors:</b>
-                                                <span>@interactions.Neighbors</span>
-                                            </li>
-                                            <li class="list-group-item text-bg-dark text-warning">
-                                                <b>Games:</b>
-                                                <span>@interactions.Games</span>
-                                            </li>
-                                            <li class="list-group-item text-bg-dark">
-                                                <b>Successful attacks:</b>
-                                                <span>@interactions.SuccessfulAttacks</span>
-                                            </li>
-                                            <li class="list-group-item text-bg-dark">
-                                                <b>Lost attacks:</b>
-                                                <span>@interactions.LostAttacks</span>
-                                            </li>
-                                            <li class="list-group-item text-bg-dark">
-                                                <b>Successful defenses:</b>
-                                                <span>@interactions.SuccessfulDefenses</span>
-                                            </li>
-                                            <li class="list-group-item text-bg-dark">
-                                                <b>Lost defenses:</b>
-                                                <span>@interactions.LostDefenses</span>
-                                            </li>
-                                            <li class="list-group-item text-bg-dark">
-                                                <b>Supports opponent:</b>
-                                                <span>@interactions.SupportsOpponent</span>
-                                            </li>
-                                            <li class="list-group-item text-bg-dark">
-                                                <b>Opponent was supported:</b>
-                                                <span>@interactions.WasSupportedOpponent</span>
-                                            </li>
+                                        <ul class="list-group list-group-flush pb-1">
                                             <li class="list-group-item text-bg-dark text-success">
                                                 <b>Supports:</b>
                                                 <span>@interactions.Supports</span>
@@ -357,6 +325,40 @@ else
                                             <li class="list-group-item text-bg-dark text-success">
                                                 <b>Was supported:</b>
                                                 <span>@interactions.WasSupported</span>
+                                            </li>
+                                            <li class="list-group-item text-bg-dark text-danger">
+                                                <b>Successful attacks:</b>
+                                                <span>@interactions.SuccessfulAttacks</span>
+                                            </li>
+                                            <li class="list-group-item text-bg-dark text-danger">
+                                                <b>Lost defenses:</b>
+                                                <span>@interactions.LostDefenses</span>
+                                            </li>
+                                            <li class="list-group-item text-bg-dark text-danger">
+                                                <b>Supports opponent:</b>
+                                                <span>@interactions.SupportsOpponent</span>
+                                            </li>
+                                            <li class="list-group-item text-bg-dark text-danger">
+                                                <b>Opponent was supported:</b>
+                                                <span>@interactions.WasSupportedOpponent</span>
+                                            </li>
+                                            <li class="list-group-item text-bg-dark text-secondary">
+                                                <b>Lost attacks:</b>
+                                                <span>@interactions.LostAttacks</span>
+                                            </li>
+                                            <li class="list-group-item text-bg-dark text-secondary">
+                                                <b>Successful defenses:</b>
+                                                <span>@interactions.SuccessfulDefenses</span>
+                                            </li>
+                                        </ul>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item text-bg-dark">
+                                                <b>Neighbors:</b>
+                                                <span>@interactions.Neighbors</span>
+                                            </li>
+                                            <li class="list-group-item text-bg-dark">
+                                                <b>Games:</b>
+                                                <span>@interactions.Games</span>
                                             </li>
                                         </ul>
                                     </div>
