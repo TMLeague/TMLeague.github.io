@@ -1,0 +1,154 @@
+﻿<h6>Players interactions</h6>
+
+@if (Interactions != null)
+{
+    <table class="table table-dark table-draft align-middle pb-0">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 200px">Player</th>
+                <th scope="col" style="width: 100px">Avg. Relations</th>
+                <th scope="col" style="width: 100px">Avg. Interactions</th>
+                <th scope="col" style="width: 100px">Relations</th>
+                <th scope="col" style="width: 100px">Interactions</th>
+                <th scope="col" style="width: 100px">Neighbors</th>
+                <th scope="col" style="width: 100px">Games</th>
+                <th scope="col" style="width: 100px">Battles</th>
+                <th scope="col" style="width: 100px">Supports +</th>
+                <th scope="col" style="width: 100px">Supports -</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var (player, playerInteractions) in Interactions
+           .OrderByDescending(pair => pair.Value.Total)
+           .ThenByDescending(pair => pair.Value.Games))
+            {
+                <tr>
+                    <th scope="row">
+                        <a href="@RouteProvider.GetPlayerRoute(LeagueId, player)" class="text-inherit">@player</a>
+                    </th>
+                    <td>@Math.Round(playerInteractions.Value / playerInteractions.Games, 1)</td>
+                    <td>@Math.Round(playerInteractions.Total / playerInteractions.Games, 1)</td>
+                    <td>@playerInteractions.Value</td>
+                    <td>@playerInteractions.Total</td>
+                    <td>@playerInteractions.Neighbors</td>
+                    <td class="tt" ontouchstart="">
+                        @playerInteractions.Games
+                        <div class="tt-inner" style="width: 220px">
+                            <ul class="list-group list-group-flush pt-1">
+                                <li class="list-group-item text-wrap bg-dark">
+                                    <HouseGames LeagueId="LeagueId" Interactions="playerInteractions"></HouseGames>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    @if (playerInteractions.Battles > 0)
+                    {
+                        <td class="tt" ontouchstart="">
+                            @playerInteractions.Battles
+                            <div class="tt-inner" style="width: 220px">
+                                <ul class="list-group list-group-flush">
+                                    @if (playerInteractions.SuccessfulAttacks > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-danger">
+                                            <b>Successful attacks:</b>
+                                            <span>@playerInteractions.SuccessfulAttacks</span>
+                                        </li>
+                                    }
+                                    @if (playerInteractions.LostDefenses > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-danger">
+                                            <b>Lost defenses:</b>
+                                            <span>@playerInteractions.LostDefenses</span>
+                                        </li>
+                                    }
+                                    @if (playerInteractions.LostAttacks > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-secondary">
+                                            <b>Lost attacks:</b>
+                                            <span>@playerInteractions.LostAttacks</span>
+                                        </li>
+                                    }
+                                    @if (playerInteractions.SuccessfulDefenses > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-secondary">
+                                            <b>Successful defenses:</b>
+                                            <span>@playerInteractions.SuccessfulDefenses</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (playerInteractions.AllSupports > 0)
+                    {
+                        <td class="tt" ontouchstart="">
+                            @playerInteractions.AllSupports
+                            <div class="tt-inner" style="width: 220px">
+                                <ul class="list-group list-group-flush">
+                                    @if (playerInteractions.Supports > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-success">
+                                            <b>Supports:</b>
+                                            <span>@playerInteractions.Supports</span>
+                                        </li>
+                                    }
+                                    @if (playerInteractions.WasSupported > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-success">
+                                            <b>Was supported:</b>
+                                            <span>@playerInteractions.WasSupported</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (playerInteractions.AllSupportsOpponent > 0)
+                    {
+                        <td class="tt" ontouchstart="">
+                            @playerInteractions.AllSupportsOpponent
+                            <div class="tt-inner" style="width: 220px">
+                                <ul class="list-group list-group-flush">
+                                    @if (playerInteractions.SupportsOpponent > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-danger">
+                                            <b>Supports opponent:</b>
+                                            <span>@playerInteractions.SupportsOpponent</span>
+                                        </li>
+                                    }
+                                    @if (playerInteractions.WasSupportedOpponent > 0)
+                                    {
+                                        <li class="list-group-item bg-dark text-danger">
+                                            <b>Opponent was supported:</b>
+                                            <span>@playerInteractions.WasSupportedOpponent</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    [Parameter]
+    public PlayersInteractions? Interactions { get; set; }
+}

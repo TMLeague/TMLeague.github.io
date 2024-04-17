@@ -48,6 +48,12 @@
                 </h4>
 
                 <LeaguePlayer LeagueId="@playerLeagueVm.LeagueId" PlayerVm="@playerLeagueVm" TableType="@TableType"></LeaguePlayer>
+
+                @if (playerLeagueVm.PlayersInteractions.Any())
+                {
+                    <PlayerInteractionsTable LeagueId="LeagueId"
+                                             Interactions="playerLeagueVm.PlayersInteractions"></PlayerInteractionsTable>
+                }
             }
         }
         else
@@ -57,6 +63,12 @@
             </h4>
 
             <LeaguePlayer LeagueId="@LeagueId" PlayerVm="@PlayerLeagueVm" TableType="@TableType"></LeaguePlayer>
+
+            @if (PlayerLeagueVm.PlayersInteractions.Any())
+            {
+                <PlayerInteractionsTable LeagueId="LeagueId"
+                                         Interactions="PlayerLeagueVm.PlayersInteractions"></PlayerInteractionsTable>
+            }
 
             <NavLink class="btn btn-primary w-100 mb-3" href=@RouteProvider.GetPlayerRoute(PlayerVm.Name, TableType)>Show all leagues</NavLink>
         }
@@ -90,11 +102,23 @@
 
     private bool _isInitialized;
 
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrEmpty(PlayerName))
+            PlayerVm = await PlayerService.GetPlayerVm(PlayerName);
+
+        _isInitialized = true;
+
+        await base.OnParametersSetAsync();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         if (!string.IsNullOrEmpty(PlayerName))
             PlayerVm = await PlayerService.GetPlayerVm(PlayerName);
 
         _isInitialized = true;
+
+        await base.OnInitializedAsync();
     }
 }

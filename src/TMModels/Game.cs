@@ -566,6 +566,12 @@ public record PlayerInteractions() : Interactions
     public string Player { get; init; } = string.Empty;
     public double Neighbors { get; set; }
     public Dictionary<string, List<int>> HousesGames { get; set; } = new();
+    [JsonIgnore]
+    public double Battles => SuccessfulAttacks + LostAttacks + SuccessfulDefenses + LostDefenses;
+    [JsonIgnore]
+    public double AllSupports => Supports + WasSupported;
+    [JsonIgnore]
+    public double AllSupportsOpponent => SupportsOpponent + WasSupportedOpponent;
 
     public PlayerInteractions(string player) : this()
     {

@@ -37,7 +37,11 @@ public class PlayerService
         return new PlayerLeagueViewModel(
             playerLeague.LeagueId,
             league?.Name ?? string.Empty,
-            playerLeague.Results.Select(GetPlayerSeasonScoreVm).ToArray());
+            playerLeague.Results.Select(GetPlayerSeasonScoreVm).ToArray(),
+            playerLeague.Results.Aggregate(new PlayersInteractions(), (interactions, division) =>
+                division.Result.Stats.PlayersInteractions != null
+                    ? interactions + division.Result.Stats.PlayersInteractions
+                    : interactions));
     }
 
     private static PlayerSeasonScoreViewModel GetPlayerSeasonScoreVm(PlayerDivision division) => new(

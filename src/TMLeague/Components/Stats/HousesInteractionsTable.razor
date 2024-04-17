@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th scope="col" style="width: 200px">Player</th>
-                @foreach (var (house, _) in HousesVm)
+                @foreach (var (house, _) in HousesVm.OrderBy(pair => pair.Key))
                 {
                     <th scope="col" style="width: 100px">
                         @house
@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var (house, housesInteractions) in HousesVm)
+            @foreach (var (house, housesInteractions) in HousesVm.OrderBy(pair => pair.Key))
             {
                 <tr>
                     <th scope="row">
