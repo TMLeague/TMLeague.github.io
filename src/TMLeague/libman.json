@@ -10,14 +10,6 @@
       ]
     },
     {
-      "library": "bootstrap@5.2.3",
-      "destination": "wwwroot/lib/bootstrap/",
-      "files": [
-        "js/bootstrap.min.js",
-        "js/bootstrap.min.js.map"
-      ]
-    },
-    {
       "library": "fontawesome-iconpicker@3.2.0",
       "destination": "wwwroot/fontawesome-iconpicker/",
       "files": [
@@ -26,9 +18,26 @@
       ]
     },
     {
-      "provider": "cdnjs",
       "library": "bootstrap-icons@1.10.3",
       "destination": "wwwroot/lib/bootstrap-icons/"
+    },
+    {
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "js/bootstrap.min.js.map",
+        "js/bootstrap.bundle.min.js",
+        "js/bootstrap.bundle.min.js.map",
+        "css/bootstrap.min.css",
+        "css/bootstrap.min.css.map",
+        "css/bootstrap-grid.min.css",
+        "css/bootstrap-grid.min.css.map",
+        "css/bootstrap-reboot.min.css",
+        "css/bootstrap-reboot.min.css.map",
+        "css/bootstrap-utilities.min.css",
+        "css/bootstrap-utilities.min.css.map"
+      ]
     }
   ]
 }

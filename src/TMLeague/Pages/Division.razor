@@ -313,50 +313,50 @@ else
                         {
                             @if (playerVm.Stats.PlayersInteractions != null && playerVm.Stats.PlayersInteractions.TryGetValue(playerVm2.Name, out var interactions))
                             {
-                                <td class="@(interactions.Value > 0 ? "bg-success" : "") tt" ontouchstart="">
+                                <td class="@(interactions.Value > 0 ? "bg-success-subtle" : interactions.Value < -5 ? "bg-danger-subtle" : "") tt" ontouchstart="">
                                     <div>@($"{interactions.Value} / {interactions.Total}")</div>
                                     <div class="fs-8">@($"G: {interactions.Neighbors} / {interactions.Games}")</div>
                                     <div class="tt-inner">
                                         <ul class="list-group list-group-flush pb-1">
-                                            <li class="list-group-item text-bg-dark text-success">
+                                            <li class="list-group-item bg-dark-subtle text-success">
                                                 <b>Supports:</b>
                                                 <span>@interactions.Supports</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark text-success">
+                                            <li class="list-group-item bg-dark-subtle text-success">
                                                 <b>Was supported:</b>
                                                 <span>@interactions.WasSupported</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark text-danger">
+                                            <li class="list-group-item bg-dark-subtle text-danger">
                                                 <b>Successful attacks:</b>
                                                 <span>@interactions.SuccessfulAttacks</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark text-danger">
+                                            <li class="list-group-item bg-dark-subtle text-danger">
                                                 <b>Lost defenses:</b>
                                                 <span>@interactions.LostDefenses</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark text-danger">
+                                            <li class="list-group-item bg-dark-subtle text-danger">
                                                 <b>Supports opponent:</b>
                                                 <span>@interactions.SupportsOpponent</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark text-danger">
+                                            <li class="list-group-item bg-dark-subtle text-danger">
                                                 <b>Opponent was supported:</b>
                                                 <span>@interactions.WasSupportedOpponent</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark text-secondary">
+                                            <li class="list-group-item bg-dark-subtle text-secondary">
                                                 <b>Lost attacks:</b>
                                                 <span>@interactions.LostAttacks</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark text-secondary">
+                                            <li class="list-group-item bg-dark-subtle text-secondary">
                                                 <b>Successful defenses:</b>
                                                 <span>@interactions.SuccessfulDefenses</span>
                                             </li>
                                         </ul>
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item text-bg-dark">
+                                            <li class="list-group-item bg-dark-subtle">
                                                 <b>Neighbors:</b>
                                                 <span>@interactions.Neighbors</span>
                                             </li>
-                                            <li class="list-group-item text-bg-dark">
+                                            <li class="list-group-item bg-dark-subtle">
                                                 <b>Games:</b>
                                                 <span>@interactions.Games</span>
                                             </li>
