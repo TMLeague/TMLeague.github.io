@@ -170,7 +170,7 @@ public class LeagueService
             return null;
 
         var draftTable = draft.Table.Select(housesTemplate =>
-            housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
+            housesTemplate.Select(Houses.Parse).ToArray()).ToArray();
         var players = divisionForm.PlayerNames.OrderBy(p => p).ToArray();
         var stats = _playerStatsService.GetStats(draftTable, players);
         var passwords = (await _generator.Get(league.InitialMessage?.PasswordLength ?? 6, playersLength, cancellationToken)).ToArray();

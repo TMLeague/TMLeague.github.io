@@ -31,7 +31,7 @@ internal class StateConverter
             var stats = stateRaw.Stats
                 .Select(row => row.Split(','))
                 .Where(row => row.Length == 4)
-                .Select(row => new HouseSpeed(HouseParser.Parse(row[0]),
+                .Select(row => new HouseSpeed(Houses.Parse(row[0]),
                     double.Parse(row[2], CultureInfo.InvariantCulture), int.Parse(row[3])))
                 .ToArray();
 
@@ -67,7 +67,7 @@ internal class StateConverter
 
     private static House[] GetHousesOrder(Setup setup) => setup["g-hid"]
         .Split('|')
-        .Select(HouseParser.Parse)
+        .Select(Houses.Parse)
         .ToArray();
 
     private static string[] GetPlayers(Setup setup) => setup["g-hid"]
@@ -137,7 +137,7 @@ internal class StateConverter
         {
             var landRaw = landsRaw[(i * landSize)..((i + 1) * landSize)];
             var area = areas[i];
-            var house = HouseParser.Parse(landRaw[0]);
+            var house = Houses.Parse(landRaw[0]);
             var footmen = int.Parse(landRaw[1..2]);
             var knights = int.Parse(landRaw[2..3]);
             var siegeEngines = int.Parse(landRaw[3..4]);
@@ -162,7 +162,7 @@ internal class StateConverter
         {
             var seaRaw = seasRaw[(i * seaSize)..((i + 1) * seaSize)];
             var area = areas[i];
-            var house = HouseParser.Parse(seaRaw[0]);
+            var house = Houses.Parse(seaRaw[0]);
             var ships = int.Parse(seaRaw[1..2]);
             seas.Add(new Sea(area.IsEnabled, area.Id,
                 area.Name, house, ships));
