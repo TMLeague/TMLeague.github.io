@@ -110,7 +110,7 @@ Enumerable.Range(0, options.Value.Threads).AsParallel().ForAll(async taskId =>
                 break;
 
             var draftTable = draft.Table.Select(housesTemplate =>
-                housesTemplate.Select(HouseParser.Parse).ToArray()).ToArray();
+                housesTemplate.Select(Houses.Parse).ToArray()).ToArray();
             var allStats = playerStatsService.GetStats(draftTable, players)
                 .SelectMany(s => s).OfType<PlayerDraftStat>().ToArray();
             var score = new DraftScore($"{taskId}-{i}", allStats);

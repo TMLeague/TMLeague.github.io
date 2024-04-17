@@ -15,7 +15,7 @@ public enum House
     Arryn
 }
 
-public static class HouseParser
+public static class Houses
 {
     public static House Parse(string value) => Parse(value[0]);
 
@@ -31,10 +31,11 @@ public static class HouseParser
             'a' => House.Arryn,
             _ => House.Unknown
         };
-}
 
-public static class Houses
-{
+    public static string GetHouseClass(string house) => GetHouseClass(Parse(house));
+    public static string GetHouseClass(char house) => GetHouseClass(Parse(house));
+    public static string GetHouseClass(House house) => $"house-{house.ToString().ToLower()}";
+
     /// <summary>
     /// A dictionaries of houses that are neighboring to each other.
     /// </summary>

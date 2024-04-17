@@ -69,7 +69,7 @@ internal static class StatsConverter
                 continue;
             
             houseScore.Stats.PlayersInteractions?.Import(houseScore.House, state.Players.Length, houseScore.Stats.HousesInteractions!,
-                houseScores.ToDictionary(score => score.House, score => score.Player));
+                houseScores.ToDictionary(score => score.House, score => score.Player), state.GameId);
         }
 
         return houseScores;
@@ -267,7 +267,7 @@ internal static class StatsConverter
             if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support)) 
                 return;
 
-            var supportedHouse = HouseParser.Parse(supportMatch.Groups[2].Value);
+            var supportedHouse = Houses.Parse(supportMatch.Groups[2].Value);
             if (Attacker?.House == supportedHouse) 
                 AttackerSupporters[logItem.House] = support;
             else if (Defender?.House == supportedHouse)

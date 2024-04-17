@@ -506,7 +506,7 @@ public class PlayersInteractions : Dictionary<string, PlayerInteractions>
             {
                 var are1 = stats1.TryGetValue(player, out var interactions1);
                 var are2 = stats2.TryGetValue(player, out var interactions2);
-                return are1 && are2 ? PlayerInteractions.Max(interactions1!, interactions2!) : interactions1 ?? interactions2!;
+                return are1 && are2 ? PlayerInteractions.Max(interactions1!, interactions2!) : interactions1 ?? interactions2 ?? new PlayerInteractions(player);
             }));
 
     public static PlayersInteractions operator +(PlayersInteractions stats1, PlayersInteractions stats2) => new(
@@ -515,22 +515,23 @@ public class PlayersInteractions : Dictionary<string, PlayerInteractions>
             {
                 var are1 = stats1.TryGetValue(player, out var interactions1);
                 var are2 = stats2.TryGetValue(player, out var interactions2);
-                return are1 && are2 ? interactions1! + interactions2! : interactions1 ?? interactions2!;
+                return are1 && are2 ? interactions1! + interactions2! : interactions1 ?? interactions2 ?? new PlayerInteractions(player);
             }));
 
     public static PlayersInteractions operator /(PlayersInteractions stats, double divisor) => new(
         stats.ToDictionary(pair => pair.Key, pair => pair.Value / divisor));
 
-    public void Import(House house, int players, HousesInteractions interactions, Dictionary<House, string> housePlayers)
+    public void Import(House house, int players, HousesInteractions interactions, Dictionary<House, string> housePlayers, int? gameId)
     {
         foreach (var (enemyHouse, interaction) in interactions)
         {
             var enemy = housePlayers[enemyHouse];
+            var housesKey = PlayerInteractions.GetHousesKey(house, enemyHouse);
             this[enemy] = new PlayerInteractions(enemy, 1,
-                house.IsNeighbor(enemyHouse, players) ? 1 : 0, new Dictionary<string, double>
-                {
-                    [PlayerInteractions.GetHousesKey(house, enemyHouse)] = 1
-                }, interaction);
+                house.IsNeighbor(enemyHouse, players) ? 1 : 0,
+                new Dictionary<string, double> { [housesKey] = 1 },
+                gameId == null ? new Dictionary<string, List<int>>() : new Dictionary<string, List<int>> { [housesKey] = new() { gameId.Value } },
+                interaction);
         }
     }
 }
@@ -546,7 +547,7 @@ public class HousesInteractions : Dictionary<House, Interactions>
             {
                 var are1 = stats1.TryGetValue(house, out var interactions1);
                 var are2 = stats2.TryGetValue(house, out var interactions2);
-                return are1 && are2 ? Interactions.Max(interactions1!, interactions2!) : interactions1 ?? interactions2!;
+                return are1 && are2 ? Interactions.Max(interactions1!, interactions2!) : interactions1 ?? interactions2 ?? new Interactions();
             }));
 
     public static HousesInteractions operator +(HousesInteractions stats1, HousesInteractions stats2) => new(
@@ -555,7 +556,7 @@ public class HousesInteractions : Dictionary<House, Interactions>
             {
                 var are1 = stats1.TryGetValue(house, out var interactions1);
                 var are2 = stats2.TryGetValue(house, out var interactions2);
-                return are1 && are2 ? interactions1! + interactions2! : interactions1 ?? interactions2!;
+                return are1 && are2 ? interactions1! + interactions2! : interactions1 ?? interactions2 ?? new Interactions();
             }));
 
     public static HousesInteractions operator /(HousesInteractions stats, double divisor) => new(
@@ -564,10 +565,11 @@ public class HousesInteractions : Dictionary<House, Interactions>
 
 public record PlayerInteractions() : Interactions
 {
-    public string Player { get; init; }
+    public string Player { get; init; } = string.Empty;
     public double Games { get; set; }
     public double Neighbors { get; set; }
     public Dictionary<string, double> Houses { get; set; } = new();
+    public Dictionary<string, List<int>> HousesGames { get; set; } = new();
     [JsonIgnore]
     public double Value => Supports + WasSupported + FavorsInTie + WasFavoredInTie - SuccessfulAttacks - LostDefenses - SupportsOpponent - WasSupportedOpponent - Raids - WasRaided;
     [JsonIgnore]
@@ -578,21 +580,22 @@ public record PlayerInteractions() : Interactions
         Player = player;
     }
 
-    public PlayerInteractions(string player, double games, double neighbors, Dictionary<string, double> houses,
-        Interactions interactions) : this(player, games, neighbors, houses, interactions.SuccessfulAttacks,
+    public PlayerInteractions(string player, double games, double neighbors, Dictionary<string, double> houses, Dictionary<string, List<int>> housesGames,
+        Interactions interactions) : this(player, games, neighbors, houses, housesGames, interactions.SuccessfulAttacks,
         interactions.SuccessfulDefenses, interactions.LostAttacks, interactions.LostDefenses,
         interactions.Supports, interactions.SupportsOpponent, interactions.WasSupported, interactions.WasSupportedOpponent,
         interactions.Raids, interactions.WasRaided, interactions.FavorsInTie, interactions.WasFavoredInTie, interactions.Kills with { }, interactions.Casualties with { })
     { }
 
-    public PlayerInteractions(string player, double games, double neighbors, Dictionary<string, double> houses, double successfulAttacks,
-        double successfulDefenses, double lostAttacks, double lostDefenses,
+    public PlayerInteractions(string player, double games, double neighbors, Dictionary<string, double> houses, Dictionary<string, List<int>> housesGames,
+        double successfulAttacks, double successfulDefenses, double lostAttacks, double lostDefenses,
         double supports, double supportsOpponent, double wasSupported, double wasSupportedOpponent,
         double raids, double wasRaided, double favorsInTie, double wasFavoredInTie, UnitStats kills, UnitStats casualties) : this(player)
     {
         Games = games;
         Neighbors = neighbors;
         Houses = houses;
+        HousesGames = housesGames;
         SuccessfulAttacks = successfulAttacks;
         SuccessfulDefenses = successfulDefenses;
         LostAttacks = lostAttacks;
@@ -619,6 +622,13 @@ public record PlayerInteractions() : Interactions
             .ToDictionary(house => house, house =>
                 Math.Max(stats1.Houses.TryGetValue(house, out var houses1) ? houses1 : 0,
                     stats2.Houses.TryGetValue(house, out var houses2) ? houses2 : 0)),
+        stats1.HousesGames.Keys.Concat(stats2.Houses.Keys).Distinct()
+            .ToDictionary(house => house, house =>
+            {
+                var are1 = stats1.HousesGames.TryGetValue(house, out var games1);
+                var are2 = stats2.HousesGames.TryGetValue(house, out var games2);
+                return are1 && are2 ? games1!.Concat(games2!).ToList() : games1 ?? games2 ?? new List<int>();
+            }),
         Math.Max(stats1.SuccessfulAttacks, stats2.SuccessfulAttacks),
         Math.Max(stats1.SuccessfulDefenses, stats2.SuccessfulDefenses),
         Math.Max(stats1.LostAttacks, stats2.LostAttacks),
@@ -642,6 +652,13 @@ public record PlayerInteractions() : Interactions
             .ToDictionary(house => house, house =>
                 (stats1.Houses.TryGetValue(house, out var houses1) ? houses1 : 0)
                 + (stats2.Houses.TryGetValue(house, out var houses2) ? houses2 : 0)),
+        stats1.HousesGames.Keys.Concat(stats2.Houses.Keys).Distinct()
+            .ToDictionary(house => house, house =>
+            {
+                var are1 = stats1.HousesGames.TryGetValue(house, out var games1);
+                var are2 = stats2.HousesGames.TryGetValue(house, out var games2);
+                return are1 && are2 ? games1!.Concat(games2!).ToList() : games1 ?? games2 ?? new List<int>();
+            }),
         stats1.SuccessfulAttacks + stats2.SuccessfulAttacks,
         stats1.SuccessfulDefenses + stats2.SuccessfulDefenses,
         stats1.LostAttacks + stats2.LostAttacks,
@@ -662,6 +679,7 @@ public record PlayerInteractions() : Interactions
         stats.Games / divisor,
         stats.Neighbors / divisor,
         stats.Houses.ToDictionary(pair => pair.Key, pair => pair.Value / divisor),
+        stats.HousesGames,
         stats.SuccessfulAttacks / divisor,
         stats.SuccessfulDefenses / divisor,
         stats.LostAttacks / divisor,
