@@ -31,13 +31,16 @@
                             }
                             <td class="@(interactions.Value > 0 ? "bg-success-subtle" : interactions.Value < -5 ? "bg-danger-subtle" : "") text-nowrap tt" ontouchstart="">
                                 <div>@($"{Math.Round(interactions.Value, Decimals)} / {Math.Round(interactions.Total, Decimals)}")</div>
-                                @if (IsAverage)
+                                @if (ShowGames)
                                 {
-                                    <div class="fs-8">@($"G: {Math.Round(100 * interactions.Neighbors, Decimals)}%")</div>
-                                }
-                                else
-                                {
-                                    <div class="fs-8">@($"G: {Math.Round(interactions.Neighbors, Decimals)} / {Math.Round(interactions.Games, Decimals)}")</div>
+                                    @if (IsAverage)
+                                    {
+                                        <div class="fs-8">@($"G: {Math.Round(100 * interactions.Neighbors, Decimals)}%")</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="fs-8">@($"G: {Math.Round(interactions.Neighbors, Decimals)} / {Math.Round(interactions.Games, Decimals)}")</div>
+                                    }
                                 }
                                 <div class="tt-inner" style="width: 220px;">
                                     <ul class="list-group list-group-flush">
@@ -117,23 +120,26 @@
                                                 }
                                             }
                                         </li>
-                                        @if (IsAverage)
+                                        @if (ShowGames)
                                         {
-                                            <li class="list-group-item bg-dark">
-                                                <b>Neighbors:</b>
-                                                <span>@($"{Math.Round(100 * interactions.Neighbors, Decimals)}%")</span>
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li class="list-group-item bg-dark">
-                                                <b>Neighbors:</b>
-                                                <span>@Math.Round(interactions.Neighbors, Decimals)</span>
-                                            </li>
-                                            <li class="list-group-item bg-dark">
-                                                <b>Games:</b>
-                                                <span>@Math.Round(interactions.Games, Decimals)</span>
-                                            </li>
+                                            @if (IsAverage)
+                                            {
+                                                <li class="list-group-item bg-dark">
+                                                    <b>Neighbors:</b>
+                                                    <span>@($"{Math.Round(100 * interactions.Neighbors, Decimals)}%")</span>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item bg-dark">
+                                                    <b>Neighbors:</b>
+                                                    <span>@Math.Round(interactions.Neighbors, Decimals)</span>
+                                                </li>
+                                                <li class="list-group-item bg-dark">
+                                                    <b>Games:</b>
+                                                    <span>@Math.Round(interactions.Games, Decimals)</span>
+                                                </li>
+                                            }
                                         }
                                     </ul>
                                 </div>
@@ -162,4 +168,8 @@
 
     [Parameter]
     public bool IsAverage { get; set; }
+
+    [Parameter]
+    public bool ShowGames { get; set; } = true;
+
 }
