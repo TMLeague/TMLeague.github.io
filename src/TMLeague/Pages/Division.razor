@@ -289,9 +289,12 @@ else
         </table>
     </div>
 
-    <div class="row">
-        <PlayersInteractionsTable LeagueId="@LeagueId" PlayersVm="@DivisionVm.Players.Select(player => new KeyValuePair<string, PlayersInteractions?>(player.Name, player.Stats.PlayersInteractions)).ToArray()"></PlayersInteractionsTable>
-    </div>
+    @if (Interactions != null)
+    {
+        <div class="row">
+            <PlayersInteractionsTable LeagueId="@LeagueId" PlayersVm="@Interactions.Players.ToArray()"></PlayersInteractionsTable>
+        </div>
+    }
 
     @if (DivisionVm.Messages.Length != 0)
     {
@@ -336,6 +339,8 @@ else
 
     private DivisionViewModel? DivisionVm { get; set; }
 
+    private TotalInteractions? Interactions { get; set; }
+
     private int TableWidth => DivisionVm == null ?
         0 :
         900 +
@@ -351,6 +356,8 @@ else
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
 
+        Interactions = await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
+
         await base.OnParametersSetAsync();
     }
 
@@ -360,6 +367,8 @@ else
             return;
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
+
+        Interactions = await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
 
         _isInitialized = true;
     }

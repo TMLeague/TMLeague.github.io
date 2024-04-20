@@ -37,6 +37,9 @@ internal class FileLoader
     public bool ExistsResults(string leagueId, string seasonId, string divisionId) =>
         File.Exists(_pathProvider.GetResultsFilePath(leagueId, seasonId, divisionId));
 
+    public async Task<TotalInteractions?> LoadDivisionInteractions(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken) =>
+        await DeserializeFile<TotalInteractions>(_pathProvider.GetDivisionInteractions(leagueId, seasonId, divisionId), false, cancellationToken);
+
     private static readonly JsonSerializerOptions Options = new()
     {
         PropertyNameCaseInsensitive = true,

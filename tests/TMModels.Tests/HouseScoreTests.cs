@@ -7,9 +7,9 @@ public class HouseScoreTests
     [Fact]
     public void Should_Be_Sorted()
     {
-        var baratheon = new HouseScore(House.Baratheon, "Bara", 1, 2, 3, 2, 5, 1, 0, 2, 0, 0, Array.Empty<int>(), 1, null, new Stats());
-        var lannister = new HouseScore(House.Lannister, "Lanni", 2, 3, 1, 2, 5, 1, 0, 2, 0, 0, Array.Empty<int>(), 1, null, new Stats());
-        var stark = new HouseScore(House.Stark, "Star", 3, 1, 2, 1, 5, 1, 1, 2, 0, 0, Array.Empty<int>(), 1, null, new Stats());
+        var baratheon = new HouseScore(House.Baratheon, "Bara", 1, 2, 3, 2, 5, 1, 0, 2, 0, 0, Array.Empty<int>(), 1, null, new Stats(), new HousesInteractions(), new PlayersInteractions());
+        var lannister = new HouseScore(House.Lannister, "Lanni", 2, 3, 1, 2, 5, 1, 0, 2, 0, 0, Array.Empty<int>(), 1, null, new Stats(), new HousesInteractions(), new PlayersInteractions());
+        var stark = new HouseScore(House.Stark, "Star", 3, 1, 2, 1, 5, 1, 1, 2, 0, 0, Array.Empty<int>(), 1, null, new Stats(), new HousesInteractions(), new PlayersInteractions());
 
         stark.CompareTo(baratheon).Should().BeGreaterThan(0);
         stark.CompareTo(lannister).Should().BeGreaterThan(0);

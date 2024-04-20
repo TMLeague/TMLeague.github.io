@@ -36,7 +36,7 @@ internal class SummaryCalculatingService
 
         if (string.IsNullOrEmpty(_options.Value.League))
         {
-            foreach (var leagueId in home.Leagues) 
+            foreach (var leagueId in home.Leagues)
                 await CalculateSummary(leagueId, cancellationToken);
         }
         else
@@ -51,9 +51,11 @@ internal class SummaryCalculatingService
     {
         try
         {
-            var leagueSummary = await _leagueSummaryCalculatingService.Calculate(leagueId, cancellationToken);
+            var (leagueSummary, interactions) = await _leagueSummaryCalculatingService.Calculate(leagueId, cancellationToken);
             if (leagueSummary != null)
                 await _fileSaver.SaveSummary(leagueSummary, leagueId, cancellationToken);
+            if (interactions != null)
+                await _fileSaver.SaveLeagueInteractions(interactions, leagueId, cancellationToken);
         }
         catch (Exception ex)
         {

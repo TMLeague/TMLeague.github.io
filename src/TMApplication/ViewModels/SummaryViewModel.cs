@@ -35,7 +35,6 @@ public record PlayerScoreViewModel(
     public UnitStats Casualties(ScoreType type, int doubles = 1) => Scores[type].Stats.Casualties;
     public PowerTokenStats PowerTokensGathered(ScoreType type, int doubles = 1) => Scores[type].Stats.PowerTokens;
     public BidStats PowerTokensSpent(ScoreType type, int doubles = 1) => Scores[type].Stats.Bids;
-    public PlayersInteractions? PlayersInteractions(ScoreType type) => Scores[type].Stats.PlayersInteractions;
 }
 
 public record HouseScoreViewModel(
@@ -54,7 +53,6 @@ public record HouseScoreViewModel(
     public UnitStats Casualties(ScoreType type, int doubles = 1) => Scores[type].Stats.Casualties;
     public PowerTokenStats PowerTokensGathered(ScoreType type, int doubles = 1) => Scores[type].Stats.PowerTokens;
     public BidStats PowerTokensSpent(ScoreType type, int doubles = 1) => Scores[type].Stats.Bids;
-    public HousesInteractions? HouseInteractions(ScoreType type) => Scores[type].Stats.HousesInteractions;
 }
 
 public enum ScoreType
@@ -125,3 +123,5 @@ public record HouseScoreDetailsViewModel(
 {
     public Stats Stats { get; } = Stats ?? new Stats();
 }
+
+public class SummaryInteractionsViewModel : Dictionary<ScoreType, TotalInteractions> { }

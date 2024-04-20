@@ -15,4 +15,6 @@ public interface IDataProvider
     Task<Draft[]> GetDrafts(int players, CancellationToken cancellationToken);
     Task<Summary?> GetSummary(string leagueId, CancellationToken cancellationToken);
     Task<Player?> GetPlayer(string playerName, CancellationToken cancellationToken);
-};
+    Task<TotalInteractions?> GetLeagueInteractions(string leagueId, CancellationToken cancellationToken);
+    Task<TotalInteractions?> GetDivisionInteractions(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken);
+}

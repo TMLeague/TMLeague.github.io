@@ -265,17 +265,20 @@
                 </tbody>
             </table>
 
-            @if (TableType == TableType.Players)
+            @if (Interactions != null && ScoreType != ScoreType.Best)
             {
-                <PlayersInteractionsTable LeagueId="LeagueId" 
-                                          PlayersVm="SummaryVm.Players.Select(player => new KeyValuePair<string, PlayersInteractions?>(player.PlayerName, player.PlayersInteractions(ScoreType))).ToArray()" 
-                                          Decimals="1" IsAverage="ScoreType == ScoreType.Average" ShowGames="ScoreType != ScoreType.Best"></PlayersInteractionsTable>
-            }
-            else if (TableType == TableType.Houses)
-            {
-                <HousesInteractionsTable LeagueId="LeagueId"
-                                         HousesVm="SummaryVm.Houses.Select(house => new KeyValuePair<House, HousesInteractions?>(house.House, house.HouseInteractions(ScoreType))).ToArray()" 
-                                         Decimals="1" IsAverage="ScoreType == ScoreType.Average"></HousesInteractionsTable>
+                @if (TableType == TableType.Players)
+                {
+                    <PlayersInteractionsTable LeagueId="LeagueId"
+                                              PlayersVm="Interactions[ScoreType].Players.ToArray()"
+                                              Decimals="1" IsAverage="ScoreType == ScoreType.Average" ShowGames="ScoreType != ScoreType.Best"></PlayersInteractionsTable>
+                }
+                else if (TableType == TableType.Houses)
+                {
+                    <HousesInteractionsTable LeagueId="LeagueId"
+                                             HousesVm="Interactions[ScoreType].Houses.ToArray()"
+                                             Decimals="1" IsAverage="ScoreType == ScoreType.Average"></HousesInteractionsTable>
+                }
             }
         }
     </div>
@@ -302,6 +305,8 @@
 
     private SummaryViewModel? SummaryVm { get; set; }
 
+    private SummaryInteractionsViewModel? Interactions { get; set; }
+
     private bool _isInitialized;
     private ViewColumn _sortColumn;
     private bool _sortAscending;
@@ -309,7 +314,10 @@
     protected override async Task OnParametersSetAsync()
     {
         if (LeagueId != null)
+        {
             SummaryVm = await SummaryService.GetSummaryVm(LeagueId, DivisionId);
+            Interactions = await SummaryService.GetInteractions(LeagueId, DivisionId);
+        }
 
         await base.OnParametersSetAsync();
     }
@@ -317,7 +325,10 @@
     protected override async Task OnInitializedAsync()
     {
         if (LeagueId != null)
+        {
             SummaryVm = await SummaryService.GetSummaryVm(LeagueId, DivisionId);
+            Interactions = await SummaryService.GetInteractions(LeagueId, DivisionId);
+        }
         else
             Logger.LogError($"Parameter {nameof(LeagueId)} is required!");
 

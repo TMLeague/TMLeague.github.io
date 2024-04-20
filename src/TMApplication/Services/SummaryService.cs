@@ -98,5 +98,18 @@ public class SummaryService
         (double)score.Supplies / games,
         (double)score.PowerTokens / games,
         (double)score.Moves / games,
-        score.Stats == null ? new Stats(score.Stats?.HousesInteractions?.Keys.AsEnumerable() ?? Array.Empty<House>()) : score.Stats / games);
+        score.Stats == null ? new Stats() : score.Stats / games);
+
+    public async Task<SummaryInteractionsViewModel?> GetInteractions(string leagueId, string? divisionId, CancellationToken cancellationToken = default)
+    {
+        var interactions = await _dataProvider.GetLeagueInteractions(leagueId, cancellationToken);
+        if (interactions == null)
+            return null;
+
+        return new SummaryInteractionsViewModel
+        {
+            [ScoreType.Average] = interactions.Average(),
+            [ScoreType.Total] = interactions
+        };
+    }
 }

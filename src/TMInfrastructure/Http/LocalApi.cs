@@ -97,8 +97,26 @@ public class LocalApi : IDataProvider
     {
         ArgumentNullException.ThrowIfNull(playerName);
 
-        return await Get<Player>($"PlayerName \"{playerName.ToUpper()}\"",
+        return await Get<Player>($"Player \"{playerName.ToUpper()}\"",
             $"/data/players/{playerName}.json", cancellationToken);
+    }
+
+    public async Task<TotalInteractions?> GetLeagueInteractions(string leagueId, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(leagueId);
+
+        return await Get<TotalInteractions>($"League interactions \"{leagueId.ToUpper()}\"",
+            $"/data/results/{leagueId}/interactions.json", cancellationToken);
+    }
+
+    public async Task<TotalInteractions?> GetDivisionInteractions(string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(leagueId);
+        ArgumentNullException.ThrowIfNull(seasonId);
+        ArgumentNullException.ThrowIfNull(divisionId);
+
+        return await Get<TotalInteractions>($"Player interactions \"{leagueId.ToUpper()}/{seasonId.ToUpper()}/{divisionId.ToUpper()}\"",
+            $"/data/results/{leagueId}/{seasonId}/{divisionId}.interactions.json", cancellationToken);
     }
 
     private async Task<T?> Get<T>(string logName, string requestUri, CancellationToken cancellationToken) where T : class

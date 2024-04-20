@@ -241,4 +241,8 @@ public class DivisionService
             .FirstOrDefault(result => result.Player == player)?.Houses
             .Select(result => new DivisionConfigurationFormGame(games.IndexOf(result.Game) + 1, result.Game))
             .ToList() ?? new List<DivisionConfigurationFormGame>();
+
+    public async Task<TotalInteractions?> GetDivisionInteractions(string leagueId, string seasonId, string divisionId,
+        CancellationToken cancellationToken = default) =>
+        await _dataProvider.GetDivisionInteractions(leagueId, seasonId, divisionId, cancellationToken);
 }

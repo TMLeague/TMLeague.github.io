@@ -9,6 +9,7 @@ internal class PathProvider
     private const string Seasons = "seasons";
     private const string Divisions = "divisions";
     private const string Games = "games";
+    private const string Interactions = "interactions";
     private const string Players = "players";
     private const string Results = "results";
     private const string Summary = "summary";
@@ -70,5 +71,22 @@ internal class PathProvider
         Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results, leagueId));
         return Path.Combine(_options.Value.BaseLocation,
             Results, leagueId, $"{Summary}.json");
+    }
+
+    public string GetLeagueInteractions(string leagueId)
+    {
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results));
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results, leagueId));
+        return Path.Combine(_options.Value.BaseLocation,
+            Results, leagueId, $"{Interactions}.json");
+    }
+
+    public string GetDivisionInteractions(string leagueId, string seasonId, string divisionId)
+    {
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results));
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results, leagueId));
+        Directory.CreateDirectory(Path.Combine(_options.Value.BaseLocation, Results, leagueId, seasonId));
+        return Path.Combine(_options.Value.BaseLocation,
+            Results, leagueId, seasonId, $"{divisionId}.{Interactions}.json");
     }
 }

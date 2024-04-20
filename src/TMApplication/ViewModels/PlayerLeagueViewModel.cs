@@ -10,8 +10,7 @@ public record PlayerViewModel(
 public record PlayerLeagueViewModel(
     string LeagueId,
     string LeagueName,
-    PlayerSeasonScoreViewModel[] Seasons,
-    PlayersInteractions PlayersInteractions);
+    PlayerSeasonScoreViewModel[] Seasons);
 
 public record PlayerSeasonScoreViewModel(
     string SeasonId,
