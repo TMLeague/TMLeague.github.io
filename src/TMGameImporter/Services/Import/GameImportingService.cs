@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;

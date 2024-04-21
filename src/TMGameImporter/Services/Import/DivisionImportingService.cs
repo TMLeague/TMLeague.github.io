@@ -90,6 +90,9 @@ internal class DivisionImportingService
         var results = new Results(playerResults, games.Any() ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow, division.IsFinished);
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
 
+        var interactions = games.Aggregate(new TotalInteractions(), (totalInteractions, game) => totalInteractions + game);
+        await _fileSaver.SaveDivisionInteractions(interactions, leagueId, seasonId, divisionId, cancellationToken);
+
         _logger.LogInformation("   Division {leagueId}/{seasonId}/{divisionId} imported.",
             leagueId.ToUpper(), seasonId.ToUpper(), divisionId.ToUpper());
     }

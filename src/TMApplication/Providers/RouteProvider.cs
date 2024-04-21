@@ -16,6 +16,7 @@ public static class RouteProvider
     private const string Season = "season";
     private const string Seasons = "seasons";
     private const string Summary = "summary";
+    private const string Interactions = "interactions";
 
     public static string GetRoute(string? leagueId = null, string? seasonId = null, string? divisionId = null)
     {
@@ -43,6 +44,15 @@ public static class RouteProvider
             ? $"{League}/{leagueId}/{Summary}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}"
             : $"{League}/{leagueId}/{Summary}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}/{divisionId}";
 
+    public static object GetLeagueInteractionsRoute(string leagueId, string? divisionId = null, TableType? tableType = null, ScoreType? scoreType = null) =>
+        scoreType == null ?
+            (string.IsNullOrEmpty(divisionId) ?
+                $"{League}/{leagueId}/{Interactions}" :
+                $"{League}/{leagueId}/{Interactions}/{TableType.Players.ToString().ToLower()}/{ScoreType.Average.ToString().ToLower()}/{divisionId}") :
+            string.IsNullOrEmpty(divisionId)
+                ? $"{League}/{leagueId}/{Interactions}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}"
+                : $"{League}/{leagueId}/{Interactions}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}/{divisionId}";
+
     public static string GetPlayerRoute(string? leagueId, string playerName, PlayerTableType type = PlayerTableType.Seasons) =>
         leagueId == null ?
             GetPlayerRoute(playerName, type) :
@@ -57,8 +67,10 @@ public static class RouteProvider
     public static string GetLeagueSeasonRoute(string leagueId, string seasonId) =>
         $"{League}/{leagueId}/{Season}/{seasonId}";
 
-    public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId) =>
-        $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
+    public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId, bool areInteractions = false) =>
+        areInteractions
+            ? $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{Interactions}"
+            : $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
 
     public static string GetLeagueDivisionCreationRoute(string leagueId, string? seasonNumber, string? divisionNumber, string? judge, IEnumerable<string>? playerNames)
     {

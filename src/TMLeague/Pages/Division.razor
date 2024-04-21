@@ -1,4 +1,5 @@
 ﻿@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}"
+@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/{interactionsStr}"
 @inject DivisionService DivisionService
 
 <h3>@(DivisionVm?.LeagueName ?? $"League {LeagueId}")</h3>
@@ -9,7 +10,7 @@
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.First != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.First, DivisionId)"><i class="bi bi-chevron-double-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.First, DivisionId, AreInteractions)"><i class="bi bi-chevron-double-left"></i></a>
     }
     else
     {
@@ -17,7 +18,7 @@
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Previous != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Previous, DivisionId)"><i class="bi bi-chevron-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Previous, DivisionId, AreInteractions)"><i class="bi bi-chevron-left"></i></a>
     }
     @if (LeagueId != null && SeasonId != null)
     {
@@ -29,11 +30,11 @@
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Next != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Next, DivisionId)"><i class="bi bi-chevron-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Next, DivisionId, AreInteractions)"><i class="bi bi-chevron-right"></i></a>
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Last != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Last, DivisionId)"><i class="bi bi-chevron-double-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Last, DivisionId, AreInteractions)"><i class="bi bi-chevron-double-right"></i></a>
     }
     else
     {
@@ -51,7 +52,7 @@
     }
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.First != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.First)"><i class="bi bi-chevron-double-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.First, AreInteractions)"><i class="bi bi-chevron-double-left"></i></a>
     }
     else
     {
@@ -59,16 +60,16 @@
     }
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Previous != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Previous)"><i class="bi bi-chevron-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Previous, AreInteractions)"><i class="bi bi-chevron-left"></i></a>
     }
     <span>@(DivisionVm?.DivisionName ?? $"Division {DivisionId}")</span>
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Next != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Next)"><i class="bi bi-chevron-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Next, AreInteractions)"><i class="bi bi-chevron-right"></i></a>
     }
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Last != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Last)"><i class="bi bi-chevron-double-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Last, AreInteractions)"><i class="bi bi-chevron-double-right"></i></a>
     }
     else
     {
@@ -89,7 +90,7 @@
         }
         else
         {
-            <Loading></Loading>
+            <Loading />
         }
     </div>
 }
@@ -141,7 +142,7 @@ else
                                     break;
                                 case Tiebreaker.Penalties:
                                     <td class="tt" ontouchstart="">
-                                        <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                                        <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm" />
                                     </td>
                                     break;
                                 case Tiebreaker.Cla:
@@ -163,43 +164,43 @@ else
                         @if (!DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties))
                         {
                             <td class="tt" ontouchstart="">
-                                <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                                <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm" />
                             </td>
                         }
                         <td class="p-1 invisible border-0"></td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)" />
                         </td>
                         <td class="p-1 invisible border-0"></td>
                         <td class="tt" ontouchstart="">
-                            <BattleStats Stats="@playerVm.Stats.Battles"></BattleStats>
+                            <BattleStats Stats="@playerVm.Stats.Battles" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <UnitStats Stats="@playerVm.Stats.Kills"></UnitStats>
+                            <UnitStats Stats="@playerVm.Stats.Kills" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <UnitStats Stats="@playerVm.Stats.Casualties"></UnitStats>
+                            <UnitStats Stats="@playerVm.Stats.Casualties" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <PowerTokenStats Stats="@playerVm.Stats.PowerTokens"></PowerTokenStats>
+                            <PowerTokenStats Stats="@playerVm.Stats.PowerTokens" />
                         </td>
                         <td class="tt" ontouchstart="">
-                            <BidStats Stats="@playerVm.Stats.Bids"></BidStats>
+                            <BidStats Stats="@playerVm.Stats.Bids" />
                         </td>
                     </tr>
                 }
@@ -279,7 +280,7 @@ else
                             else
                             {
                                 <td class="@($"house-{playerHouse.House.ToString().ToLower()} {(playerHouse.IsWinner ? "progress-bar-striped" : "")}") tt" ontouchstart="">
-                                    <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerHouse" IsWinnerHighlighted="false"></HouseCell>
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerHouse" IsWinnerHighlighted="false" />
                                 </td>
                             }
                         }
@@ -290,7 +291,15 @@ else
     </div>
 
     <div class="row">
-        <PlayersInteractionsTable LeagueId="@LeagueId" PlayersVm="@DivisionVm.Players.Select(player => new KeyValuePair<string, PlayersInteractions?>(player.Name, player.Stats.PlayersInteractions)).ToArray()"></PlayersInteractionsTable>
+        @if (Interactions != null)
+        {
+            <PlayersInteractionsTable LeagueId="@LeagueId"
+                                      PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()" />
+        }
+        else if (LeagueId != null && SeasonId != null && DivisionId != null)
+        {
+            <a class="btn btn-primary w-100 mb-3" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, true)">Load interactions</a>
+        }
     </div>
 
     @if (DivisionVm.Messages.Length != 0)
@@ -333,8 +342,13 @@ else
     public string? SeasonId { get; set; }
     [Parameter]
     public string? DivisionId { get; set; }
+    [Parameter]
+    public string? InteractionsStr { get; set; }
+    private bool AreInteractions => InteractionsStr?.Equals("Interactions", StringComparison.InvariantCultureIgnoreCase) ?? false;
 
     private DivisionViewModel? DivisionVm { get; set; }
+
+    private TotalInteractions? Interactions { get; set; }
 
     private int TableWidth => DivisionVm == null ?
         0 :
@@ -351,6 +365,9 @@ else
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
 
+        if (AreInteractions)
+            Interactions = await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
+
         await base.OnParametersSetAsync();
     }
 
@@ -360,6 +377,9 @@ else
             return;
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
+
+        if (AreInteractions)
+            Interactions = await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
 
         _isInitialized = true;
     }

@@ -37,11 +37,31 @@ public class PlayerService
         return new PlayerLeagueViewModel(
             playerLeague.LeagueId,
             league?.Name ?? string.Empty,
-            playerLeague.Results.Select(GetPlayerSeasonScoreVm).ToArray(),
-            playerLeague.Results.Aggregate(new PlayersInteractions(), (interactions, division) =>
-                division.Result.Stats.PlayersInteractions != null
-                    ? interactions + division.Result.Stats.PlayersInteractions
-                    : interactions));
+            playerLeague.Results.Select(GetPlayerSeasonScoreVm).ToArray());
+    }
+
+    public async Task<Dictionary<string, PlayersInteractions>?> GetPlayerInteractionsVm(string playerName, CancellationToken cancellationToken = default)
+    {
+        var player = await _dataProvider.GetPlayer(playerName, cancellationToken);
+        if (player == null)
+            return null;
+
+        var interactions = new Dictionary<string, PlayersInteractions>();
+        foreach (var leagueId in player.Leagues.Keys)
+        {
+            var playerInteractions = await GetPlayerLeagueInteractionsVm(playerName, leagueId, cancellationToken);
+            if (playerInteractions != null)
+                interactions[leagueId] = playerInteractions;
+        }
+
+        return interactions;
+    }
+
+    private async Task<PlayersInteractions?> GetPlayerLeagueInteractionsVm(string playerName, string leagueId, CancellationToken cancellationToken = default)
+    {
+        var interactions = await _dataProvider.GetLeagueInteractions(leagueId, cancellationToken);
+
+        return interactions?.Players[playerName];
     }
 
     private static PlayerSeasonScoreViewModel GetPlayerSeasonScoreVm(PlayerDivision division) => new(

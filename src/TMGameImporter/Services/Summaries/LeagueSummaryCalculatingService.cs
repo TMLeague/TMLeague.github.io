@@ -19,7 +19,7 @@ internal class LeagueSummaryCalculatingService
         _logger = logger;
     }
 
-    public async Task<Summary?> Calculate(string leagueId, CancellationToken cancellationToken)
+    public async Task<(Summary?, TotalInteractions?)> Calculate(string leagueId, CancellationToken cancellationToken)
     {
         _logger.LogInformation(
             " League {leagueId} summary calculation started...",
@@ -31,20 +31,23 @@ internal class LeagueSummaryCalculatingService
             _logger.LogError(
                 " League {leagueId} cannot be deserialized correctly.",
                 leagueId.ToUpper());
-            return null;
+            return (null, null);
         }
 
         var summary = new Summary(leagueId, league.Name, Array.Empty<SummaryDivision>());
+        var interactions = new TotalInteractions();
 
         foreach (var seasonId in league.Seasons)
         {
             var mainDivisions = league.MainDivisions
                 .Select(division => division.Id)
                 .ToArray();
-            var seasonSummary = await _seasonSummaryCalculatingService.Calculate(
+            var (seasonSummary, seasonInteractions) = await _seasonSummaryCalculatingService.Calculate(
                 leagueId, league.Name, seasonId, mainDivisions, cancellationToken);
             if (seasonSummary != null)
                 summary += seasonSummary;
+            if (seasonInteractions != null)
+                interactions += seasonInteractions;
         }
 
         _logger.LogInformation(
@@ -53,6 +56,6 @@ internal class LeagueSummaryCalculatingService
 
         summary.Sort(league.Scoring?.Tiebreakers ?? Tiebreakers.Default);
 
-        return summary;
+        return (summary, interactions);
     }
 }

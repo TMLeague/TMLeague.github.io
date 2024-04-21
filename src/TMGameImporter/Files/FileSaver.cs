@@ -40,6 +40,18 @@ internal class FileSaver
         await SaveFile(summary, path, cancellationToken);
     }
 
+    public async Task SaveLeagueInteractions(TotalInteractions interactions, string leagueId, CancellationToken cancellationToken)
+    {
+        var path = _pathProvider.GetLeagueInteractions(leagueId);
+        await SaveFile(interactions, path, cancellationToken);
+    }
+
+    public async Task SaveDivisionInteractions(TotalInteractions interactions, string leagueId, string seasonId, string divisionId, CancellationToken cancellationToken)
+    {
+        var path = _pathProvider.GetDivisionInteractions(leagueId, seasonId, divisionId);
+        await SaveFile(interactions, path, cancellationToken);
+    }
+
     private async Task SaveFile(object data, object path, CancellationToken cancellationToken)
     {
         var contents = JsonSerializer.Serialize(data,

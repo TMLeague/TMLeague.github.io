@@ -65,10 +65,7 @@ internal static class StatsConverter
 
         foreach (var houseScore in houseScores)
         {
-            if (houseScore.Stats.HousesInteractions == null)
-                continue;
-            
-            houseScore.Stats.PlayersInteractions?.Import(houseScore.House, state.Players.Length, houseScore.Stats.HousesInteractions!,
+            houseScore.PlayersInteractions.Import(houseScore.House, state.Players.Length, houseScore.HousesInteractions,
                 houseScores.ToDictionary(score => score.House, score => score.Player), state.GameId);
         }
 
@@ -113,18 +110,22 @@ internal static class StatsConverter
         if (winnerScore.House == battle.Attacker!.House)
         {
             winnerScore.Stats.AddSuccessfulAttack(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            winnerScore.HousesInteractions.AddSuccessfulAttack(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
             looserScore.Stats.AddLostDefenses(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            looserScore.HousesInteractions.AddLostDefenses(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
         }
         else
         {
             winnerScore.Stats.AddSuccessfulDefense(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            winnerScore.HousesInteractions.AddSuccessfulDefense(looserScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
             looserScore.Stats.AddLostAttack(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
+            looserScore.HousesInteractions.AddLostAttack(winnerScore.House, battle.Winner.Casualties, battle.Looser.Casualties, battle.AttackerSupporters, battle.DefenderSupporters);
         }
 
         foreach (var (supporter, _) in battle.AttackerSupporters)
-            houseScores.Get(supporter).Stats.AddSupport(battle.Attacker.House, battle.Defender!.House);
+            houseScores.Get(supporter).HousesInteractions.AddSupport(battle.Attacker.House, battle.Defender!.House);
         foreach (var (supporter, _) in battle.DefenderSupporters)
-            houseScores.Get(supporter).Stats.AddSupport(battle.Defender!.House, battle.Attacker.House);
+            houseScores.Get(supporter).HousesInteractions.AddSupport(battle.Defender!.House, battle.Attacker.House);
 
         if (battle.IsAeronUsed)
             houseScores.Get(House.Greyjoy).Stats.Bids.Aeron += 2;

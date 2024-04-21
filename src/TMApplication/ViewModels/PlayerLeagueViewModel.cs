@@ -10,8 +10,7 @@ public record PlayerViewModel(
 public record PlayerLeagueViewModel(
     string LeagueId,
     string LeagueName,
-    PlayerSeasonScoreViewModel[] Seasons,
-    PlayersInteractions PlayersInteractions);
+    PlayerSeasonScoreViewModel[] Seasons);
 
 public record PlayerSeasonScoreViewModel(
     string SeasonId,
@@ -35,10 +34,10 @@ public record PlayerSeasonScoreViewModel(
 
 public static class PlayerTableTypes
 {
-    public static readonly PlayerTableType[] All = new[] { PlayerTableType.Seasons, PlayerTableType.Games };
+    public static readonly PlayerTableType[] All = new[] { PlayerTableType.Seasons, PlayerTableType.Games, PlayerTableType.Interactions };
 }
 
 public enum PlayerTableType
 {
-    Seasons, Games
+    Seasons, Games, Interactions
 }
