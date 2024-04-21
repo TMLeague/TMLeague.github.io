@@ -21,7 +21,7 @@ public record TotalInteractions(
         totalInteractions1.Houses.OuterJoin(totalInteractions2.Houses, (i1, i2) => i1 + i2));
 
     public static TotalInteractions operator +(TotalInteractions totalInteractions, Game game) => new(
-        totalInteractions.Players.OuterJoin(game.Houses.ToDictionary(score => score.Player,
+        totalInteractions.Players.OuterJoin(game.Houses.Where(score => !string.IsNullOrEmpty(score.Player)).ToDictionary(score => score.Player,
             score => score.PlayersInteractions), (i1, i2) => i1 + i2),
         totalInteractions.Houses.OuterJoin(game.Houses.ToDictionary(score => score.House,
             score => score.HousesInteractions), (i1, i2) => i1 + i2));
