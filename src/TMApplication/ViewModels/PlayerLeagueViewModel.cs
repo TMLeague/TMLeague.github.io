@@ -34,10 +34,10 @@ public record PlayerSeasonScoreViewModel(
 
 public static class PlayerTableTypes
 {
-    public static readonly PlayerTableType[] All = new[] { PlayerTableType.Seasons, PlayerTableType.Games };
+    public static readonly PlayerTableType[] All = new[] { PlayerTableType.Seasons, PlayerTableType.Games, PlayerTableType.Interactions };
 }
 
 public enum PlayerTableType
 {
-    Seasons, Games
+    Seasons, Games, Interactions
 }
