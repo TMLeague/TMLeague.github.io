@@ -124,4 +124,14 @@ public record HouseScoreDetailsViewModel(
     public Stats Stats { get; } = Stats ?? new Stats();
 }
 
-public class SummaryInteractionsViewModel : Dictionary<ScoreType, TotalInteractions> { }
+public class SummaryInteractionsViewModel : Dictionary<ScoreType, TotalInteractions>
+{
+    public string? LeagueName { get; set; }
+
+    public SummaryInteractionsViewModel() { }
+
+    public SummaryInteractionsViewModel(string? leagueName)
+    {
+        LeagueName = leagueName;
+    }
+}

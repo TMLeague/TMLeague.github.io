@@ -21,7 +21,7 @@
                     <th scope="row">
                         @house
                     </th>
-                    @foreach (var (enemy, _) in HousesVm)
+                    @foreach (var (enemy, _) in HousesVm.OrderBy(pair => pair.Key))
                     {
                         @if (housesInteractions != null && housesInteractions.TryGetValue(enemy, out var interactions))
                         {

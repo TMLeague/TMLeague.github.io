@@ -18,9 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var (player, playerInteractions) in Interactions
-           .OrderByDescending(pair => pair.Value.Total)
-           .ThenByDescending(pair => pair.Value.Games))
+            @foreach (var (player, playerInteractions) in Interactions)
             {
                 <tr>
                     <th scope="row">
@@ -150,5 +148,5 @@
     public string? LeagueId { get; set; }
 
     [Parameter]
-    public PlayersInteractions? Interactions { get; set; }
+    public IEnumerable<KeyValuePair<string, PlayerInteractions>>? Interactions { get; set; }
 }

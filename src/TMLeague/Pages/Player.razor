@@ -21,7 +21,7 @@
         }
         else
         {
-            <Loading></Loading>
+            <Loading/>
         }
     }
     else
@@ -47,11 +47,11 @@
                     <a href="@RouteProvider.GetLeagueIndexRoute(playerLeagueVm.LeagueId)" class="text-inherit">@playerLeagueVm.LeagueName</a>
                 </h4>
 
-                <LeaguePlayer LeagueId="@playerLeagueVm.LeagueId" PlayerVm="@playerLeagueVm" TableType="@TableType"></LeaguePlayer>
+                <LeaguePlayer LeagueId="@playerLeagueVm.LeagueId" PlayerVm="@playerLeagueVm" TableType="@TableType"/>
 
                 @if (Interactions?.TryGetValue(playerLeagueVm.LeagueId, out var interactions) ?? false)
                 {
-                    <PlayerInteractionsTable LeagueId="@LeagueId" Interactions="@interactions"></PlayerInteractionsTable>
+                    <PlayerInteractionsTable LeagueId="@LeagueId" Interactions="@interactions"/>
                 }
             }
         }
@@ -61,11 +61,12 @@
                 <a href="@RouteProvider.GetLeagueIndexRoute(LeagueId)" class="text-inherit">@PlayerLeagueVm.LeagueName</a>
             </h4>
 
-            <LeaguePlayer LeagueId="@LeagueId" PlayerVm="@PlayerLeagueVm" TableType="@TableType"></LeaguePlayer>
+            <LeaguePlayer LeagueId="@LeagueId" PlayerVm="@PlayerLeagueVm" TableType="@TableType"/>
 
             @if (Interactions?.TryGetValue(LeagueId, out var interactions) ?? false)
             {
-                <PlayerInteractionsTable LeagueId="@LeagueId" Interactions="@interactions"></PlayerInteractionsTable>
+                <PlayerInteractionsTable LeagueId="@LeagueId" 
+                                         Interactions="@interactions.OrderByDescending(pair => pair.Value.Total).ThenByDescending(pair => pair.Value.Games)"/>
             }
 
             <NavLink class="btn btn-primary w-100 mb-3" href=@RouteProvider.GetPlayerRoute(PlayerVm.Name, TableType)>Show all leagues</NavLink>

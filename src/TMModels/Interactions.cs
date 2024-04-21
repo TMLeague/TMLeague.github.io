@@ -34,7 +34,7 @@ public record TotalInteractions(
 public class PlayersInteractions : Dictionary<string, PlayerInteractions>
 {
     public PlayersInteractions() { }
-    public PlayersInteractions(IDictionary<string, PlayerInteractions> dictionary) : base(dictionary) { }
+    public PlayersInteractions(IEnumerable<KeyValuePair<string, PlayerInteractions>> collection) : base(collection) { }
 
     public static PlayersInteractions Max(PlayersInteractions playersInteractions1, PlayersInteractions playersInteractions2) => new(
         playersInteractions1.OuterJoin(playersInteractions2, PlayerInteractions.Max));

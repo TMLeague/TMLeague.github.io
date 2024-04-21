@@ -89,7 +89,7 @@
         }
         else
         {
-            <Loading></Loading>
+            <Loading/>
         }
     </div>
 }
@@ -141,7 +141,7 @@ else
                                     break;
                                 case Tiebreaker.Penalties:
                                     <td class="tt" ontouchstart="">
-                                        <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                                        <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"/>
                                     </td>
                                     break;
                                 case Tiebreaker.Cla:
@@ -163,43 +163,43 @@ else
                         @if (!DivisionVm.Tiebreakers.Contains(Tiebreaker.Penalties))
                         {
                             <td class="tt" ontouchstart="">
-                                <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"></PenaltiesCell>
+                                <PenaltiesCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" PlayerVm="@playerVm"/>
                             </td>
                         }
                         <td class="p-1 invisible border-0"></td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Baratheon)"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Lannister)"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Stark)"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Tyrell)"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Greyjoy)"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)"></HouseCell>
+                            <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerVm.GetHouse(House.Martell)"/>
                         </td>
                         <td class="p-1 invisible border-0"></td>
                         <td class="tt" ontouchstart="">
-                            <BattleStats Stats="@playerVm.Stats.Battles"></BattleStats>
+                            <BattleStats Stats="@playerVm.Stats.Battles"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <UnitStats Stats="@playerVm.Stats.Kills"></UnitStats>
+                            <UnitStats Stats="@playerVm.Stats.Kills"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <UnitStats Stats="@playerVm.Stats.Casualties"></UnitStats>
+                            <UnitStats Stats="@playerVm.Stats.Casualties"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <PowerTokenStats Stats="@playerVm.Stats.PowerTokens"></PowerTokenStats>
+                            <PowerTokenStats Stats="@playerVm.Stats.PowerTokens"/>
                         </td>
                         <td class="tt" ontouchstart="">
-                            <BidStats Stats="@playerVm.Stats.Bids"></BidStats>
+                            <BidStats Stats="@playerVm.Stats.Bids"/>
                         </td>
                     </tr>
                 }
@@ -279,7 +279,7 @@ else
                             else
                             {
                                 <td class="@($"house-{playerHouse.House.ToString().ToLower()} {(playerHouse.IsWinner ? "progress-bar-striped" : "")}") tt" ontouchstart="">
-                                    <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerHouse" IsWinnerHighlighted="false"></HouseCell>
+                                    <HouseCell LeagueId="@LeagueId" SeasonId="@SeasonId" DivisionId="@DivisionId" HouseVm="@playerHouse" IsWinnerHighlighted="false"/>
                                 </td>
                             }
                         }
@@ -292,7 +292,8 @@ else
     @if (Interactions != null)
     {
         <div class="row">
-            <PlayersInteractionsTable LeagueId="@LeagueId" PlayersVm="@Interactions.Players.ToArray()"></PlayersInteractionsTable>
+            <PlayersInteractionsTable LeagueId="@LeagueId"
+                                      PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()" />
         </div>
     }
 

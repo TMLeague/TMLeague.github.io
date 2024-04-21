@@ -15,7 +15,7 @@
                 League
             </NavLink>
             <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
+                    aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
@@ -24,11 +24,14 @@
                         <NavLink class="nav-link" href=@RouteProvider.GetLeagueSummaryRoute(LeagueId) Match="NavLinkMatch.Prefix">Summary</NavLink>
                     </li>
                     <li class="nav-item">
+                        <NavLink class="nav-link" href=@RouteProvider.GetLeagueInteractionsRoute(LeagueId) Match="NavLinkMatch.Prefix">Interactions</NavLink>
+                    </li>
+                    <li class="nav-item">
                         <NavLink class="nav-link" href=@RouteProvider.GetLeagueSeasonsRoute(LeagueId) Match="NavLinkMatch.All">Seasons</NavLink>
                     </li>
                     <li class="nav-item">
                         <NavLink class="nav-link" href=@RouteProvider.GetLeagueJudgeRoute(LeagueId) Match="NavLinkMatch.All">Judge</NavLink>
-                        </li>
+                    </li>
                 </ul>
             </div>
         }

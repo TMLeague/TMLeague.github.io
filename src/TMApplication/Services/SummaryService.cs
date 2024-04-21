@@ -100,13 +100,15 @@ public class SummaryService
         (double)score.Moves / games,
         score.Stats == null ? new Stats() : score.Stats / games);
 
-    public async Task<SummaryInteractionsViewModel?> GetInteractions(string leagueId, string? divisionId, CancellationToken cancellationToken = default)
+    public async Task<SummaryInteractionsViewModel?> GetInteractions(string leagueId, CancellationToken cancellationToken = default)
     {
+        var league = await _dataProvider.GetLeague(leagueId, cancellationToken);
+
         var interactions = await _dataProvider.GetLeagueInteractions(leagueId, cancellationToken);
         if (interactions == null)
             return null;
 
-        return new SummaryInteractionsViewModel
+        return new SummaryInteractionsViewModel(league?.Name)
         {
             [ScoreType.Average] = interactions.Average(),
             [ScoreType.Total] = interactions

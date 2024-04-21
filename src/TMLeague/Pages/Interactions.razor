@@ -1,0 +1,105 @@
+﻿@page "/league/{leagueId}/interactions"
+@page "/league/{leagueId}/interactions/{tableTypeId}/{scoreTypeId}"
+@page "/league/{leagueId}/interactions/{tableTypeId}/{scoreTypeId}/{divisionId}"
+@inject SummaryService SummaryService
+@inject ILogger<Interactions> Logger
+<h3>@(InteractionsVm?.LeagueName ?? "League")</h3>
+<h4>Interactions</h4>
+
+<div class="d-flex flex-column">
+    @if (LeagueId != null)
+    {
+        <div class="d-flex flex-row my-1">
+            <div class="btn-group">
+                @foreach (var type in ScoreTypes.All(TableType).Where(type => type != ScoreType.Best))
+                {
+                    <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueInteractionsRoute(LeagueId, DivisionId, TableType, type)" disabled=@(ScoreType == type)>
+                        @type
+                    </a>
+                }
+            </div>
+        </div>
+        <div class="d-flex flex-row my-1">
+            <div class="btn-group">
+                @foreach (var type in TableTypes.All)
+                {
+                    <a class="btn btn-primary @(TableType == type ? "active" : "")" href="@RouteProvider.GetLeagueInteractionsRoute(LeagueId, DivisionId, type, ScoreType)" disabled=@(TableType == type)>
+                        @type
+                    </a>
+                }
+            </div>
+        </div>
+    }
+    <div class="row">
+        @if (InteractionsVm == null)
+        {
+            @if (_isInitialized)
+            {
+                <div class="lead">The league has no finished seasons.</div>
+            }
+            else
+            {
+                <Loading />
+            }
+        }
+        else
+        {
+            @if (TableType == TableType.Players)
+            {
+                <PlayersInteractionsTable LeagueId="LeagueId"
+                                          PlayersVm="InteractionsVm[ScoreType].Players.ToArray()"
+                                          Decimals="1" IsAverage="ScoreType == ScoreType.Average" ShowGames="ScoreType != ScoreType.Best" />
+            }
+            else if (TableType == TableType.Houses)
+            {
+                <HousesInteractionsTable LeagueId="LeagueId"
+                                         HousesVm="InteractionsVm[ScoreType].Houses.ToArray()"
+                                         Decimals="1" IsAverage="ScoreType == ScoreType.Average" />
+            }
+        }
+    </div>
+</div>
+
+<footer class="text-white-50 d-block">
+    <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
+</footer>
+
+@code {
+    [Parameter]
+    public string? LeagueId { get; set; }
+
+    [Parameter]
+    public string? DivisionId { get; set; }
+
+    [Parameter]
+    public string? TableTypeId { get; set; }
+    private TableType TableType => Enum.TryParse<TableType>(TableTypeId ?? "", true, out var tableType) ? tableType : TableType.Players;
+
+    [Parameter]
+    public string? ScoreTypeId { get; set; }
+    private ScoreType ScoreType => Enum.TryParse<ScoreType>(ScoreTypeId ?? "", true, out var scoreType) ? scoreType : ScoreType.Average;
+
+    private SummaryInteractionsViewModel? InteractionsVm { get; set; }
+
+    private bool _isInitialized;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (LeagueId != null)
+            InteractionsVm = await SummaryService.GetInteractions(LeagueId);
+
+        await base.OnParametersSetAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (LeagueId != null)
+        {
+            InteractionsVm = await SummaryService.GetInteractions(LeagueId);
+        }
+        else
+            Logger.LogError($"Parameter {nameof(LeagueId)} is required!");
+
+        _isInitialized = true;
+    }
+}
