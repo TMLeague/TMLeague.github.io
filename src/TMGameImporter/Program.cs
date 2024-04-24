@@ -90,6 +90,7 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames),
         ArgumentLine(nameof(options.Value.League), options.Value.League),
         ArgumentLine(nameof(options.Value.Season), options.Value.Season),
+        ArgumentLine(nameof(options.Value.Seasons), options.Value.Seasons),
         ArgumentLine(nameof(options.Value.Division), options.Value.Division),
         ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games))
     };

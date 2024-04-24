@@ -128,119 +128,48 @@ public class HousesInteractions : Dictionary<House, Interactions>
     }
 }
 
-public record PlayerInteractions() : Interactions
+public record PlayerInteractions()
 {
     public string Player { get; init; } = string.Empty;
     public double Neighbors { get; set; }
     public Dictionary<string, List<int>> HousesGames { get; set; } = new();
-    [JsonIgnore]
-    public double Battles => SuccessfulAttacks + LostAttacks + SuccessfulDefenses + LostDefenses;
-    [JsonIgnore]
-    public double AllSupports => Supports + WasSupported;
-    [JsonIgnore]
-    public double AllSupportsOpponent => SupportsOpponent + WasSupportedOpponent;
+    public Interactions Interactions { get; set; } = new();
 
     public PlayerInteractions(string player) : this()
     {
         Player = player;
     }
 
-    public PlayerInteractions(string player, double neighbors, Dictionary<string, List<int>> housesGames,
-        Interactions interactions) : this(player, interactions.Games, neighbors, housesGames, interactions.SuccessfulAttacks,
-        interactions.SuccessfulDefenses, interactions.LostAttacks, interactions.LostDefenses,
-        interactions.Supports, interactions.SupportsOpponent, interactions.WasSupported, interactions.WasSupportedOpponent,
-        interactions.Raids, interactions.WasRaided, interactions.FavorsInTie, interactions.WasFavoredInTie, interactions.Kills with { }, interactions.Casualties with { })
-    { }
-
-    public PlayerInteractions(string player, double games, double neighbors, Dictionary<string, List<int>> housesGames,
-        double successfulAttacks, double successfulDefenses, double lostAttacks, double lostDefenses,
-        double supports, double supportsOpponent, double wasSupported, double wasSupportedOpponent,
-        double raids, double wasRaided, double favorsInTie, double wasFavoredInTie, UnitStats kills, UnitStats casualties) : this(player)
+    public PlayerInteractions(string player, double neighbors, Dictionary<string, List<int>> housesGames, Interactions interactions) : this(player)
     {
-        Games = games;
         Neighbors = neighbors;
         HousesGames = housesGames;
-        SuccessfulAttacks = successfulAttacks;
-        SuccessfulDefenses = successfulDefenses;
-        LostAttacks = lostAttacks;
-        LostDefenses = lostDefenses;
-        Supports = supports;
-        SupportsOpponent = supportsOpponent;
-        WasSupported = wasSupported;
-        WasSupportedOpponent = wasSupportedOpponent;
-        Raids = raids;
-        WasRaided = wasRaided;
-        FavorsInTie = favorsInTie;
-        WasFavoredInTie = wasFavoredInTie;
-        Kills = kills;
-        Casualties = casualties;
+        Interactions = interactions;
     }
 
     public static string GetHousesKey(House playerHouse, House enemyHouse) => $"{playerHouse.ToString()[0]}{enemyHouse.ToString()[0]}";
 
     public static PlayerInteractions Max(PlayerInteractions interactions1, PlayerInteractions interactions2) => new(
         interactions1.Player == interactions2.Player ? interactions1.Player : string.Empty,
-        Math.Max(interactions1.Games, interactions2.Games),
         Math.Max(interactions1.Neighbors, interactions2.Neighbors),
         interactions1.HousesGames.OuterJoin(interactions2.HousesGames,
             (games1, games2) => games1.Concat(games2).ToList()),
-        Math.Max(interactions1.SuccessfulAttacks, interactions2.SuccessfulAttacks),
-        Math.Max(interactions1.SuccessfulDefenses, interactions2.SuccessfulDefenses),
-        Math.Max(interactions1.LostAttacks, interactions2.LostAttacks),
-        Math.Max(interactions1.LostDefenses, interactions2.LostDefenses),
-        Math.Max(interactions1.Supports, interactions2.Supports),
-        Math.Max(interactions1.SupportsOpponent, interactions2.SupportsOpponent),
-        Math.Max(interactions1.WasSupported, interactions2.WasSupported),
-        Math.Max(interactions1.WasSupportedOpponent, interactions2.WasSupportedOpponent),
-        Math.Max(interactions1.Raids, interactions2.Raids),
-        Math.Max(interactions1.WasRaided, interactions2.WasRaided),
-        Math.Max(interactions1.FavorsInTie, interactions2.FavorsInTie),
-        Math.Max(interactions1.WasFavoredInTie, interactions2.WasFavoredInTie),
-        UnitStats.Max(interactions1.Kills, interactions2.Kills),
-        UnitStats.Max(interactions1.Casualties, interactions2.Casualties));
+        Interactions.Max(interactions1.Interactions, interactions2.Interactions));
 
     public static PlayerInteractions operator +(PlayerInteractions interactions1, PlayerInteractions interactions2) => new(
         interactions1.Player == interactions2.Player ? interactions1.Player : string.Empty,
-        interactions1.Games + interactions2.Games,
         interactions1.Neighbors + interactions2.Neighbors,
         interactions1.HousesGames.OuterJoin(interactions2.HousesGames,
             (games1, games2) => games1.Concat(games2).ToList()),
-        interactions1.SuccessfulAttacks + interactions2.SuccessfulAttacks,
-        interactions1.SuccessfulDefenses + interactions2.SuccessfulDefenses,
-        interactions1.LostAttacks + interactions2.LostAttacks,
-        interactions1.LostDefenses + interactions2.LostDefenses,
-        interactions1.Supports + interactions2.Supports,
-        interactions1.SupportsOpponent + interactions2.SupportsOpponent,
-        interactions1.WasSupported + interactions2.WasSupported,
-        interactions1.WasSupportedOpponent + interactions2.WasSupportedOpponent,
-        interactions1.Raids + interactions2.Raids,
-        interactions1.WasRaided + interactions2.WasRaided,
-        interactions1.FavorsInTie + interactions2.FavorsInTie,
-        interactions1.WasFavoredInTie + interactions2.WasFavoredInTie,
-        interactions1.Kills + interactions1.Kills,
-        interactions1.Casualties + interactions2.Casualties);
+        interactions1.Interactions + interactions2.Interactions);
 
     public static PlayerInteractions operator /(PlayerInteractions interactions, double divisor) => new(
         interactions.Player,
-        interactions.Games / divisor,
         interactions.Neighbors / divisor,
         interactions.HousesGames,
-        interactions.SuccessfulAttacks / divisor,
-        interactions.SuccessfulDefenses / divisor,
-        interactions.LostAttacks / divisor,
-        interactions.LostDefenses / divisor,
-        interactions.Supports / divisor,
-        interactions.SupportsOpponent / divisor,
-        interactions.WasSupported / divisor,
-        interactions.WasSupportedOpponent / divisor,
-        interactions.Raids / divisor,
-        interactions.WasRaided / divisor,
-        interactions.FavorsInTie / divisor,
-        interactions.WasFavoredInTie / divisor,
-        interactions.Kills / divisor,
-        interactions.Casualties / divisor);
+        interactions.Interactions / divisor);
 
-    public override PlayerInteractions Average() => this / Games;
+    public PlayerInteractions Average() => this / (Interactions?.Games ?? 1);
 }
 
 public record Interactions
@@ -264,6 +193,12 @@ public record Interactions
     public double Value => Supports + WasSupported + FavorsInTie + WasFavoredInTie - SuccessfulAttacks - LostDefenses - SupportsOpponent - WasSupportedOpponent - Raids - WasRaided;
     [JsonIgnore]
     public double Total => SuccessfulAttacks + SuccessfulDefenses + LostAttacks + LostDefenses + Supports + SupportsOpponent + WasSupported + WasSupportedOpponent + Raids + WasRaided + FavorsInTie + WasFavoredInTie;
+    [JsonIgnore]
+    public double Battles => SuccessfulAttacks + LostAttacks + SuccessfulDefenses + LostDefenses;
+    [JsonIgnore]
+    public double AllSupports => Supports + WasSupported;
+    [JsonIgnore]
+    public double AllSupportsOpponent => SupportsOpponent + WasSupportedOpponent;
 
     public Interactions()
     { }

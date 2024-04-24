@@ -87,6 +87,20 @@
                                                 <span>@Math.Round(interactions.SuccessfulDefenses, Decimals)</span>
                                             </li>
                                         }
+                                        @if (interactions.Kills.Total > 0)
+                                        {
+                                            <li class="list-group-item bg-dark text-secondary">
+                                                <b>Kills:</b>
+                                                <span>@interactions.Kills.Description</span>
+                                            </li>
+                                        }
+                                        @if (interactions.Casualties.Total > 0)
+                                        {
+                                            <li class="list-group-item bg-dark text-secondary">
+                                                <b>Casualties:</b>
+                                                <span>@interactions.Casualties.Description</span>
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
                             </td>
