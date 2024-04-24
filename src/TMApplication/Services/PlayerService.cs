@@ -61,7 +61,7 @@ public class PlayerService
     {
         var interactions = await _dataProvider.GetLeagueInteractions(leagueId, cancellationToken);
 
-        return interactions?.Players[playerName];
+        return interactions?.Players.TryGetValue(playerName, out var playersInteractions) ?? false ? playersInteractions : null;
     }
 
     private static PlayerSeasonScoreViewModel GetPlayerSeasonScoreVm(PlayerDivision division) => new(
