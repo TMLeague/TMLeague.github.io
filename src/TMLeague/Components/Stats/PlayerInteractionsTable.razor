@@ -13,6 +13,8 @@
                 <th scope="col" style="width: 100px">Battles</th>
                 <th scope="col" style="width: 100px">Supports +</th>
                 <th scope="col" style="width: 100px">Supports -</th>
+                <th scope="col" style="width: 100px">Kills</th>
+                <th scope="col" style="width: 100px">Casualties</th>
             </tr>
         </thead>
         <tbody>
@@ -22,13 +24,13 @@
                     <th scope="row">
                         <a href="@RouteProvider.GetPlayerRoute(LeagueId, player, PlayerTableType.Interactions)" class="text-inherit">@player</a>
                     </th>
-                    <td>@Math.Round(playerInteractions.Value / playerInteractions.Games, 1)</td>
-                    <td>@Math.Round(playerInteractions.Total / playerInteractions.Games, 1)</td>
-                    <td>@playerInteractions.Value</td>
-                    <td>@playerInteractions.Total</td>
+                    <td>@Math.Round(playerInteractions.Interactions.Value / playerInteractions.Interactions.Games, 1)</td>
+                    <td>@Math.Round(playerInteractions.Interactions.Total / playerInteractions.Interactions.Games, 1)</td>
+                    <td>@playerInteractions.Interactions.Value</td>
+                    <td>@playerInteractions.Interactions.Total</td>
                     <td>@playerInteractions.Neighbors</td>
                     <td class="tt" ontouchstart="">
-                        @playerInteractions.Games
+                        @playerInteractions.Interactions.Games
                         <div class="tt-inner" style="width: 220px">
                             <ul class="list-group list-group-flush pt-1">
                                 <li class="list-group-item text-wrap bg-dark">
@@ -37,38 +39,38 @@
                             </ul>
                         </div>
                     </td>
-                    @if (playerInteractions.Battles > 0)
+                    @if (playerInteractions.Interactions.Battles > 0)
                     {
                         <td class="tt" ontouchstart="">
-                            @playerInteractions.Battles
+                            @playerInteractions.Interactions.Battles
                             <div class="tt-inner" style="width: 220px">
                                 <ul class="list-group list-group-flush">
-                                    @if (playerInteractions.SuccessfulAttacks > 0)
+                                    @if (playerInteractions.Interactions.SuccessfulAttacks > 0)
                                     {
                                         <li class="list-group-item bg-dark text-danger">
                                             <b>Successful attacks:</b>
-                                            <span>@playerInteractions.SuccessfulAttacks</span>
+                                            <span>@playerInteractions.Interactions.SuccessfulAttacks</span>
                                         </li>
                                     }
-                                    @if (playerInteractions.LostDefenses > 0)
+                                    @if (playerInteractions.Interactions.LostDefenses > 0)
                                     {
                                         <li class="list-group-item bg-dark text-danger">
                                             <b>Lost defenses:</b>
-                                            <span>@playerInteractions.LostDefenses</span>
+                                            <span>@playerInteractions.Interactions.LostDefenses</span>
                                         </li>
                                     }
-                                    @if (playerInteractions.LostAttacks > 0)
+                                    @if (playerInteractions.Interactions.LostAttacks > 0)
                                     {
                                         <li class="list-group-item bg-dark text-secondary">
                                             <b>Lost attacks:</b>
-                                            <span>@playerInteractions.LostAttacks</span>
+                                            <span>@playerInteractions.Interactions.LostAttacks</span>
                                         </li>
                                     }
-                                    @if (playerInteractions.SuccessfulDefenses > 0)
+                                    @if (playerInteractions.Interactions.SuccessfulDefenses > 0)
                                     {
                                         <li class="list-group-item bg-dark text-secondary">
                                             <b>Successful defenses:</b>
-                                            <span>@playerInteractions.SuccessfulDefenses</span>
+                                            <span>@playerInteractions.Interactions.SuccessfulDefenses</span>
                                         </li>
                                     }
                                 </ul>
@@ -79,24 +81,24 @@
                     {
                         <td></td>
                     }
-                    @if (playerInteractions.AllSupports > 0)
+                    @if (playerInteractions.Interactions.AllSupports > 0)
                     {
                         <td class="tt" ontouchstart="">
-                            @playerInteractions.AllSupports
+                            @playerInteractions.Interactions.AllSupports
                             <div class="tt-inner" style="width: 220px">
                                 <ul class="list-group list-group-flush">
-                                    @if (playerInteractions.Supports > 0)
+                                    @if (playerInteractions.Interactions.Supports > 0)
                                     {
                                         <li class="list-group-item bg-dark text-success">
                                             <b>Supports:</b>
-                                            <span>@playerInteractions.Supports</span>
+                                            <span>@playerInteractions.Interactions.Supports</span>
                                         </li>
                                     }
-                                    @if (playerInteractions.WasSupported > 0)
+                                    @if (playerInteractions.Interactions.WasSupported > 0)
                                     {
                                         <li class="list-group-item bg-dark text-success">
                                             <b>Was supported:</b>
-                                            <span>@playerInteractions.WasSupported</span>
+                                            <span>@playerInteractions.Interactions.WasSupported</span>
                                         </li>
                                     }
                                 </ul>
@@ -107,28 +109,48 @@
                     {
                         <td></td>
                     }
-                    @if (playerInteractions.AllSupportsOpponent > 0)
+                    @if (playerInteractions.Interactions.AllSupportsOpponent > 0)
                     {
                         <td class="tt" ontouchstart="">
-                            @playerInteractions.AllSupportsOpponent
+                            @playerInteractions.Interactions.AllSupportsOpponent
                             <div class="tt-inner" style="width: 220px">
                                 <ul class="list-group list-group-flush">
-                                    @if (playerInteractions.SupportsOpponent > 0)
+                                    @if (playerInteractions.Interactions.SupportsOpponent > 0)
                                     {
                                         <li class="list-group-item bg-dark text-danger">
                                             <b>Supports opponent:</b>
-                                            <span>@playerInteractions.SupportsOpponent</span>
+                                            <span>@playerInteractions.Interactions.SupportsOpponent</span>
                                         </li>
                                     }
-                                    @if (playerInteractions.WasSupportedOpponent > 0)
+                                    @if (playerInteractions.Interactions.WasSupportedOpponent > 0)
                                     {
                                         <li class="list-group-item bg-dark text-danger">
                                             <b>Opponent was supported:</b>
-                                            <span>@playerInteractions.WasSupportedOpponent</span>
+                                            <span>@playerInteractions.Interactions.WasSupportedOpponent</span>
                                         </li>
                                     }
                                 </ul>
                             </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (playerInteractions.Interactions.Kills.Total > 0)
+                    {
+                        <td class="tt" ontouchstart="">
+                            <UnitStats Stats="@playerInteractions.Interactions.Kills"></UnitStats>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (playerInteractions.Interactions.Casualties.Total > 0)
+                    {
+                        <td class="tt" ontouchstart="">
+                            <UnitStats Stats="@playerInteractions.Interactions.Casualties"></UnitStats>
                         </td>
                     }
                     else

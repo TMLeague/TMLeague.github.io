@@ -36,7 +36,12 @@ internal class LeagueImportingService
             return;
 
         var leagueScoring = league.Scoring ?? new Scoring(2, 1, 4, 0, 0, 0, 0, Tiebreakers.Default);
-        if (string.IsNullOrEmpty(_options.Value.Season))
+        if (_options.Value.Seasons?.Length > 0)
+        {
+            foreach (var seasonId in _options.Value.Seasons)
+                await _seasonImportingService.Import(leagueId, seasonId, leagueScoring, league.MainDivisions, cancellationToken);
+        }
+        else if (string.IsNullOrEmpty(_options.Value.Season))
         {
             foreach (var seasonId in league.Seasons)
                 await _seasonImportingService.Import(leagueId, seasonId, leagueScoring, league.MainDivisions, cancellationToken);

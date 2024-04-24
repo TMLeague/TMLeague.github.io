@@ -336,6 +336,23 @@ public record UnitStats
     public double Total => Footmen + Knights + SiegeEngines + Ships;
     [JsonIgnore]
     public double MobilizationPoints => Footmen + 2 * Knights + 2 * SiegeEngines + Ships;
+    [JsonIgnore]
+    public string Description
+    {
+        get
+        {
+            var units = new List<string>();
+            if (Footmen > 0)
+                units.Add($"{Math.Round(Footmen, 1)}F");
+            if (Knights > 0)
+                units.Add($"{Math.Round(Knights, 1)}K");
+            if (SiegeEngines > 0)
+                units.Add($"{Math.Round(SiegeEngines, 1)}SE");
+            if (Ships > 0)
+                units.Add($"{Math.Round(Ships, 1)}S");
+            return string.Join("; ", units) + (MobilizationPoints > 0 ? $" ({Math.Round(MobilizationPoints, 1)}MP)" : "");
+        }
+    }
 
     public static UnitStats Max(UnitStats stats1, UnitStats stats2) => new(
         Math.Max(stats1.Footmen, stats2.Footmen),
