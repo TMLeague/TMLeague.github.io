@@ -238,7 +238,7 @@ public record Interactions
         Math.Max(stats1.WasRaided, stats2.WasRaided),
         Math.Max(stats1.FavorsInTie, stats2.FavorsInTie),
         Math.Max(stats1.WasFavoredInTie, stats2.WasFavoredInTie),
-        UnitStats.Max(stats1.Kills, stats1.Kills),
+        UnitStats.Max(stats1.Kills, stats2.Kills),
         UnitStats.Max(stats1.Casualties, stats2.Casualties));
 
     public static Interactions operator +(Interactions stats1, Interactions stats2) => new(
@@ -255,7 +255,7 @@ public record Interactions
         stats1.WasRaided + stats2.WasRaided,
         stats1.FavorsInTie + stats2.FavorsInTie,
         stats1.WasFavoredInTie + stats2.WasFavoredInTie,
-        stats1.Kills + stats1.Kills,
+        stats1.Kills + stats2.Kills,
         stats1.Casualties + stats2.Casualties);
 
     public static Interactions operator /(Interactions stats, double divisor) => new(
