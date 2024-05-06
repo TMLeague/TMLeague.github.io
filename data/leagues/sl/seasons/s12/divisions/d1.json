@@ -25,7 +25,7 @@
     301995,
     301937
   ],
-  "penalties": [ 
+  "penalties": [
     {
       "player": "NIghtCrawler",
       "game": 301939,
@@ -49,6 +49,16 @@
       "game": 301947,
       "points": 3,
       "details": "sending ! without permission"
+    },
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
     }
   ],
   "isFinished": true,

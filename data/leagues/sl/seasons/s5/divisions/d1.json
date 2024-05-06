@@ -33,6 +33,16 @@
     {
       "player": "18HopeCSF",
       "points": 5
+    },
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
     }
   ],
   "isFinished": true,
