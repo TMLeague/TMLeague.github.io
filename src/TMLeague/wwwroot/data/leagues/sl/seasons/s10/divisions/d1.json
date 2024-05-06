@@ -37,6 +37,16 @@
       "game": 296305,
       "points": 5,
       "details": "KM by gambling with orders"
+    },
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
     }
   ],
   "isFinished": true,

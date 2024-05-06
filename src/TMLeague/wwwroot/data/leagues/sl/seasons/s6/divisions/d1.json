@@ -45,6 +45,16 @@
     {
       "player": "Guess_the_Conqueror",
       "points": 5
+    },
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
     }
   ],
   "isFinished": true,

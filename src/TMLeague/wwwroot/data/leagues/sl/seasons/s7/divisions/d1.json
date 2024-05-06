@@ -31,6 +31,16 @@
       "game": 285887,
       "points": 5,
       "details": "for KM - Martell should take Kings Landing when it was empty"
+    },
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
     }
   ],
   "isFinished": true,

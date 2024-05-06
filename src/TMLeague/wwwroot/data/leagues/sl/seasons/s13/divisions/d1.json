@@ -25,7 +25,18 @@
     304118,
     304110
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
+    }
+  ],
   "replacements": [],
   "relegations": 3
 }

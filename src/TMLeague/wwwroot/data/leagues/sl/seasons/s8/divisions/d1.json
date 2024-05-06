@@ -25,7 +25,18 @@
     290199,
     290202
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
+    }
+  ],
   "isFinished": true,
   "winnerTitle": "Lord Hattrick"
 }

@@ -25,7 +25,18 @@
     293454,
     293465
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "damrej",
+      "points": 100,
+      "details": "multi-accounting"
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting"
+    }
+  ],
   "isFinished": true,
   "winnerTitle": "Puppet Master"
 }
