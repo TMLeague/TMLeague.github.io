@@ -13,6 +13,7 @@ public record Game(
     RavenAction?[]? Ravens,
     HouseScore[] Houses,
     DateTimeOffset GeneratedTime,
+    bool IsProfessional = true,
     bool IsCreatedManually = false)
 {
     public double Progress => IsFinished ?

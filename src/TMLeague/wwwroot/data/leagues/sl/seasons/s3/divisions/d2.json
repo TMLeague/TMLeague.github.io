@@ -45,6 +45,12 @@
     {
       "player": "GITTAR",
       "points": 25
+    },
+    {
+      "player": "wick",
+      "points": 100,
+      "details": "multi-accounting",
+      "disqualification": true
     }
   ],
   "replacements": [
