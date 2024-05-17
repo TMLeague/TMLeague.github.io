@@ -21,7 +21,20 @@
     304149,
     304156
   ],
-  "penalties": [],
-  "replacements": [],
+  "penalties": [
+     {
+      "player": "Mandy Storm",
+      "game": 304093,
+      "points": 1,
+      "details": "No delay"
+    },
+     {
+      "player": "PHOENIXgg",
+      "game": 304093,
+      "points": 4,
+      "details": "KM"
+    }
+  ],
+  "isFinished": true,
   "promotions": 2
 }
