@@ -47,7 +47,14 @@ internal class DivisionSummaryCalculatingService
             return null;
         }
 
-        var players = results.Players.Select((playerResult, idx) => new SummaryPlayerScore(
+        var disqualified = division.Penalties?
+            .Where(penalty => penalty.Disqualification)
+            .Select(penalty => penalty.Player)
+            .ToHashSet() ?? new HashSet<string>();
+
+        var players = results.Players
+            .Where(result => !disqualified.Contains(result.Player))
+            .Select((playerResult, idx) => new SummaryPlayerScore(
                 playerResult.Player,
                 GetPlayerSummaryScore(playerResult, idx),
                 GetPlayerSummaryScore(playerResult, idx)))

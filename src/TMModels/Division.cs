@@ -16,7 +16,8 @@ public record Penalty(
     string Player,
     int? Game,
     double Points,
-    string Details)
+    string Details,
+    bool Disqualification = false)
 {
     public const string BattlePenalty = "for not enough battles before 10th round";
 };

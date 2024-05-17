@@ -29,12 +29,14 @@
     {
       "player": "damrej",
       "points": 100,
-      "details": "multi-accounting"
+      "details": "multi-accounting",
+      "disqualification": true
     },
     {
       "player": "wick",
       "points": 100,
-      "details": "multi-accounting"
+      "details": "multi-accounting",
+      "disqualification": true
     }
   ],
   "isFinished": true,
