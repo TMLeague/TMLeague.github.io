@@ -19,7 +19,7 @@
     "pointsPerWin": 3,
     "requiredBattlesBefore10thTurn": 0,
     "tiebreakers": [ "wins", "cla", "supplies", "powerTokens", "minutesPerMove" ]
-  }
+  },
   "initialMessage": {
     "subject": "Cracow League, S{season}",
     "body": [
