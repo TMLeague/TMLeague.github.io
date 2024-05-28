@@ -20,4 +20,42 @@
     "requiredBattlesBefore10thTurn": 0,
     "tiebreakers": [ "wins", "cla", "supplies", "powerTokens", "minutesPerMove" ]
   }
+  "initialMessage": {
+    "subject": "Cracow League, S{season}",
+    "body": [
+      "Greetings!",
+      "",
+      "Here are your houses for the Cracow League, Season {season} in the format house -> game:",
+      "",
+      "Stark: {stark}",
+      "Greyjoy: {greyjoy}",
+      "Lannister: {lannister}",
+      "Tyrell: {tyrell}",
+      "Martell: {martell}",
+      "Baratheon: {baratheon}",
+      "",
+      "You can create all your games (if not exists yet - double check before and after the creation - abort if you created a duplicate!) with default settings and following changes:",
+      "PLAY MODE: PBEM + Start by anybody allowed",
+      "GAME TITLE: Cracow League S{season}/G{stark} (or another appropriate game number)",
+      "PICKING HOUSES: FREE CHOICE",
+      "GAME TYPE: PROFESSIONAL",
+      "GAME PASSWORD: {password}",
+      "CUSTOM - Faceless Game: ENABLED",
+      "",
+      "The password for your other games to join will also be ‚‚{password}‘‘.",
+      "You can use the filter in the open games to search for the other games as there are quite a lot, just search for ,,Cracow League‘‘ and you'll get the list of already created games.",
+      "",
+      "If there are any problems, please contact {contact} on Discord or Thronemaster and I'll help you with your questions!",
+      "",
+      "Most important rules:",
+      "- Games are both SILENT and FACELESS! Don't use the chat for messages.",
+      "- DELAY your last march if it is the last march of a game. It is important that all games end at the same time so houses are not revealed early. If you have the last march of a game, write \"delay!\" on the open chat and wait 12-14 days before you resolve it. Also, if you are the defender in the last battle, delay your card selection and your retreat until 12-14 days after the last action passed.",
+      "- Consider the board carefully before making moves, don't commit KM.",
+      "You can find all rules including scoring and penalties here: https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=87066 ",
+      "",
+      "Good luck in the tournament and best regards from",
+      "{judgeName}, your Manyfaced God this season",
+      "",
+      "Again and to reinforce the previous statement: The faceless and silent aspects of the games are our top priorities."
+    ]
 }
