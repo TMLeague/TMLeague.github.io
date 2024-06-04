@@ -29,16 +29,22 @@
     {
       "player": "damrej",
       "points": 100,
-      "details": "multi-accounting",
-      "disqualification": true
+      "details": "multi-accounting"
     },
     {
       "player": "wick",
       "points": 100,
-      "details": "multi-accounting",
-      "disqualification": true
+      "details": "multi-accounting"
+    },
+    {
+      "player": "Karijin",
+      "game": 304118,
+      "points": 4,
+      "details": "not maximizing points in R10"
     }
   ],
   "replacements": [],
-  "relegations": 3
+  "isFinished": true,
+  "winnerTitle": "Fair play triumphs, a new beginning",
+  "relegations": 0
 }
