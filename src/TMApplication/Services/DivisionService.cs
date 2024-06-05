@@ -218,18 +218,42 @@ public class DivisionService
                 new DivisionConfigurationFormPlayer(i + 1, GetGames(player, division.Games, results), player))
             .ToList();
 
+        if (results != null)
+        {
+            var playerGames = players.Max(player => player.Games.Count);
+            var incompletePlayers = players.Where(player => player.Games.Count < playerGames).ToArray();
+            var games = new Dictionary<DivisionConfigurationFormGame, int>();
+            foreach (var player in players)
+                foreach (var game in player.Games.Where(game => game.TmId != null))
+                {
+                    games.TryGetValue(game, out var playersCount);
+                    games[game] = playersCount + 1;
+                }
+
+            var gameHouses = results.Players
+                .SelectMany(result => result.Houses.Select(house => house.House))
+                .Distinct().Count();
+            var incompleteGames = games
+                .Where(pair => pair.Value < gameHouses)
+                .Select(pair => pair.Key)
+                .OrderBy(game => game.Idx)
+                .ToArray();
+
+            foreach (var player in incompletePlayers)
+                foreach (var game in incompleteGames)
+                    if (!player.Games.Contains(game))
+                        player.Games.Add(game);
+        }
         var leagueDivision = league.MainDivisions.FirstOrDefault(d => d.Id == divisionId);
         return new DivisionConfigurationForm(
-            division.Name,
-            division.Judge,
+        division.Name,
+        division.Judge,
             players,
             division.Games.Select((game, i) => new DivisionConfigurationFormGame(i + 1, game)).ToList(),
             division.Penalties?.Select((penalty, i) => new DivisionConfigurationFormPenalty(i + 1, penalty.Player,
-                penalty.Game,
-                penalty.Points, penalty.Details)).ToList(),
+                penalty.Game, penalty.Points, penalty.Details, penalty.Disqualification)).ToList(),
             division.Replacements?.Select((replacement, i) => new DivisionConfigurationFormReplacement(i + 1,
-                replacement.From,
-                replacement.To, replacement.Game)).ToList(),
+                replacement.From, replacement.To, replacement.Game)).ToList(),
             division.IsFinished || isFinished,
             division.WinnerTitle,
             division.Promotions ?? leagueDivision?.Promotions,

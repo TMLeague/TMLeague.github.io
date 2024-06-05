@@ -135,7 +135,7 @@ public record DivisionConfigurationFormGame(int Idx, int? TmId = null)
     public int? TmId { get; set; } = TmId;
 }
 
-public record DivisionConfigurationFormPenalty(int Idx, string? Player = null, int? Game = null, double Points = 0, string Details = "")
+public record DivisionConfigurationFormPenalty(int Idx, string? Player = null, int? Game = null, double Points = 0, string Details = "", bool Disqualification = false)
 {
     public int Idx { get; set; } = Idx;
 
@@ -148,6 +148,8 @@ public record DivisionConfigurationFormPenalty(int Idx, string? Player = null, i
     public double Points { get; set; } = Points;
 
     public string? Details { get; set; } = Details;
+
+    public bool Disqualification { get; set; } = Disqualification;
 }
 
 public record DivisionConfigurationFormReplacement(int Idx, string? From = null, string? To = null, int? Game = null)

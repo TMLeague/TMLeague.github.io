@@ -100,7 +100,8 @@ else
                 <label class="col-3" style="min-width: 100px;">Player</label>
                 <label class="col-2" style="min-width: 66px;">Game</label>
                 <label class="col-2" style="min-width: 66px;">Points</label>
-                <label class="col-4" style="min-width: 133px;">Details</label>
+                <label class="col-3" style="min-width: 100px;">Details</label>
+                <label class="col-2" style="min-width: 66px;">Disqualified</label>
             </div>
             @foreach (var formPenalty in DivisionConfigurationForm.Penalties)
             {
@@ -127,10 +128,13 @@ else
                     <div class="col-2" style="min-width: 66px;">
                         <InputNumber id="@($"penalty-{penalty.Idx}-points")" @bind-Value="@penalty.Points" placeholder="Points" class="form-control" aria-describedby="penaltiesHelp" />
                     </div>
-                    <div class="col-4" style="min-width: 133px;">
+                    <div class="col-3" style="min-width: 100px;">
                         <InputText id="@($"penalty-{penalty.Idx}-details")" @bind-Value="@penalty.Details" placeholder="Details" class="form-control" aria-describedby="penaltiesHelp" />
                     </div>
-                    <button type="button" class="col-1 p-0 btn btn-link" style="min-width: 33px;" @onclick="() => RemovePenalty(penalty.Idx)"><i class="bi bi-x"></i></button>
+                    <div class="col-2" style="min-width: 66px;">
+                        <InputCheckbox id="@($"penalty-{penalty.Idx}-dq")" @bind-Value="@penalty.Disqualification" class="form-check" aria-describedby="penaltiesHelp" />
+                    </div>
+                    <button type="button" class="col-2 p-0 btn btn-link" style="min-width: 33px;" @onclick="() => RemovePenalty(penalty.Idx)"><i class="bi bi-x"></i></button>
                 </div>
             }
             <div class="row mb-3">
@@ -215,11 +219,12 @@ else
         <div class="alert alert-warning p-1 mb-1 text-center" role="alert">
             Please remember to finish the process on GitHub:
             <ol class="mx-auto mb-0" style="width: fit-content;">
+                <li>content is copied to your clipboard,</li>
                 <li>paste copied text to the json file,</li>
                 @if (IsNew)
                 {
                     <li>
-                        set proper file path (use "/") and<br />
+                        set proper file path (use "/") and<br/>
                         name with ".json" extension,
                     </li>
                 }
@@ -332,7 +337,7 @@ else
             DivisionConfigurationForm.Games.Select(game => game.TmId).ToArray(),
             DivisionConfigurationForm.Penalties
                 .Where(penalty => !string.IsNullOrWhiteSpace(penalty.Player))
-                .Select(penalty => new Penalty(penalty.Player!, penalty.Game, penalty.Points, penalty.Details ?? string.Empty)).ToArray(),
+                .Select(penalty => new Penalty(penalty.Player!, penalty.Game, penalty.Points, penalty.Details ?? string.Empty, penalty.Disqualification)).ToArray(),
             DivisionConfigurationForm.Replacements
                 .Where(replacement => !string.IsNullOrWhiteSpace(replacement.From) && !string.IsNullOrWhiteSpace(replacement.To) && replacement.Game != null)
                 .Select(replacement => new Replacement(replacement.From!, replacement.To!, replacement.Game!.Value)).ToArray(),
