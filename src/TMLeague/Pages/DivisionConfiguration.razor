@@ -97,17 +97,18 @@ else
                 In first column choose penalized player, in the second a related game, then number of penalty points and finally short description about the penalty's reason.
             </div>
             <div class="row mb-3" style="min-width: 400px;">
-                <label class="col-3" style="min-width: 100px;">Player</label>
+                <label class="col-2" style="min-width: 66px;">Player</label>
                 <label class="col-2" style="min-width: 66px;">Game</label>
                 <label class="col-2" style="min-width: 66px;">Points</label>
                 <label class="col-3" style="min-width: 100px;">Details</label>
                 <label class="col-2" style="min-width: 66px;">Disqualified</label>
+                <label class="col-1" style="min-width: 33px;"></label>
             </div>
             @foreach (var formPenalty in DivisionConfigurationForm.Penalties)
             {
                 var penalty = formPenalty;
                 <div class="row mb-3" style="min-width: 400px;">
-                    <div class="col-3" style="min-width: 100px;">
+                    <div class="col-2" style="min-width: 66px;">
                         <InputSelect id="@($"penalty-{penalty.Idx}-player")" @bind-Value="@penalty.Player" class="form-select" aria-describedby="penaltiesHelp">
                             <option value="">---</option>
                             @foreach (var player in DivisionConfigurationForm.Players)
@@ -134,7 +135,7 @@ else
                     <div class="col-2" style="min-width: 66px;">
                         <InputCheckbox id="@($"penalty-{penalty.Idx}-dq")" @bind-Value="@penalty.Disqualification" class="form-check" aria-describedby="penaltiesHelp" />
                     </div>
-                    <button type="button" class="col-2 p-0 btn btn-link" style="min-width: 33px;" @onclick="() => RemovePenalty(penalty.Idx)"><i class="bi bi-x"></i></button>
+                    <button type="button" class="col-1 p-0 btn btn-link" style="min-width: 33px;" @onclick="() => RemovePenalty(penalty.Idx)"><i class="bi bi-x"></i></button>
                 </div>
             }
             <div class="row mb-3">
