@@ -25,7 +25,14 @@
     304076,
     304123
   ],
-  "penalties": [],
+  "penalties": [
+     {
+      "player": "NIghtCrawler",
+      "points": 3,
+      "game": 304081,
+      "details": "absence penalty"
+    }
+  ],
   "replacements": [],
   "promotions": 3,
   "relegations": 3
