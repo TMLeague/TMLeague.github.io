@@ -23,7 +23,21 @@
     304112,
     304090
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "lookkattme",
+      "game": 304136,
+      "points": 1,
+      "details": "No delay"
+    },
+    {
+      "player": "We_do_not_sow",
+      "game": 304115,
+      "points": 1,
+      "details": "Game aborted"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
   "promotions": 2
 }
