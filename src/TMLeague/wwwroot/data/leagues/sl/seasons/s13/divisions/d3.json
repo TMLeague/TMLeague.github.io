@@ -27,12 +27,6 @@
   ],
   "penalties": [
     {
-      "player": "El Grande",
-      "game": 304102,
-      "points": 4,
-      "details": "355mpm"
-    },
-    {
       "player": "Ser Joseph",
       "game": 304083,
       "points": 4,
@@ -42,13 +36,13 @@
       "player": "Ser Joseph",
       "game": 304113,
       "points": 3,
-      "details": "334mpm and absence from 5.06 17:27 to 10.06 3:54"
+      "details": "absence from 5.06 17:27 to 10.06 3:54"
     },
     {
       "player": "Ser Joseph",
       "game": 304102,
-      "points": 6,
-      "details": "485mpm and absence from 8.05 18:21 to 13.05 16:07"
+      "points": 0,
+      "details": "absence from 8.05 18:21 to 13.05 16:07 (included in other penalties)"
     },
     {
       "player": "Ser Joseph",
@@ -75,12 +69,6 @@
       "details": "absence from 10.04 19:58 to 14.04 18:02"
     },
     {
-      "player": "DothraikiCentaur",
-      "game": 304113,
-      "points": 8,
-      "details": "554mpm"
-    },
-    {
       "player": "diogobensabat",
       "game": 304103,
       "points": 1,
@@ -89,8 +77,8 @@
     {
       "player": "DawidW",
       "game": 304102,
-      "points": 4,
-      "details": "392mpm and absence from 18.04 16:51 to 22.04 8:13"
+      "points": 3,
+      "details": "absence from 18.04 16:51 to 22.04 8:13"
     }
   ],
   "replacements": [],
