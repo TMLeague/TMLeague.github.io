@@ -25,7 +25,80 @@
     304103,
     304073
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "El Grande",
+      "game": 304102,
+      "points": 4,
+      "details": "361mpm"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 304102,
+      "points": 4,
+      "details": "absence: 7.05 16:56-10.05 17:15 in G8, 8.05 18:21-13.05 16:07 in G3, 5.06 17:27-10.06 3:54 in G1"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 304083,
+      "points": 4,
+      "details": "spoiling and unauthorized chat usage"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 304113,
+      "points": 4,
+      "details": "352mpm"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 304102,
+      "points": 6,
+      "details": "491mpm"
+    },
+    {
+      "player": "squallwst",
+      "game": 304102,
+      "points": 1,
+      "details": "created game with disabled chat"
+    },
+    {
+      "player": "squallwst",
+      "game": 304102,
+      "points": 4,
+      "details": "spoiling (not maximizing point in T10, changing a winner)"
+    },
+    {
+      "player": "DothraikiCentaur",
+      "game": 304078,
+      "points": 3,
+      "details": "absence from 10.04 19:58 to 14.04 18:02"
+    },
+    {
+      "player": "DothraikiCentaur",
+      "game": 304113,
+      "points": 8,
+      "details": "554mpm"
+    },
+    {
+      "player": "diogobensabat",
+      "game": 304103,
+      "points": 1,
+      "details": "not delaying on retreat"
+    },
+    {
+      "player": "DawidW",
+      "game": 304102,
+      "points": 3,
+      "details": "absence from 18.04 16:51 to 22.04 8:13"
+    },
+    {
+      "player": "DawidW",
+      "game": 304102,
+      "points": 5,
+      "details": "402mpm"
+    }
+  ],
   "replacements": [],
   "promotions": 3,
   "relegations": 4
