@@ -30,13 +30,7 @@
       "player": "El Grande",
       "game": 304102,
       "points": 4,
-      "details": "361mpm"
-    },
-    {
-      "player": "Ser Joseph",
-      "game": 304102,
-      "points": 4,
-      "details": "absence: 7.05 16:56-10.05 17:15 in G8, 8.05 18:21-13.05 16:07 in G3, 5.06 17:27-10.06 3:54 in G1"
+      "details": "355mpm"
     },
     {
       "player": "Ser Joseph",
@@ -47,14 +41,20 @@
     {
       "player": "Ser Joseph",
       "game": 304113,
-      "points": 4,
-      "details": "352mpm"
+      "points": 3,
+      "details": "334mpm and absence from 5.06 17:27 to 10.06 3:54"
     },
     {
       "player": "Ser Joseph",
       "game": 304102,
       "points": 6,
-      "details": "491mpm"
+      "details": "485mpm and absence from 8.05 18:21 to 13.05 16:07"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 304075,
+      "points": 0,
+      "details": "absence from 7.05 16:56 to 10.05 17:15 (included in other penalties)"
     },
     {
       "player": "squallwst",
@@ -89,14 +89,8 @@
     {
       "player": "DawidW",
       "game": 304102,
-      "points": 3,
-      "details": "absence from 18.04 16:51 to 22.04 8:13"
-    },
-    {
-      "player": "DawidW",
-      "game": 304102,
-      "points": 5,
-      "details": "402mpm"
+      "points": 4,
+      "details": "392mpm and absence from 18.04 16:51 to 22.04 8:13"
     }
   ],
   "replacements": [],
