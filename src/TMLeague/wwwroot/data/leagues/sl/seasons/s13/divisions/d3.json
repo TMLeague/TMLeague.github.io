@@ -41,13 +41,11 @@
     {
       "player": "Ser Joseph",
       "game": 304102,
-      "points": 0,
       "details": "absence from 8.05 18:21 to 13.05 16:07 (included in other penalties)"
     },
     {
       "player": "Ser Joseph",
       "game": 304075,
-      "points": 0,
       "details": "absence from 7.05 16:56 to 10.05 17:15 (included in other penalties)"
     },
     {
@@ -82,6 +80,7 @@
     }
   ],
   "replacements": [],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 4
 }
