@@ -1,0 +1,33 @@
+{
+  "name": "Division 2",
+  "judge": "PhantasticPhil",
+  "players": [
+    "Blaan",
+    "Stefano",
+    "fsilverwood",
+    "Kamil_J",
+    "sicre",
+    "El Grande",
+    "DawidW",
+    "PawcioF",
+    "Wu_Linyi",
+    "squallwst"
+  ],
+  "games": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "penalties": [],
+  "replacements": [],
+  "isFinished": false,
+  "promotions": 3,
+  "relegations": 3
+}
