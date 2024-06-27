@@ -1,19 +1,13 @@
 {
-  "name": "Qualifiers",
+  "name": "Qualifiers 2",
   "judge": "Sigi Reuven",
   "players": [
     "PHOENIXgg",
-    "diogobensabat",
     "DothraikiCentaur",
     "Ser Joseph",
-    "carcan",
-    "King Nero",
     "Mandy Storm",
-    "Shaun Baun",
-    "Jakubesh",
     "LordAlex",
-    "lookkattme",
-    "BarteqZw"
+    "viblz"
   ],
   "games": [
     null,
@@ -22,14 +16,9 @@
     null,
     null,
     null,
-    null,
-    null,
-    null,
-    null,
-    null
   ],
   "penalties": [],
   "replacements": [],
   "isFinished": false,
-  "promotions": 3
+  "promotions": 2
 }
