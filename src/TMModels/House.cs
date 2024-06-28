@@ -17,6 +17,8 @@ public enum House
 
 public static class Houses
 {
+    public static readonly House[] All = new[] { House.Baratheon, House.Lannister, House.Stark, House.Tyrell, House.Greyjoy, House.Martell, House.Arryn };
+
     public static House Parse(string value) => Parse(value[0]);
 
     public static House Parse(char value) =>
