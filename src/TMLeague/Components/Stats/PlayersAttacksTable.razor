@@ -162,7 +162,7 @@
                 <th>Defenses</th>
                 @foreach (var (player, playersInteractions) in PlayersVm)
                 {
-                    <th>@(playersInteractions == null ? "0" : $"{Math.Round(playersInteractions.AllDefenses, Decimals)} ({Math.Round(100 * playersInteractions.SuccessfulDefenses / playersInteractions.AD, Decimals)}%)")</th>
+                    <th>@(playersInteractions == null ? "0" : $"{Math.Round(playersInteractions.AllDefenses, Decimals)} ({Math.Round(100 * playersInteractions.SuccessfulDefenses / playersInteractions.AllDefenses, Decimals)}%)")</th>
                 }
                 <th />
             </tr>
