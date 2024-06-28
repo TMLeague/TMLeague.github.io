@@ -1,4 +1,5 @@
 ﻿using TMApplication.ViewModels;
+using TMModels;
 
 namespace TMApplication.Providers;
 
@@ -53,13 +54,13 @@ public static class RouteProvider
                 ? $"{League}/{leagueId}/{Interactions}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}"
                 : $"{League}/{leagueId}/{Interactions}/{tableType?.ToString().ToLower()}/{ScoreTypes.Get(tableType, scoreType)?.ToString().ToLower()}/{divisionId}";
 
-    public static string GetPlayerRoute(string? leagueId, string playerName, PlayerTableType type = PlayerTableType.Seasons) =>
+    public static string GetPlayerRoute(string? leagueId, string playerName, PlayerTableType type = PlayerTableType.Seasons, House house = House.Unknown) =>
         leagueId == null ?
             GetPlayerRoute(playerName, type) :
-            $"{League}/{leagueId}/{Player}/{playerName}/{type.ToString().ToLower()}";
+            $"{League}/{leagueId}/{Player}/{playerName}/{type.ToString().ToLower()}" + (house == House.Unknown ? "" : $"/{house}");
 
-    public static string GetPlayerRoute(string playerName, PlayerTableType type = PlayerTableType.Seasons) =>
-            $"{Player}/{playerName}/{type.ToString().ToLower()}";
+    public static string GetPlayerRoute(string playerName, PlayerTableType type = PlayerTableType.Seasons, House house = House.Unknown) =>
+            $"{Player}/{playerName}/{type.ToString().ToLower()}" + (house == House.Unknown ? "" : $"/{house}");
 
     public static string GetLeagueSeasonsRoute(string leagueId) =>
         $"{League}/{leagueId}/{Seasons}";

@@ -24,7 +24,9 @@
                 <tbody>
                     @foreach (var playerSeasonVm in PlayerVm.Seasons.Reverse())
                     {
-                        @foreach (var game in playerSeasonVm.Houses.OrderBy(model => model.House))
+                        @foreach (var game in playerSeasonVm.Houses
+                                      .Where(playerHouse => HouseType == House.Unknown || playerHouse.House == HouseType)
+                                      .OrderBy(model => model.House))
                         {
                             <tr>
                                 <th scope="row" class="text-nowrap">
@@ -184,4 +186,7 @@
 
     [Parameter]
     public PlayerTableType TableType { get; set; }
+
+    [Parameter]
+    public House HouseType { get; set; }
 }

@@ -1,0 +1,12 @@
+﻿<img src="@($"/img/houses/{@House.ToString().ToLower()}.png")" alt="@House" title="@House" style="vertical-align: -.125em;" width="@($"{Width ?? 32}px")" height="@($"{Height ?? 32}px")" />
+
+@code {
+    [Parameter]
+    public House House { get; set; }
+
+    [Parameter]
+    public int? Width { get; set; }
+
+    [Parameter]
+    public int? Height { get; set; }
+}

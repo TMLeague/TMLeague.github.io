@@ -245,33 +245,7 @@
                         {
                             <tr>
                                 <th scope="row" class="py-0 align-middle">
-                                    @switch (house.House)
-                                    {
-                                        case House.Baratheon:
-                                            <Baratheon />
-                                            break;
-                                        case House.Lannister:
-                                            <Lannister />
-                                            break;
-                                        case House.Stark:
-                                            <Stark />
-                                            break;
-                                        case House.Tyrell:
-                                            <Tyrell />
-                                            break;
-                                        case House.Greyjoy:
-                                            <Greyjoy />
-                                            break;
-                                        case House.Martell:
-                                            <Martell />
-                                            break;
-                                        case House.Arryn:
-                                            <Arryn />
-                                            break;
-                                        default:
-                                            <span>@house.House.ToString()</span>
-                                            break;
-                                    }
+                                    <HouseImg House="@house.House" />
                                 </th>
                                 <td class="text-warning">@house.TotalPoints(ScoreType)</td>
                                 @if (ScoreType == ScoreType.Average)
