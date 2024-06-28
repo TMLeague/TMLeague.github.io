@@ -56,7 +56,7 @@ public static class RouteProvider
 
     public static string GetPlayerRoute(string? leagueId, string playerName, PlayerTableType type = PlayerTableType.Seasons, House house = House.Unknown) =>
         leagueId == null ?
-            GetPlayerRoute(playerName, type) :
+            GetPlayerRoute(playerName, type, house) :
             $"{League}/{leagueId}/{Player}/{playerName}/{type.ToString().ToLower()}" + (house == House.Unknown ? "" : $"/{house}");
 
     public static string GetPlayerRoute(string playerName, PlayerTableType type = PlayerTableType.Seasons, House house = House.Unknown) =>

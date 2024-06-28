@@ -70,7 +70,7 @@
 
                 @if (TableType != PlayerTableType.Interactions)
                 {
-                    <LeaguePlayer LeagueId="@playerLeagueVm.LeagueId" PlayerVm="@playerLeagueVm" TableType="@TableType" />
+                    <LeaguePlayer LeagueId="@playerLeagueVm.LeagueId" PlayerVm="@playerLeagueVm" TableType="@TableType" HouseType="@HouseType" />
                 }
                 else if (Interactions?.TryGetValue(playerLeagueVm.LeagueId, out var interactions) ?? false)
                 {
