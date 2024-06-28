@@ -46,7 +46,7 @@
         {
             @if (TableType == TableType.Players)
             {
-                <PlayersInteractionsTable LeagueId="LeagueId"
+                <PlayersAttacksTable LeagueId="LeagueId"
                                           PlayersVm="InteractionsVm[ScoreType].Players.OrderBy(pair => pair.Key).ToArray()"
                                           Decimals="1" IsAverage="ScoreType == ScoreType.Average" ShowGames="ScoreType != ScoreType.Best" />
             }

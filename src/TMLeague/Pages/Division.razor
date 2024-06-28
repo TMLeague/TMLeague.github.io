@@ -1,5 +1,5 @@
 ﻿@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}"
-@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/{interactionsStr}"
+@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/{interactionsId}"
 @inject DivisionService DivisionService
 
 <h3>@(DivisionVm?.LeagueName ?? $"League {LeagueId}")</h3>
@@ -10,7 +10,7 @@
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.First != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.First, DivisionId, AreInteractions)"><i class="bi bi-chevron-double-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.First, DivisionId, InteractionsType)"><i class="bi bi-chevron-double-left"></i></a>
     }
     else
     {
@@ -18,7 +18,7 @@
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Previous != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Previous, DivisionId, AreInteractions)"><i class="bi bi-chevron-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Previous, DivisionId, InteractionsType)"><i class="bi bi-chevron-left"></i></a>
     }
     @if (LeagueId != null && SeasonId != null)
     {
@@ -30,11 +30,11 @@
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Next != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Next, DivisionId, AreInteractions)"><i class="bi bi-chevron-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Next, DivisionId, InteractionsType)"><i class="bi bi-chevron-right"></i></a>
     }
     @if (LeagueId != null && DivisionId != null && DivisionVm?.SeasonNavigation.Last != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Last, DivisionId, AreInteractions)"><i class="bi bi-chevron-double-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, DivisionVm.SeasonNavigation.Last, DivisionId, InteractionsType)"><i class="bi bi-chevron-double-right"></i></a>
     }
     else
     {
@@ -52,7 +52,7 @@
     }
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.First != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.First, AreInteractions)"><i class="bi bi-chevron-double-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.First, InteractionsType)"><i class="bi bi-chevron-double-left"></i></a>
     }
     else
     {
@@ -60,16 +60,16 @@
     }
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Previous != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Previous, AreInteractions)"><i class="bi bi-chevron-left"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Previous, InteractionsType)"><i class="bi bi-chevron-left"></i></a>
     }
     <span>@(DivisionVm?.DivisionName ?? $"Division {DivisionId}")</span>
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Next != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Next, AreInteractions)"><i class="bi bi-chevron-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Next, InteractionsType)"><i class="bi bi-chevron-right"></i></a>
     }
     @if (LeagueId != null && SeasonId != null && DivisionVm?.DivisionNavigation.Last != null)
     {
-        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Last, AreInteractions)"><i class="bi bi-chevron-double-right"></i></a>
+        <a class="text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionVm.DivisionNavigation.Last, InteractionsType)"><i class="bi bi-chevron-double-right"></i></a>
     }
     else
     {
@@ -291,14 +291,33 @@ else
     </div>
 
     <div class="row">
+        @if (LeagueId != null && SeasonId != null && DivisionId != null)
+        {
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row my-1">
+                    <div class="btn-group">
+                        @foreach (var type in TMModels.Interactions.All)
+                        {
+                            <a class="btn btn-primary @(InteractionsType == type ? "active" : "")" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, type)" disabled=@(InteractionsType == type)>
+                                @type
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
         @if (Interactions != null)
         {
-            <PlayersInteractionsTable LeagueId="@LeagueId"
-                                      PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()" />
-        }
-        else if (LeagueId != null && SeasonId != null && DivisionId != null)
-        {
-            <a class="btn btn-primary w-100 mb-3" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, true)">Load interactions</a>
+            @if (InteractionsType == InteractionsType.Interactions)
+            {
+                <PlayersInteractionsTable LeagueId="@LeagueId"
+                                          PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()" />
+            }
+            else if (InteractionsType == InteractionsType.Attacks)
+            {
+                <PlayersAttacksTable LeagueId="@LeagueId"
+                                     PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()" />
+            }
         }
     </div>
 
@@ -343,8 +362,8 @@ else
     [Parameter]
     public string? DivisionId { get; set; }
     [Parameter]
-    public string? InteractionsStr { get; set; }
-    private bool AreInteractions => InteractionsStr?.Equals("Interactions", StringComparison.InvariantCultureIgnoreCase) ?? false;
+    public string? InteractionsId { get; set; }
+    private InteractionsType InteractionsType => Enum.TryParse<InteractionsType>(InteractionsId ?? "", true, out var interactionsType) ? interactionsType : InteractionsType.None;
 
     private DivisionViewModel? DivisionVm { get; set; }
 
@@ -365,8 +384,7 @@ else
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
 
-        if (AreInteractions)
-            Interactions = await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
+        Interactions = InteractionsType == InteractionsType.None ? null : await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
 
         await base.OnParametersSetAsync();
     }
@@ -378,8 +396,7 @@ else
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
 
-        if (AreInteractions)
-            Interactions = await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
+        Interactions = InteractionsType == InteractionsType.None ? null : await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
 
         _isInitialized = true;
     }

@@ -33,6 +33,11 @@ public record TotalInteractions(
 
 public class PlayersInteractions : Dictionary<string, PlayerInteractions>
 {
+    [JsonIgnore] public double SuccessfulAttacks => Values.Sum(player => player.Interactions.SuccessfulAttacks);
+    [JsonIgnore] public double AllAttacks => Values.Sum(player => player.Interactions.AllAttacks);
+    [JsonIgnore] public double SuccessfulDefenses => Values.Sum(player => player.Interactions.SuccessfulDefenses);
+    [JsonIgnore] public double AllDefenses => Values.Sum(player => player.Interactions.AllDefenses);
+
     public PlayersInteractions() { }
     public PlayersInteractions(IEnumerable<KeyValuePair<string, PlayerInteractions>> collection) : base(collection) { }
 
@@ -174,6 +179,8 @@ public record PlayerInteractions()
 
 public record Interactions
 {
+    public static InteractionsType[] All = [InteractionsType.None, InteractionsType.Interactions, InteractionsType.Attacks];
+
     public double Games { get; set; }
     public double SuccessfulAttacks { get; set; }
     public double SuccessfulDefenses { get; set; }
@@ -195,6 +202,10 @@ public record Interactions
     public double Total => SuccessfulAttacks + SuccessfulDefenses + LostAttacks + LostDefenses + Supports + SupportsOpponent + WasSupported + WasSupportedOpponent + Raids + WasRaided + FavorsInTie + WasFavoredInTie;
     [JsonIgnore]
     public double Battles => SuccessfulAttacks + LostAttacks + SuccessfulDefenses + LostDefenses;
+    [JsonIgnore]
+    public double AllAttacks => SuccessfulAttacks + LostAttacks;
+    [JsonIgnore]
+    public double AllDefenses => SuccessfulDefenses + LostDefenses;
     [JsonIgnore]
     public double AllSupports => Supports + WasSupported;
     [JsonIgnore]
@@ -276,4 +287,9 @@ public record Interactions
         stats.Casualties / divisor);
 
     public virtual Interactions Average() => this / Games;
+}
+
+public enum InteractionsType
+{
+    None, Interactions, Attacks
 }
