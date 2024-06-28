@@ -336,6 +336,14 @@ a,
     fill: currentColor;
 }
 
+.bi-baratheon {
+    background-image: url("/img/houses/baratheon.png");
+    background-size: 32px 32px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+}
+
 /* Blazor */
 
 #blazor-error-ui {
