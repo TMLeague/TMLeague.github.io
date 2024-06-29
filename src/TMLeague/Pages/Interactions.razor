@@ -1,6 +1,8 @@
 ﻿@page "/league/{leagueId}/interactions"
+@page "/league/{leagueId}/interactions/{interactionsId}"
 @page "/league/{leagueId}/interactions/{tableTypeId}/{scoreTypeId}"
-@page "/league/{leagueId}/interactions/{tableTypeId}/{scoreTypeId}/{divisionId}"
+@page "/league/{leagueId}/interactions/{interactionsId}/{tableTypeId}/{scoreTypeId}"
+@page "/league/{leagueId}/interactions/{interactionsId}/{tableTypeId}/{scoreTypeId}/{divisionId}"
 @inject SummaryService SummaryService
 @inject ILogger<Interactions> Logger
 <h3>@(InteractionsVm?.LeagueName ?? "League")</h3>
@@ -13,7 +15,7 @@
             <div class="btn-group">
                 @foreach (var type in ScoreTypes.All(TableType).Where(type => type != ScoreType.Best))
                 {
-                    <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueInteractionsRoute(LeagueId, DivisionId, TableType, type)" disabled=@(ScoreType == type)>
+                    <a class="btn btn-primary @(ScoreType == type ? "active" : "")" href="@RouteProvider.GetLeagueInteractionsRoute(LeagueId, DivisionId, InteractionsType, TableType, type)" disabled=@(ScoreType == type)>
                         @type
                     </a>
                 }
@@ -23,12 +25,27 @@
             <div class="btn-group">
                 @foreach (var type in TableTypes.All)
                 {
-                    <a class="btn btn-primary @(TableType == type ? "active" : "")" href="@RouteProvider.GetLeagueInteractionsRoute(LeagueId, DivisionId, type, ScoreType)" disabled=@(TableType == type)>
+                    <a class="btn btn-primary @(TableType == type ? "active" : "")" href="@RouteProvider.GetLeagueInteractionsRoute(LeagueId, DivisionId, InteractionsType, type, ScoreType)" disabled=@(TableType == type)>
                         @type
                     </a>
                 }
             </div>
         </div>
+        @if (TableType == TableType.Players)
+        {
+            <div class="d-flex flex-row my-1">
+                <div class="btn-group">
+                    @foreach (var type in TMModels.Interactions.All.Where(type => type != InteractionsType.None))
+                    {
+                        <a class="btn btn-primary @(InteractionsType == type || InteractionsType == InteractionsType.None && type == InteractionsType.Interactions ? "active" : "")"
+                           href="@RouteProvider.GetLeagueInteractionsRoute(LeagueId, DivisionId, type, TableType, ScoreType)"
+                           disabled=@(InteractionsType == type || InteractionsType == InteractionsType.None && type == InteractionsType.Interactions)>
+                            @type
+                        </a>
+                    }
+                </div>
+            </div>
+        }
     }
     <div class="row">
         @if (InteractionsVm == null)
@@ -46,9 +63,18 @@
         {
             @if (TableType == TableType.Players)
             {
-                <PlayersInteractionsTable LeagueId="LeagueId"
-                                          PlayersVm="InteractionsVm[ScoreType].Players.OrderBy(pair => pair.Key).ToArray()"
-                                          Decimals="1" IsAverage="ScoreType == ScoreType.Average" ShowGames="ScoreType != ScoreType.Best" />
+                @if (InteractionsType == InteractionsType.Attacks)
+                {
+                    <PlayersAttacksTable LeagueId="LeagueId"
+                                         PlayersVm="InteractionsVm[ScoreType].Players.OrderBy(pair => pair.Key).ToArray()"
+                                         Decimals="1" IsAverage="ScoreType == ScoreType.Average" ShowGames="ScoreType != ScoreType.Best" />
+                }
+                else
+                {
+                    <PlayersInteractionsTable LeagueId="LeagueId"
+                                              PlayersVm="InteractionsVm[ScoreType].Players.OrderBy(pair => pair.Key).ToArray()"
+                                              Decimals="1" IsAverage="ScoreType == ScoreType.Average" ShowGames="ScoreType != ScoreType.Best" />
+                }
             }
             else if (TableType == TableType.Houses)
             {
@@ -78,6 +104,10 @@
     [Parameter]
     public string? ScoreTypeId { get; set; }
     private ScoreType ScoreType => Enum.TryParse<ScoreType>(ScoreTypeId ?? "", true, out var scoreType) ? scoreType : ScoreType.Average;
+
+    [Parameter]
+    public string? InteractionsId { get; set; }
+    private InteractionsType InteractionsType => Enum.TryParse<InteractionsType>(InteractionsId ?? "", true, out var interactionsType) ? interactionsType : InteractionsType.Interactions;
 
     private SummaryInteractionsViewModel? InteractionsVm { get; set; }
 

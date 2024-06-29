@@ -14,20 +14,19 @@
     "squallwst"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    306840,
+    306813,
+    306848,
+    306797,
+    306798,
+    306868,
+    306865,
+    306782,
+    306779,
+    306818
   ],
   "penalties": [],
   "replacements": [],
-  "isFinished": false,
   "promotions": 3,
   "relegations": 3
 }
