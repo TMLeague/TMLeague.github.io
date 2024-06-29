@@ -14,20 +14,18 @@
     "PhantasticPhil"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    306773,
+    306772,
+    306778,
+    306765,
+    306856,
+    306804,
+    306768,
+    306771,
+    306775,
+    306766
   ],
   "penalties": [],
   "replacements": [],
-  "isFinished": false,
-  "winnerTitle": null,
   "relegations": 3
 }
