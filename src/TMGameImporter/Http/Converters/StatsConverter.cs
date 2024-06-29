@@ -214,8 +214,8 @@ internal static class StatsConverter
             Winner == Attacker ?
                 Defender : Attacker;
 
-        public Dictionary<House, int> AttackerSupporters { get; } = new();
-        public Dictionary<House, int> DefenderSupporters { get; } = new();
+        public Dictionary<House, int> AttackerSupporters { get; } = [];
+        public Dictionary<House, int> DefenderSupporters { get; } = [];
 
         public bool IsAeronUsed { get; set; }
 

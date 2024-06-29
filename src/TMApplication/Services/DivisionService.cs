@@ -187,10 +187,10 @@ public class DivisionService
             return new DivisionConfigurationForm(
                 string.Empty,
                 string.Empty,
-                new List<DivisionConfigurationFormPlayer>(),
-                new List<DivisionConfigurationFormGame>(),
-                new List<DivisionConfigurationFormPenalty>(),
-                new List<DivisionConfigurationFormReplacement>(),
+                [],
+                [],
+                [],
+                [],
                 false,
                 string.Empty,
                 null,
@@ -264,7 +264,7 @@ public class DivisionService
         results?.Players
             .FirstOrDefault(result => result.Player == player)?.Houses
             .Select(result => new DivisionConfigurationFormGame(games.IndexOf(result.Game) + 1, result.Game))
-            .ToList() ?? new List<DivisionConfigurationFormGame>();
+            .ToList() ?? [];
 
     public async Task<TotalInteractions?> GetDivisionInteractions(string leagueId, string seasonId, string divisionId,
         CancellationToken cancellationToken = default) =>

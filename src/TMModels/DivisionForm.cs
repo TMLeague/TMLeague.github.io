@@ -12,7 +12,7 @@ public class DivisionForm
     public string? JudgeName { get; set; }
     public string? MessageSubject { get; set; }
     public string? MessageBody { get; set; }
-    public List<DivisionFormPlayer> Players { get; set; } = new() { new DivisionFormPlayer(1) };
+    public List<DivisionFormPlayer> Players { get; set; } = [new DivisionFormPlayer(1)];
     public IReadOnlyList<string> PlayerNames => Players
         .Where(player => !string.IsNullOrEmpty(player.Name))
         .Select(player => player.Name)

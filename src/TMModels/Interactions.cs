@@ -8,8 +8,8 @@ public record TotalInteractions(
     Dictionary<House, HousesInteractions> Houses)
 {
     public TotalInteractions() : this(
-        new Dictionary<string, PlayersInteractions>(),
-        new Dictionary<House, HousesInteractions>())
+        [],
+        [])
     { }
 
     public static TotalInteractions Max(TotalInteractions totalInteractions1, TotalInteractions totalInteractions2) => new(
@@ -59,7 +59,7 @@ public class PlayersInteractions : Dictionary<string, PlayerInteractions>
             var enemy = housePlayers[enemyHouse];
             var housesKey = PlayerInteractions.GetHousesKey(house, enemyHouse);
             this[enemy] = new PlayerInteractions(enemy, house.IsNeighbor(enemyHouse, players) ? 1 : 0,
-                gameId == null ? new Dictionary<string, List<int>>() : new Dictionary<string, List<int>> { [housesKey] = new() { gameId.Value } },
+                gameId == null ? [] : new Dictionary<string, List<int>> { [housesKey] = [gameId.Value] },
                 interaction);
         }
     }
@@ -137,7 +137,7 @@ public record PlayerInteractions()
 {
     public string Player { get; init; } = string.Empty;
     public double Neighbors { get; set; }
-    public Dictionary<string, List<int>> HousesGames { get; set; } = new();
+    public Dictionary<string, List<int>> HousesGames { get; set; } = [];
     public Interactions Interactions { get; set; } = new();
 
     public PlayerInteractions(string player) : this()

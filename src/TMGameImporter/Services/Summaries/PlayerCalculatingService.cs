@@ -89,7 +89,7 @@ internal class PlayerCalculatingService
 
         if (!player.Leagues.TryGetValue(leagueId, out var playerLeague))
         {
-            playerLeague = new PlayerLeague(leagueId, new List<PlayerDivision>());
+            playerLeague = new PlayerLeague(leagueId, []);
             player.Leagues.Add(leagueId, playerLeague);
             if (generatedTime > player.GeneratedTime)
                 player.GeneratedTime = generatedTime;

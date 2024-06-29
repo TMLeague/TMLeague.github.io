@@ -9,10 +9,10 @@ public class DivisionConfigurationForm
     {
         Name = name;
         Judge = judge;
-        Players = players ?? new List<DivisionConfigurationFormPlayer>();
-        Games = games ?? new List<DivisionConfigurationFormGame>();
-        Penalties = penalties ?? new List<DivisionConfigurationFormPenalty>();
-        Replacements = replacements ?? new List<DivisionConfigurationFormReplacement>();
+        Players = players ?? [];
+        Games = games ?? [];
+        Penalties = penalties ?? [];
+        Replacements = replacements ?? [];
         IsFinished = isFinished;
         WinnerTitle = winnerTitle;
         Promotions = promotions;
@@ -27,17 +27,17 @@ public class DivisionConfigurationForm
 
     [Required(ErrorMessage = "Division must have at least 3 players.")]
     [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidatePlayers))]
-    public List<DivisionConfigurationFormPlayer> Players { get; } = new();
+    public List<DivisionConfigurationFormPlayer> Players { get; } = [];
 
     [Required(ErrorMessage = "Division must have at least 3 games.")]
     [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidateGames))]
-    public List<DivisionConfigurationFormGame> Games { get; } = new();
+    public List<DivisionConfigurationFormGame> Games { get; } = [];
 
     [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidatePenalties))]
-    public List<DivisionConfigurationFormPenalty> Penalties { get; } = new();
+    public List<DivisionConfigurationFormPenalty> Penalties { get; } = [];
 
     [CustomValidation(typeof(DivisionConfigurationForm), nameof(ValidateReplacements))]
-    public List<DivisionConfigurationFormReplacement> Replacements { get; } = new();
+    public List<DivisionConfigurationFormReplacement> Replacements { get; } = [];
 
     public bool IsFinished { get; set; }
 

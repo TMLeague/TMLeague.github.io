@@ -20,13 +20,13 @@ public class InteractionsTests
                     }
                 }
             })
-        }, new Dictionary<House, HousesInteractions>());
+        }, []);
 
         var game = new Game(1, "a", true, false, 10,
             new Map(Array.Empty<Land>(), Array.Empty<Sea>(), Array.Empty<Port>()), null, null, new HouseScore[]
             {
                 new(House.Baratheon, player1, 1, 1, 1, 3, 3, 2, 2, 5, 100, 20, Array.Empty<int>(), 10, 1,
-                    new Stats(new BattleStats(), new UnitStats(2, 5, 3, 2), new UnitStats(), new PowerTokenStats(), new BidStats()), new HousesInteractions(),
+                    new Stats(new BattleStats(), new UnitStats(2, 5, 3, 2), new UnitStats(), new PowerTokenStats(), new BidStats()), [],
                     new PlayersInteractions(new Dictionary<string, PlayerInteractions>
                     {
                         [player2] = new(player2)

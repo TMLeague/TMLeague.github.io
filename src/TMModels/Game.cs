@@ -186,8 +186,8 @@ public record HouseScore(
     PlayersInteractions? PlayersInteractions) : IComparable<HouseScore> // TODO: Remove PlayersInteractions from here
 {
     public Stats Stats { get; } = Stats ?? new Stats();
-    public HousesInteractions HousesInteractions { get; } = HousesInteractions ?? new HousesInteractions();
-    public PlayersInteractions PlayersInteractions { get; } = PlayersInteractions ?? new PlayersInteractions();
+    public HousesInteractions HousesInteractions { get; } = HousesInteractions ?? [];
+    public PlayersInteractions PlayersInteractions { get; } = PlayersInteractions ?? [];
 
     [JsonIgnore]
     public string PlayerHouseName => string.IsNullOrEmpty(Player) ? House.ToString() : $"{Player} ({House})";

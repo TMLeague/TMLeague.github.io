@@ -4,12 +4,12 @@ public record Player(
     string Name,
     Dictionary<string, PlayerLeague> Leagues)
 {
-    public Player() : this(string.Empty, new Dictionary<string, PlayerLeague>())
+    public Player() : this(string.Empty, [])
     {
         GeneratedTime = DateTimeOffset.UtcNow;
     }
 
-    public Player(string name, DateTimeOffset generatedTime) : this(name, new Dictionary<string, PlayerLeague>())
+    public Player(string name, DateTimeOffset generatedTime) : this(name, [])
     {
         GeneratedTime = generatedTime;
     }

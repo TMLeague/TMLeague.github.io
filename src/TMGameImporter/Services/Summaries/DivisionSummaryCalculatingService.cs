@@ -50,7 +50,7 @@ internal class DivisionSummaryCalculatingService
         var disqualified = division.Penalties?
             .Where(penalty => penalty.Disqualification)
             .Select(penalty => penalty.Player)
-            .ToHashSet() ?? new HashSet<string>();
+            .ToHashSet() ?? [];
 
         var players = results.Players
             .Where(result => !disqualified.Contains(result.Player))
