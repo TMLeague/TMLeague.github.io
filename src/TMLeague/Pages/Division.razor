@@ -100,7 +100,7 @@ else
     @if (LeagueId != null && SeasonId != null && DivisionId != null && IsFiltered)
     {
         <div class="row my-2">
-            <div class="col-6 p-0 pe-1">
+            <div class="col-4 p-0 pe-1">
                 <InputSelect id="player-filter" @bind-Value="@AddFilteredPlayer" class="form-select" aria-describedby="penaltiesHelp">
                     @foreach (var player in DivisionVm.Players
             .Where(player => !PlayersFilter.Contains(player.Name))
@@ -110,13 +110,18 @@ else
                     }
                 </InputSelect>
             </div>
-            <div class="col-6 p-0">
+            <div class="col-4 p-0">
                 @if (!string.IsNullOrEmpty(AddFilteredPlayer))
                 {
                     <a class="btn btn-primary w-100" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType, Query + (Query.EndsWith("?") ? "" : "&") + $"p={AddFilteredPlayer}")">
                         Add to filter
                     </a>
                 }
+            </div>
+            <div class="col-4">
+                <a class="btn btn-primary w-100" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType)">
+                    Clear filter
+                </a>
             </div>
         </div>
     }
