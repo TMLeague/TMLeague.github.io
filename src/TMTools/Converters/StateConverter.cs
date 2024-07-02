@@ -2,13 +2,13 @@
 using System.Globalization;
 using System.Text.Json;
 using System.Web;
-using TMGameImporter.Http.Converters.Models;
 using TMModels;
 using TMModels.ThroneMaster;
+using TMTools.Converters.Models;
 
-namespace TMGameImporter.Http.Converters;
+namespace TMTools.Converters;
 
-internal class StateConverter
+public class StateConverter
 {
     private readonly ILogger<StateConverter> _logger;
 

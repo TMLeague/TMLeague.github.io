@@ -2,9 +2,9 @@ using System.Text.Json;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using TMGameImporter.Http.Converters;
 using TMModels;
 using TMModels.ThroneMaster;
+using TMTools.Converters;
 
 namespace TMGameImporter.Tests;
 

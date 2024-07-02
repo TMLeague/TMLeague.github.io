@@ -3,8 +3,8 @@ using Microsoft.Extensions.Options;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
-using TMGameImporter.Http.Converters;
 using TMModels;
+using TMTools.Converters;
 
 namespace TMGameImporter.Services.Import;
 

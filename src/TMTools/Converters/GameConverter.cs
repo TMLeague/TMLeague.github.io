@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using TMGameImporter.Http.Converters.Models;
 using TMModels;
 using TMModels.ThroneMaster;
+using TMTools.Converters.Models;
 
-namespace TMGameImporter.Http.Converters;
+namespace TMTools.Converters;
 
-internal class GameConverter
+public class GameConverter
 {
     private readonly LogConverter _logConverter;
     private readonly StateConverter _stateConverter;

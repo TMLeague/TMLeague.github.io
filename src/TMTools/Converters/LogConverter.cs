@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using System.Globalization;
 using TMModels.ThroneMaster;
 
-namespace TMGameImporter.Http.Converters;
+namespace TMTools.Converters;
 
-internal class LogConverter
+public class LogConverter
 {
     private readonly ILogger<LogConverter> _logger;
 

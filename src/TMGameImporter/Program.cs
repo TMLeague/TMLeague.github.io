@@ -7,9 +7,9 @@ using Microsoft.Extensions.Options;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
-using TMGameImporter.Http.Converters;
 using TMGameImporter.Services.Import;
 using TMGameImporter.Services.Summaries;
+using TMTools.Converters;
 
 var cts = new CancellationTokenSource();
 Console.CancelKeyPress += (s, e) =>

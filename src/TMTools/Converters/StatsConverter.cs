@@ -1,11 +1,11 @@
 ﻿using System.Text.RegularExpressions;
-using TMGameImporter.Http.Converters.Models;
 using TMModels;
 using TMModels.ThroneMaster;
+using TMTools.Converters.Models;
 
-namespace TMGameImporter.Http.Converters;
+namespace TMTools.Converters;
 
-internal static class StatsConverter
+public static class StatsConverter
 {
     public static HouseScore[] CalculateStats(this HouseScore[] houseScores, State state, Log log)
     {
@@ -265,11 +265,11 @@ internal static class StatsConverter
         public void AddSupport(LogItem logItem)
         {
             var supportMatch = Regex.Match(logItem.Message, @"(\w+) supports (\w+) with a fighting strength of (\d+)\.");
-            if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support)) 
+            if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support))
                 return;
 
             var supportedHouse = Houses.Parse(supportMatch.Groups[2].Value);
-            if (Attacker?.House == supportedHouse) 
+            if (Attacker?.House == supportedHouse)
                 AttackerSupporters[logItem.House] = support;
             else if (Defender?.House == supportedHouse)
                 DefenderSupporters[logItem.House] = support;

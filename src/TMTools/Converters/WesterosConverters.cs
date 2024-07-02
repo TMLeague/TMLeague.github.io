@@ -1,14 +1,14 @@
 ﻿using TMModels;
 using TMModels.ThroneMaster;
 
-namespace TMGameImporter.Http.Converters;
+namespace TMTools.Converters;
 
-internal interface IWesterosConverter
+public interface IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events);
 }
 
-internal class WesterosPhase1Converter : IWesterosConverter
+public class WesterosPhase1Converter : IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events)
     {
@@ -50,7 +50,7 @@ internal class WesterosPhase1Converter : IWesterosConverter
     }
 }
 
-internal class WesterosPhase2Converter : IWesterosConverter
+public class WesterosPhase2Converter : IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events)
     {
@@ -84,7 +84,7 @@ internal class WesterosPhase2Converter : IWesterosConverter
     }
 }
 
-internal class WesterosPhase3Converter : IWesterosConverter
+public class WesterosPhase3Converter : IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events)
     {
@@ -130,7 +130,7 @@ internal class WesterosPhase3Converter : IWesterosConverter
     }
 }
 
-internal class WesterosWildlingsConverter : IWesterosConverter
+public class WesterosWildlingsConverter : IWesterosConverter
 {
     public IWesterosConverter Parse(LogItem item, WesterosStats events)
     {

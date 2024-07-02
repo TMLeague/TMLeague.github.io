@@ -1,8 +1,8 @@
 ﻿using TMModels;
 
-namespace TMGameImporter.Http.Converters.Models;
+namespace TMTools.Converters.Models;
 
-internal record State(
+public record State(
     int? GameId,
     string Name,
     DateTimeOffset Time,
@@ -15,30 +15,30 @@ internal record State(
     HouseSpeed[] Stats,
     string? Chat);
 
-internal record HouseSpeed(House House, double MinutesPerMove, int MovesCount);
+public record HouseSpeed(House House, double MinutesPerMove, int MovesCount);
 
-internal record Area(bool IsEnabled, AreaType Type, int Id, string Name);
+public record Area(bool IsEnabled, AreaType Type, int Id, string Name);
 
-internal enum AreaType
+public enum AreaType
 {
     Unknown, Land, Sea, Port
 }
 
-internal class Setup : StateDictionary
+public class Setup : StateDictionary
 {
     public Setup(IEnumerable<string> array) :
         base(array)
     { }
 }
 
-internal class Data : StateDictionary
+public class Data : StateDictionary
 {
     public Data(IEnumerable<string> array) :
         base(array)
     { }
 }
 
-internal abstract class StateDictionary : Dictionary<string, string>
+public abstract class StateDictionary : Dictionary<string, string>
 {
     protected StateDictionary(IEnumerable<string> array) :
         base(array.Select(row => row.Split(','))
