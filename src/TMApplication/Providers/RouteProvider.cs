@@ -72,10 +72,10 @@ public static class RouteProvider
     public static string GetLeagueSeasonRoute(string leagueId, string seasonId) =>
         $"{League}/{leagueId}/{Season}/{seasonId}";
 
-    public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId, InteractionsType interactionsType = InteractionsType.None) =>
+    public static string GetLeagueDivisionRoute(string leagueId, string seasonId, string divisionId, InteractionsType interactionsType = InteractionsType.None, string? query = null) =>
         interactionsType != InteractionsType.None
-            ? $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{interactionsType.ToString().ToLower()}"
-            : $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}";
+            ? $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}/{interactionsType.ToString().ToLower()}{query}"
+            : $"{League}/{leagueId}/{Season}/{seasonId}/{Division}/{divisionId}{query}";
 
     public static string GetLeagueDivisionCreationRoute(string leagueId, string? seasonNumber, string? divisionNumber, string? judge, IEnumerable<string>? playerNames)
     {

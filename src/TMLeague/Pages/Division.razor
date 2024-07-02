@@ -1,6 +1,7 @@
 ﻿@page "/league/{leagueId}/season/{seasonId}/division/{divisionId}"
 @page "/league/{leagueId}/season/{seasonId}/division/{divisionId}/{interactionsId}"
 @inject DivisionService DivisionService
+@inject NavigationManager NavManager
 
 <h3>@(DivisionVm?.LeagueName ?? $"League {LeagueId}")</h3>
 <h4>
@@ -96,6 +97,29 @@
 }
 else
 {
+    @if (LeagueId != null && SeasonId != null && DivisionId != null && IsFiltered)
+    {
+        <div class="row my-2">
+            <div class="col-6 p-0 pe-1">
+                <InputSelect id="player-filter" @bind-Value="@AddFilteredPlayer" class="form-select" aria-describedby="penaltiesHelp">
+                    @foreach (var player in DivisionVm.Players
+            .Where(player => !PlayersFilter.Contains(player.Name))
+            .Select(player => player.Name))
+                    {
+                        <option value="@player">@player</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="col-6 p-0">
+                @if (!string.IsNullOrEmpty(AddFilteredPlayer))
+                {
+                    <a class="btn btn-primary w-100" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType, Query + (Query.EndsWith("?") ? "" : "&") + $"p={AddFilteredPlayer}")">
+                        Add to filter
+                    </a>
+                }
+            </div>
+        </div>
+    }
     <div class="row">
         <table class="table table-striped table-dark pb-0">
             <thead>
@@ -126,7 +150,9 @@ else
                 </tr>
             </thead>
             <tbody>
-                @foreach (var (playerVm, i) in DivisionVm.Players.Select((player, i) => (player, i)))
+                @foreach (var (playerVm, i) in DivisionVm.Players
+               .Where(player => PlayersFilter.Length == 0 || PlayersFilter.Contains(player.Name))
+               .Select((player, i) => (player, i)))
                 {
                     <tr>
                         <th scope="row" class="@GetPlayerClass(playerVm, i)">
@@ -264,7 +290,7 @@ else
                         </td>
                     }
                 </tr>
-                @foreach (var playerVm in DivisionVm.Players)
+                @foreach (var playerVm in DivisionVm.Players.Where(player => PlayersFilter.Length == 0 || PlayersFilter.Contains(player.Name)))
                 {
                     <tr>
                         <th scope="row">
@@ -298,7 +324,7 @@ else
                     <div class="btn-group">
                         @foreach (var type in TMModels.Interactions.All)
                         {
-                            <a class="btn btn-primary @(InteractionsType == type ? "active" : "")" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, type)" disabled=@(InteractionsType == type)>
+                            <a class="btn btn-primary @(InteractionsType == type ? "active" : "")" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, type, Query)" disabled=@(InteractionsType == type)>
                                 @type
                             </a>
                         }
@@ -311,12 +337,14 @@ else
             @if (InteractionsType == InteractionsType.Interactions)
             {
                 <PlayersInteractionsTable LeagueId="@LeagueId"
-                                          PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()" />
+                                          PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()"
+                                          PlayersFilter="@PlayersFilter" />
             }
             else if (InteractionsType == InteractionsType.Attacks)
             {
                 <PlayersAttacksTable LeagueId="@LeagueId"
-                                     PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()" />
+                                     PlayersVm="@Interactions.Players.OrderBy(pair => Array.FindIndex(DivisionVm.Players, model => model.Name == pair.Key)).ToArray()"
+                                     PlayersFilter="@PlayersFilter" />
             }
         }
     </div>
@@ -331,15 +359,28 @@ else
         </div>
     }
 
-    @if (LeagueId != null && SeasonId != null && DivisionId != null && !DivisionVm.IsFinished)
+    @if (LeagueId != null && SeasonId != null && DivisionId != null)
     {
-        <div class="row my-2">
-            <a href="@RouteProvider.GetLeagueDivisionConfigurationRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Configure</a>
-        </div>
-        <div class="row my-2">
-            <a href="@RouteProvider.GetLeagueDivisionFinishingRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Add penalties</a>
-        </div>
+        @if (!DivisionVm.IsFinished)
+        {
+            <div class="row my-2">
+                <a href="@RouteProvider.GetLeagueDivisionConfigurationRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Configure</a>
+            </div>
+            <div class="row my-2">
+                <a href="@RouteProvider.GetLeagueDivisionFinishingRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Add penalties</a>
+            </div>
+        }
+
+        @if (!IsFiltered)
+        {
+            <div class="row my-2">
+                <a class="btn btn-primary" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType, "?")">
+                    Filter players
+                </a>
+            </div>
+        }
     }
+
 }
 
 <footer class="text-white-50 d-block">
@@ -357,17 +398,25 @@ else
 @code {
     [Parameter]
     public string? LeagueId { get; set; }
+
     [Parameter]
     public string? SeasonId { get; set; }
+
     [Parameter]
     public string? DivisionId { get; set; }
+
     [Parameter]
     public string? InteractionsId { get; set; }
     private InteractionsType InteractionsType => Enum.TryParse<InteractionsType>(InteractionsId ?? "", true, out var interactionsType) ? interactionsType : InteractionsType.None;
 
+    [SupplyParameterFromQuery(Name = "P")]
+    public string[] PlayersFilter { get; set; } = [];
+
     private DivisionViewModel? DivisionVm { get; set; }
 
     private TotalInteractions? Interactions { get; set; }
+
+    private string? AddFilteredPlayer { get; set; }
 
     private int TableWidth => DivisionVm == null ?
         0 :
@@ -377,12 +426,16 @@ else
 
     private bool _isInitialized;
 
+    private string Query => NavManager.ToAbsoluteUri(NavManager.Uri).Query;
+    private bool IsFiltered => !string.IsNullOrEmpty(Query);
+
     protected override async Task OnParametersSetAsync()
     {
         if (LeagueId == null || SeasonId == null || DivisionId == null)
             return;
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
+        AddFilteredPlayer = DivisionVm?.Players.FirstOrDefault(player => !PlayersFilter.Contains(player.Name))?.Name;
 
         Interactions = InteractionsType == InteractionsType.None ? null : await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
 
@@ -395,6 +448,7 @@ else
             return;
 
         DivisionVm = await DivisionService.GetDivisionVm(LeagueId, SeasonId, DivisionId);
+        AddFilteredPlayer = DivisionVm?.Players.FirstOrDefault(player => !PlayersFilter.Contains(player.Name))?.Name;
 
         Interactions = InteractionsType == InteractionsType.None ? null : await DivisionService.GetDivisionInteractions(LeagueId, SeasonId, DivisionId);
 
