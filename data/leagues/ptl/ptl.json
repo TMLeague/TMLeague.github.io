@@ -16,10 +16,8 @@
   "Scoring": {
     "PointsPerStronghold": 1,
     "PointsPerCastle": 1,
-    "PointsPerWin": 3,
+    "PointsPerPosition": [ 3, 1, 0.5 ],
     "PointsPerClearWin": 2,
-    "PointsPer2ndPlace": 1,
-    "PointsPer3rdPlace": 0.5,
     "RequiredBattlesBefore10thTurn": 0,
     "Tiebreakers": [ "wins", "cla", "supplies", "powerTokens", "minutesPerMove" ]
   }
