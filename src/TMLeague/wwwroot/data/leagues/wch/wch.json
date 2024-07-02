@@ -1,0 +1,23 @@
+{
+  "name": "World Championship",
+  "description": null,
+  "BackgroundImage": "data/leagues/wch/wch.jpg",
+  "rules": "https://www.thronemaster.net/?goto=community&sub=forum&fid=15&tid=89193",
+  "discord": null,
+  "seasons": [ "s2024" ],
+  "trainingSeasons": [],
+  "mainDivisions": [
+    {
+      "id": "f",
+      "name": "Finals"
+    }
+  ],
+  "scoring": {
+    "pointsPerStronghold": 2,
+    "pointsPerCastle": 2,
+    "pointsPerPosition": [ 10, 5, 4, 3, 2, 1 ],
+    "noPointsFor0Castles": true,
+    "requiredBattlesBefore10thTurn": 0,
+    "tiebreakers": [ "wins", "penalties" ]
+  }
+}

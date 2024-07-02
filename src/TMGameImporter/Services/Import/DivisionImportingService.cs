@@ -171,10 +171,10 @@ internal class DivisionImportingService
     private static double GetPointsForGame(HouseScore houseScore, int position, Scoring scoring) =>
         scoring.PointsPerStronghold * houseScore.Strongholds +
         scoring.PointsPerCastle * houseScore.Castles +
-        (position == 1 ? scoring.PointsPerWin : 0) +
-        (IsCleanWin(houseScore) ? scoring.PointsPerClearWin : 0) +
-        (position == 2 ? scoring.PointsPer2ndPlace : 0) +
-        (position == 3 ? scoring.PointsPer3rdPlace : 0);
+        (houseScore.Castles + houseScore.Strongholds == 0 && scoring.NoPointsFor0Castles ? 0 :
+            (scoring.PointsPerPosition.Length < position ? 0 : 
+                scoring.PointsPerPosition[position - 1])
+            + (IsCleanWin(houseScore) ? scoring.PointsPerClearWin : 0));
 
     private static bool IsCleanWin(HouseScore houseScore) =>
         houseScore.Castles + houseScore.Strongholds >= 7;
