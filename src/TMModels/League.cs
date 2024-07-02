@@ -39,10 +39,9 @@ public record LeagueDivision(
 public record Scoring(
     double PointsPerStronghold,
     double PointsPerCastle,
-    double PointsPerWin,
+    double[] PointsPerPosition,
     double PointsPerClearWin,
-    double PointsPer2ndPlace,
-    double PointsPer3rdPlace,
+    bool NoPointsFor0Castles,
     int RequiredBattlesBefore10thTurn,
     Tiebreaker[] Tiebreakers);
 

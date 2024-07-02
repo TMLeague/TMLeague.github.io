@@ -17,14 +17,16 @@ else if (HomeVm.Leagues.Count == 0)
 }
 else
 {
-    @foreach (var league in HomeVm.Leagues)
-    {
-        <a class="btn btn-primary btn-league btn-league d-flex w-100 h-100 m-1"
-         style="@(league.BackgroundImage == null ? "" : $"background-image: url('{league.BackgroundImage}');")"
-         href="@RouteProvider.GetLeagueIndexRoute(league.Id)">
-            <span class="h2 m-auto">@league.Name</span>
-        </a>
-    }
+    <div class="d-flex flex-wrap w-100 h-100">
+        @foreach (var league in HomeVm.Leagues)
+        {
+            <a class="btn btn-primary btn-league btn-league d-flex w-50 m-0"
+               style="@(league.BackgroundImage == null ? "" : $"background-image: url('{league.BackgroundImage}');")"
+               href="@RouteProvider.GetLeagueIndexRoute(league.Id)">
+                <span class="h2 m-auto">@league.Name</span>
+            </a>
+        }
+    </div>
 }
 
 @code {
