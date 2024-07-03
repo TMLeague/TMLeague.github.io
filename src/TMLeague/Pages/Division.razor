@@ -110,7 +110,7 @@ else
                     }
                 </InputSelect>
             </div>
-            <div class="col-4 p-0">
+            <div class="col-4 p-0 pe-1">
                 @if (!string.IsNullOrEmpty(AddFilteredPlayer))
                 {
                     <a class="btn btn-primary w-100" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType, Query + (Query.EndsWith("?") ? "" : "&") + $"p={AddFilteredPlayer}")">
@@ -118,7 +118,7 @@ else
                     </a>
                 }
             </div>
-            <div class="col-4">
+            <div class="col-4 p-0">
                 <a class="btn btn-primary w-100" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType)">
                     Clear filter
                 </a>
@@ -366,24 +366,26 @@ else
 
     @if (LeagueId != null && SeasonId != null && DivisionId != null)
     {
-        @if (!DivisionVm.IsFinished)
-        {
-            <div class="row my-2">
-                <a href="@RouteProvider.GetLeagueDivisionConfigurationRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Configure</a>
-            </div>
-            <div class="row my-2">
-                <a href="@RouteProvider.GetLeagueDivisionFinishingRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Add penalties</a>
-            </div>
-        }
+        <div class="row my-2">
+            <div class="d-flex p-0">
+                @if (!DivisionVm.IsFinished)
+                {
+                    <div class="flex-fill p-1">
+                        <a href="@RouteProvider.GetLeagueDivisionConfigurationRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Configure</a>
+                    </div>
+                    <div class="flex-fill p-1">
+                        <a href="@RouteProvider.GetLeagueDivisionFinishingRoute(LeagueId, SeasonId, DivisionId)" class="btn btn-primary w-100 text-inherit">Add penalties</a>
+                    </div>
+                }
 
-        @if (!IsFiltered)
-        {
-            <div class="row my-2">
-                <a class="btn btn-primary" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType, "?")">
-                    Filter players
-                </a>
+                @if (!IsFiltered)
+                {
+                    <div class="flex-fill p-1">
+                        <a class="btn btn-primary w-100 text-inherit" href="@RouteProvider.GetLeagueDivisionRoute(LeagueId, SeasonId, DivisionId, InteractionsType, "?")">Filter players</a>
+                    </div>
+                }
             </div>
-        }
+        </div>
     }
 
 }
