@@ -19,7 +19,33 @@
     306820,
     306822
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "lookkattme",
+      "game": 306842,
+      "points": 4,
+      "details": "KM"
+    },
+    {
+      "player": "lookkattme",
+      "game": 306850,
+      "points": 2,
+      "details": "no delay"
+    },
+    {
+      "player": "lookkattme",
+      "game": 306805,
+      "points": 2,
+      "details": "no delay"
+    },
+    {
+      "player": "BarteqZw",
+      "game": 306805,
+      "points": 2,
+      "details": "no delay"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
   "promotions": 2
 }
