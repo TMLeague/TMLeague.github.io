@@ -25,7 +25,16 @@
     306775,
     306766
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Shade89",
+      "game": 306766,
+      "points": 4,
+      "details": "spoiling (for not defending RR)"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
+  "winnerTitle": "King in the North",
   "relegations": 3
 }
