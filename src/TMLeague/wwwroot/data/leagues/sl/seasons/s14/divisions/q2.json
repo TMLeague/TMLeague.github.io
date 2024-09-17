@@ -17,7 +17,39 @@
     306810,
     306801
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Ser Joseph",
+      "game": 306810,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "Ser Joseph",
+      "game": 306801,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "DothraikiCentaur",
+      "game": 306816,
+      "points": 11,
+      "details": "800 mpm"
+    },
+    {
+      "player": "LordAlex",
+      "game": 306845,
+      "points": 2,
+      "details": "No delay"
+    },
+    {
+      "player": "Mandy Storm",
+      "game": 306814,
+      "points": 1,
+      "details": "Illegal use of \u0022!\u0022"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
   "promotions": 2
 }
