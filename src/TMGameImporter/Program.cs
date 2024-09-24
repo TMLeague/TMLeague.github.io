@@ -55,31 +55,33 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<PlayerCalculatingService>())
     .Build();
 
-var logger = host.Services.GetRequiredService<ILogger<Program>>();
-var options = host.Services.GetRequiredService<IOptions<ImporterOptions>>();
+var scope = host.Services.CreateScope();
+
+var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+var options = scope.ServiceProvider.GetRequiredService<IOptions<ImporterOptions>>();
 logger.LogInformation(
     "Importing program started with following arguments: {arguments}",
     string.Join("", ArgumentsString()));
 
-//var fixingService = host.Services.GetRequiredService<FixingService>();
+//var fixingService = scope.ServiceProvider.GetRequiredService<FixingService>();
 //await fixingService.FixHouses();
 //return;
 
 if (options.Value.Games is { Length: > 0 })
 {
-    var gameImportingService = host.Services.GetRequiredService<GameImportingService>();
+    var gameImportingService = scope.ServiceProvider.GetRequiredService<GameImportingService>();
     foreach (var game in options.Value.Games)
         await gameImportingService.Import(game, cts.Token);
     return;
 }
 
-var mainImportingService = host.Services.GetRequiredService<MainImportingService>();
+var mainImportingService = scope.ServiceProvider.GetRequiredService<MainImportingService>();
 await mainImportingService.Import(cts.Token);
 
-var summaryCalculatingService = host.Services.GetRequiredService<SummaryCalculatingService>();
+var summaryCalculatingService = scope.ServiceProvider.GetRequiredService<SummaryCalculatingService>();
 await summaryCalculatingService.Calculate(cts.Token);
 
-var playerCalculatingService = host.Services.GetRequiredService<PlayerCalculatingService>();
+var playerCalculatingService = scope.ServiceProvider.GetRequiredService<PlayerCalculatingService>();
 await playerCalculatingService.Calculate(cts.Token);
 
 string[] ArgumentsString() =>
