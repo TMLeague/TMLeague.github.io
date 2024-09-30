@@ -1,8 +1,22 @@
 {
   "name": "Final",
   "judge": null,
-  "players": [],
-  "games": [],
+  "players": [
+    "JLGarrison",
+    "lumen",
+    "Shade89",
+    "Wu_Linyi",
+    "fronk_donk",
+    "Stefano"
+  ],
+  "games": [
+    309841,
+    309842,
+    309843,
+    309844,
+    309845,
+    309846
+  ],
   "penalties": [],
   "isFinished": false
 }
