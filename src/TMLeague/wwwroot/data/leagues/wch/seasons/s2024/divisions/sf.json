@@ -1,8 +1,34 @@
 {
   "name": "Semifinal",
   "judge": null,
-  "players": [],
-  "games": [],
+  "players": [
+    "JLGarrison",
+    "lumen",
+    "Shade89",
+    "Wu_Linyi",
+    "fronk_donk",
+    "Stefano",
+    "abbadon123",
+    "zhazhayu",
+    "Saizzo",
+    "Kamcyk",
+    "Cubehead",
+    "squallwst"
+  ],
+  "games": [
+    307141,
+    307150,
+    307155,
+    307142,
+    307153,
+    307156,
+    307143,
+    307160,
+    307144,
+    307154,
+    307145,
+    307146
+  ],
   "penalties": [],
-  "isFinished": false
+  "isFinished": true
 }
