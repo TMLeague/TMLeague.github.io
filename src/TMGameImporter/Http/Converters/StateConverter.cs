@@ -25,7 +25,8 @@ internal class StateConverter
                 .OfType<JsonElement>()
                 .Where(item => item.ValueKind == JsonValueKind.String)
                 .Select(item => item.GetString())
-                .FirstOrDefault(item => item?.Contains("The battle for Westeros begins, now!") ?? false);
+                .FirstOrDefault(item => item?.Contains("The battle for Westeros begins, now!") ?? false)
+                       ?? ((JsonElement?)chatRaw?.Chat[3])?.GetString();
             var data = new Data(stateRaw.Data);
             var setup = new Setup(stateRaw.Setup);
             var stats = stateRaw.Stats
