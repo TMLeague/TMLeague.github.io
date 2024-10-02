@@ -21,12 +21,7 @@ internal class StateConverter
     {
         try
         {
-            var chat = chatRaw?.Chat
-                .OfType<JsonElement>()
-                .Where(item => item.ValueKind == JsonValueKind.String)
-                .Select(item => item.GetString())
-                .FirstOrDefault(item => item?.Contains("The battle for Westeros begins, now!") ?? false)
-                       ?? ((JsonElement?)chatRaw?.Chat[3])?.GetString();
+            var chat = GetChat(chatRaw?.Chat);
             var data = new Data(stateRaw.Data);
             var setup = new Setup(stateRaw.Setup);
             var stats = stateRaw.Stats
@@ -54,6 +49,25 @@ internal class StateConverter
             _logger.LogError(ex, "An error occurred while converting State data.");
             return null;
         }
+    }
+
+    private static string? GetChat(object[]? chat)
+    {
+        if (chat == null)
+            return null;
+
+        var result = chat.OfType<JsonElement>()
+                   .Where(item => item.ValueKind == JsonValueKind.String)
+                   .Select(item => item.GetString())
+                   .FirstOrDefault(item => item?.Contains("The battle for Westeros begins, now!") ?? false);
+
+        if (result != null)
+            return result;
+
+        if (chat.Length < 3)
+            return null;
+
+        return ((JsonElement?)chat[3])?.GetString();
     }
 
     private static int? GetGameId(Setup setup) => int.Parse(setup["g-id"]);
