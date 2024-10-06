@@ -1,6 +1,5 @@
 {
   "name": "Division 2",
-  "judge": null,
   "players": [
     "squallwst",
     "Ramoin",
@@ -14,19 +13,36 @@
     "PHOENIXgg"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    304413,
+    304308,
+    304333,
+    304362,
+    304309,
+    304310,
+    304335,
+    304405,
+    304312,
+    304313
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Ramoin",
+      "points": 0.5,
+      "details": ""
+    },
+    {
+      "player": "Djavozo",
+      "points": 3,
+      "details": ""
+    },
+    {
+      "player": "Duke of Blueblood",
+      "points": 10,
+      "details": ""
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
   "promotions": 3,
-  "relegations": 3,
-  "isFinished": false
+  "relegations": 3
 }
