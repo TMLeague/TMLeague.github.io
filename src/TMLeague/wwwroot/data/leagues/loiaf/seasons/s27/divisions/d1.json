@@ -1,6 +1,6 @@
 {
   "name": "Division 1",
-  "judge": null,
+  "judge": "SerOberynMartell",
   "players": [
     "PawcioF",
     "Kamil_J",
@@ -14,19 +14,40 @@
     "DawidW"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    304299,
+    304300,
+    304305,
+    304306,
+    304301,
+    304307,
+    304302,
+    304303,
+    304316,
+    304304
   ],
-  "penalties": [],
-  "relegations": 3,
-  "isFinished": false,
-  "winnerTitle": null
+  "penalties": [
+    {
+      "player": "Gordalicious",
+      "points": 9,
+      "details": "Speed"
+    },
+    {
+      "player": "DawidW",
+      "points": 3,
+      "details": "Speed"
+    },
+    {
+      "player": "JohnnyCee",
+      "points": 7,
+      "details": "Speed"
+    },
+    {
+      "player": "mokka1994",
+      "points": 3.5,
+      "details": "Speed"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "relegations": 3
 }
