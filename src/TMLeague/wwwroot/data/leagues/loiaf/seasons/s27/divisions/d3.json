@@ -1,6 +1,6 @@
 {
   "name": "Division 3",
-  "judge": null,
+  "judge": "SerOberynMartell",
   "players": [
     "Cambeia",
     "got_pocak",
@@ -11,15 +11,33 @@
     "PMeisterGeneral"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    304326,
+    304327,
+    304345,
+    304329,
+    304330,
+    304331,
+    304332
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "RodrigoLannister",
+      "points": 5,
+      "details": ""
+    },
+    {
+      "player": "PMeisterGeneral",
+      "points": 6,
+      "details": ""
+    },
+    {
+      "player": "got_pocak",
+      "points": 0.5,
+      "details": ""
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
   "promotions": 3,
-  "isFinished": false
+  "relegations": 4
 }
