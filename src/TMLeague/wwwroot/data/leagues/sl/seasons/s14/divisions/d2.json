@@ -88,7 +88,14 @@
     },
     {
       "player": "Blaan",
-      "details": "",
+      "points": 31,
+      "details": "6 replacements",
+      "disqualification": true
+    },
+    {
+      "player": "squallwst",
+      "points": 23,
+      "details": "2 replacements",
       "disqualification": true
     }
   ],
