@@ -25,8 +25,116 @@
     306779,
     306818
   ],
-  "penalties": [],
-  "replacements": [],
+  "penalties": [
+    {
+      "player": "sicre",
+      "game": 306840,
+      "points": 4,
+      "details": "Speed at deadline"
+    },
+    {
+      "player": "sicre",
+      "game": 306848,
+      "points": 5,
+      "details": "Speed at deadline"
+    },
+    {
+      "player": "sicre",
+      "game": 306782,
+      "points": 5,
+      "details": "speed at deadline"
+    },
+    {
+      "player": "DawidW",
+      "game": 306782,
+      "points": 2,
+      "details": "speed at deadline"
+    },
+    {
+      "player": "DawidW",
+      "game": 306865,
+      "points": 1,
+      "details": "3 days no orders R7"
+    },
+    {
+      "player": "El Grande",
+      "game": 306865,
+      "points": 1,
+      "details": "3 days no orders R7"
+    },
+    {
+      "player": "Wu_Linyi",
+      "game": 306868,
+      "points": 3,
+      "details": "no notification/end game early"
+    },
+    {
+      "player": "Stefano",
+      "game": 306798,
+      "points": 1,
+      "details": "no delay before retreat"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 306848,
+      "points": 2,
+      "details": "no orders 4 days"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 306797,
+      "points": 1,
+      "details": "no orders 3 days"
+    },
+    {
+      "player": "Blaan",
+      "details": "",
+      "disqualification": true
+    }
+  ],
+  "replacements": [
+    {
+      "from": "Blaan",
+      "to": "Imrihil",
+      "game": 306840
+    },
+    {
+      "from": "Blaan",
+      "to": "Imrihil",
+      "game": 306797
+    },
+    {
+      "from": "Blaan",
+      "to": "Der Seynmaster",
+      "game": 306813
+    },
+    {
+      "from": "Blaan",
+      "to": "Der Seynmaster",
+      "game": 306782
+    },
+    {
+      "from": "Blaan",
+      "to": "Karijin",
+      "game": 306798
+    },
+    {
+      "from": "Blaan",
+      "to": "Karijin",
+      "game": 306779
+    },
+    {
+      "from": "squallwst",
+      "to": "Karijin",
+      "game": 306848
+    },
+    {
+      "from": "squallwst",
+      "to": "Karijin",
+      "game": 306840
+    }
+  ],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 3
 }
