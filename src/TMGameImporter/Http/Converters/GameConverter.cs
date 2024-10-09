@@ -174,12 +174,12 @@ internal class GameConverter
                 .Count(item => IsPlayerBattleLogItem(house, item)))
             .ToArray() ?? Array.Empty<int>();
 
-        var turn = logsPerTurn?.Select(items =>
+        var turn = (logsPerTurn?.Length > 0 ? logsPerTurn?.Select(items =>
             items.Any(log =>
                 log.House == house && log.Phase == Phase.Planning)
                 ? items.Key
                 : 0)
-            .Max() ?? 0;
+            .Max() : 0) ?? 0;
 
         return new HouseScore(house, player, throne,
             fiefdoms, kingsCourt, supplies, powerTokens, strongholds,

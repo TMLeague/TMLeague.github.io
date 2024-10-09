@@ -220,7 +220,7 @@ public class DivisionService
 
         if (results != null)
         {
-            var playerGames = players.Max(player => player.Games.Count);
+            var playerGames = players.Count > 0 ? players.Max(player => player.Games.Count) : 0;
             var incompletePlayers = players.Where(player => player.Games.Count < playerGames).ToArray();
             var games = new Dictionary<DivisionConfigurationFormGame, int>();
             foreach (var player in players)
