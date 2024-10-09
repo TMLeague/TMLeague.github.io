@@ -91,9 +91,9 @@ public class LeagueService
             if (await IsNextSeason(leagueId, lastSeasonId, lastSeason, cancellationToken))
                 nextMainSeason = lastSeasonId[1..];
             else
-                nextMainSeason = league.Seasons
-                .Max(season =>
-                    int.TryParse(season[1..], out var seasonNumber) ? seasonNumber + 1 : 1)
+                nextMainSeason = (league.Seasons.Length > 0
+                    ? league.Seasons.Max(season => int.TryParse(season[1..], out var seasonNumber) ? seasonNumber + 1 : 1)
+                    : 1)
                 .ToString();
         }
 

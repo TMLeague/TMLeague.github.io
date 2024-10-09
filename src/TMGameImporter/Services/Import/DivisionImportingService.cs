@@ -87,7 +87,7 @@ internal class DivisionImportingService
         Array.Sort(playerResults, (p1, p2) => -Compare(p1, p2, scoring.Tiebreakers));
         UpdatePlayersPositions(playerResults, division.Promotions ?? leaguePromotions ?? 0, division.Relegations ?? leagueRelegations ?? 0);
 
-        var results = new Results(playerResults, games.Any() ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow, division.IsFinished);
+        var results = new Results(playerResults, games.Count > 0 ? games.Max(game => game.GeneratedTime) : oldResults?.GeneratedTime ?? DateTimeOffset.UtcNow, division.IsFinished);
         await _fileSaver.SaveResults(results, leagueId, seasonId, divisionId, cancellationToken);
 
         var interactions = games.Aggregate(new TotalInteractions(), (totalInteractions, game) => totalInteractions + game);
@@ -172,7 +172,7 @@ internal class DivisionImportingService
         scoring.PointsPerStronghold * houseScore.Strongholds +
         scoring.PointsPerCastle * houseScore.Castles +
         (houseScore.Castles + houseScore.Strongholds == 0 && scoring.NoPointsFor0Castles ? 0 :
-            (scoring.PointsPerPosition.Length < position ? 0 : 
+            (scoring.PointsPerPosition.Length < position ? 0 :
                 scoring.PointsPerPosition[position - 1])
             + (IsCleanWin(houseScore) ? scoring.PointsPerClearWin : 0));
 
