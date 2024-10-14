@@ -368,6 +368,13 @@ else
     {
         <div class="row my-2">
             <div class="d-flex p-0">
+                @if (DivisionVm.Games.All(model => model?.Id == null))
+                {
+                    <div class="flex-fill p-1">
+                        <a href="@LeagueJudgeRoute" class="btn btn-primary w-100 text-inherit">Generate draft</a>
+                    </div>
+                }
+
                 @if (!DivisionVm.IsFinished)
                 {
                     <div class="flex-fill p-1">
@@ -478,4 +485,13 @@ else
 
         return string.Empty;
     }
+
+    private string LeagueJudgeRoute => DivisionVm != null && LeagueId != null
+        ? RouteProvider.GetLeagueJudgeRoute(LeagueId)
+            + "?season=" + (SeasonId != null && SeasonId.StartsWith("s", StringComparison.InvariantCultureIgnoreCase) ? SeasonId[1..] : SeasonId)
+            + "&division=" + (DivisionId != null && DivisionId.StartsWith("d", StringComparison.InvariantCultureIgnoreCase) ? DivisionId[1..] : DivisionId)
+            + "&judgeName=" + DivisionVm.Judge
+            + string.Join("", DivisionVm.Players.Select(model => $"&player={model.Name}"))
+        : "";
+
 }

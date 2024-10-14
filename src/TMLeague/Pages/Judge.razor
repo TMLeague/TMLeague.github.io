@@ -397,9 +397,8 @@ else
     {
         var players = PlayersQuery
             .Select((s, i) => new DivisionFormPlayer(i + 1) { Name = s }).ToList();
-        while (players.Count < 9)
+        while (players.Count < 10)
             players.Add(new DivisionFormPlayer(players.Count + 1));
-        players.Add(new DivisionFormPlayer(players.Count + 1));
         return players;
     }
 
