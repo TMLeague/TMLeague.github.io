@@ -35,7 +35,9 @@ public record LeagueDivisionSummaryViewModel(
     string? DivisionName,
     double Progress,
     IReadOnlyCollection<LeagueGameSummaryViewModel> Games,
-    string? WinnerPlayerName)
+    string? WinnerPlayerName,
+    string? JudgeTitle,
+    string? Judge)
 {
     public DateTimeOffset? GeneratedTime =>
         Games.Count == 0 ?
