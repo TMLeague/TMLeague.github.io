@@ -42,7 +42,8 @@ internal class StateConverter
                 GetPlayers(setup),
                 GetMap(setup, data),
                 stats,
-                chat);
+                chat,
+                GetLastAction(data));
         }
         catch (Exception ex)
         {
@@ -199,4 +200,7 @@ internal class StateConverter
 
         return ports;
     }
+
+    private DateTimeOffset? GetLastAction(Data data) =>
+        double.TryParse(data["lastaction"], out var lastActionTime) ? DateTimeOffset.FromUnixTimeSeconds((long)lastActionTime) : null;
 }

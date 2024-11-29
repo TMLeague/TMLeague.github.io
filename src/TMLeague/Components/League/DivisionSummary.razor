@@ -1,10 +1,4 @@
-﻿@using TMApplication.Providers
-@using TMApplication.Services
-@using TMApplication.ViewModels
-@using TMInfrastructure.Http
-@using TMLeague.Components
-@using TMLeague.Components.TmLinks
-@inject DivisionService DivisionService
+﻿@inject DivisionService DivisionService
 @inject GameService GameService
 
 <h5>
@@ -84,13 +78,9 @@ else
                 else
                 {
                     <div class="col-4 col-sm-9 col-md-10 col-xl-5 py-1">
-                        <div class="progress h-100" title="@(string.IsNullOrEmpty(game.Name) ? "Game unavailable" : $"Turn {game.Turn}")">
-                            <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated @(game.IsStalling ? "bg-success" : "bg-warning text-dark")"
-                                 role="progressbar" aria-valuenow="@((int)game.Progress)"
-                                 aria-valuemin="0" aria-valuemax="100" style="@($"width: {(int)game.Progress}%")">
-                                @(game.IsStalling ? "Stalling" : game.Turn > 0 ? $"T{game.Turn}" : "N/A")
-                            </div>
-                        </div>
+                        <GameProgress Class="h-100"
+                                      Name="@game.Name" IsStalling="@game.IsStalling" IsFinished="@game.IsFinished" IsCreatedManually="@game.IsCreatedManually"
+                                      Turn="@game.Turn" Progress="@game.Progress" LastActionTime="@game.LastActionTime"/>
                     </div>
                 }
             }
@@ -130,4 +120,5 @@ else
 
         DivisionVm = await DivisionService.GetDivisionSummaryVm(LeagueId, SeasonId, DivisionId);
     }
+
 }

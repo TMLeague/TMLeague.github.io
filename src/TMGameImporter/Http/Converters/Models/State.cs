@@ -13,7 +13,8 @@ internal record State(
     string[] Players,
     Map Map,
     HouseSpeed[] Stats,
-    string? Chat);
+    string? Chat,
+    DateTimeOffset? LastActionTime);
 
 internal record HouseSpeed(House House, double MinutesPerMove, int MovesCount);
 

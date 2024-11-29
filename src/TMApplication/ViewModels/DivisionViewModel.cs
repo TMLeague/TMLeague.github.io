@@ -56,7 +56,8 @@ public record DivisionGameViewModel(
     double Progress,
     bool IsFinished,
     bool IsStalling,
-    bool IsCreatedManually);
+    bool IsCreatedManually,
+    DateTimeOffset? LastActionTime);
 
 public record PlayerHouseViewModel(
     int? Game,

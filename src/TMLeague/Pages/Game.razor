@@ -11,40 +11,9 @@ else if (GameIdInt != null)
         <a href="@ThroneMasterUriProvider.GetGameUri(GameIdInt.Value)" class="text-inherit" target="_blank">Game @GameVm.Name</a>
     </h3>
 
-    <div class="progress mb-1 w-100">
-        @if (GameVm.IsFinished)
-        {
-            <div class="progress-bar overflow-visible bg-success"
-                 role="progressbar" aria-valuenow="10"
-                 aria-valuemin="0" aria-valuemax="10" style="width: 100%">
-                Finished
-            </div>
-        }
-        else if (GameVm.IsStalling)
-        {
-            <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-success"
-                 role="progressbar" aria-valuenow="9"
-                 aria-valuemin="0" aria-valuemax="10" style="width: 97%">
-                Stalling
-            </div>
-            <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-warning text-dark"
-                 role="progressbar" aria-valuenow="1"
-                 aria-valuemin="0" aria-valuemax="10" style="width: 3%">
-            </div>
-        }
-        else
-        {
-            <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-success"
-                 role="progressbar" aria-valuenow="@(GameVm.Turn - 1)"
-                 aria-valuemin="0" aria-valuemax="10" style="@($"width: {100 * (GameVm.Turn - 1) / 10}%")">
-            </div>
-            <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated bg-warning text-dark"
-                 role="progressbar" aria-valuenow="1"
-                 aria-valuemin="0" aria-valuemax="10" style="width: 10%">
-                @($"T{GameVm.Turn}")
-            </div>
-        }
-    </div>
+    <GameProgress Class="mb-1 w-100"
+                  Name="@GameVm.Name" IsStalling="@GameVm.IsStalling" IsFinished="@GameVm.IsFinished" IsCreatedManually="@GameVm.IsCreatedManually"
+                  Turn="@GameVm.Turn" Progress="@GameVm.Progress" LastActionTime="@GameVm.LastActionTime" />
 }
 
 <div class="row">
@@ -234,7 +203,7 @@ else if (GameIdInt != null)
 <footer class="text-white-50 d-block">
     @if (GameVm?.GeneratedTime != null)
     {
-        <p class="mb-0">Data fetched at @GameVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
+        <p class="mb-0">Data fetched at @GameVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm")</p>
     }
     <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
 </footer>

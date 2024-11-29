@@ -102,7 +102,7 @@
 <footer class="text-white-50 d-block">
     @if (PlayerVm?.GeneratedTime != null)
     {
-        <p class="mb-0">Data fetched at @PlayerVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd hh:mm tt")</p>
+        <p class="mb-0">Data fetched at @PlayerVm.GeneratedTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm")</p>
     }
     <p><small><i>* Calculated statistical data like killed and lost units can be approximate. It's impossible to correctly calculate situations like loosing ship by the attacker by leaving an area with port empty or using Mace Tyrell in some cases from logs.</i></small></p>
 </footer>

@@ -13,6 +13,7 @@ public record Game(
     RavenAction?[]? Ravens,
     HouseScore[] Houses,
     DateTimeOffset GeneratedTime,
+    DateTimeOffset? LastActionTime,
     bool IsProfessional = true,
     bool IsCreatedManually = false)
 {
