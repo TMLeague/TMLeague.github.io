@@ -1,4 +1,6 @@
-﻿namespace TMApplication.ViewModels;
+﻿using TMModels;
+
+namespace TMApplication.ViewModels;
 
 public record LeagueViewModel(
     string Id,
@@ -53,10 +55,13 @@ public record LeagueGameSummaryViewModel(
     bool IsFinished,
     bool IsStalling,
     string? WinnerPlayerName,
-    DateTimeOffset? GeneratedTime);
-
+    DateTimeOffset? GeneratedTime,
+    DateTimeOffset? LastActionTime)
+{
+    public TimeSpan TimeSinceLastAction => LastActionTime.HasValue ? DateTimeOffset.UtcNow - LastActionTime.Value : TimeSpan.Zero;
+}
 public record LeagueChampionsViewModel(
-    IReadOnlyList<LeagueSeasonChampionViewModel> Champions);
+IReadOnlyList<LeagueSeasonChampionViewModel> Champions);
 
 public record LeagueSeasonChampionViewModel(
     string SeasonId,

@@ -1,10 +1,4 @@
-﻿@using TMApplication.Providers
-@using TMApplication.Services
-@using TMApplication.ViewModels
-@using TMInfrastructure.Http
-@using TMLeague.Components
-@using TMLeague.Components.TmLinks
-@inject DivisionService DivisionService
+﻿@inject DivisionService DivisionService
 @inject GameService GameService
 
 <h5>
@@ -84,11 +78,11 @@ else
                 else
                 {
                     <div class="col-4 col-sm-9 col-md-10 col-xl-5 py-1">
-                        <div class="progress h-100" title="@(string.IsNullOrEmpty(game.Name) ? "Game unavailable" : $"Turn {game.Turn}")">
-                            <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated @(game.IsStalling ? "bg-success" : "bg-warning text-dark")"
+                        <div class="progress h-100" title="@GetProgressBarTitle(game)">
+                            <div class="progress-bar overflow-visible progress-bar-striped progress-bar-animated @GetProgressBarClass(game)"
                                  role="progressbar" aria-valuenow="@((int)game.Progress)"
                                  aria-valuemin="0" aria-valuemax="100" style="@($"width: {(int)game.Progress}%")">
-                                @(game.IsStalling ? "Stalling" : game.Turn > 0 ? $"T{game.Turn}" : "N/A")
+                                <span>@GetProgressBarContent(game)</span>
                             </div>
                         </div>
                     </div>
@@ -130,4 +124,52 @@ else
 
         DivisionVm = await DivisionService.GetDivisionSummaryVm(LeagueId, SeasonId, DivisionId);
     }
+
+    private static string GetProgressBarTitle(LeagueGameSummaryViewModel game) => 
+        string.IsNullOrEmpty(game.Name) 
+            ? "Game unavailable" 
+            : $"Turn {game.Turn}" 
+              + (game.LastActionTime.HasValue 
+                ? $", last action: {game.LastActionTime.Value.LocalDateTime:dd MMMM yyyy HH:mm}"
+                : "");
+
+    private static string GetProgressBarClass(LeagueGameSummaryViewModel game)
+    {
+        if (game.IsStalling)
+        {
+            if (game.TimeSinceLastAction.Days > 10)
+                return "bg-danger";
+
+            return "bg-success";
+        }
+
+        if (game.TimeSinceLastAction.Days > 3)
+            return "bg-danger";
+
+        return "bg-warning text-dark";
+    }
+
+    private string GetProgressBarContent(LeagueGameSummaryViewModel game)
+    {
+        if (game.IsStalling)
+        {
+            if (game.TimeSinceLastAction.Days > 10)
+            {
+                return "Stalling (act!)";
+            }
+
+            return "Stalling";
+        }
+
+        if (game.Turn > 0)
+        {
+            if (game.TimeSinceLastAction.Days > 3)
+                return $"T{game.Turn} (inactive {game.TimeSinceLastAction.Days} days)";
+
+            return $"T{game.Turn}";
+        }
+
+        return "N/A";
+    }
+
 }

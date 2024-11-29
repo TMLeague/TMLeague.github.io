@@ -38,7 +38,8 @@ public class InteractionsTests
                         }
                     }))
             },
-            DateTimeOffset.Now);
+            DateTimeOffset.Now,
+            DateTimeOffset.Now.AddMinutes(-1));
 
         var newInteractions = totalInteractions + game;
 
