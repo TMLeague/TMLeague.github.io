@@ -55,13 +55,13 @@
 
             if (IsStalling)
             {
-                if (TimeSinceLastAction.Days > 10)
+                if (TimeSinceLastAction.Days >= 10)
                     return "progress-bar-striped progress-bar-animated bg-danger";
 
                 return "progress-bar-striped progress-bar-animated bg-success";
             }
 
-            if (TimeSinceLastAction.Days > 3)
+            if (TimeSinceLastAction.Days >= 3)
                 return "progress-bar-striped progress-bar-animated bg-danger";
 
             return "progress-bar-striped progress-bar-animated bg-warning text-dark";
