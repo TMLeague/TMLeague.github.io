@@ -82,7 +82,7 @@
 
             if (IsStalling)
             {
-                if (TimeSinceLastAction.Days > 10)
+                if (TimeSinceLastAction.Days >= 10)
                     return "Stalling (act!)";
 
                 return "Stalling";
@@ -90,7 +90,7 @@
 
             if (Turn > 0)
             {
-                if (TimeSinceLastAction.Days > 3)
+                if (TimeSinceLastAction.Days >= 3)
                     return $"T{Turn} (inactive {TimeSinceLastAction.Days} days)";
 
                 return $"T{Turn}";
