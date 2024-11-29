@@ -7,10 +7,13 @@ public record GameViewModel(
     string Name,
     bool IsFinished,
     bool IsStalling,
+    bool IsCreatedManually,
     int Turn,
+    double Progress,
     HouseScore[] Houses,
     WesterosProbabilities? Westeros,
-    DateTimeOffset GeneratedTime);
+    DateTimeOffset GeneratedTime,
+    DateTimeOffset? LastActionTime);
 
 public record WesterosDeck(
     Dictionary<WesterosPhase1, int> Phase1,

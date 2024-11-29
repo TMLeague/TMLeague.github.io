@@ -1,0 +1,103 @@
+﻿<div class="progress @Class" title="@ProgressTitle">
+    <div class="progress-bar overflow-visible @ProgressBarClass"
+         role="progressbar" aria-valuenow="@((int)Progress)"
+         aria-valuemin="0" aria-valuemax="100" style="@($"width: {(int)Progress}%")">
+        @ProgressBarContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Name { get; set; } = "";
+    [Parameter] public int Turn { get; set; }
+    [Parameter] public double Progress { get; set; }
+    [Parameter] public DateTimeOffset? LastActionTime { get; set; }
+    [Parameter] public bool IsStalling { get; set; }
+    [Parameter] public bool IsFinished { get; set; }
+    [Parameter] public bool IsCreatedManually { get; set; }
+    [Parameter] public string? Class { get; set; }
+
+    private TimeSpan TimeSinceLastAction =>
+    LastActionTime.HasValue ? DateTimeOffset.UtcNow - LastActionTime.Value : TimeSpan.Zero;
+
+    private string ProgressTitle
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(Name))
+                return "Game unavailable";
+
+            if (IsFinished)
+            {
+                if (IsCreatedManually)
+                    return $"Game simulated in turn {Turn}";
+
+                return $"Game finished in turn {Turn}";
+            }
+
+            if (LastActionTime.HasValue)
+                return $"Turn {Turn}, last action: {LastActionTime.Value.LocalDateTime:dd MMMM yyyy HH:mm}";
+
+            return $"Turn {Turn}";
+        }
+    }
+
+    private string ProgressBarClass
+    {
+        get
+        {
+            if (IsFinished)
+            {
+                if (IsCreatedManually)
+                    return "progress-bar-striped bg-success";
+
+                return "bg-success";
+            }
+
+            if (IsStalling)
+            {
+                if (TimeSinceLastAction.Days > 10)
+                    return "progress-bar-striped progress-bar-animated bg-danger";
+
+                return "progress-bar-striped progress-bar-animated bg-success";
+            }
+
+            if (TimeSinceLastAction.Days > 3)
+                return "progress-bar-striped progress-bar-animated bg-danger";
+
+            return "progress-bar-striped progress-bar-animated bg-warning text-dark";
+        }
+    }
+
+    private string ProgressBarContent
+    {
+        get
+        {
+            if (IsFinished)
+            {
+                if (IsCreatedManually)
+                    return "Simulated";
+
+                return "Finished";
+            }
+
+            if (IsStalling)
+            {
+                if (TimeSinceLastAction.Days > 10)
+                    return "Stalling (act!)";
+
+                return "Stalling";
+            }
+
+            if (Turn > 0)
+            {
+                if (TimeSinceLastAction.Days > 3)
+                    return $"T{Turn} (inactive {TimeSinceLastAction.Days} days)";
+
+                return $"T{Turn}";
+            }
+
+            return "N/A";
+        }
+    }
+
+}

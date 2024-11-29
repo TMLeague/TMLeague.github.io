@@ -19,10 +19,10 @@ public class GameService
             await _dataProvider.GetGame(gameId.Value, cancellationToken);
         if (game == null)
             return new LeagueGameSummaryViewModel(gameId, null, 0, 0, false,
-                false, null, null, null);
+                false, false, null, null, null);
 
         return new LeagueGameSummaryViewModel(gameId, game.Name, game.Progress, game.Turn, game.IsFinished,
-            game.IsStalling, game.IsFinished ? game.Houses.First().Player : null, game.GeneratedTime,
+            game.IsStalling, game.IsCreatedManually, game.IsFinished ? game.Houses.First().Player : null, game.GeneratedTime,
             game.LastActionTime);
     }
 
@@ -32,6 +32,6 @@ public class GameService
         if (game == null)
             return null;
 
-        return new GameViewModel(game.Id, game.Name, game.IsFinished, game.IsStalling, game.Turn, game.Houses, game.Westeros == null ? null : new WesterosProbabilities(game.Westeros), game.GeneratedTime);
+        return new GameViewModel(game.Id, game.Name, game.IsFinished, game.IsStalling, game.IsCreatedManually, game.Turn, game.Progress, game.Houses, game.Westeros == null ? null : new WesterosProbabilities(game.Westeros), game.GeneratedTime, game.LastActionTime);
     }
 }

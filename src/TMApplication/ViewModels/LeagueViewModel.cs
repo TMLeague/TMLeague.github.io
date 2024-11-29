@@ -54,12 +54,11 @@ public record LeagueGameSummaryViewModel(
     int Turn,
     bool IsFinished,
     bool IsStalling,
+    bool IsCreatedManually,
     string? WinnerPlayerName,
     DateTimeOffset? GeneratedTime,
-    DateTimeOffset? LastActionTime)
-{
-    public TimeSpan TimeSinceLastAction => LastActionTime.HasValue ? DateTimeOffset.UtcNow - LastActionTime.Value : TimeSpan.Zero;
-}
+    DateTimeOffset? LastActionTime);
+
 public record LeagueChampionsViewModel(
 IReadOnlyList<LeagueSeasonChampionViewModel> Champions);
 

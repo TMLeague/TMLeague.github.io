@@ -93,7 +93,7 @@ public class DivisionService
                 var game = await _dataProvider.GetGame(gameId.Value, cancellationToken);
                 yield return game == null ?
                     null :
-                    new DivisionGameViewModel(game.Id, game.Name, game.Turn, game.Progress, game.IsFinished, game.IsStalling, game.IsCreatedManually);
+                    new DivisionGameViewModel(game.Id, game.Name, game.Turn, game.Progress, game.IsFinished, game.IsStalling, game.IsCreatedManually, game.LastActionTime);
             }
         }
     }
