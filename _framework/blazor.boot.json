@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "TMLeague",
   "resources": {
-    "hash": "sha256-HmnlR7NCjfoIHgUnisjD2pVGb0+DLT7ztPDCrpPdqIA=",
+    "hash": "sha256-0VNlFk0saQwkOyzOl9m5pr6lIxolPIS4lXrPtcXS0NI=",
     "jsModuleNative": {
       "dotnet.native.8.0.11.n1sf6xr5tz.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -54,7 +54,7 @@
       "System.Net.Http.wasm": "sha256-pyeppf1TLt+Te5NYZ851Mc8rOoMgNsTEtTZwc3R37aw=",
       "System.Net.Primitives.wasm": "sha256-ZCXZoFCbd0PTval9JzLmebsLeKJcH0EfBW1O3aIb6SI=",
       "System.ObjectModel.wasm": "sha256-z1M4HWU5l2NRBdw4fDdpX06P9u57vlVShrCRgy4fBUg=",
-      "System.Private.CoreLib.wasm": "sha256-4t56xTIiZct9rw1nN34UTMkDXnCaWHl67cZEfOtAKdI=",
+      "System.Private.CoreLib.wasm": "sha256-l7fsCUw4nZ/puYvYAOnv8kOAgMAU7DvOt27E9IDbx7k=",
       "System.Private.Uri.wasm": "sha256-ccvve/zrUcA5LTfctr+8WwAxnxN/uKOR+ko+vtaWQCg=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-JDAPztAH7y21L2xsZ6H93YRax2un44ouJesryzose0k=",
       "System.Runtime.Serialization.Primitives.wasm": "sha256-hGkxTPxEXziKHL9AVtO6MwpJGi3o0UktqiFAMSDUfMo=",
@@ -65,10 +65,10 @@
       "System.Threading.wasm": "sha256-puSmVbAkSw0ep7AJS4Dyqv4/Jj4r+Vtqb8etrjy63CY=",
       "System.wasm": "sha256-UsIFTsNRr1Sw/A0hEbTyYbQo5eHUNmMuOWT6/xaM3TE=",
       "System.Web.HttpUtility.wasm": "sha256-ujmGRq6HrEVfC3e+c0La4pnGgsP0CxtM2ZAd/QPFey8=",
-      "TMApplication.wasm": "sha256-9Y0k63O5omOyat4/zvf/lK8g+GiMGkajWPOgkpMZavk=",
-      "TMInfrastructure.wasm": "sha256-c5uHDA+PxDHcOMyhd524S4H/+Sk8hUdj+OJ49RfK6oI=",
-      "TMLeague.wasm": "sha256-nxsfoRqWO2uFjiiloVDb8zQIhve2vykhZzh+ZdbP4u8=",
-      "TMModels.wasm": "sha256-2t91X+27W459Q5LV1jiaP6oWwUlswpwULcJwrMA7A6o="
+      "TMApplication.wasm": "sha256-SBjKxOXjScvquSQjcs6fOAT8f0e0sUEYn8WjudkPp0U=",
+      "TMInfrastructure.wasm": "sha256-GdV9qGXkbp63NrkAvHeUW5V2SGaFshDB38ZNlc5U2JQ=",
+      "TMLeague.wasm": "sha256-d/DZoVNc5Yg0nfKmm/fTs5Bimuir4PQ9DKceybMbtcA=",
+      "TMModels.wasm": "sha256-dOSA0nk0dpY3YVf0+oW53rsOMShQr0HWKpmfOLEdNvo="
     }
   },
   "cacheBootResources": true,
