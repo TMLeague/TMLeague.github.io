@@ -35,7 +35,7 @@
             }
 
             if (LastActionTime.HasValue)
-                return $"Turn {Turn}, last action: {LastActionTime.Value.LocalDateTime:dd MMMM yyyy HH:mm}";
+                return $"Turn {Turn}, last action: {LastActionTime.Value.LocalDateTime:d MMMM yyyy HH:mm}";
 
             return $"Turn {Turn}";
         }

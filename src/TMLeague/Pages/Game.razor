@@ -5,15 +5,35 @@
 {
     <h3>Game @GameId</h3>
 }
-else if (GameIdInt != null)
+else
 {
-    <h3>
-        <a href="@ThroneMasterUriProvider.GetGameUri(GameIdInt.Value)" class="text-inherit" target="_blank">Game @GameVm.Name</a>
-    </h3>
+    @if (GameIdInt != null)
+    {
+        <h3>
+            <a href="@ThroneMasterUriProvider.GetGameUri(GameIdInt.Value)" class="text-inherit" target="_blank">
+                Game @GameVm.Name
+            </a>
+        </h3>
+    }
+    else
+    {
+        <h3>Game @GameVm.Name</h3>
+    }
 
-    <GameProgress Class="mb-1 w-100"
-                  Name="@GameVm.Name" IsStalling="@GameVm.IsStalling" IsFinished="@GameVm.IsFinished" IsCreatedManually="@GameVm.IsCreatedManually"
-                  Turn="@GameVm.Turn" Progress="@GameVm.Progress" LastActionTime="@GameVm.LastActionTime" />
+    <div class="row">
+        <div class="col-12">
+            <GameProgress Class="mb-1 w-100"
+                          Name="@GameVm.Name" IsStalling="@GameVm.IsStalling" IsFinished="@GameVm.IsFinished" IsCreatedManually="@GameVm.IsCreatedManually"
+                          Turn="@GameVm.Turn" Progress="@GameVm.Progress" LastActionTime="@GameVm.LastActionTime" />
+        </div>
+
+        @if (GameVm.IsWarning && GameVm.LastActionTime.HasValue)
+        {
+            <div class="col-12">
+                Last action: @GameVm.LastActionTime.Value.LocalDateTime.ToString("d MMMM yyyy HH:mm")
+            </div>
+        }
+    </div>
 }
 
 <div class="row">
