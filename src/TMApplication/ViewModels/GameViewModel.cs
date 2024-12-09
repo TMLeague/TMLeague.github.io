@@ -13,7 +13,15 @@ public record GameViewModel(
     HouseScore[] Houses,
     WesterosProbabilities? Westeros,
     DateTimeOffset GeneratedTime,
-    DateTimeOffset? LastActionTime);
+    DateTimeOffset? LastActionTime)
+{
+    public bool IsWarning =>
+        !IsFinished && (
+            IsStalling && TimeSinceLastAction.Days >= 10 ||
+            !IsStalling && TimeSinceLastAction.Days >= 3);
+
+    public TimeSpan TimeSinceLastAction => LastActionTime.HasValue ? DateTimeOffset.UtcNow - LastActionTime.Value : TimeSpan.Zero;
+}
 
 public record WesterosDeck(
     Dictionary<WesterosPhase1, int> Phase1,

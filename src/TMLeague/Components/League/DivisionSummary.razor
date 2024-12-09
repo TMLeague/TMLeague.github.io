@@ -53,9 +53,11 @@ else
             }
         </div>
     }
-    <div class="container mb-1 collapse @(ShowDetails ? "show" : "")">
+    <div class="container mb-1 collapse @(ShowAnyDetails ? "show" : "")">
         <div class="row">
-            @foreach (var (game, i) in DivisionVm.Games.Select((model, i) => (model, i)))
+            @foreach (var (game, i) in DivisionVm.Games
+           .Select((model, i) => (model, i))
+           .Where(kv => ShowDetails || kv.model.IsWarning))
             {
                 <div class="col-2 col-sm-3 col-md-2 col-xl-1">
                     @if (game.Id == null)
@@ -80,7 +82,7 @@ else
                     <div class="col-4 col-sm-9 col-md-10 col-xl-5 py-1">
                         <GameProgress Class="h-100"
                                       Name="@game.Name" IsStalling="@game.IsStalling" IsFinished="@game.IsFinished" IsCreatedManually="@game.IsCreatedManually"
-                                      Turn="@game.Turn" Progress="@game.Progress" LastActionTime="@game.LastActionTime"/>
+                                      Turn="@game.Turn" Progress="@game.Progress" LastActionTime="@game.LastActionTime" />
                     </div>
                 }
             }
@@ -120,5 +122,8 @@ else
 
         DivisionVm = await DivisionService.GetDivisionSummaryVm(LeagueId, SeasonId, DivisionId);
     }
+
+    private bool ShowAnyDetails => ShowDetails ||
+                                   (DivisionVm?.Games.Any(model => model.IsWarning) ?? false);
 
 }
