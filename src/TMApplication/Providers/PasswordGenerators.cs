@@ -35,6 +35,7 @@ public class GameOfThronePasswordGenerator : IPasswordGenerator
     {
         _provider = provider;
     }
+
     public async Task<IEnumerable<string>> Get(int passwordLength, int count, CancellationToken cancellationToken)
     {
         _passwords ??= await _provider.GetPasswords(CancellationToken.None) ?? Array.Empty<string>();

@@ -4,4 +4,5 @@ public record DivisionSetupViewModel(
     string Name,
     string InitialMessageSubject, 
     string InitialMessageBody, 
-    string NextMainSeason);
+    string NextMainSeason,
+    string InitialPassword);
