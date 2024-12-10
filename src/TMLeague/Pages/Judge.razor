@@ -385,7 +385,7 @@ else
                     Division = DivisionQuery ?? "1",
                     Contact = ContactQuery ?? "me",
                     JudgeName = JudgeNameQuery ?? string.Empty,
-                    Password = PasswordQuery ?? string.Empty,
+                    Password = PasswordQuery ?? divisionSetup?.InitialPassword ?? string.Empty,
                     Players = GetPlayers(),
                     MessageSubject = divisionSetup?.InitialMessageSubject ?? string.Empty,
                     MessageBody = divisionSetup?.InitialMessageBody ?? string.Empty

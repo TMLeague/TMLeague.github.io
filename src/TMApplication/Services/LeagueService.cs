@@ -97,13 +97,16 @@ public class LeagueService
                 .ToString();
         }
 
+        var password = (await _generator.Get(6, 1, cancellationToken)).First();
+
         return new DivisionSetupViewModel(
             league.Name,
             league.InitialMessage?.Subject ?? string.Empty,
             league.InitialMessage?.Body == null ?
                 string.Empty :
                 string.Join(Environment.NewLine, league.InitialMessage.Body),
-            nextMainSeason);
+            nextMainSeason,
+            password);
     }
 
     private async Task<bool> IsNextSeason(string leagueId, string seasonId, Season? lastSeason, CancellationToken cancellationToken)
