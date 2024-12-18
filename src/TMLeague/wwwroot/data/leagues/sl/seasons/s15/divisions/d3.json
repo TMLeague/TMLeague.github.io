@@ -24,5 +24,26 @@
     311140,
     311289,
     311175
-  ]
+  ],
+  "penalties": [
+    {
+      "player": "Canutops",
+      "game": 311280,
+      "points": 1,
+      "details": "for retreating too early"
+    },
+    {
+      "player": "Joao Gomes",
+      "game": 311140,
+      "points": 1,
+      "details": "for retreating too early"
+    },
+    {
+      "player": "Canutops",
+      "game": 311289,
+      "points": 2,
+      "details": "for not changing a house card in time and then retreating too early"
+    }
+  ],
+  "promotions": 3
 }
