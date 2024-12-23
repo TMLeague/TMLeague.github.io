@@ -20,5 +20,23 @@
     311121,
     311126,
     311119
-  ]
+  ],
+  "penalties": [
+    {
+      "player": "DawidW",
+      "game": 311124,
+      "points": 3,
+      "details": "No move in 3 days"
+    },
+    {
+      "player": "PhantasticPhil",
+      "game": 311124,
+      "points": 3,
+      "details": "No move in 3 days"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "winnerTitle": "No one",
+  "relegations": 3
 }
