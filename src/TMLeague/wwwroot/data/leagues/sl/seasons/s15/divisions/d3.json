@@ -45,5 +45,8 @@
       "details": "for not changing a house card in time and then retreating too early"
     }
   ],
-  "promotions": 3
+  "replacements": [],
+  "isFinished": true,
+  "promotions": 3,
+  "relegations": 3
 }
