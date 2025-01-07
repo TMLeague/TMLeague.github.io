@@ -1,17 +1,14 @@
 {
-  "name": "Division 1",
+  "name": "Division 3",
   "judge": "SerOberynMartell",
   "players": [
-   
   ],
   "games": [
-
-
   ],
   "penalties": [
-   
   ],
   "replacements": [],
   "isFinished": false,
-  "relegations": 3
+  "promotions": 3,
+  "relegations": 4
 }

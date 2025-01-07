@@ -1,0 +1,44 @@
+{
+  "name": "Division 1",
+  "judge": "SerOberynMartell",
+  "players": [
+    "Jachu",
+    "PawcioF",
+    "Highlander55",
+    "klevushkin",
+    "PHOENIXgg",
+    "Shade89",
+    "Kamil_J",
+    "farp90",
+    "DawidW",
+    "mokka1994"
+  ],
+  "games": [
+310883,
+310882,
+310881,
+310880,
+310879,
+310875,
+310873,
+310872,
+310871,
+310870
+
+  ],
+  "penalties": [
+    {
+      "player": "DawidW",
+      "points": 3.5,
+      "details": "Speed"
+    }, 
+    {
+      "player": "Jachu",
+      "points": 3,
+      "details": "Speed"
+    }
+  ],
+  "replacements": [],
+  "isFinished": false,
+  "relegations": 3
+}
