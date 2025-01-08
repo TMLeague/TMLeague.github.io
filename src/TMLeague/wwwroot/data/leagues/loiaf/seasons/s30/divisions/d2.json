@@ -1,16 +1,9 @@
 {
   "name": "Division 2",
-  "judge": "null",
-  "players": [
-
-
-  ],
-  "games": [
-
-  ],
-  "penalties": [
-   
-  ],
+  "judge": null,
+  "players": [],
+  "games": [],
+  "penalties": [],
   "replacements": [],
   "isFinished": false,
   "promotions": 3,
