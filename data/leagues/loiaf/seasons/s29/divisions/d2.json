@@ -1,0 +1,49 @@
+{
+  "name": "Division 2",
+  "judge": "SerOberynMartell",
+  "players": [
+    "JohnnyCee",
+    "PMeisterGeneral",
+    "diogobensabat",
+    "Alucasrd",
+    "Ramoin",
+    "Djavozo",
+    "Ser Joseph",
+    "GeneralVer",
+    "Doru11",
+    "got_pocak"
+  ],
+  "games": [
+    311036,
+    310962,
+    310961,
+    310960,
+    310891,
+    310890,
+    310889,
+    310888,
+    310887,
+    310886
+  ],
+  "penalties": [
+    {
+      "player": "Ser Joseph",
+      "points": 6.5,
+      "details": "Speed"
+    },
+    {
+      "player": "GeneralVer",
+      "points": 0.5,
+      "details": "Speed"
+    },
+    {
+      "player": "got_pocak",
+      "points": 1,
+      "details": "Speed"
+    }
+  ],
+  "replacements": [],
+  "isFinished": false,
+  "promotions": 3,
+  "relegations": 3
+}
