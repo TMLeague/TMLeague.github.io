@@ -1,0 +1,48 @@
+{
+  "name": "Division 3",
+  "judge": "SerOberynMartell",
+  "players": [
+    "scorpi0",
+    "Birch",
+    "Lily",
+    "Canutops",
+    "Mofi",
+    "Cambeia",
+    "Arlen"
+  ],
+  "games": [
+    311326,
+    311311,
+    311310,
+    311309,
+    311308,
+    311053,
+    311051
+  ],
+  "penalties": [
+    {
+      "player": "scorpi0",
+      "points": 1,
+      "details": "Speed"
+    },
+    {
+      "player": "Lily",
+      "points": 1,
+      "details": "Speed"
+    },
+    {
+      "player": "Cambeia",
+      "points": 1,
+      "details": "Speed"
+    },
+    {
+      "player": "Arlen",
+      "points": 17,
+      "details": "Speed"
+    }
+  ],
+  "replacements": [],
+  "isFinished": false,
+  "promotions": 3,
+  "relegations": 4
+}
