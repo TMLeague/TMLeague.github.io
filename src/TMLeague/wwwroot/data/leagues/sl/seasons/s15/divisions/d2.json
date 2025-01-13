@@ -24,5 +24,47 @@
     311151,
     311214,
     311145
-  ]
+  ],
+  "penalties": [
+    {
+      "player": "khoiragna",
+      "game": 311174,
+      "points": 1,
+      "details": "3 day no play oct 27"
+    },
+    {
+      "player": "khoiragna",
+      "game": 311151,
+      "points": 2,
+      "details": "4 day no play nov 13"
+    },
+    {
+      "player": "khoiragna",
+      "game": 311151,
+      "points": 2,
+      "details": "4 day no play nov 19"
+    },
+    {
+      "player": "ThyLear",
+      "game": 311180,
+      "points": 2,
+      "details": "4 day no play dec 20"
+    },
+    {
+      "player": "LoPHH",
+      "game": 311143,
+      "points": 1,
+      "details": "3 day no play nov 8"
+    },
+    {
+      "player": "Kamil_J",
+      "game": 311144,
+      "points": 7,
+      "details": "blatant KM /no def of HG"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "promotions": 3,
+  "relegations": 3
 }
