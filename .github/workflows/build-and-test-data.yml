@@ -21,7 +21,7 @@ jobs:
       run: dotnet test tests/TMLeague.Tests -c Release --logger trx --results-directory "TestResults-8.x"
 
     - name: Upload dotnet test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dotnet-results-8.x
         path: TestResults-8.x
