@@ -24,5 +24,23 @@
     314197,
     314186,
     314235
-  ]
+  ],
+  "penalties": [
+    {
+      "player": "Guiscard",
+      "game": 314232,
+      "points": 5,
+      "details": "KM"
+    },
+    {
+      "player": "ThyLear",
+      "game": 314241,
+      "points": 1,
+      "details": "Game aborted"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "promotions": 3,
+  "relegations": 3
 }
