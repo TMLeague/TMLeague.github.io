@@ -24,5 +24,23 @@
     314191,
     314205,
     314219
-  ]
+  ],
+  "penalties": [
+    {
+      "player": "Karijin",
+      "game": 314208,
+      "points": 3,
+      "details": "No stalling"
+    },
+    {
+      "player": "Karijin",
+      "game": 314208,
+      "points": 4,
+      "details": "KM"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "winnerTitle": "The Honorable",
+  "relegations": 3
 }
