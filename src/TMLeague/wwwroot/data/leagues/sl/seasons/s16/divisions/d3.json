@@ -13,7 +13,7 @@
     "Jakubesh",
     "LordAlex",
     "DothraikiCentaur",
-    "lookkattme",
+    "viblz",
     "YwoR",
     "Cambeia"
   ],
@@ -32,5 +32,34 @@
     314243,
     314249,
     314260
-  ]
+  ],
+  "penalties": [
+    {
+      "player": "Jakubesh",
+      "game": 314234,
+      "points": 7,
+      "details": "KM"
+    },
+    {
+      "player": "viblz",
+      "game": 314238,
+      "points": 4,
+      "details": "spoiling"
+    }
+  ],
+  "replacements": [
+    {
+      "from": "Cambeia",
+      "to": "Imrihil",
+      "game": 314282
+    },
+    {
+      "from": "Ser Joseph",
+      "to": "Karijin",
+      "game": 314282
+    }
+  ],
+  "isFinished": true,
+  "promotions": 3,
+  "relegations": 3
 }
