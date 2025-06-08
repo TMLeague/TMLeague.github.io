@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "TMLeague",
   "resources": {
-    "hash": "sha256-gEQ3oVvX2cpo77zFcCDvwDVARUV5/KQHAwPThxIkwrs=",
+    "hash": "sha256-uFhnp1x61vZ7IzhwSYbP1pPsCYrXpcdWwQ/8vxf/Poc=",
     "jsModuleNative": {
       "dotnet.native.8.0.16.khcj4p6y0x.js": "sha256-RiGT44TFZmHOY+Oqvb8o8r+BJVWex6+dPxFxrOiWvFY="
     },
@@ -65,10 +65,10 @@
       "System.Threading.wasm": "sha256-9lLgSAz4gdtSoojId9qBSjkzwMU7+fcDN5JM1fI+YPI=",
       "System.wasm": "sha256-L1A7VAxpVgS1siDqv1PyGQMfPxf4O2Q7qnLtP1A47jo=",
       "System.Web.HttpUtility.wasm": "sha256-FkbdNb4+UWl8EAWkIfz6fWxeqEp9R1JOXU9sN0WgoZI=",
-      "TMApplication.wasm": "sha256-mr22dE/1/oqf/fVQi3rkbHzK/ueeudFvdF8vcYFsG2A=",
-      "TMInfrastructure.wasm": "sha256-DvL4EtlbHCBhuwi6IBQpifMBO0nelMbZwxTt5j64OJ8=",
-      "TMLeague.wasm": "sha256-J8eHDXCJ91ufMIwLW6Id+AjNkBORwhCJQeLjhrjpY24=",
-      "TMModels.wasm": "sha256-bhtmcS5wvK0akxJpqmzD0TDXYXwFOOS7bEgEdIQ1Vk0="
+      "TMApplication.wasm": "sha256-IAVBpsfxfAHNIEtlGs3PpHzOF7nqbUoZ8fSA+QYse7I=",
+      "TMInfrastructure.wasm": "sha256-8MJOxMZ1O1u9AhhbU/OVbKygcHikifAIEBClKzOP5d8=",
+      "TMLeague.wasm": "sha256-WT7x+4bsdYDCgLSd9EoK1SB1TL0GK2+NdBbXIVxsA6A=",
+      "TMModels.wasm": "sha256-au8dkZS8lSKSOTSMtRybulEKLtli6uf//G9IxyGM2ig="
     }
   },
   "cacheBootResources": true,
