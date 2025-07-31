@@ -21,8 +21,40 @@
     316822,
     316778
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "LordAlex",
+      "game": 316822,
+      "points": 3,
+      "details": "early last attack"
+    },
+    {
+      "player": "Jakubesh",
+      "game": 316769,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "Jakubesh",
+      "game": 316778,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "DothraikiCentaur",
+      "game": 316848,
+      "points": 1,
+      "details": "Game aborted"
+    },
+    {
+      "player": "LordAlex",
+      "game": 316824,
+      "points": 2,
+      "details": "Low speed"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 3
 }
