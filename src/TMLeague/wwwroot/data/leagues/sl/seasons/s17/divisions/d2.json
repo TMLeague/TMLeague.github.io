@@ -25,8 +25,69 @@
     316781,
     316792
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Kamil_J",
+      "game": 316781,
+      "points": 1,
+      "details": "letting the game be aborted"
+    },
+    {
+      "player": "Karijin",
+      "game": 316787,
+      "details": "314mpm in deadline day"
+    },
+    {
+      "player": "Karijin",
+      "game": 316792,
+      "points": 1,
+      "details": "391mpm in deadline day"
+    },
+    {
+      "player": "mafiagustawa",
+      "game": 316780,
+      "points": 3,
+      "details": "455mpm in deadline day"
+    },
+    {
+      "player": "mafiagustawa",
+      "game": 316811,
+      "points": 2,
+      "details": "427mpm in deadline day"
+    },
+    {
+      "player": "mafiagustawa",
+      "game": 316787,
+      "points": 1,
+      "details": "367mpm in deadline day"
+    },
+    {
+      "player": "mafiagustawa",
+      "game": 316792,
+      "points": 1,
+      "details": "372mpm in deadline day"
+    },
+    {
+      "player": "Mandy Storm",
+      "game": 316799,
+      "points": 6,
+      "details": "8 days of inactivity from 3.07"
+    },
+    {
+      "player": "Pava",
+      "game": 316780,
+      "points": 1,
+      "details": "352mpm in deadline day"
+    },
+    {
+      "player": "Stefano",
+      "game": 316781,
+      "points": 1,
+      "details": "an unauthorized chat usage"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 3
 }
