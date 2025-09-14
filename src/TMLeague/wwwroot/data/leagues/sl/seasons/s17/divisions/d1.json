@@ -25,7 +25,22 @@
     316784,
     316814
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "fsilverwood",
+      "game": 316812,
+      "points": 3,
+      "details": "letting a game be aborted"
+    },
+    {
+      "player": "ThyLear",
+      "game": 316812,
+      "points": 4,
+      "details": "light spoiling"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
+  "winnerTitle": "The Unkindly Man",
   "relegations": 3
 }
