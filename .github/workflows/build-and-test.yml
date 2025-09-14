@@ -29,17 +29,17 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.x
+        dotnet-version: 9.x
       if: steps.changed-files-yaml.outputs.test_any_changed == 'true'
 
     - name: Test
-      run: dotnet test -c Release --logger trx --results-directory "TestResults-8.x"
+      run: dotnet test -c Release --logger trx --results-directory "TestResults-9.x"
       if: steps.changed-files-yaml.outputs.test_any_changed == 'true'
 
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v4
       with:
-        name: dotnet-results-8.x
-        path: TestResults-8.x
+        name: dotnet-results-9.x
+        path: TestResults-9.x
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ failure() }}

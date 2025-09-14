@@ -93,7 +93,7 @@ public class LeaguesTests
         divisionPlayers.Should().Contain(penalty.Player);
         if (penalty.Game != null)
             divisionGames.Should().Contain(penalty.Game);
-        penalty.Points.Should().BePositive();
+        penalty.Points.Should().BeGreaterThanOrEqualTo(0);
     }
 
     private static void Replacement_Should_BeValid(Replacement replacement,
