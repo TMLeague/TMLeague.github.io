@@ -20,6 +20,7 @@ Console.CancelKeyPress += (s, e) =>
 };
 
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+environmentName = "Development";
 
 var host = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(app =>
