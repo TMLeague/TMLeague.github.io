@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "TMLeague",
   "resources": {
-    "hash": "sha256-AQ9rLEcNHRnd+wq5QYRt/iPKEZkqV3dkO1/SLuPJgRQ=",
+    "hash": "sha256-0ytN0xNJsmPm/l9F9nhGkZlzEtI5ezmoAmWN1Q8ALzU=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Components.Forms.10rq3ezq5u.wasm": "Microsoft.AspNetCore.Components.Forms.wasm",
       "Microsoft.AspNetCore.Components.lqv8tpptsm.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -53,10 +53,10 @@
       "System.Threading.rgbovjkle8.wasm": "System.Threading.wasm",
       "System.8rv0tdtrxz.wasm": "System.wasm",
       "System.Web.HttpUtility.3p49khwfhk.wasm": "System.Web.HttpUtility.wasm",
-      "TMApplication.oksp7ysdfo.wasm": "TMApplication.wasm",
-      "TMInfrastructure.2g47paagev.wasm": "TMInfrastructure.wasm",
-      "TMLeague.z5nqpxbw73.wasm": "TMLeague.wasm",
-      "TMModels.dx7c3cy7hk.wasm": "TMModels.wasm",
+      "TMApplication.f6ztclfra9.wasm": "TMApplication.wasm",
+      "TMInfrastructure.nrjdhh1joq.wasm": "TMInfrastructure.wasm",
+      "TMLeague.nylqo0bodo.wasm": "TMLeague.wasm",
+      "TMModels.dmu5mrynp2.wasm": "TMModels.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.l4ptthxatg.js": "dotnet.native.js",
       "dotnet.native.d2w7colv7e.wasm": "dotnet.native.wasm",
@@ -132,10 +132,10 @@
       "System.Threading.rgbovjkle8.wasm": "sha256-9YSzHeYgeXCXLqsl2Wg56uhESf7PvkH7hiWAlDJ7sSM=",
       "System.8rv0tdtrxz.wasm": "sha256-xMF0eauQ5DkSzUozHLFFMQnL6DSJO09nJLtgag+Dzbw=",
       "System.Web.HttpUtility.3p49khwfhk.wasm": "sha256-B7j0KapZ2pM6bCYXSQagVSe5x1Syn0M09NLE9WKikI0=",
-      "TMApplication.oksp7ysdfo.wasm": "sha256-GHRiph4M/pHXUCSVFlei9y7aQ9jRbLIEtCZJUsvE7g8=",
-      "TMInfrastructure.2g47paagev.wasm": "sha256-QtO0LKkDqukeOsIr2gGVwED4PNIo8pSQRinsBlJdcmE=",
-      "TMLeague.z5nqpxbw73.wasm": "sha256-OXvcAsSJ+EbIfKvbUzHlVygS1PjQ7JrtGtILLokMoZM=",
-      "TMModels.dx7c3cy7hk.wasm": "sha256-39mVhi7PjOjsZWKMvoqnmKrr1q6emIBLK5baXPQnsok="
+      "TMApplication.f6ztclfra9.wasm": "sha256-Vwd5kncywdBNYyuJSLNCsowUPdu5VknOo1oT159iBa4=",
+      "TMInfrastructure.nrjdhh1joq.wasm": "sha256-UwqgetDNg3xUQSDshecGGv2xKhbK+q0JvLwX8Qn3Oug=",
+      "TMLeague.nylqo0bodo.wasm": "sha256-r7lS3umxbYk+xcm6Ih2RyHujF0sXjriJIdiotb3uQsA=",
+      "TMModels.dmu5mrynp2.wasm": "sha256-RSyA3yUfXcJJijhvCz8Gp2uf/rv8w9cvs7EzhGXVc0o="
     }
   },
   "cacheBootResources": true,
