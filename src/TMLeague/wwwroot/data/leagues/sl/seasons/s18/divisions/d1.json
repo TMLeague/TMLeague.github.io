@@ -25,5 +25,40 @@
     319427,
     319412
   ],
+  "penalties": [
+    {
+      "player": "Shade89",
+      "game": 319431,
+      "points": 1,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 319431,
+      "points": 2,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 319461,
+      "points": 4,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "DawidW",
+      "game": 319461,
+      "points": 1,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "LoPHH",
+      "game": 319461,
+      "points": 3,
+      "details": "Speed penalty"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "winnerTitle": "Seyn-tzu",
   "relegations": 3
 }
