@@ -19,6 +19,75 @@
     319436,
     319476
   ],
+  "penalties": [
+    {
+      "player": "m.ankeycrazy",
+      "game": 319436,
+      "points": 4,
+      "details": "Minor KM"
+    },
+    {
+      "player": "m.ankeycrazy",
+      "game": 319430,
+      "points": 4,
+      "details": "Minor KM"
+    },
+    {
+      "player": "m.ankeycrazy",
+      "game": 319402,
+      "points": 7,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "m.ankeycrazy",
+      "game": 319418,
+      "points": 14,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "m.ankeycrazy",
+      "game": 319420,
+      "points": 7,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "LordAlex",
+      "game": 319420,
+      "points": 2,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "fantazm",
+      "game": 319456,
+      "points": 3,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "LordAlex",
+      "game": 319456,
+      "points": 2,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "m.ankeycrazy",
+      "game": 319456,
+      "points": 4,
+      "details": "Speed penalty"
+    }
+  ],
+  "replacements": [
+    {
+      "from": "m.ankeycrazy",
+      "to": "The exile knight",
+      "game": 319420
+    },
+    {
+      "from": "m.ankeycrazy",
+      "to": "The exile knight",
+      "game": 319456
+    }
+  ],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 3
 }
