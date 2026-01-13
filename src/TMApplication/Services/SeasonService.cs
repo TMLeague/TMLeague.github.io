@@ -95,9 +95,9 @@ public class SeasonService
                 continue;
 
             var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
-            var players = results == null ?
-                division.Players.Select(name => new SeasonPlayerViewModel(name, 0, false, false)).ToList() :
-                results.Players.Select(playerResult => new SeasonPlayerViewModel(
+            var players = results == null
+                ? division.Players.Select(name => new SeasonPlayerViewModel(name, 0, false, false)).ToList()
+                : results.Players.Select(playerResult => new SeasonPlayerViewModel(
                     playerResult.Player, playerResult.TotalPoints, playerResult.IsPromoted, playerResult.IsRelegated)).ToList();
 
             var divisionVm = new SeasonDivisionViewModel(divisionId, division.Name, players);

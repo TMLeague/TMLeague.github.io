@@ -40,9 +40,9 @@ public record LeagueDivisionSummaryViewModel(
     string? Judge)
 {
     public DateTimeOffset? GeneratedTime =>
-        Games.Count == 0 ?
-            DateTimeOffset.UtcNow :
-            Games.Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
+        Games.Count == 0
+            ? DateTimeOffset.UtcNow
+            : Games.Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
 }
 
 public record LeagueGameSummaryViewModel(

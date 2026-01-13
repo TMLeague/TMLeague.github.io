@@ -100,7 +100,7 @@ public class PlayerStatsService
         playerHouse != House.Unknown && otherHouse != House.Unknown && otherHouse != playerHouse;
 
     private static double ProximityScore(House playerHouse, House otherHouse, int housesCount) =>
-        ProximityScores.TryGetValue(housesCount, out var proximityScores) ?
-            proximityScores[(int)playerHouse][(int)otherHouse] :
-            playerHouse.IsNeighbor(otherHouse, housesCount) ? 1 : 0;
+        ProximityScores.TryGetValue(housesCount, out var proximityScores)
+            ? proximityScores[(int)playerHouse][(int)otherHouse]
+            : playerHouse.IsNeighbor(otherHouse, housesCount) ? 1 : 0;
 }
