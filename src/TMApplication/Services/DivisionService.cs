@@ -91,9 +91,9 @@ public class DivisionService
             else
             {
                 var game = await _dataProvider.GetGame(gameId.Value, cancellationToken);
-                yield return game == null ?
-                    null :
-                    new DivisionGameViewModel(game.Id, game.Name, game.Turn, game.Progress, game.IsFinished, game.IsStalling, game.IsCreatedManually, game.LastActionTime);
+                yield return game == null
+                    ? null
+                    : new DivisionGameViewModel(game.Id, game.Name, game.Turn, game.Progress, game.IsFinished, game.IsStalling, game.IsCreatedManually, game.LastActionTime);
             }
         }
     }
@@ -108,9 +108,9 @@ public class DivisionService
 
         foreach (var (gameId, gameIdx) in division.Games.Select((g, i) => (g, i)))
         {
-            var game = gameId == null ?
-                null :
-                await _dataProvider.GetGame(gameId.Value, cancellationToken);
+            var game = gameId == null
+                ? null
+                : await _dataProvider.GetGame(gameId.Value, cancellationToken);
             if (game == null)
                 continue;
 
