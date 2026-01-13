@@ -67,7 +67,7 @@ public class DivisionService
 
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
 
-        var messages = await GetMessages(leagueId, seasonId, divisionId, division, cancellationToken);
+        var messages = await GetMessages(leagueId, division, cancellationToken);
 
         var games = await GetDivisionGames(division, cancellationToken).ToArrayAsync(cancellationToken);
         return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge ?? string.Empty, results?.IsFinished ?? false, division.WinnerTitle,
@@ -98,8 +98,7 @@ public class DivisionService
         }
     }
 
-    private async Task<NotificationMessage[]> GetMessages(string leagueId, string seasonId, string divisionId,
-        Division division, CancellationToken cancellationToken = default)
+    private async Task<NotificationMessage[]> GetMessages(string leagueId, Division division, CancellationToken cancellationToken = default)
     {
         if (division.IsFinished)
             return Array.Empty<NotificationMessage>();
