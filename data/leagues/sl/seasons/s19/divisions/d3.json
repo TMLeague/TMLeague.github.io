@@ -25,6 +25,27 @@
     321574,
     321606
   ],
+  "penalties": [
+    {
+      "player": "BarteqZw",
+      "game": 321624,
+      "points": 7,
+      "details": "KM"
+    },
+    {
+      "player": "sicre",
+      "game": 321558,
+      "points": 4,
+      "details": "spoiling"
+    },
+    {
+      "player": "carcan",
+      "game": 321606,
+      "points": 4,
+      "details": "spoiling"
+    }
+  ],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 4
 }
