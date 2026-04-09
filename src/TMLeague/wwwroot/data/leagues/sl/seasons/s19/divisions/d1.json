@@ -27,7 +27,28 @@
     321562,
     321533
   ],
-  "penalties": [],
+  "penalties": [
+    {
+      "player": "Pava",
+      "game": 321543,
+      "points": 4,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "Pava",
+      "game": 321533,
+      "points": 7,
+      "details": "Speed \u002B 4 days no move"
+    },
+    {
+      "player": "DawidW",
+      "game": 321533,
+      "points": 3,
+      "details": "Speed penalty"
+    }
+  ],
   "replacements": [],
+  "isFinished": true,
+  "winnerTitle": "Holder of the Iron Throne",
   "relegations": 4
 }
