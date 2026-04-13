@@ -25,6 +25,16 @@
     321609,
     321565
   ],
+  "penalties": [
+    {
+      "player": "killdoser",
+      "game": 321591,
+      "points": 7,
+      "details": "KM"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
   "promotions": 2,
   "relegations": 0
 }
