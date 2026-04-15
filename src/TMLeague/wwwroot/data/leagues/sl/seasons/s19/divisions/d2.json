@@ -23,6 +23,88 @@
     321596,
     321589
   ],
+  "penalties": [
+    {
+      "player": "Karijin",
+      "game": 321575,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 321575,
+      "points": 3,
+      "details": "speed"
+    },
+    {
+      "player": "fantazm",
+      "game": 321575,
+      "points": 10,
+      "details": "speed"
+    },
+    {
+      "player": "fantazm",
+      "game": 321610,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "fantazm",
+      "game": 321596,
+      "points": 8,
+      "details": "speed"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 321596,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "Karijin",
+      "game": 321596,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Karijin",
+      "game": 321589,
+      "points": 3,
+      "details": "speed"
+    },
+    {
+      "player": "PHOENIXgg",
+      "game": 321589,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Imrihil",
+      "game": 321589,
+      "points": 2,
+      "details": "speed"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 321589,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "fantazm",
+      "game": 321589,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "fantazm",
+      "game": 321575,
+      "points": 2,
+      "details": "twice 3 days absent"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 3
 }
