@@ -14,17 +14,27 @@
     "got_pocak"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    321587,
+    321591,
+    321578,
+    321560,
+    321582,
+    321623,
+    321584,
+    321581,
+    321609,
+    321565
   ],
+  "penalties": [
+    {
+      "player": "killdoser",
+      "game": 321591,
+      "points": 7,
+      "details": "KM"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
   "promotions": 2,
   "relegations": 0
 }

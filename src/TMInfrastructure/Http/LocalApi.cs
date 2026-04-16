@@ -62,8 +62,6 @@ public class LocalApi : IDataProvider
 
     public async Task<Game?> GetGame(int gameId, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(gameId);
-
         return await Get<Game>($"Game \"{gameId}\"",
             $"/data/games/{gameId}.json", cancellationToken);
     }
@@ -78,12 +76,8 @@ public class LocalApi : IDataProvider
             $"/data/results/{leagueId}/{seasonId}/{divisionId}.json", cancellationToken);
     }
 
-    public async Task<Draft[]> GetDrafts(int players, CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(players);
-
-        return await Get<Draft[]>($"Drafts for {players}p", $"/data/drafts/p{players}.json", cancellationToken) ?? Array.Empty<Draft>();
-    }
+    public async Task<Draft[]> GetDrafts(int players, CancellationToken cancellationToken) =>
+        await Get<Draft[]>($"Drafts for {players}p", $"/data/drafts/p{players}.json", cancellationToken) ?? Array.Empty<Draft>();
 
     public async Task<Summary?> GetSummary(string leagueId, CancellationToken cancellationToken)
     {
@@ -122,11 +116,7 @@ public class LocalApi : IDataProvider
     private async Task<T?> Get<T>(string logName, string requestUri, CancellationToken cancellationToken) where T : class
     {
         if (_cache.TryGetValue(requestUri, out var cacheResult))
-        {
-            if (cacheResult is T result)
-                return result;
-            return null;
-        }
+            return cacheResult is T result ? result : null;
 
         try
         {

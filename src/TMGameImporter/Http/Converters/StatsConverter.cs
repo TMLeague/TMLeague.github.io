@@ -209,10 +209,9 @@ internal static class StatsConverter
         public FightingHouse? Attacker { get; set; } = Attacker;
         public FightingHouse? Defender { get; set; } = Defender;
         public FightingHouse? Winner { get; set; }
-        public FightingHouse? Looser => Winner == null ?
-            null :
-            Winner == Attacker ?
-                Defender : Attacker;
+        public FightingHouse? Looser => Winner == null
+            ? null
+            : Winner == Attacker ? Defender : Attacker;
 
         public Dictionary<House, int> AttackerSupporters { get; } = new();
         public Dictionary<House, int> DefenderSupporters { get; } = new();
@@ -265,11 +264,11 @@ internal static class StatsConverter
         public void AddSupport(LogItem logItem)
         {
             var supportMatch = Regex.Match(logItem.Message, @"(\w+) supports (\w+) with a fighting strength of (\d+)\.");
-            if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support)) 
+            if (!supportMatch.Success || !int.TryParse(supportMatch.Groups[3].Value, out var support))
                 return;
 
             var supportedHouse = Houses.Parse(supportMatch.Groups[2].Value);
-            if (Attacker?.House == supportedHouse) 
+            if (Attacker?.House == supportedHouse)
                 AttackerSupporters[logItem.House] = support;
             else if (Defender?.House == supportedHouse)
                 DefenderSupporters[logItem.House] = support;

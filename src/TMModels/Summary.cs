@@ -122,9 +122,9 @@ public record SummaryPlayerScoreDetails(
         Math.Max(score1.Cla, score2.Cla),
         Math.Max(score1.Supplies, score2.Supplies),
         Math.Max(score1.PowerTokens, score2.PowerTokens),
-        score1.MinutesPerMove != null && score2.MinutesPerMove != null ?
-            Math.Min(score1.MinutesPerMove.Value, score2.MinutesPerMove.Value) :
-            score1.MinutesPerMove ?? score2.MinutesPerMove,
+        score1.MinutesPerMove != null && score2.MinutesPerMove != null
+            ? Math.Min(score1.MinutesPerMove.Value, score2.MinutesPerMove.Value)
+            : score1.MinutesPerMove ?? score2.MinutesPerMove,
         Math.Max(score1.Moves, score2.Moves),
         score1.Houses
             .Concat(score2.Houses)
@@ -134,12 +134,12 @@ public record SummaryPlayerScoreDetails(
                 HousePoints.Max))
             .ToArray(),
         Math.Max(score1.PenaltiesPoints, score2.PenaltiesPoints),
-        score1.Position != null && score2.Position != null ?
-            Math.Min(score1.Position.Value, score2.Position.Value) :
-            score1.Position ?? score2.Position,
-        score1.Stats != null && score2.Stats != null ?
-            Stats.Max(score1.Stats, score2.Stats) :
-            score1.Stats ?? score2.Stats);
+        score1.Position != null && score2.Position != null
+            ? Math.Min(score1.Position.Value, score2.Position.Value)
+            : score1.Position ?? score2.Position,
+        score1.Stats != null && score2.Stats != null
+            ? Stats.Max(score1.Stats, score2.Stats)
+            : score1.Stats ?? score2.Stats);
 
     public static SummaryPlayerScoreDetails operator +(SummaryPlayerScoreDetails score1, SummaryPlayerScoreDetails score2) => new(
         score1.TotalPoints + score2.TotalPoints,
@@ -147,9 +147,9 @@ public record SummaryPlayerScoreDetails(
         score1.Cla + score2.Cla,
         score1.Supplies + score2.Supplies,
         score1.PowerTokens + score2.PowerTokens,
-        score1.MinutesPerMove != null && score2.MinutesPerMove != null ?
-            (score1.MinutesPerMove * score1.Moves + score2.MinutesPerMove * score2.Moves) / (score1.Moves + score2.Moves) :
-            score1.MinutesPerMove ?? score2.MinutesPerMove,
+        score1.MinutesPerMove != null && score2.MinutesPerMove != null
+            ? (score1.MinutesPerMove * score1.Moves + score2.MinutesPerMove * score2.Moves) / (score1.Moves + score2.Moves)
+            : score1.MinutesPerMove ?? score2.MinutesPerMove,
         score1.Moves + score2.Moves,
         score1.Houses
             .Concat(score2.Houses)
@@ -159,12 +159,12 @@ public record SummaryPlayerScoreDetails(
                 (houseScore1, houseScore2) => houseScore1 + houseScore2))
             .ToArray(),
         score1.PenaltiesPoints + score2.PenaltiesPoints,
-        score1.Position != null && score2.Position != null ?
-            score1.Position + score2.Position :
-            score1.Position ?? score2.Position,
-        score1.Stats != null && score2.Stats != null ?
-            score1.Stats + score2.Stats :
-            score1.Stats ?? score2.Stats);
+        score1.Position != null && score2.Position != null
+            ? score1.Position + score2.Position
+            : score1.Position ?? score2.Position,
+        score1.Stats != null && score2.Stats != null
+            ? score1.Stats + score2.Stats
+            : score1.Stats ?? score2.Stats);
 }
 
 public record HousePoints(
@@ -224,9 +224,9 @@ public record SummaryHouseScoreDetails(
         Math.Max(score1.Supplies, score2.Supplies),
         Math.Max(score1.PowerTokens, score2.PowerTokens),
         Math.Max(score1.Moves, score2.Moves),
-        score1.Stats != null && score2.Stats != null ?
-            Stats.Max(score1.Stats, score2.Stats) :
-            score1.Stats ?? score2.Stats);
+        score1.Stats != null && score2.Stats != null
+            ? Stats.Max(score1.Stats, score2.Stats)
+            : score1.Stats ?? score2.Stats);
 
     public static SummaryHouseScoreDetails operator +(SummaryHouseScoreDetails score1, SummaryHouseScoreDetails score2) => new(
         score1.Points + score2.Points,
@@ -235,9 +235,9 @@ public record SummaryHouseScoreDetails(
         score1.Supplies + score2.Supplies,
         score1.PowerTokens + score2.PowerTokens,
         score1.Moves + score2.Moves,
-        score1.Stats != null && score2.Stats != null ?
-            score1.Stats + score2.Stats :
-            score1.Stats ?? score2.Stats);
+        score1.Stats != null && score2.Stats != null
+            ? score1.Stats + score2.Stats
+            : score1.Stats ?? score2.Stats);
 }
 
 public record Score(double Points, double Wins, double Penalties, double Cla, double Supplies, double PowerTokens, double? MinutesPerMove)

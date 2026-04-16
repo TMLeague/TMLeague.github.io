@@ -10,20 +10,20 @@ jobs:
   build-and-test-data:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 9.x
+        dotnet-version: 10.x
 
     - name: Test
-      run: dotnet test tests/TMLeague.Tests -c Release --logger trx --results-directory "TestResults-9.x"
+      run: dotnet test tests/TMLeague.Tests -c Release --logger trx --results-directory "TestResults-10.x"
 
     - name: Upload dotnet test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
-        name: dotnet-results-9.x
-        path: TestResults-9.x
+        name: dotnet-results-10.x
+        path: TestResults-10.x
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ failure() }}

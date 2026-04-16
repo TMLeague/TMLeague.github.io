@@ -14,17 +14,38 @@
     "Shaun Baun"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    321624,
+    321558,
+    321599,
+    321590,
+    321594,
+    321595,
+    321542,
+    321544,
+    321574,
+    321606
   ],
+  "penalties": [
+    {
+      "player": "BarteqZw",
+      "game": 321624,
+      "points": 7,
+      "details": "KM"
+    },
+    {
+      "player": "sicre",
+      "game": 321558,
+      "points": 4,
+      "details": "spoiling"
+    },
+    {
+      "player": "carcan",
+      "game": 321606,
+      "points": 4,
+      "details": "spoiling"
+    }
+  ],
+  "isFinished": true,
   "promotions": 3,
   "relegations": 4
 }

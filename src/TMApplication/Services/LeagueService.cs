@@ -51,9 +51,9 @@ public class LeagueService
                 results.Add(result);
         }
 
-        var generatedTime = results.Count > 0 ?
-            results.Max(result => result.GeneratedTime) :
-            DateTimeOffset.UtcNow;
+        var generatedTime = results.Count > 0
+            ? results.Max(result => result.GeneratedTime)
+            : DateTimeOffset.UtcNow;
 
         return new LeagueSeasonButtonViewModel(seasonId, season.Name, generatedTime);
     }
@@ -102,9 +102,9 @@ public class LeagueService
         return new DivisionSetupViewModel(
             league.Name,
             league.InitialMessage?.Subject ?? string.Empty,
-            league.InitialMessage?.Body == null ?
-                string.Empty :
-                string.Join(Environment.NewLine, league.InitialMessage.Body),
+            league.InitialMessage?.Body == null
+                ? string.Empty
+                : string.Join(Environment.NewLine, league.InitialMessage.Body),
             nextMainSeason,
             password);
     }
@@ -164,9 +164,9 @@ public class LeagueService
         if (playersLength < 3)
             return null;
 
-        var drafts = divisionForm.RandomOptions.UseRandomDraft ?
-            Array.Empty<Draft>() :
-            await _dataProvider.GetDrafts(playersLength, cancellationToken);
+        var drafts = divisionForm.RandomOptions.UseRandomDraft
+            ? Array.Empty<Draft>()
+            : await _dataProvider.GetDrafts(playersLength, cancellationToken);
 
         var draft = GetDraftInternal(drafts, playersLength, out var isRandom);
         if (draft == null)

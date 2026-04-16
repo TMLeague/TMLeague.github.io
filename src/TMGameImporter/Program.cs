@@ -71,8 +71,8 @@ logger.LogInformation(
 if (options.Value.Games is { Length: > 0 })
 {
     var gameImportingService = scope.ServiceProvider.GetRequiredService<GameImportingService>();
-    foreach (var game in options.Value.Games)
-        await gameImportingService.Import(game, cts.Token);
+    foreach (var gameId in options.Value.Games)
+        await gameImportingService.Import(gameId, cts.Token);
     return;
 }
 

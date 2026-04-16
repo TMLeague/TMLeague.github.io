@@ -15,18 +15,40 @@
     "Kamil_J"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    321539,
+    321600,
+    321536,
+    321571,
+    321537,
+    321540,
+    321627,
+    321543,
+    321534,
+    321562,
+    321533
   ],
+  "penalties": [
+    {
+      "player": "Pava",
+      "game": 321543,
+      "points": 4,
+      "details": "Speed penalty"
+    },
+    {
+      "player": "Pava",
+      "game": 321533,
+      "points": 7,
+      "details": "Speed \u002B 4 days no move"
+    },
+    {
+      "player": "DawidW",
+      "game": 321533,
+      "points": 3,
+      "details": "Speed penalty"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "winnerTitle": "Holder of the Iron Throne",
   "relegations": 4
 }

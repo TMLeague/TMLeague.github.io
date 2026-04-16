@@ -21,36 +21,28 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
 
     public async Task<StateRaw?> GetGameData(int gameId, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(gameId);
-
         var dataString = await Get($"TM state \"{gameId}\"",
             $"ajax.php?game={gameId}&get=GAMEDATA",
             cancellationToken);
 
-        if (dataString == null)
-            return null;
-
-        return JsonSerializer.Deserialize<StateRaw>(dataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        return dataString == null
+            ? null
+            : JsonSerializer.Deserialize<StateRaw>(dataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
     public async Task<StateRaw?> GetChat(int gameId, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(gameId);
-
         var dataString = await Get($"TM chat \"{gameId}\"",
             $"ajax.php?game={gameId}&get=CHAT",
             cancellationToken);
 
-        if (dataString == null)
-            return null;
-
-        return JsonSerializer.Deserialize<StateRaw>(dataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        return dataString == null
+            ? null
+            : JsonSerializer.Deserialize<StateRaw>(dataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
     public async Task<string?> GetLog(int gameId, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(gameId);
-
         return await Get($"TM log \"{gameId}\"",
             $"?game={gameId}&show=log",
             cancellationToken);
@@ -96,11 +88,7 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
     private async Task<string?> Get(string logName, string requestUri, CancellationToken cancellationToken)
     {
         if (_cache.TryGetValue(requestUri, out var cacheResult))
-        {
-            if (cacheResult is string result)
-                return result;
-            return null;
-        }
+            return cacheResult is string result ? result : null;
 
         try
         {

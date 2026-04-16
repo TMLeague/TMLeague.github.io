@@ -67,7 +67,7 @@ public class DivisionService
 
         var results = await _dataProvider.GetResults(leagueId, seasonId, divisionId, cancellationToken);
 
-        var messages = await GetMessages(leagueId, seasonId, divisionId, division, cancellationToken);
+        var messages = await GetMessages(leagueId, division, cancellationToken);
 
         var games = await GetDivisionGames(division, cancellationToken).ToArrayAsync(cancellationToken);
         return new DivisionViewModel(league.Name, season.Name, division.Name, league.JudgeTitle ?? "Judge", division.Judge ?? string.Empty, results?.IsFinished ?? false, division.WinnerTitle,
@@ -91,15 +91,14 @@ public class DivisionService
             else
             {
                 var game = await _dataProvider.GetGame(gameId.Value, cancellationToken);
-                yield return game == null ?
-                    null :
-                    new DivisionGameViewModel(game.Id, game.Name, game.Turn, game.Progress, game.IsFinished, game.IsStalling, game.IsCreatedManually, game.LastActionTime);
+                yield return game == null
+                    ? null
+                    : new DivisionGameViewModel(game.Id, game.Name, game.Turn, game.Progress, game.IsFinished, game.IsStalling, game.IsCreatedManually, game.LastActionTime);
             }
         }
     }
 
-    private async Task<NotificationMessage[]> GetMessages(string leagueId, string seasonId, string divisionId,
-        Division division, CancellationToken cancellationToken = default)
+    private async Task<NotificationMessage[]> GetMessages(string leagueId, Division division, CancellationToken cancellationToken = default)
     {
         if (division.IsFinished)
             return Array.Empty<NotificationMessage>();
@@ -108,9 +107,9 @@ public class DivisionService
 
         foreach (var (gameId, gameIdx) in division.Games.Select((g, i) => (g, i)))
         {
-            var game = gameId == null ?
-                null :
-                await _dataProvider.GetGame(gameId.Value, cancellationToken);
+            var game = gameId == null
+                ? null
+                : await _dataProvider.GetGame(gameId.Value, cancellationToken);
             if (game == null)
                 continue;
 
