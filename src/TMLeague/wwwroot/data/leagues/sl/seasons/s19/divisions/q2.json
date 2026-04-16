@@ -25,6 +25,134 @@
     321552,
     321554
   ],
+  "penalties": [
+    {
+      "player": "yclzju",
+      "game": 321551,
+      "points": 1,
+      "details": "not delaying"
+    },
+    {
+      "player": "RakanGari",
+      "game": 321535,
+      "points": 1,
+      "details": "not delaying"
+    },
+    {
+      "player": "RakanGari",
+      "game": 321535,
+      "points": 4,
+      "details": "minor KM"
+    },
+    {
+      "player": "Sage",
+      "game": 321573,
+      "points": 4,
+      "details": "3rd use of chat"
+    },
+    {
+      "player": "Sage",
+      "game": 321550,
+      "points": 2,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 321550,
+      "points": 6,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 321550,
+      "points": 10,
+      "details": "replacement required"
+    },
+    {
+      "player": "Sage",
+      "game": 321550,
+      "points": 2,
+      "details": "2nd use of chat"
+    },
+    {
+      "player": "Miguexis",
+      "game": 321598,
+      "points": 1,
+      "details": "not delaying"
+    },
+    {
+      "player": "yclzju",
+      "game": 321598,
+      "points": 1,
+      "details": "not delaying"
+    },
+    {
+      "player": "Miguexis",
+      "game": 321598,
+      "points": 2,
+      "details": "not delaying"
+    },
+    {
+      "player": "lumen",
+      "game": 321538,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "Sage",
+      "game": 321538,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "spartan109",
+      "game": 321538,
+      "points": 1,
+      "details": "letting game abort"
+    },
+    {
+      "player": "spartan109",
+      "game": 321538,
+      "points": 2,
+      "details": "letting game abort"
+    },
+    {
+      "player": "spartan109",
+      "game": 321538,
+      "points": 10,
+      "details": "replacement required"
+    },
+    {
+      "player": "yclzju",
+      "game": 321553,
+      "points": 1,
+      "details": "speed"
+    },
+    {
+      "player": "House Blaies",
+      "game": 321553,
+      "points": 6,
+      "details": "speed"
+    }
+  ],
+  "replacements": [
+    {
+      "from": "Miguexis",
+      "to": "Psyduck",
+      "game": 321553
+    },
+    {
+      "from": "spartan109",
+      "to": "Psyduck",
+      "game": 321550
+    },
+    {
+      "from": "spartan109",
+      "to": "Psyduck",
+      "game": 321538
+    }
+  ],
+  "isFinished": true,
   "promotions": 2,
   "relegations": 0
 }
