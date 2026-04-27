@@ -470,8 +470,8 @@ else
 
     private string LeagueJudgeRoute => DivisionVm != null && LeagueId != null
         ? RouteProvider.GetLeagueJudgeRoute(LeagueId)
-            + "?season=" + (SeasonId != null && SeasonId.StartsWith("s", StringComparison.InvariantCultureIgnoreCase) ? SeasonId[1..] : SeasonId)
-            + "&division=" + (DivisionId != null && DivisionId.StartsWith("d", StringComparison.InvariantCultureIgnoreCase) ? DivisionId[1..] : DivisionId)
+            + "?season=" + SeasonId?.ToUpper()
+            + "&division=" + DivisionId?.ToUpper()
             + "&judgeName=" + DivisionVm.Judge
             + string.Join("", DivisionVm.Players.Select(model => $"&player={model.Name}"))
         : "";

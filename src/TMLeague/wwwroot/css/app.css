@@ -105,6 +105,37 @@ a,
         outline: none;
     }
 
+.btn-secondary, .btn-secondary:hover, .btn-secondary:focus {
+    color: #ddd;
+    text-shadow: none; /* Prevent inheritance from `body` */
+}
+
+.btn-secondary {
+    background-color: #555;
+    border: solid 2px #555;
+    outline: none;
+}
+
+    .btn-secondary:hover:not([disabled]),
+    .btn-secondary:focus:not([disabled]) {
+        background-color: #4A4A4A;
+        border-top: solid 4px #4A4A4A;
+        border-left: solid 4px #4A4A4A;
+        border-right: solid 0 #4A4A4A;
+        border-bottom: solid 0 #4A4A4A;
+        outline: none;
+    }
+
+    .btn-secondary:active:not([disabled])
+    .btn-secondary.active {
+        background-color: #404040 !important;
+        border-top: solid 3px #404040;
+        border-left: solid 3px #404040;
+        border-right: solid 1px #404040;
+        border-bottom: solid 1px #404040;
+        outline: none;
+    }
+
 .btn-group .btn.active,
 .btn-group .btn.active:hover,
 .btn-group .btn.active:focus {

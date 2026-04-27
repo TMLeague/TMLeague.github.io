@@ -89,7 +89,10 @@ public record PlayerDraft(
     House[] Games,
     string MessageSubject,
     string MessageBody,
-    PlayerDraftStats Stats);
+    PlayerDraftStats Stats)
+{
+    public bool IsSent { get; set; }
+}
 
 public class PlayerDraftStats : List<PlayerDraftStat?>
 {
