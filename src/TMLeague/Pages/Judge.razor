@@ -64,11 +64,15 @@
                 {
                     <tr>
                         <td class="bg-transparent p-0">
-                            <button class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Copy</button>
+                            <button class=@(player.IsSent ? "btn btn-secondary" : "btn btn-primary")
+                                    @onclick="() => CopyTextToClipboard(player.MessageBody)">
+                                Copy
+                            </button>
                         </td>
                         <td class="bg-transparent p-0">
                             <a href="@($"https://www.thronemaster.net/?goto=account&sub=private_messages&type=new&to={player.Name}")" target="blank"
-                               class="btn btn-primary" @onclick="() => CopyTextToClipboard(player.MessageBody)">Send</a>
+                               class=@(player.IsSent ? "btn btn-secondary" : "btn btn-primary")
+                               @onclick="() => Send(player, player.MessageBody)">Send</a>
                         </td>
                         <th scope="row">@player.Name</th>
                         @foreach (var house in player.Games)
@@ -379,17 +383,17 @@ else
 
             LeagueName = divisionSetup.Name;
             DivisionForm = new DivisionForm
-                {
-                    League = LeagueId,
-                    Season = SeasonQuery ?? divisionSetup.NextMainSeason,
-                    Division = DivisionQuery ?? "1",
-                    Contact = ContactQuery ?? "me",
-                    JudgeName = JudgeNameQuery ?? string.Empty,
-                    Password = PasswordQuery ?? divisionSetup?.InitialPassword ?? string.Empty,
-                    Players = GetPlayers(),
-                    MessageSubject = divisionSetup?.InitialMessageSubject ?? string.Empty,
-                    MessageBody = divisionSetup?.InitialMessageBody ?? string.Empty
-                };
+            {
+                League = LeagueId,
+                Season = SeasonQuery ?? $"S{divisionSetup.NextMainSeason}",
+                Division = DivisionQuery ?? "D1",
+                Contact = ContactQuery ?? "me",
+                JudgeName = JudgeNameQuery ?? string.Empty,
+                Password = PasswordQuery ?? divisionSetup?.InitialPassword ?? string.Empty,
+                Players = GetPlayers(),
+                MessageSubject = divisionSetup?.InitialMessageSubject ?? string.Empty,
+                MessageBody = divisionSetup?.InitialMessageBody ?? string.Empty
+            };
         }
     }
 
@@ -414,6 +418,12 @@ else
         }
 
         await JsRuntime.InvokeVoidAsync("scrollToTop");
+    }
+
+    private async Task Send(PlayerDraft player, string data)
+    {
+        await CopyTextToClipboard(data);
+        player.IsSent = true;
     }
 
     private async Task CopyTextToClipboard(string data)

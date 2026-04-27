@@ -12,12 +12,12 @@ public class FormatExtensionsTests
         var divisionForm = new DivisionForm
         {
             League = "sl",
-            Season = "8",
-            Division = "1",
+            Season = "S8",
+            Division = "D1",
             Password = "Cersei",
             Contact = "me",
             JudgeName = "Tester",
-            MessageSubject = "League, S{season}, D{division}",
+            MessageSubject = "League, {season}, {division}",
             MessageBody = @"Greetings!
 
 Here are your houses for the Silent League, Season {season}, Division {division} in the format house -> game (password):
@@ -35,7 +35,7 @@ You create only your Stark game with the following settings:
 * PBEM + Start By Anybody Allowed
 * Choose house
 * Faceless 
-With the title being ‚‚Silent League S{season}/D{division}/G{stark}‘‘ and the password ‚‚{starkPassword}‘‘ (triple check all of this is correct before you create or join a game!).
+With the title being ‚‚Silent League {season}/{division}/G{stark}‘‘ and the password ‚‚{starkPassword}‘‘ (triple check all of this is correct before you create or join a game!).
 
 If there are any problems, please contact {contact} on Discord or Thronemaster and we'll help you with your questions!
 
@@ -72,7 +72,7 @@ Again and to reinforce the previous statement: The faceless and silent aspects o
         var body = divisionForm.MessageBody.FillParameters(divisionForm).FillParameters(playerHouseGames);
         body.Should().Be(@"Greetings!
 
-Here are your houses for the Silent League, Season 8, Division 1 in the format house -> game (password):
+Here are your houses for the Silent League, Season S8, Division D1 in the format house -> game (password):
 
 Stark: 3 (ghi)
 Greyjoy: 9 (mno)
