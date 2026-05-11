@@ -26,14 +26,6 @@ on:
         description: division id
         required: false
         default: ''
-      cf-clearance:
-        description: cf_clearance cookie from DevTools/Application/Cookies/https://www.thronemaster.net
-        required: false
-        default: ''
-      user-agent:
-        description: browser user agent from DevTools/Console: navigator.userAgent
-        required: false
-        default: ''
 
 jobs:
   import:
@@ -45,12 +37,6 @@ jobs:
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.x
-
-    - name: Install Playwright Browsers
-      run: dotnet tool install --global Microsoft.Playwright.CLI
-    
-    - name: Install Playwright Dependencies
-      run: playwright install --with-deps chromium
     
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release
@@ -60,8 +46,19 @@ jobs:
            --League "${{ github.event.inputs.league }}"
            --Season "${{ github.event.inputs.season }}"
            --Division "${{ github.event.inputs.division }}"
-           --CfClearance "${{ github.event.inputs.cf-clearance }}"
-           --UserAgent "${{ github.event.inputs.user-agent }}"
 
-    - name: Commit & Push changes
-      uses: actions-js/push@master
+    - name: Create Pull Request
+      id: create-pr
+      uses: peter-evans/create-pull-request@v4
+      with:
+        commit-message: Games imported automatically
+        title: Games imported automatically
+        branch: feature/games-import
+        delete-branch: true
+
+    - name: Merge Pull Request
+      uses: juliangruber/merge-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        number: ${{ steps.create-pr.outputs.pull-request-number }}
+        method: squash
