@@ -34,13 +34,13 @@ on:
         description: 'browser user agent from DevTools/Console: navigator.userAgent'
         required: false
         default: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36'
-  schedule:
-    - cron: '51 2,5,7,9,11,13,15,17,19,21,23 * * *'
-  push:
-    branches: 
-    - master
-    paths:
-    - src/TMLeague/wwwroot/data/leagues/**
+  # schedule:
+  #   - cron: '51 2,5,7,9,11,13,15,17,19,21,23 * * *'
+  # push:
+  #   branches: 
+  #   - master
+  #   paths:
+  #   - src/TMLeague/wwwroot/data/leagues/**
 
 jobs:
   import-and-deploy:
