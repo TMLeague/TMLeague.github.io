@@ -2,23 +2,13 @@
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
+using TMGameImporter.Http.Cloudflare;
 using TMModels.ThroneMaster;
 
 namespace TMGameImporter.Http;
 
-internal class ThroneMasterApi : IThroneMasterDataProvider
+internal class ThroneMasterApi(IMemoryCache cache, IHttpClient client, ILogger<ThroneMasterApi> logger) : IThroneMasterDataProvider
 {
-    private readonly IMemoryCache _cache;
-    private readonly HttpClient _httpClient;
-    private readonly ILogger<ThroneMasterApi> _logger;
-
-    public ThroneMasterApi(IMemoryCache cache, HttpClient httpClient, ILogger<ThroneMasterApi> logger)
-    {
-        _cache = cache;
-        _httpClient = httpClient;
-        _logger = logger;
-    }
-
     public async Task<StateRaw?> GetGameData(int gameId, CancellationToken cancellationToken)
     {
         var dataString = await Get($"TM state \"{gameId}\"",
@@ -57,59 +47,31 @@ internal class ThroneMasterApi : IThroneMasterDataProvider
             cancellationToken);
     }
 
-    public async Task<Stream?> GetImage(string requestUri, CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(requestUri);
-
-        if (_cache.TryGetValue(requestUri, out _))
-            return null;
-
-        try
-        {
-            var result = await _httpClient.GetStreamAsync(requestUri, cancellationToken);
-            _cache.Set(requestUri, 0);
-
-            return result;
-        }
-        catch (HttpRequestException ex)
-        {
-            if (ex.StatusCode == HttpStatusCode.NotFound)
-                _logger.LogWarning($"Resource not found for path: \"{requestUri}\"");
-            _cache.Set(requestUri, 0);
-            return null;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, $"An error occurred while loading resource from path \"{requestUri}\".");
-            return null;
-        }
-    }
-
     private async Task<string?> Get(string logName, string requestUri, CancellationToken cancellationToken)
     {
-        if (_cache.TryGetValue(requestUri, out var cacheResult))
+        if (cache.TryGetValue(requestUri, out var cacheResult))
             return cacheResult is string result ? result : null;
 
         try
         {
-            var result = await _httpClient.GetStringAsync(requestUri, cancellationToken);
-            _cache.Set(requestUri, result);
+            var result = await client.GetAsync(requestUri, cancellationToken);
+            cache.Set(requestUri, result);
 
             return result;
         }
         catch (HttpRequestException ex)
         {
-            _logger.LogWarning(
+            logger.LogWarning(
                 $"{logName} is not reachable ({ex.StatusCode}) under address: \"{requestUri}\"");
 
             if (ex.StatusCode == HttpStatusCode.NotFound)
-                _cache.Set(requestUri, 0);
+                cache.Set(requestUri, 0);
 
             return null;
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, $"An error occurred while loading {logName}.");
+            logger.LogWarning(ex, $"An error occurred while loading {logName}.");
             return null;
         }
     }
@@ -120,6 +82,4 @@ internal interface IThroneMasterDataProvider
     public Task<StateRaw?> GetGameData(int gameId, CancellationToken cancellationToken);
     public Task<StateRaw?> GetChat(int gameId, CancellationToken cancellationToken);
     public Task<string?> GetLog(int gameId, CancellationToken cancellationToken);
-    public Task<string?> GetPlayer(string playerName, CancellationToken cancellationToken);
-    public Task<Stream?> GetImage(string requestUri, CancellationToken cancellationToken);
 }
