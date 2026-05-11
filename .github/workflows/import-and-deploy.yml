@@ -55,7 +55,7 @@ jobs:
 
     - name: Install Playwright Browsers
       run: dotnet tool install --global Microsoft.Playwright.CLI
-      # Instaluje tylko Chromium i niezbędne biblioteki systemowe Linuxa
+    
     - name: Install Playwright Dependencies
       run: playwright install --with-deps chromium
 
@@ -69,6 +69,9 @@ jobs:
            --Division "${{ github.event.inputs.division }}"
            --CfClearance "${{ github.event.inputs.cf-clearance }}"
            --UserAgent "${{ github.event.inputs.user-agent }}"
+
+    - name: Commit & Push changes
+      uses: actions-js/push@master
 
     # publishes Blazor project to the release-folder
     - name: Publish TMLeague
@@ -87,26 +90,3 @@ jobs:
       with:
         BRANCH: gh-pages
         FOLDER: release/wwwroot
-
-    - name: Create Pull Request
-      id: create-pr
-      uses: peter-evans/create-pull-request@v8
-      with:
-        commit-message: Games imported automatically
-        title: Games imported automatically
-        branch: feature/games-import
-        delete-branch: true
-
-    #- name: Approve Pull Request
-    #  uses: juliangruber/approve-pull-request-action@v2.0.0
-    #  with:
-    #    github-token: ${{ secrets.APPROVER_TOKEN }}
-    #    number: ${{ steps.create-pr.outputs.pull-request-number }}
-    #    repo: juliangruber/approve-pull-request-action # optional
-
-    - name: Merge Pull Request
-      uses: juliangruber/merge-pull-request-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        number: ${{ steps.create-pr.outputs.pull-request-number }}
-        method: squash
