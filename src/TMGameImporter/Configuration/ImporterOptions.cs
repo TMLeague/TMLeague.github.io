@@ -12,4 +12,5 @@ internal class ImporterOptions
     public int[]? Games { get; set; }
     public string CfClearance { get; set; }
     public string UserAgent { get; set; }
+    public bool UsePlaywright { get; set; } = true;
 }

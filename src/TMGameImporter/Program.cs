@@ -8,6 +8,7 @@ using System.Net;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
+using TMGameImporter.Http.Cloudflare;
 using TMGameImporter.Http.Converters;
 using TMGameImporter.Services.Import;
 using TMGameImporter.Services.Summaries;
@@ -50,6 +51,7 @@ var host = Host.CreateDefaultBuilder()
 
                 return client;
             })
+            .AddScoped<IHttpClient, PlaywrightClient>()
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
             //.AddScoped<FixingService>()
@@ -71,7 +73,7 @@ var host = Host.CreateDefaultBuilder()
             .AddScoped<PlayerCalculatingService>())
     .Build();
 
-var scope = host.Services.CreateScope();
+using var scope = host.Services.CreateScope();
 
 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 var options = scope.ServiceProvider.GetRequiredService<IOptions<ImporterOptions>>();
