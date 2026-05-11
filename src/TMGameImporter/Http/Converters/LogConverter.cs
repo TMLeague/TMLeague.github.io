@@ -7,6 +7,7 @@ namespace TMGameImporter.Http.Converters;
 
 internal class LogConverter
 {
+    private const string CreatedNodeInnerTextStart = "Created ";
     private readonly ILogger<LogConverter> _logger;
 
     public LogConverter(ILogger<LogConverter> logger)
@@ -30,9 +31,9 @@ internal class LogConverter
         name = name[(name.IndexOf(":", StringComparison.InvariantCulture) + 3)..^1];
 
         var createdNode = html.DocumentNode.SelectSingleNode("//body").ChildNodes
-            .Last(node => node.NodeType == HtmlNodeType.Element);
+            .Last(node => node.NodeType == HtmlNodeType.Element && node.InnerText.StartsWith(CreatedNodeInnerTextStart));
         var created = DateTime.MinValue;
-        if (createdNode.InnerText.StartsWith("Created "))
+        if (createdNode.InnerText.StartsWith(CreatedNodeInnerTextStart))
         {
             created = DateTime.Parse(createdNode.InnerText[8..28], CultureInfo.InvariantCulture);
             var zone = int.Parse(createdNode.InnerText[32..]);

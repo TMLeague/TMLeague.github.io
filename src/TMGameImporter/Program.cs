@@ -4,12 +4,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
 using TMGameImporter.Http.Converters;
 using TMGameImporter.Services.Import;
 using TMGameImporter.Services.Summaries;
+
+const string BaseUrl = "https://game.thronemaster.net";
 
 var cts = new CancellationTokenSource();
 Console.CancelKeyPress += (s, e) =>
@@ -34,7 +37,19 @@ var host = Host.CreateDefaultBuilder()
         services
             .AddLogging(builder => builder.AddSimpleConsole(options => options.SingleLine = true))
             .Configure<ImporterOptions>(context.Configuration)
-            .AddScoped(_ => new HttpClient { BaseAddress = new Uri("https://game.thronemaster.net"), Timeout = TimeSpan.FromSeconds(5) })
+            .AddScoped(provider =>
+            {
+                var options = provider.GetRequiredService<IOptions<ImporterOptions>>();
+
+                var client = string.IsNullOrEmpty(options.Value.CfClearance)
+                    ? new HttpClient { BaseAddress = new Uri(BaseUrl), Timeout = TimeSpan.FromSeconds(5) }
+                    : GetClientWithCookies(options);
+
+                if (!string.IsNullOrEmpty(options.Value.UserAgent))
+                    client.DefaultRequestHeaders.Add("User-Agent", options.Value.UserAgent);
+
+                return client;
+            })
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
             //.AddScoped<FixingService>()
@@ -73,6 +88,7 @@ if (options.Value.Games is { Length: > 0 })
     var gameImportingService = scope.ServiceProvider.GetRequiredService<GameImportingService>();
     foreach (var gameId in options.Value.Games)
         await gameImportingService.Import(gameId, cts.Token);
+
     return;
 }
 
@@ -86,8 +102,7 @@ var playerCalculatingService = scope.ServiceProvider.GetRequiredService<PlayerCa
 await playerCalculatingService.Calculate(cts.Token);
 
 string[] ArgumentsString() =>
-    new[]
-    {
+    [
         ArgumentLine(nameof(options.Value.BaseLocation), options.Value.BaseLocation),
         ArgumentLine(nameof(options.Value.FetchFinishedDivisions), options.Value.FetchFinishedDivisions),
         ArgumentLine(nameof(options.Value.FetchFinishedGames), options.Value.FetchFinishedGames),
@@ -96,7 +111,25 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.Seasons), options.Value.Seasons),
         ArgumentLine(nameof(options.Value.Division), options.Value.Division),
         ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games))
-    };
+    ];
 
 string ArgumentLine(string name, object? value) =>
     $"{Environment.NewLine} - {name}: {value}";
+
+static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
+{
+    var cookieContainer = new CookieContainer();
+    cookieContainer.Add(new Uri(BaseUrl), new Cookie("cf_clearance", options.Value.CfClearance));
+
+    var handler = new HttpClientHandler
+    {
+        CookieContainer = cookieContainer,
+        UseCookies = true
+    };
+
+    return new HttpClient(handler)
+    {
+        BaseAddress = new Uri(BaseUrl),
+        Timeout = TimeSpan.FromSeconds(5)
+    };
+}
