@@ -16,7 +16,7 @@ internal class PlaywrightClient(HttpClient client, IOptions<ImporterOptions> opt
 
     public async Task<string> GetAsync(string url, CancellationToken cancellationToken)
     {
-        if (!options.Value.UsePlaywright)
+        if (!string.IsNullOrEmpty(options.Value.CfClearance))
             return await client.GetStringAsync(url, cancellationToken);
 
         logger.LogInformation("Get content from {url} by playwight {id}", url, _playwright.Value.Id);
