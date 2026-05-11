@@ -46,13 +46,10 @@ jobs:
       with:
         dotnet-version: 10.x
 
-    - name: Build Importer
-      run: dotnet build src/TMGameImporter/TMGameImporter.csproj -c Release
-
     - name: Install Playwright Browsers
       run: |
-        PW_DLL=$(find src/TMGameImporter/bin -name "Microsoft.Playwright.dll" | head -n 1)
-        dotnet exec "$PW_DLL" install --with-deps
+        dotnet build src/TMGameImporter/TMGameImporter.csproj -c Release
+        dotnet exec src/TMGameImporter/bin/Release/net10.0/TMGameImporter.dll install --with-deps chromium
 
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release
