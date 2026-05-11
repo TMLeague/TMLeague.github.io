@@ -13,8 +13,6 @@ using TMGameImporter.Http.Converters;
 using TMGameImporter.Services.Import;
 using TMGameImporter.Services.Summaries;
 
-const string BaseUrl = "https://game.thronemaster.net";
-
 var cts = new CancellationTokenSource();
 Console.CancelKeyPress += (s, e) =>
 {
@@ -43,7 +41,7 @@ var host = Host.CreateDefaultBuilder()
                 var options = provider.GetRequiredService<IOptions<ImporterOptions>>();
 
                 var client = string.IsNullOrEmpty(options.Value.CfClearance)
-                    ? new HttpClient { BaseAddress = new Uri(BaseUrl), Timeout = TimeSpan.FromSeconds(5) }
+                    ? new HttpClient { BaseAddress = new Uri(Consts.BaseUrl), Timeout = TimeSpan.FromSeconds(5) }
                     : GetClientWithCookies(options);
 
                 if (!string.IsNullOrEmpty(options.Value.UserAgent))
@@ -121,7 +119,7 @@ string ArgumentLine(string name, object? value) =>
 static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
 {
     var cookieContainer = new CookieContainer();
-    cookieContainer.Add(new Uri(BaseUrl), new Cookie("cf_clearance", options.Value.CfClearance));
+    cookieContainer.Add(new Uri(Consts.BaseUrl), new Cookie("cf_clearance", options.Value.CfClearance));
 
     var handler = new HttpClientHandler
     {
@@ -131,7 +129,7 @@ static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
 
     return new HttpClient(handler)
     {
-        BaseAddress = new Uri(BaseUrl),
+        BaseAddress = new Uri(Consts.BaseUrl),
         Timeout = TimeSpan.FromSeconds(5)
     };
 }

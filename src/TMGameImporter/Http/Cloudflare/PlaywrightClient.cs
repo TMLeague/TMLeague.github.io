@@ -23,7 +23,7 @@ internal class PlaywrightClient(HttpClient client, IOptions<ImporterOptions> opt
 
         var page = _playwright.Value.Page;
 
-        await page.GotoAsync(url);
+        await page.GotoAsync(client.BaseAddress != null ? new Uri(client.BaseAddress, url).ToString() : url);
 
         await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 

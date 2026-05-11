@@ -74,6 +74,8 @@ jobs:
 
     - name: Commit & Push changes
       uses: actions-js/push@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     # publishes Blazor project to the release-folder
     - name: Publish TMLeague
