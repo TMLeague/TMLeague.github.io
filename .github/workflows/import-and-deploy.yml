@@ -44,7 +44,13 @@ jobs:
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.x
-    
+
+    - name: Install Playwright Browsers
+      run: dotnet tool install --global Microsoft.Playwright.CLI
+
+    - name: Install Playwright Dependencies
+      run: playwright install --with-deps chromium
+
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release
            --BaseLocation src/TMLeague/wwwroot/data
