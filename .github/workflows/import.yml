@@ -46,11 +46,18 @@ jobs:
       with:
         dotnet-version: 10.x
 
-    - name: Install Playwright Browsers
-      run: dotnet tool install --global Microsoft.Playwright.CLI
+    - name: Build Importer
+      run: dotnet build src/TMGameImporter/TMGameImporter.csproj
 
-    - name: Install Playwright Dependencies
-      run: playwright install --with-deps chromium
+    - name: Install Playwright Browsers & Deps
+      run: |
+        pw_driver=$(find src/TMGameImporter/bin -name playwright.ps1 | head -n 1)
+        if [ -z "$pw_driver" ]; then
+          dotnet exec src/TMGameImporter/bin/Debug/net8.0/Microsoft.Playwright.dll install --with-deps chromium
+        else
+          pw_path=$(dirname "$pw_driver")
+          dotnet exec "$pw_path/.playwright/node/linux-x64/playwright.js" install --with-deps chromium
+        fi
 
     - name: Run TMGameImporter
       run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release
