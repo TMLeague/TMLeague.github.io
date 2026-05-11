@@ -10,7 +10,7 @@ internal class ImporterOptions
     public string[]? Seasons { get; set; }
     public string? Division { get; set; }
     public int[]? Games { get; set; }
-    public string CfClearance { get; set; }
+    public string? CfClearance { get; set; }
     public string UserAgent { get; set; } = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36";
     public bool UsePlaywright { get; set; } = true;
 }
