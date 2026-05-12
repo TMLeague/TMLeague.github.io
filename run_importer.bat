@@ -5,7 +5,8 @@ echo ======================================================
 echo [1/3] Import started...
 echo ======================================================
 
-dotnet run --project TMGameImporter.csproj -c Release --launch-profile Bash
+pushd src\TMGameImporter
+dotnet run -c Release --launch-profile Bash
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
@@ -13,6 +14,8 @@ if %ERRORLEVEL% NEQ 0 (
     pause
     exit /b %ERRORLEVEL%
 )
+
+popd
 
 echo.
 echo ======================================================
