@@ -5,7 +5,7 @@ echo ======================================================
 echo [1/3] Import started...
 echo ======================================================
 
-set ASPNETCORE_ENVIRONMENT=Bash && set DOTNET_ENVIRONMENT=Bash && dotnet run --project TMGameImporter.csproj -c Release --no-launch-profile
+dotnet run --project TMGameImporter.csproj -c Release --no-launch-profile -- --environment Bash
 
 if %ERRORLEVEL% NEQ 0 (
     echo.

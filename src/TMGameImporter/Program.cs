@@ -21,16 +21,7 @@ Console.CancelKeyPress += (s, e) =>
     e.Cancel = true;
 };
 
-var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
-
 var host = Host.CreateDefaultBuilder()
-    .ConfigureAppConfiguration(app =>
-    {
-        app.AddJsonFile("appsettings.json", true, true);
-        if (!string.IsNullOrEmpty(environmentName))
-            app.AddJsonFile($"appsettings.{environmentName}.json", true, true);
-        app.AddCommandLine(args);
-    })
     .ConfigureServices((context, services) =>
         services
             .AddLogging(builder => builder
@@ -76,7 +67,7 @@ using var scope = host.Services.CreateScope();
 
 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 var options = scope.ServiceProvider.GetRequiredService<IOptions<ImporterOptions>>();
-logger.LogInformation("Environment: {environment}", environmentName);
+logger.LogInformation("Environment: {environment}", host.Services.GetRequiredService<IHostEnvironment>().EnvironmentName);
 logger.LogInformation(
     "Importing program started with following arguments: {arguments}",
     string.Join("", ArgumentsString()));
