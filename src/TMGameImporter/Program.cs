@@ -34,14 +34,16 @@ var host = Host.CreateDefaultBuilder()
     })
     .ConfigureServices((context, services) =>
         services
-            .AddLogging(builder => builder.AddSimpleConsole(options => options.SingleLine = true))
+            .AddLogging(builder => builder
+                .AddSimpleConsole(options => options.SingleLine = true)
+                .SetMinimumLevel(LogLevel.Debug))
             .Configure<ImporterOptions>(context.Configuration)
             .AddScoped(provider =>
             {
                 var options = provider.GetRequiredService<IOptions<ImporterOptions>>();
 
                 var client = string.IsNullOrEmpty(options.Value.CfClearance)
-                    ? new HttpClient { BaseAddress = new Uri(Consts.BaseUrl), Timeout = TimeSpan.FromSeconds(5) }
+                    ? new HttpClient { BaseAddress = new Uri(Consts.GameUrl), Timeout = TimeSpan.FromSeconds(5) }
                     : GetClientWithCookies(options);
 
                 if (!string.IsNullOrEmpty(options.Value.UserAgent))
@@ -119,7 +121,7 @@ string ArgumentLine(string name, object? value) =>
 static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
 {
     var cookieContainer = new CookieContainer();
-    cookieContainer.Add(new Uri(Consts.BaseUrl), new Cookie("cf_clearance", options.Value.CfClearance));
+    cookieContainer.Add(new Uri(Consts.GameUrl), new Cookie("cf_clearance", options.Value.CfClearance));
 
     var handler = new HttpClientHandler
     {
@@ -129,7 +131,7 @@ static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
 
     return new HttpClient(handler)
     {
-        BaseAddress = new Uri(Consts.BaseUrl),
+        BaseAddress = new Uri(Consts.GameUrl),
         Timeout = TimeSpan.FromSeconds(5)
     };
 }

@@ -6,5 +6,6 @@ namespace TMGameImporter.Http;
 
 internal class Consts
 {
-    public const string BaseUrl = "https://game.thronemaster.net";
+    public const string MainUrl = "https://www.thronemaster.net";
+    public const string GameUrl = "https://game.thronemaster.net";
 }

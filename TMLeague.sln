@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32922.545
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11723.231 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMLeague", "src\TMLeague\TMLeague.csproj", "{BD5FAFD2-98FC-4C22-AADC-6A918C708415}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDraftsGenerator", "src\TMDraftsGenerator\TMDraftsGenerator.csproj", "{C18B890B-7FCD-4F06-B7CC-F8203FC6DD68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMLeague.Tests", "tests\TMLeague.Tests\TMLeague.Tests.csproj", "{A1943125-B868-49EA-8FC0-88C9E93189A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMPlaywrightInstaller", "src\TMPlaywrightInstaller\TMPlaywrightInstaller.csproj", "{8F5B1133-A659-4AC3-99A6-FF97DC59A60E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{A1943125-B868-49EA-8FC0-88C9E93189A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1943125-B868-49EA-8FC0-88C9E93189A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1943125-B868-49EA-8FC0-88C9E93189A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5B1133-A659-4AC3-99A6-FF97DC59A60E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5B1133-A659-4AC3-99A6-FF97DC59A60E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5B1133-A659-4AC3-99A6-FF97DC59A60E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5B1133-A659-4AC3-99A6-FF97DC59A60E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
