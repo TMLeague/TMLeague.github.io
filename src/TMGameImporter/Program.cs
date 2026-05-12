@@ -21,8 +21,7 @@ Console.CancelKeyPress += (s, e) =>
     e.Cancel = true;
 };
 
-var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-environmentName = "Development";
+var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
 var host = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(app =>
@@ -77,6 +76,7 @@ using var scope = host.Services.CreateScope();
 
 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 var options = scope.ServiceProvider.GetRequiredService<IOptions<ImporterOptions>>();
+logger.LogInformation("Environment: {environment}", environmentName);
 logger.LogInformation(
     "Importing program started with following arguments: {arguments}",
     string.Join("", ArgumentsString()));
@@ -112,7 +112,9 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.Season), options.Value.Season),
         ArgumentLine(nameof(options.Value.Seasons), options.Value.Seasons),
         ArgumentLine(nameof(options.Value.Division), options.Value.Division),
-        ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games))
+        ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games)),
+        ArgumentLine(nameof(options.Value.CfClearance), options.Value.CfClearance),
+        ArgumentLine(nameof(options.Value.UserAgent), options.Value.UserAgent)
     ];
 
 string ArgumentLine(string name, object? value) =>
