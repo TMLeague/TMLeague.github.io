@@ -5,7 +5,7 @@ echo ======================================================
 echo [1/3] Import started...
 echo ======================================================
 
-dotnet run --project TMGameImporter.csproj -c Release --no-launch-profile -- --environment Bash
+dotnet run --project TMGameImporter.csproj -c Release --launch-profile Bash
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
