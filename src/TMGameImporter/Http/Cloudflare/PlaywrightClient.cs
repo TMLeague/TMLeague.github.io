@@ -41,8 +41,11 @@ internal class PlaywrightClient(HttpClient client, IOptions<ImporterOptions> opt
         return new PlaywrightDisposable(Guid.NewGuid(), playwright, page);
     }
 
-    public void Dispose() =>
-        _playwright.Value.Dispose();
+    public void Dispose()
+    {
+        if (_playwright.IsValueCreated)
+            _playwright.Value.Dispose();
+    }
 
     private record PlaywrightDisposable(Guid Id, IPlaywright Playwright, IPage Page) : IDisposable
     {
