@@ -72,10 +72,18 @@ jobs:
            --CfClearance "${{ github.event.inputs.cf-clearance }}"
            --UserAgent "${{ github.event.inputs.user-agent }}"
 
-    - name: Commit & Push changes
-      uses: actions-js/push@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -A
+        
+        if git diff --quiet && git diff --staged --quiet; then
+          echo "There are no changes to apply"
+        else
+          git commit -m "Games imported automatically"
+          git push
+        fi
 
     # publishes Blazor project to the release-folder
     - name: Publish TMLeague
