@@ -26,7 +26,7 @@ var host = Host.CreateDefaultBuilder(args)
                 .AddSimpleConsole(options => options.SingleLine = true)
                 .SetMinimumLevel(LogLevel.Debug))
             .Configure<ImporterOptions>(context.Configuration)
-            .AddHttpClient<ThroneMasterApi>((provider, client) =>
+            .AddHttpClient<IThroneMasterDataProvider, ThroneMasterApi>((provider, client) =>
             {
                 var options = provider.GetRequiredService<IOptions<ImporterOptions>>();
 
@@ -42,7 +42,6 @@ var host = Host.CreateDefaultBuilder(args)
             // .AddHttpMessageHandler<CookieHandler>() // TODO: Add fallback handler with cookie container supporting cf_clearance config.
             .Services
             .AddScoped<IMemoryCache, MemoryCache>()
-            .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
             //.AddScoped<FixingService>()
             .AddScoped<StateConverter>()
             .AddScoped<GameConverter>()
