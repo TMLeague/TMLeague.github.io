@@ -42,16 +42,8 @@ jobs:
       with:
         dotnet-version: 10.x
 
-    - name: Build Importer
-      run: dotnet build src/TMGameImporter/TMGameImporter.csproj -c Release
-
-    - name: Install Playwright Browsers
-      shell: pwsh
-      run: |
-        src/TMGameImporter/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
-
     - name: Run TMGameImporter
-      run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj --no-build -c Release
+      run: dotnet run --project src/TMGameImporter/TMGameImporter.csproj -c Release
            --BaseLocation src/TMLeague/wwwroot/data
            --FetchFinishedDivisions ${{ github.event.inputs.fetch-finished-divisions || false }}
            --FetchFinishedGames ${{ github.event.inputs.fetch-finished-games || false }}
