@@ -101,7 +101,10 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.Season), options.Value.Season),
         ArgumentLine(nameof(options.Value.Seasons), options.Value.Seasons),
         ArgumentLine(nameof(options.Value.Division), options.Value.Division),
-        ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games))
+        ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games)),
+        ArgumentLine(nameof(options.Value.CfClearance), options.Value.CfClearance),
+        ArgumentLine(nameof(options.Value.UserAgent), options.Value.UserAgent),
+        ArgumentLine(nameof(options.Value.ApiAuthHeader), options.Value.ApiAuthHeader?.Length > 0 ? "***" : "")
     ];
 
 string ArgumentLine(string name, object? value) =>
