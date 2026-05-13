@@ -26,14 +26,6 @@ on:
         description: division id
         required: false
         default: ''
-      cf-clearance:
-        description: 'cf_clearance cookie from DevTools/Application/Cookies/https://www.thronemaster.net'
-        required: false
-        default: ''
-      user-agent:
-        description: 'browser user agent from DevTools/Console: navigator.userAgent'
-        required: false
-        default: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36'
   # schedule:
   #   - cron: '51 2,5,7,9,11,13,15,17,19,21,23 * * *'
   # push:
@@ -73,8 +65,7 @@ jobs:
            --League "${{ github.event.inputs.league }}"
            --Season "${{ github.event.inputs.season }}"
            --Division "${{ github.event.inputs.division }}"
-           --CfClearance "${{ github.event.inputs.cf-clearance }}"
-           --UserAgent "${{ github.event.inputs.user-agent }}"
+           --ApiAuthHeader "${{ secrets.TM_API_KEY }}"
 
     - name: Commit and Push Changes
       run: |

@@ -58,8 +58,7 @@ jobs:
            --League "${{ github.event.inputs.league }}"
            --Season "${{ github.event.inputs.season }}"
            --Division "${{ github.event.inputs.division }}"
-           --CfClearance "${{ github.event.inputs.cf-clearance }}"
-           --UserAgent "${{ github.event.inputs.user-agent }}"
+           --ApiAuthHeader "${{ secrets.TM_API_KEY }}"
 
     - name: Commit and Push Changes
       run: |

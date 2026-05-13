@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
@@ -34,7 +35,12 @@ var host = Host.CreateDefaultBuilder()
 
                 if (!string.IsNullOrEmpty(options.Value.ApiAuthHeader))
                     client.DefaultRequestHeaders.Add("X-TMLeague-Auth", options.Value.ApiAuthHeader);
-            }).Services
+
+                if (!string.IsNullOrEmpty(options.Value.UserAgent))
+                    client.DefaultRequestHeaders.Add("User-Agent", options.Value.UserAgent);
+            })
+            // .AddHttpMessageHandler<CookieHandler>() // TODO: Add fallback handler with cookie container supporting cf_clearance config.
+            .Services
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
             //.AddScoped<FixingService>()
@@ -101,3 +107,21 @@ string[] ArgumentsString() =>
 
 string ArgumentLine(string name, object? value) =>
     $"{Environment.NewLine} - {name}: {value}";
+
+static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
+{
+    var cookieContainer = new CookieContainer();
+    cookieContainer.Add(new Uri(Consts.GameUrl), new Cookie("cf_clearance", options.Value.CfClearance));
+
+    var handler = new HttpClientHandler
+    {
+        CookieContainer = cookieContainer,
+        UseCookies = true
+    };
+
+    return new HttpClient(handler)
+    {
+        BaseAddress = new Uri(Consts.GameUrl),
+        Timeout = TimeSpan.FromSeconds(5)
+    };
+}
