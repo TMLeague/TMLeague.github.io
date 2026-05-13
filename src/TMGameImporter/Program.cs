@@ -19,7 +19,7 @@ Console.CancelKeyPress += (s, e) =>
     e.Cancel = true;
 };
 
-var host = Host.CreateDefaultBuilder()
+var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
         services
             .AddLogging(builder => builder
