@@ -2,12 +2,11 @@
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
-using TMGameImporter.Http.Cloudflare;
 using TMModels.ThroneMaster;
 
 namespace TMGameImporter.Http;
 
-internal class ThroneMasterApi(IMemoryCache cache, IHttpClient client, ILogger<ThroneMasterApi> logger) : IThroneMasterDataProvider
+internal class ThroneMasterApi(IMemoryCache cache, HttpClient client, ILogger<ThroneMasterApi> logger) : IThroneMasterDataProvider
 {
     public async Task<StateRaw?> GetGameData(int gameId, CancellationToken cancellationToken)
     {
@@ -54,7 +53,7 @@ internal class ThroneMasterApi(IMemoryCache cache, IHttpClient client, ILogger<T
 
         try
         {
-            var result = await client.GetAsync(requestUri, cancellationToken);
+            var result = await client.GetStringAsync(requestUri, cancellationToken);
             cache.Set(requestUri, result);
 
             return result;

@@ -1,5 +1,12 @@
 {
   "profiles": {
+    "Local": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Local"
+      }
+    },
     "Development": {
       "commandName": "Project",
       "dotnetRunMessages": true,

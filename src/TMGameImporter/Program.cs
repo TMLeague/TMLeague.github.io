@@ -1,14 +1,11 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Net;
 using TMGameImporter.Configuration;
 using TMGameImporter.Files;
 using TMGameImporter.Http;
-using TMGameImporter.Http.Cloudflare;
 using TMGameImporter.Http.Converters;
 using TMGameImporter.Services.Import;
 using TMGameImporter.Services.Summaries;
@@ -28,20 +25,16 @@ var host = Host.CreateDefaultBuilder()
                 .AddSimpleConsole(options => options.SingleLine = true)
                 .SetMinimumLevel(LogLevel.Debug))
             .Configure<ImporterOptions>(context.Configuration)
-            .AddScoped(provider =>
+            .AddHttpClient<ThroneMasterApi>((provider, client) =>
             {
                 var options = provider.GetRequiredService<IOptions<ImporterOptions>>();
 
-                var client = string.IsNullOrEmpty(options.Value.CfClearance)
-                    ? new HttpClient { BaseAddress = new Uri(Consts.GameUrl), Timeout = TimeSpan.FromSeconds(5) }
-                    : GetClientWithCookies(options);
+                client.BaseAddress = new Uri(Consts.GameUrl);
+                client.Timeout = TimeSpan.FromSeconds(5);
 
-                if (!string.IsNullOrEmpty(options.Value.UserAgent))
-                    client.DefaultRequestHeaders.Add("User-Agent", options.Value.UserAgent);
-
-                return client;
-            })
-            .AddScoped<IHttpClient, PlaywrightClient>()
+                if (!string.IsNullOrEmpty(options.Value.ApiAuthHeader))
+                    client.DefaultRequestHeaders.Add("X-TMLeague-Auth", options.Value.ApiAuthHeader);
+            }).Services
             .AddScoped<IMemoryCache, MemoryCache>()
             .AddScoped<IThroneMasterDataProvider, ThroneMasterApi>()
             //.AddScoped<FixingService>()
@@ -103,28 +96,8 @@ string[] ArgumentsString() =>
         ArgumentLine(nameof(options.Value.Season), options.Value.Season),
         ArgumentLine(nameof(options.Value.Seasons), options.Value.Seasons),
         ArgumentLine(nameof(options.Value.Division), options.Value.Division),
-        ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games)),
-        ArgumentLine(nameof(options.Value.CfClearance), options.Value.CfClearance),
-        ArgumentLine(nameof(options.Value.UserAgent), options.Value.UserAgent)
+        ArgumentLine(nameof(options.Value.Games), options.Value.Games == null ? "" : string.Join(",", options.Value.Games))
     ];
 
 string ArgumentLine(string name, object? value) =>
     $"{Environment.NewLine} - {name}: {value}";
-
-static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
-{
-    var cookieContainer = new CookieContainer();
-    cookieContainer.Add(new Uri(Consts.GameUrl), new Cookie("cf_clearance", options.Value.CfClearance));
-
-    var handler = new HttpClientHandler
-    {
-        CookieContainer = cookieContainer,
-        UseCookies = true
-    };
-
-    return new HttpClient(handler)
-    {
-        BaseAddress = new Uri(Consts.GameUrl),
-        Timeout = TimeSpan.FromSeconds(5)
-    };
-}

@@ -26,14 +26,6 @@ on:
         description: division id
         required: false
         default: ''
-      cf-clearance:
-        description: 'cf_clearance cookie from DevTools/Application/Cookies/https://www.thronemaster.net'
-        required: false
-        default: ''
-      user-agent:
-        description: 'browser user agent from DevTools/Console: navigator.userAgent'
-        required: false
-        default: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36'
 
 jobs:
   import:
