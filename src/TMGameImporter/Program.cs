@@ -39,7 +39,26 @@ var host = Host.CreateDefaultBuilder(args)
                 if (!string.IsNullOrEmpty(options.Value.UserAgent))
                     client.DefaultRequestHeaders.Add("User-Agent", options.Value.UserAgent);
             })
-            // .AddHttpMessageHandler<CookieHandler>() // TODO: Add fallback handler with cookie container supporting cf_clearance config.
+            .ConfigurePrimaryHttpMessageHandler(provider =>
+            {
+                var options = provider.GetRequiredService<IOptions<ImporterOptions>>().Value;
+
+                if (!string.IsNullOrEmpty(options.ApiAuthHeader) || string.IsNullOrEmpty(options.CfClearance))
+                    return new HttpClientHandler();
+
+                var handler = new HttpClientHandler
+                {
+                    UseCookies = true,
+                    CookieContainer = new CookieContainer()
+                };
+
+                handler.CookieContainer.Add(
+                    new Uri(Consts.GameUrl),
+                    new Cookie("cf_clearance", options.CfClearance)
+                );
+
+                return handler;
+            })
             .Services
             .AddScoped<IMemoryCache, MemoryCache>()
             //.AddScoped<FixingService>()
@@ -109,21 +128,3 @@ string[] ArgumentsString() =>
 
 string ArgumentLine(string name, object? value) =>
     $"{Environment.NewLine} - {name}: {value}";
-
-static HttpClient GetClientWithCookies(IOptions<ImporterOptions> options)
-{
-    var cookieContainer = new CookieContainer();
-    cookieContainer.Add(new Uri(Consts.GameUrl), new Cookie("cf_clearance", options.Value.CfClearance));
-
-    var handler = new HttpClientHandler
-    {
-        CookieContainer = cookieContainer,
-        UseCookies = true
-    };
-
-    return new HttpClient(handler)
-    {
-        BaseAddress = new Uri(Consts.GameUrl),
-        Timeout = TimeSpan.FromSeconds(5)
-    };
-}
