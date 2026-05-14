@@ -7,7 +7,7 @@ echo [1/3] Import started...
 echo ======================================================
 
 pushd src\TMGameImporter
-dotnet run -c Release --launch-profile Bash
+dotnet run -c Release --launch-profile Local
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
