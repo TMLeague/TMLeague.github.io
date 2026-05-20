@@ -26,13 +26,13 @@ on:
         description: division id
         required: false
         default: ''
-  # schedule:
-  #   - cron: '51 2,5,7,9,11,13,15,17,19,21,23 * * *'
-  # push:
-  #   branches: 
-  #   - master
-  #   paths:
-  #   - src/TMLeague/wwwroot/data/leagues/**
+  schedule:
+    - cron: '51 2,5,7,9,11,13,15,17,19,21,23 * * *'
+  push:
+    branches: 
+    - master
+    paths:
+    - src/TMLeague/wwwroot/data/leagues/**
 
 jobs:
   import-and-deploy:
@@ -87,7 +87,7 @@ jobs:
       run: touch release/wwwroot/.nojekyll
 
     - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
