@@ -1,6 +1,6 @@
 {
   "name": "Division 1",
-  "judge": "Shade89",
+  "judge": "NightCrawler",
   "players": [
     "Der Seynmaster",
     "fantazm",
@@ -14,16 +14,16 @@
     "Shade89"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    324529,
+    324533,
+    324532,
+    324528,
+    324546,
+    324538,
+    324536,
+    324530,
+    324535,
+    324534
   ],
   "isFinished": false,
   "relegations": 0

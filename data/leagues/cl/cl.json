@@ -21,7 +21,7 @@
     "tiebreakers": [ "wins", "cla", "supplies", "powerTokens", "minutesPerMove" ]
   },
   "initialMessage": {
-    "subject": "Cracow League, S{season}",
+    "subject": "Cracow League, {season}",
     "body": [
       "Greetings!",
       "",
@@ -36,7 +36,7 @@
       "",
       "You can create all your games (if not exists yet - double check before and after the creation - abort if you created a duplicate!) with default settings and following changes:",
       "PLAY MODE: PBEM + Start by anybody allowed",
-      "GAME TITLE: Cracow League S{season}/G{stark} (or another appropriate game number)",
+      "GAME TITLE: Cracow League {season}/G{stark} (or another appropriate game number)",
       "PICKING HOUSES: FREE CHOICE",
       "GAME TYPE: PROFESSIONAL",
       "GAME PASSWORD: {password}",
