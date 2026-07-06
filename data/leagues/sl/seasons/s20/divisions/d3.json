@@ -25,5 +25,46 @@
     323532,
     323515
   ],
+  "penalties": [
+    {
+      "player": "LordAlex",
+      "game": 323532,
+      "points": 1,
+      "details": "no stalling after last battle lost"
+    },
+    {
+      "player": "YwoR",
+      "game": 323518,
+      "points": 1,
+      "details": "no stalling after last battle"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 323511,
+      "points": 1,
+      "details": "letting the game abort after 14 days"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 323511,
+      "points": 2,
+      "details": "letting the game abort a second time"
+    },
+    {
+      "player": "fsilverwood",
+      "game": 323523,
+      "points": 1,
+      "details": "letting the game abort by not choosing a card"
+    },
+    {
+      "player": "Joao Gomes",
+      "game": 323523,
+      "points": 1,
+      "details": "letting the game abort by not switching the card"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
+  "promotions": 3,
   "relegations": 4
 }
