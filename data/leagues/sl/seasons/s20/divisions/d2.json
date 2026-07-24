@@ -24,5 +24,71 @@
     323534,
     323519,
     323509
-  ]
+  ],
+  "penalties": [
+    {
+      "player": "DothraikiCentaur",
+      "game": 323476,
+      "points": 5,
+      "details": "541 mpm"
+    },
+    {
+      "player": "DothraikiCentaur",
+      "game": 323519,
+      "points": 4,
+      "details": "minor KM"
+    },
+    {
+      "player": "JohnnyCee",
+      "game": 323476,
+      "points": 2,
+      "details": "364 mpm"
+    },
+    {
+      "player": "JohnnyCee",
+      "game": 323521,
+      "points": 5,
+      "details": "527 mpm"
+    },
+    {
+      "player": "Karijin",
+      "game": 323519,
+      "points": 4,
+      "details": "minor KM"
+    },
+    {
+      "player": "Karijin",
+      "game": 323476,
+      "points": 1,
+      "details": "332 mpm"
+    },
+    {
+      "player": "sicre",
+      "game": 323476,
+      "points": 4,
+      "details": "459 mpm"
+    },
+    {
+      "player": "ThyLear",
+      "game": 323503,
+      "points": 2,
+      "details": "not delaying properly"
+    },
+    {
+      "player": "xxremcioo",
+      "game": 323519,
+      "points": 4,
+      "details": "minor KM"
+    }
+  ],
+  "replacements": [
+    {
+      "from": "DothraikiCentaur",
+      "to": "Psyduck",
+      "game": 323476
+    }
+  ],
+  "isFinished": true,
+  "promotions": 3,
+  "relegations": 3
 }
