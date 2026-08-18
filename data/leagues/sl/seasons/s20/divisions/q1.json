@@ -27,6 +27,28 @@
     323482,
     323487
   ],
+  "penalties": [
+    {
+      "player": "MarcoMajor93",
+      "game": 323533,
+      "points": 8,
+      "details": "678 mpm"
+    },
+    {
+      "player": "House Blaies",
+      "game": 323533,
+      "points": 9,
+      "details": "703 mpm"
+    },
+    {
+      "player": "RakanGari",
+      "game": 323533,
+      "points": 4,
+      "details": "463 mpm"
+    }
+  ],
+  "replacements": [],
+  "isFinished": true,
   "promotions": 2,
   "relegations": 0
 }
