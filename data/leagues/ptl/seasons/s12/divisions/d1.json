@@ -1,6 +1,5 @@
 {
   "name": "Division 1",
-  "judge": null,
   "players": [
     "spartan109",
     "TurtleHermit",
@@ -25,6 +24,5 @@
     303854,
     303852
   ],
-  "penalties": [],
-  "isFinished": false
+  "isFinished": true
 }
