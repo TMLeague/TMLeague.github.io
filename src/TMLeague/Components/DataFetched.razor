@@ -1,0 +1,11 @@
+﻿@if (GeneratedTime != null)
+{
+    <p class="mb-0">Data fetched at <span class="@(SkipDataValidation || GeneratedTime.Value > DateTime.UtcNow.AddDays(-1) ? "" : "text-danger")">@GeneratedTime.Value.LocalDateTime.ToString("yyyy-MM-dd HH:mm")</span></p>
+}
+
+@code {
+    [Parameter]
+    public DateTimeOffset? GeneratedTime { get; set; }
+    [Parameter]
+    public bool SkipDataValidation { get; set; } = false;
+}

@@ -17,7 +17,8 @@ public record LeagueViewModel(
 public record LeagueSeasonButtonViewModel(
     string Id,
     string Name,
-    DateTimeOffset? GeneratedTime);
+    DateTimeOffset? GeneratedTime,
+    bool IsFinished);
 
 public record LeagueSeasonSummaryViewModel(
     string LeagueId,
@@ -39,7 +40,7 @@ public record LeagueDivisionSummaryViewModel(
     string? JudgeTitle,
     string? Judge)
 {
-    public DateTimeOffset? GeneratedTime =>
+    public DateTimeOffset GeneratedTime =>
         Games.Count == 0
             ? DateTimeOffset.UtcNow
             : Games.Max(game => game?.GeneratedTime ?? DateTimeOffset.MinValue);
@@ -62,7 +63,9 @@ public record LeagueGameSummaryViewModel(
             IsStalling && TimeSinceLastAction.Days >= 10 ||
             !IsStalling && TimeSinceLastAction.Days >= 3);
 
-    public TimeSpan TimeSinceLastAction => LastActionTime.HasValue ? DateTimeOffset.UtcNow - LastActionTime.Value : TimeSpan.Zero;
+    public TimeSpan TimeSinceLastAction => LastActionTime.HasValue
+        ? (GeneratedTime ?? DateTimeOffset.UtcNow) - LastActionTime.Value
+        : TimeSpan.Zero;
 }
 
 public record LeagueChampionsViewModel(

@@ -43,10 +43,7 @@
     {
         <p class="mb-0">Join discord server <a id="league-discord-link" href="@LeagueVm.Discord" target="_blank" class="text-primary">here</a>.</p>
     }
-    @if (LeagueVm?.LastSeason?.GeneratedTime != null)
-    {
-        <p class="mb-0">Data fetched at @LeagueVm.LastSeason.GeneratedTime.Value.LocalDateTime.ToString("yyyy-MM-dd HH:mm")</p>
-    }
+    <DataFetched GeneratedTime="@LeagueVm?.LastSeason?.GeneratedTime" SkipDataValidation="@(LeagueVm?.LastSeason?.IsFinished ?? false)"></DataFetched>
 </footer>
 
 @code {

@@ -55,7 +55,7 @@ public class LeagueService
             ? results.Max(result => result.GeneratedTime)
             : DateTimeOffset.UtcNow;
 
-        return new LeagueSeasonButtonViewModel(seasonId, season.Name, generatedTime);
+        return new LeagueSeasonButtonViewModel(seasonId, season.Name, generatedTime, results.All(division => division.IsFinished));
     }
 
     public async Task<LeagueSeasonChampionViewModel?> GetLeagueChampionVm(string leagueId, CancellationToken cancellationToken = default)

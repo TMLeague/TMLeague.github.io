@@ -10,6 +10,7 @@
     [Parameter] public string Name { get; set; } = "";
     [Parameter] public int Turn { get; set; }
     [Parameter] public double Progress { get; set; }
+    [Parameter] public DateTimeOffset? GeneratedTime { get; set; }
     [Parameter] public DateTimeOffset? LastActionTime { get; set; }
     [Parameter] public bool IsStalling { get; set; }
     [Parameter] public bool IsFinished { get; set; }
@@ -17,7 +18,7 @@
     [Parameter] public string? Class { get; set; }
 
     private TimeSpan TimeSinceLastAction =>
-    LastActionTime.HasValue ? DateTimeOffset.UtcNow - LastActionTime.Value : TimeSpan.Zero;
+    LastActionTime.HasValue ? (GeneratedTime ?? DateTimeOffset.UtcNow) - LastActionTime.Value : TimeSpan.Zero;
 
     private string ProgressTitle
     {
