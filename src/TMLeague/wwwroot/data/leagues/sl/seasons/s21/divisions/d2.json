@@ -3,15 +3,15 @@
   "judge": null,
   "players": [
     "Shade89",
-    "Stefano",
-    "Pawcio",
+    "Pava",
     "DawidW",
     "sicre",
-    "xxremcioo",
     "Guiscard",
     "karliban",
     "Sean_Snow",
-    "roosebolt"
+    "roosebolt",
+    "fsilverwood",
+    "JaqenHghar0"
   ],
   "games": [
     null,
@@ -26,5 +26,5 @@
     null
   ],
   "promotions": 3,
-  "relegations": 3
+  "relegations": 4
 }
