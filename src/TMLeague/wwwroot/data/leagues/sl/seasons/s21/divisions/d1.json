@@ -1,6 +1,6 @@
 {
   "name": "Division 1",
-  "judge": null,
+  "judge": "heyjakel",
   "players": [
     "Der Seynmaster",
     "Sigi Reuven",
@@ -15,17 +15,17 @@
     "ThyLear"
   ],
   "games": [
+    326088,
+    326072,
+    326075,
+    326054,
+    326041,
+    326080,
+    326048,
     null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    326043,
+    326114,
+    326092
   ],
   "relegations": 4
 }
