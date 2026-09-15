@@ -1,6 +1,6 @@
 {
   "name": "Division 3",
-  "judge": null,
+  "judge": "Karijin",
   "players": [
     "PHOENIXgg",
     "Joao Gomes",
@@ -20,7 +20,7 @@
     null,
     null,
     null,
-    null,
+    326058,
     null
   ],
   "promotions": 3,

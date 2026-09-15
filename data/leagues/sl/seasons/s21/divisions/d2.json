@@ -1,6 +1,6 @@
 {
   "name": "Division 2",
-  "judge": null,
+  "judge": "Sigi Reuven",
   "players": [
     "Shade89",
     "Pava",
@@ -14,16 +14,16 @@
     "JaqenHghar0"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    326096,
+    326065,
+    326059,
+    326057,
+    326029,
+    326045,
+    326077,
+    326040,
+    326037,
+    326071
   ],
   "promotions": 3,
   "relegations": 4

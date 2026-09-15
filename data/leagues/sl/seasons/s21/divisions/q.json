@@ -1,6 +1,6 @@
 {
   "name": "Qualifiers",
-  "judge": null,
+  "judge": "Der Seynmaster",
   "players": [
     "brontozavri",
     "Davide_P",
@@ -12,14 +12,14 @@
     "got_pocak"
   ],
   "games": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    326055,
+    326050,
+    326086,
+    326082,
+    326039,
+    326070,
+    326052,
+    326038
   ],
   "promotions": 3,
   "relegations": 0
