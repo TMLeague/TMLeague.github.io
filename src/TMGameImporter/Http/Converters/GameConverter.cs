@@ -125,9 +125,11 @@ internal class GameConverter
 
         var logsPerTurn = log?.Logs.GroupBy(item => item.Turn).ToArray();
 
-        var houses = state.HousesOrder.Select((house, i) =>
-                GetHouseScore(i, house, state, state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)], logsPerTurn, wildligKnowledge))
-            .OrderByDescending(score => score)
+        var houses = state.HousesOrder
+            .Select((house, i) =>
+                GetHouseScore(i, house, state, state.HousesDataRaw.Length >= (i + 1) * houseSize ? state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)] : string.Empty, logsPerTurn, wildligKnowledge))
+            .Where(score => score != null)
+            .OfType<HouseScore>()
             .ToArray();
 
         if (log == null)
@@ -144,8 +146,11 @@ internal class GameConverter
         return houses;
     }
 
-    private static HouseScore GetHouseScore(int idx, House house, State state, string houseDataRaw, IGrouping<int, LogItem>[]? logsPerTurn, WildligKnowledge? wildligKnowledge)
+    private static HouseScore? GetHouseScore(int idx, House house, State state, string? houseDataRaw, IGrouping<int, LogItem>[]? logsPerTurn, WildligKnowledge? wildligKnowledge)
     {
+        if (houseDataRaw == null || houseDataRaw.Length < 6)
+            return null;
+
         var player = state.Players[idx];
         var throne = int.Parse(houseDataRaw[..1]);
         var fiefdoms = int.Parse(houseDataRaw[1..2]);

@@ -56,10 +56,12 @@ public class PlayersInteractions : Dictionary<string, PlayerInteractions>
     {
         foreach (var (enemyHouse, interaction) in interactions)
         {
-            var enemy = housePlayers[enemyHouse];
+            if (!housePlayers.TryGetValue(enemyHouse, out var enemy))
+                continue;
+
             var housesKey = PlayerInteractions.GetHousesKey(house, enemyHouse);
             this[enemy] = new PlayerInteractions(enemy, house.IsNeighbor(enemyHouse, players) ? 1 : 0,
-                gameId == null ? new Dictionary<string, List<int>>() : new Dictionary<string, List<int>> { [housesKey] = new() { gameId.Value } },
+                gameId == null ? [] : new Dictionary<string, List<int>> { [housesKey] = [gameId.Value] },
                 interaction);
         }
     }
