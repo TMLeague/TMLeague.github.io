@@ -130,6 +130,9 @@ internal class GameConverter
                 GetHouseScore(i, house, state, state.HousesDataRaw.Length >= (i + 1) * houseSize ? state.HousesDataRaw[(i * houseSize)..((i + 1) * houseSize)] : string.Empty, logsPerTurn, wildligKnowledge))
             .Where(score => score != null)
             .OfType<HouseScore>()
+            // g-hid lists houses in a fixed order (B|L|S|T|G|M|A), not by result.
+            // The final standing (position) is calculated here, see HouseScore.CompareTo.
+            .OrderByDescending(score => score)
             .ToArray();
 
         if (log == null)

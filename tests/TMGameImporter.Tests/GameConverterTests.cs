@@ -140,4 +140,35 @@ public class GameConverterTests
         martell.BattlesInTurn[3].Should().Be(2);
         martell.BattlesInTurn[4].Should().Be(4);
     }
+
+    [Fact]
+    public void Should_Order_Houses_By_Final_Position_When_Game_Has_Arryn_In_HouseIds()
+    {
+        // arrange
+        // Game 326043 comes from the newer ThroneMaster API: "g-hid" lists 7 houses (B|L|S|T|G|M|A)
+        // in a fixed order, but only 6 of them are played (no data for House Arryn).
+        const string dataDirectory = "data";
+        const int gameId = 326043;
+        var gameData = JsonSerializer.Deserialize<StateRaw>(
+            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}_gamedata.json")),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var chat = JsonSerializer.Deserialize<StateRaw>(
+            File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}_chat.json")),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var logHtml = File.ReadAllText(Path.Combine(dataDirectory, $"{gameId}_log.html"));
+
+        // act
+        var game = _gameConverter.Convert(gameId, gameData!, chat!, logHtml);
+
+        // assert
+        game.Should().NotBeNull();
+        game!.Id.Should().Be(gameId);
+        game.Name.Should().Be("PBEM - Silent League S21/D1/G9");
+        game.IsFinished.Should().BeTrue();
+
+        game.Houses.Select(house => house.House).Should().Equal(
+            House.Martell, House.Stark, House.Greyjoy, House.Lannister, House.Baratheon, House.Tyrell);
+
+        game.Houses[0].Player.Should().Be("LoPHH");
+    }
 }
