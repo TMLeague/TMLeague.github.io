@@ -27,5 +27,21 @@
     326114,
     326092
   ],
+  "penalties": [
+    {
+      "player": "ThyLear",
+      "game": 326072,
+      "points": 7,
+      "details": "major KM"
+    },
+    {
+      "player": "Kamil_J",
+      "game": 326054,
+      "points": 4,
+      "details": "minor KM"
+    }
+  ],
+  "isFinished": true,
+  "winnerTitle": "The Kingslayer",
   "relegations": 4
 }
